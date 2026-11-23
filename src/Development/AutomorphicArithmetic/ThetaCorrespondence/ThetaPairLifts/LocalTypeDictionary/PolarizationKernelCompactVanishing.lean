@@ -26,8 +26,8 @@ noncomputable section
 namespace GlobalTheory.PolKerCpt
 open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.ThK GlobalTheory.RealActs Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun
 private theorem hecke_character_div {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E]
-    {χ χ' : Chr F E} (h : GlobalTheory.LFun.IsHecke F E χ) (h' : GlobalTheory.LFun.IsHecke F E χ') :
-    GlobalTheory.LFun.IsHecke F E (χ / χ') :=
+    {χ χ' : Chr F E} (h : LFun.IsHecke F E χ) (h' : LFun.IsHecke F E χ') :
+    LFun.IsHecke F E (χ / χ') :=
   ⟨h.1.div' h'.1, fun x => by simp only [MonoidHom.div_apply, h.2 x, h'.2 x, div_self']⟩
 private theorem restriction_eta_pow_div {R A : Type} [CommRing R] [CommRing A] [Algebra R A] {K : Subgroup Rˣ}
     {χ χ' : Aˣ →* Circle} {n m k : ℕ} (h : ResEtaPow K χ n) (h' : ResEtaPow K χ' m) (hk : k = n + m) :
@@ -58,10 +58,10 @@ private theorem acts_zero_at_infinity {F : Type} [Field F] [NumberField F] {κ :
   intro r _
   have e : tens (evI F) (⇑(0 : SInf F κ)) r = 0 := by funext y; simp [tens]
   rw [e, map_zero]
-theorem polarization_zero_of_compact : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
-    (Bs : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (Xc : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
-    (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W) (R : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a')
-    (Rf : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'), GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs G Xc om om' R Rf → ∀ k ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.KInf σ G.W Bs.emb, ∀ Φ, GlobalTheory.PolKer.PolZero Bs G Xc R Rf (Φ) → GlobalTheory.PolKer.PolZero Bs G Xc R Rf (om (1, k) Φ) := by
+theorem polarization_zero_of_compact : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
+    (Bs : IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (Xc : IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
+    (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W) (R : IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a')
+    (Rf : IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'), IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs G Xc om om' R Rf → ∀ k ∈ IndefiniteRowSideFullHecke.WeilTensorModels.KInf σ G.W Bs.emb, ∀ Φ, PolKer.PolZero Bs G Xc R Rf (Φ) → PolKer.PolZero Bs G Xc R Rf (om (1, k) Φ) := by
   intro hP F E _ _ _ _ _ σ Bs a a' G Xc om om' R Rf hM k hk Φ hZ
   obtain ⟨T, hT, m, f, φ, hf, rfl, hz⟩ := hZ
   have hTr := hM.triple
@@ -78,7 +78,7 @@ theorem polarization_zero_of_compact : _root_.GlobalTheory.FunPr.ThetaLocalInput
     have hstd : ∀ᶠ v in Filter.cofinite, φ i v = Set.indicator {x | ∀ j, x j ∈ v.adicCompletionIntegers F} 1 := by
       filter_upwards [T.finite_toSet.compl_mem_cofinite, hTr.geo.hM.std] with v hv hv'
       rw [(hf i).2.2 v hv, hv']
-    exact hA (f i) (hf i).1 _ (GlobalTheory.ThK.EvUniqInf.rest_pure (f i) (φ i) (hf i).2.1 hstd)
+    exact hA (f i) (hf i).1 _ (ThK.EvUniqInf.rest_pure (f i) (φ i) (hf i).2.1 hstd)
   let N := G.M.Pol Bs.ψ Bs.emb
   let π : N →ₗ[ℂ] R.Pi := R.p ∘ₗ N.subtype
   have hπ : Function.Surjective π := fun y => by
