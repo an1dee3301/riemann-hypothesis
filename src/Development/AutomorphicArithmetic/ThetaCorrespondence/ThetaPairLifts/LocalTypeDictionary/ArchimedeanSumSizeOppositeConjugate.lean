@@ -16,8 +16,8 @@ public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLif
 section
 open GlobalTheory.SumSize GlobalTheory.RowClaim GlobalTheory.SumSize.OppConj
 namespace GlobalTheory.SumSize.OppConj
-theorem archimedean_sum_size_opposite_conjugate : _root_.GlobalTheory.FunPr.ThetaLocalInputs → (∀ D, GlobalTheory.NormSum.Inp D) → DictK → DepthK → InfRowK :=
-  fun hP hI hD hDp => infRowK_of (_root_.GlobalTheory.T.conj_mean_kernel_pairing hP hI hD hDp)
+theorem archimedean_sum_size_opposite_conjugate : FunPr.ThetaLocalInputs → (∀ D, NormSum.Inp D) → DictK → DepthK → InfRowK :=
+  fun hP hI hD hDp => infRowK_of (T.conj_mean_kernel_pairing hP hI hD hDp)
 end GlobalTheory.SumSize.OppConj
 end
 
