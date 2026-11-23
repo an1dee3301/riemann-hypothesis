@@ -29,9 +29,9 @@ namespace GlobalTheory.ArchTens.Unfold
 open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR Formalism.IndefR.Datum Formalism.IndefR.Links Formalism.L2.DIV
 open IsDedekindDomain NumberField GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.SplitFlip GlobalTheory.SplitWeil GlobalTheory.RootEx GlobalTheory.SumSize GlobalTheory.RowClaim GlobalTheory.RowTest
 attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField GlobalTheory.FunObj.borelKw
-  GlobalTheory.FunObj.borelSpaceKw
+  FunObj.borelSpaceKw
 variable {D : D7} {T : Type} {L : LevCh D T} {sc : Consts} {G : GridData L sc} {W : G.Weil}
-theorem archimedean_tensor_unfold_datum : _root_.GlobalTheory.FunPr.ThetaLocalInputs → BigC fun _ ch C _ => FlipAt ch (C / 2) → DatAt ch C := by
+theorem archimedean_tensor_unfold_datum : FunPr.ThetaLocalInputs → BigC fun _ ch C _ => FlipAt ch (C / 2) → DatAt ch C := by
   classical
   intro _
   refine ⟨0, fun CF _ => ⟨12, fun ε C hC => ⟨0, fun D large₂ _ _ Γ _ _ Pl0 T A Ks _ _ _ R F s ch hch _ hok hF σ Φ β hβ w x y => ?_⟩⟩⟩
@@ -39,11 +39,11 @@ theorem archimedean_tensor_unfold_datum : _root_.GlobalTheory.FunPr.ThetaLocalIn
   have hP : w.1 ∈ ch.G.pl.W0 := by
     rcases Finset.mem_union.1 w.2 with h | h
     · exact h
-    · rw [show R.toLevCh.Q A.μ0 = ∅ from GlobalTheory.BaseScalar.Q_base R hL] at h
+    · rw [show R.toLevCh.Q A.μ0 = ∅ from BaseScalar.Q_base R hL] at h
       exact absurd h (Finset.notMem_empty _)
   have hsz : 0 ≤ (D.R.m : ℝ) ^ 2 * (bigN D : ℝ) ^ 2 * placeSz ch.G w :=
     mul_nonneg (by positivity) (placeSz_nonneg ch.G w)
-  refine absLe_mono (absLe_datum hL ch.S.toGridChoice hok A.μ0 Φ (GlobalTheory.FlipIntegrand.pde_ne_q_of_setting s) (hch.guard A.μ0) hP w.2 hβ σ
+  refine absLe_mono (absLe_datum hL ch.S.toGridChoice hok A.μ0 Φ (FlipIntegrand.pde_ne_q_of_setting s) (hch.guard A.μ0) hP w.2 hβ σ
     (hF σ Φ w) _ _) ?_
   nlinarith
 end GlobalTheory.ArchTens.Unfold
