@@ -22,14 +22,14 @@ open IsDedekindDomain NumberField MeasureTheory GlobalTheory.ChiGrid GlobalTheor
 attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField borelKw borelSpaceKw
 namespace GlobalTheory.FirstRowVertex
 open GlobalTheory.LastVertexInv in
-theorem pair_points_first_vertex_law : _root_.GlobalTheory.FunPr.ThetaLocalInputs → SumOKK → Big fun {D} {_Γ} _ _ {_Pl0} {T} {_A} {_Ks} _ _ _ {R} ch =>
+theorem pair_points_first_vertex_law : FunPr.ThetaLocalInputs → SumOKK → Big fun {D} {_Γ} _ _ {_Pl0} {T} {_A} {_Ks} _ _ _ {R} ch =>
     ∀ (t : T) a, ∀ β ∈ ch.S.supp t (ch.Phi a), ∀ τ, ch.S.IsExpansion t (ch.Phi a) β τ →
     ∀ (x : ∀ j, FinPt ch.G (.top j)) (y : ∀ i, FinPt ch.G (.grid i D.R.m)) (k : FinPt ch.G (.grid 0 D.R.m))
       (_ : finG (ch.G.V (.grid 0 D.R.m)) k ∈ ch.S.levRow t 0 (Nat.zero_le _)) (hk : toXf k ∈ (levEnv D.sp.X' R.βX (R.datXt t)).J)
       (v : VV ℂ (wt ch.G (.top 0))) (w : VV ℂ (listedWt ch.G (.grid 0 D.R.m))),
-      GlobalTheory.ExpansionInvariance.pairPts ch.S.toGridChoice τ x (Function.update y 0 (y 0 * k)) v
+      ExpansionInvariance.pairPts ch.S.toGridChoice τ x (Function.update y 0 (y 0 * k)) v
         ((((levEnv D.sp.X' R.βX (R.datXt t)).χ ⟨toXf k, hk⟩ : ℂˣ) : ℂ) • w) =
-      GlobalTheory.ExpansionInvariance.pairPts ch.S.toGridChoice τ x y v w := by
+      ExpansionInvariance.pairPts ch.S.toGridChoice τ x y v w := by
   intro hP hS
   obtain ⟨a₁, h₁⟩ := _root_.GlobalTheory.T.twist_first_coefficient_law hP hS
   obtain ⟨a₂, h₂⟩ := hS
@@ -63,13 +63,13 @@ theorem pair_points_first_vertex_law : _root_.GlobalTheory.FunPr.ThetaLocalInput
     by_cases hi0 : i = firstIx D
     · subst hi0
       simp only [Function.update_self]
-      exact GlobalTheory.OrientedHeis.theta_smul χk (thr d hd _)
+      exact OrientedHeis.theta_smul χk (thr d hd _)
     · simp only [Function.update_of_ne hi0]
       exact thr d hd i
-  have lhs : GlobalTheory.ExpansionInvariance.pairPts ch.S.toGridChoice τ x (Function.update y 0 (y 0 * k)) v w =
+  have lhs : ExpansionInvariance.pairPts ch.S.toGridChoice τ x (Function.update y 0 (y 0 * k)) v w =
       τ.sum fun d c => c * M (fun j => toTh ch.W _ (ch.S.Z.vec (d.1 j)))
         (fun i => toTh ch.W _ (movedRow ch.S.toGridChoice k (fun i => ch.S.Z.vec (d.2 i)) i)) := by
-    simp only [GlobalTheory.ExpansionInvariance.pairPts, Finsupp.sum, LinearMap.sum_apply, LinearMap.smul_apply, smul_eq_mul]
+    simp only [ExpansionInvariance.pairPts, Finsupp.sum, LinearMap.sum_apply, LinearMap.smul_apply, smul_eq_mul]
     refine Finset.sum_congr rfl fun d hd => ?_
     congr 1
     rw [hM, colMap_eq, rowMap_eq, rowMapV_update_zero ch.S.toGridChoice _ y k ((hth d hd).2 _)]
@@ -81,9 +81,9 @@ theorem pair_points_first_vertex_law : _root_.GlobalTheory.FunPr.ThetaLocalInput
         movedRow ch.S.toGridChoice k (fun i => ch.S.Z.vec (d.2 i)) :=
       funext fun i => coe_toTh ch.W _ (thr d hd i)
     rw [e1, e2]
-  have rhs : GlobalTheory.ExpansionInvariance.pairPts ch.S.toGridChoice τ x y v w =
+  have rhs : ExpansionInvariance.pairPts ch.S.toGridChoice τ x y v w =
       τ.sum fun d c => c * M (fun j => toTh ch.W _ (ch.S.Z.vec (d.1 j))) (fun i => toTh ch.W _ (ch.S.Z.vec (d.2 i))) := by
-    simp only [GlobalTheory.ExpansionInvariance.pairPts, Finsupp.sum, LinearMap.sum_apply, LinearMap.smul_apply, smul_eq_mul]
+    simp only [ExpansionInvariance.pairPts, Finsupp.sum, LinearMap.sum_apply, LinearMap.smul_apply, smul_eq_mul]
     refine Finset.sum_congr rfl fun d hd => ?_
     congr 1
     rw [hM, colMap_eq, rowMap_eq]
