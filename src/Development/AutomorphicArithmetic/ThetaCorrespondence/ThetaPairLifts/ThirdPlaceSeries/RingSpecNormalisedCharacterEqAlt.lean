@@ -17,7 +17,7 @@ open Formalism.L2.NT
 namespace Formalism.L2
 set_option synthInstance.maxHeartbeats 400000 in
 structure NTiedAllAlt (D : D7) (C : NChoice D) (I : TwIn D) where
-  gal : _root_.Formalism.L2.NGalTiedAlt D
+  gal : NGalTiedAlt D
   n : _root_.GlobalTheory.HeightCounting.NTiedGPlaceholder D
   loc : LocTied D
   data : NormalizedDataCompatibility D
@@ -36,7 +36,7 @@ structure NTiedAllAlt (D : D7) (C : NChoice D) (I : TwIn D) where
     ∃ ι : FractionRing (C.Oe w) →+* ℂ, (∀ x : D.what₂.LL, ι (C.embW w x) = D.what₂.embLL x) ∧
       (gal.mt (D.what₂.muTw w) j h1 h2).J =
         (exp.mtV (C.twI w) j (C.sd w) (C.k' w) (C.Q w) ((C.psi' w).comp (D.ntw.art (C.twI w) (C.Q w))) h1 h2 hA).J ∧
-      ∀ (κ : Formalism.AUTREP.GAf D.host.E D.R.nV) (h : κ ∈ (gal.mt (D.what₂.muTw w) j h1 h2).J)
+      ∀ (κ : AUTREP.GAf D.host.E D.R.nV) (h : κ ∈ (gal.mt (D.what₂.muTw w) j h1 h2).J)
         (h' : κ ∈ (exp.mtV (C.twI w) j (C.sd w) (C.k' w) (C.Q w)
           ((C.psi' w).comp (D.ntw.art (C.twI w) (C.Q w))) h1 h2 hA).J),
         (((gal.mt (D.what₂.muTw w) j h1 h2).χ ⟨κ, h⟩ : ℂˣ) : ℂ) =
@@ -52,7 +52,7 @@ structure NTiedAllAlt (D : D7) (C : NChoice D) (I : TwIn D) where
   psi_eq : ∀ a x, (chiD.psi a).χ x = (tp.psi (D.nd.w a)).1 x
   plB : D.what₂.places.Pl → ValuationSubring ℂ
   plκ : ∀ w, haveI : Fact (D.what₂.places.resChar w).Prime := ⟨D.what₂.places.resChar_prime w⟩
-    IsLocalRing.ResidueField (plB w) ≃+* Formalism.CyclotomicNorms.Fbar (D.what₂.places.resChar w)
+    IsLocalRing.ResidueField (plB w) ≃+* CyclotomicNorms.Fbar (D.what₂.places.resChar w)
   plB_loc : ∀ (i : D.nd.Loc) (y : D.nd.O i),
     haveI : Fact (D.what₂.places.resChar (D.nd.w i)).Prime := ⟨D.what₂.places.resChar_prime (D.nd.w i)⟩
     ∃ h : iotaOC D i y ∈ plB (D.nd.w i),
