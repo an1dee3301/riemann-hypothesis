@@ -39,9 +39,9 @@ end GlobalTheory.RowChain
 namespace GlobalTheory.RowChain
 open GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.Grow GlobalTheory.FlipRun GlobalTheory.RowUnf GlobalTheory.RowVal
 variable {D : D7} {T : Type} {L : LevCh D T} {sc : Consts} (G : GridData L sc)
-theorem twisted_iterate_eventually_large : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal → Big fun ch => IterAt ch := by
+theorem twisted_iterate_eventually_large : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal → Big fun ch => IterAt ch := by
   intro hP hL
-  obtain ⟨c0, h0⟩ := Big.and (_root_.GlobalTheory.T.flipRun_cusp_transition hL hP) (Big.and (_root_.GlobalTheory.EndCusp.leadingForm_mem_cuspList hP) GlobalTheory.RowClaim.colFn_cont_left)
+  obtain ⟨c0, h0⟩ := Big.and (_root_.GlobalTheory.T.flipRun_cusp_transition hL hP) (Big.and (EndCusp.leadingForm_mem_cuspList hP) RowClaim.colFn_cont_left)
   refine ⟨c0, fun ε CF hC => ?_⟩
   obtain ⟨x0, hx⟩ := h0 ε CF hC
   refine ⟨x0, fun D large₂ he hxx Γ _ _ Pl0 T A Ks _ _ _ R Fc hS ch hch hsc => ?_⟩
@@ -51,7 +51,7 @@ theorem twisted_iterate_eventually_large : _root_.GlobalTheory.FunPr.ThetaLocalI
   refine ⟨ρ, fun j => (v j).μ, fun j hj => ⟨hρ j (mem_idx hj).2, (v j).haar⟩, ?_⟩
   intro t a τ hτ M hM P y
   obtain ⟨e, he, φm, hw, -⟩ := hτ
-  have hu : GlobalTheory.Unf.IsContAut _ (colFn ch a) := ⟨(hcol a).2, (hcol a).1⟩
+  have hu : Unf.IsContAut _ (colFn ch a) := ⟨(hcol a).2, (hcol a).1⟩
   have core : ∀ d ∈ τ.support,
       BplusConv ch.W ch.M (colFn ch a) (liftP ch.W M (oppPath t D.R.m) (oppPure ch.W t P d) (formTop ch t y)) ∧
       NIter ρ (fun j => (v j).μ) (fun h => per ch.W M t (conAt ch.W hM (fockD ch.W t d.2 P.2) h) d.1 P.1 (colFn ch a) (formTop ch t y))
@@ -59,13 +59,13 @@ theorem twisted_iterate_eventually_large : _root_.GlobalTheory.FunPr.ThetaLocalI
     intro d hd
     have h2 := hw d hd
     obtain ⟨-, h1, h3⟩ := pure_core hP.cuspRapidDecay hch.vol hM (hstep t M hM) he (φm d) d h2.1 h2.2 P (htop t y) hu
-    refine ⟨GlobalTheory.RowBplus.bplusConv_col ch.W ch.M hch.vol ch.ξ (ch.col a) (col_mem ch a) _ h1.1.toIsAutFun, ?_⟩
+    refine ⟨RowBplus.bplusConv_col ch.W ch.M hch.vol ch.ξ (ch.col a) (col_mem ch a) _ h1.1.toIsAutFun, ?_⟩
     exact nIter_meas_congr ρ _ _ _ (fun j hj => hv j (mem_idx hj).1 (mem_idx hj).2.le t M hM)
       (nIter_conAt_of_colPer ch.G ch.W t hM (fockD ch.W t d.2 P.2) _ _ _ h3 ρ (fun j => (hρ' j t M hM).1)
         fun j => (hρ' j t M hM).2)
   have e1 : liftT ch.W M (oppPath t D.R.m) (oppTens ch.W t (Finsupp.single P 1) τ) (formTop ch t y) =
       ∑ d ∈ τ.support, τ d • liftP ch.W M (oppPath t D.R.m) (oppPure ch.W t P d) (formTop ch t y) := by
-    rw [GlobalTheory.RowVal.liftT_oppTens, Finsupp.support_single_ne_zero _ one_ne_zero, Finset.sum_singleton, Finsupp.single_eq_same,
+    rw [RowVal.liftT_oppTens, Finsupp.support_single_ne_zero _ one_ne_zero, Finset.sum_singleton, Finsupp.single_eq_same,
       one_smul]
   have e2 : lhs ch t M (Finsupp.single P 1) τ a y = ∑ d ∈ τ.support,
       τ d * Bplus ch.W ch.M (colFn ch a) (liftP ch.W M (oppPath t D.R.m) (oppPure ch.W t P d) (formTop ch t y)) := by
@@ -74,8 +74,8 @@ theorem twisted_iterate_eventually_large : _root_.GlobalTheory.FunPr.ThetaLocalI
     exact Finset.sum_congr rfl fun d hd => (bplus_smul_right ch.W ch.M _ (core d hd).1).2
   rw [e2]
   exact (niter_lin_congr _ _ _ ρ _ (idx D) 1).1 _ τ.support τ _ _ fun d hd => (core d hd).2
-theorem twisted_iterate_eq_linear : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal → Big fun ch => IterAt ch ∧ LinAt ch :=
-  fun hP hL => Big.and (_root_.GlobalTheory.RowChain.twisted_iterate_eventually_large hP hL) (_root_.GlobalTheory.RowVal.placeValuation_linAt_large hP hL)
+theorem twisted_iterate_eq_linear : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal → Big fun ch => IterAt ch ∧ LinAt ch :=
+  fun hP hL => Big.and (RowChain.twisted_iterate_eventually_large hP hL) (RowVal.placeValuation_linAt_large hP hL)
 end GlobalTheory.RowChain
 end
 end
