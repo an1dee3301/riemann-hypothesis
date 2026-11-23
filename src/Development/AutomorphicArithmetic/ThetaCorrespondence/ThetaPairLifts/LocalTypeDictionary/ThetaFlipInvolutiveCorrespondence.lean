@@ -37,17 +37,17 @@ open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels (Base Spc Model Ch
 open scoped TensorProduct GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
 attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField borelKw borelSpaceKw
 namespace GlobalTheory.TopFlip
-variable {D : D7} {T : Type} {L : LevCh D T} {sc : GlobalTheory.ChiGrid.Consts} {G : GridData L sc} {μ₀ : T}
+variable {D : D7} {T : Type} {L : LevCh D T} {sc : ChiGrid.Consts} {G : GridData L sc} {μ₀ : T}
 set_option maxHeartbeats 1600000 in
-theorem thetaFlip_tuple_match (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hTL : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching) (hL : L.Is μ₀) (W : G.Weil) (i j : Fin D.R.m)
+theorem thetaFlip_tuple_match (hP : FunPr.ThetaLocalInputs) (hTL : IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching) (hL : L.Is μ₀) (W : G.Weil) (i j : Fin D.R.m)
     {A : Fr (spW G i j)} {A₁ : Fr (spW₁ G i j)} {AV : Fr (spV G i j)} {AV₁ : Fr (spV₁ G i j)} (hA : IsGridFr W _ A)
     (hA₁ : IsGridFr W _ A₁) (hV : IsGridFr W _ AV) (hV₁ : IsGridFr W _ AV₁) (t : T) (B : Frames G) (ρ : RealMatch W) (M : Vol G)
     (hst : SquareStanding G t) (hM : M.Is t) {ωA ωB}
-    (hωA : GlobalTheory.Grid.IsWeil W.ψ true _ _ (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.beta G i j) (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.beta G i j / GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.alpha G t i j) ωA)
-    (hωB : GlobalTheory.Grid.IsWeil W.ψ false _ _ (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.alpha G t i j) (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.alpha G t i j / GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.beta G i j) ωB) :
-    ∃ Pi rf rl p p', IsMatch W.ψ W.θ A A₁ (frSum AV AV₁) (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.alpha G t i j) (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.beta G i j) ωA ωB Pi rf rl p p' ∧
+    (hωA : Grid.IsWeil W.ψ true _ _ (IndefiniteRowSideFullHecke.UnitaryConjugation.beta G i j) (IndefiniteRowSideFullHecke.UnitaryConjugation.beta G i j / IndefiniteRowSideFullHecke.UnitaryConjugation.alpha G t i j) ωA)
+    (hωB : Grid.IsWeil W.ψ false _ _ (IndefiniteRowSideFullHecke.UnitaryConjugation.alpha G t i j) (IndefiniteRowSideFullHecke.UnitaryConjugation.alpha G t i j / IndefiniteRowSideFullHecke.UnitaryConjugation.beta G i j) ωB) :
+    ∃ Pi rf rl p p', IsMatch W.ψ W.θ A A₁ (frSum AV AV₁) (IndefiniteRowSideFullHecke.UnitaryConjugation.alpha G t i j) (IndefiniteRowSideFullHecke.UnitaryConjugation.beta G i j) ωA ωB Pi rf rl p p' ∧
       ∀ ε, IsIdemSum ε (locPl G t) → ∀ Ξ Ψ (u : Pl D.host.E → ℂ) F F',
-        (∀ w ∈ locPl G t, Ξ w ∈ GlobalTheory.WeilM.SB _ ∧ Ψ w ∈ GlobalTheory.WeilM.SB _ ∧ zetaA G t i j w (Ξ w) = u w • zetaB G t i j w (Ψ w)) →
+        (∀ w ∈ locPl G t, Ξ w ∈ WeilM.SB _ ∧ Ψ w ∈ WeilM.SB _ ∧ zetaA G t i j w (Ξ w) = u w • zetaB G t i j w (Ψ w)) →
         IsLinA B t i j ρ ε Ξ F → IsLinB B t i j ρ ε Ψ F' →
         ∀ n Φ (τ : TotT G (routeBig t i j)) (τ' : TotT G (routeSmall t i j)),
         (∀ w ∈ locPl G t, depthAt G w ≤ n w ∧ IsNatDatum (unifAt w) (n w) (Φ w)) → HasFlip B t ρ i j n Φ τ τ' →
@@ -58,17 +58,17 @@ theorem thetaFlip_tuple_match (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) 
           ((∏ w ∈ locPl G t, u w) * ((∏ w ∈ locPl G t, levVol G t i j w : ℝ) : ℂ)) •
               p (fockF W.ψ W.θ true A (frSum AV AV₁) (datumA W τ) P) =
             g • p' (fockF W.ψ W.θ false A₁ (frSum AV AV₁) (datumB W τ') P') := by
-  have hT := (GlobalTheory.SquareDict.dict hL W t i j A A₁ AV AV₁ hA hA₁ hV hV₁).1 hst M hM
+  have hT := (SquareDict.dict hL W t i j A A₁ AV AV₁ hA hA₁ hV hV₁).1 hst M hM
   obtain ⟨e, Bs, Γ, X, om₀, om₀', h, hT₀, hti⟩ := exists_tiedBoth hL W t i j hst M hM
-  have hR : GlobalTheory.TripleRead.IsReading W.ψ A A₁ (frSum AV AV₁) _ _ (e.symm.trans finSumFinEquiv) Bs Γ X :=
+  have hR : TripleRead.IsReading W.ψ A A₁ (frSum AV AV₁) _ _ (e.symm.trans finSumFinEquiv) Bs Γ X :=
     ⟨h.ψ, h.JW, h.JW₁, by
-      rw [h.JWW, GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.skewGram, ← GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.blk_transpose, ← GlobalTheory.SquareIdent.blkMat_submatrix, GlobalTheory.Doubling.gram_hsum]
+      rw [h.JWW, IndefiniteRowSideFullHecke.UnitaryConjugation.skewGram, ← IndefiniteRowSideFullHecke.UnitaryConjugation.blk_transpose, ← SquareIdent.blkMat_submatrix, Doubling.gram_hsum]
       rfl, fun w => by
       obtain ⟨τ, a, b, c, d⟩ := h.cart w
       refine ⟨τ, a, b.trans (hA τ).2.symm, c.trans (congrArg Neg.neg (hA₁ τ).2.symm), d.trans ?_⟩
-      rw [GlobalTheory.SquareAlg.cart_frSum, (hV τ).2, (hV₁ τ).2, ← GlobalTheory.SquareIdent.blkMat_submatrix], h.α, h.β⟩
+      rw [SquareAlg.cart_frSum, (hV τ).2, (hV₁ τ).2, ← SquareIdent.blkMat_submatrix], h.α, h.β⟩
   obtain ⟨om, om', R, Rf, hm, rf, rl, p, p', hM', HA, HB⟩ :=
-    _root_.GlobalTheory.TopFlip.thetaFlip_tensor_match hP.howeDualityReal hP hTL W.θ_is A A₁ _ hT hωA hωB hR hT₀
+    thetaFlip_tensor_match hP.howeDualityReal hP hTL W.θ_is A A₁ _ hT hωA hωB hR hT₀
   have hT' := hm.triple
   have H := fun (w : Pl D.host.E) (hw : w ∈ locPl G t) => local_charts hL W B t i j M hst h hm hti hw
   choose! ιA ι ιB ι' l hl h1 h2 h3 h4 h5 h6 h7 using H
@@ -89,9 +89,9 @@ theorem thetaFlip_tuple_match (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) 
     rw [← k] at k2
     rw [h6 w hw _ (hT'.geo.hM'.vac _).1 0 k2.1, k2.2]
   have la := GlobalTheory.T.negW_local_functions_theta_pure_tensor hL W B t i j M hst e Bs Γ X om om' h hT' hti.1 ρ f
-    (datumA_vac ρ i j t ▸ GlobalTheory.SquareIdent.isDatum_of_isDatumA f3) ιA h1
-  have lb := GlobalTheory.TopFlip.LinSmall.isDatum_linB hL W B t i j M hst e Bs Γ X om om' h hT' hti ρ f'
-    (datumB_vac ρ i j t ▸ GlobalTheory.SquareIdent.isDatum_of_isDatumB g3) ιB h2
+    (datumA_vac ρ i j t ▸ SquareIdent.isDatum_of_isDatumA f3) ιA h1
+  have lb := LinSmall.isDatum_linB hL W B t i j M hst e Bs Γ X om om' h hT' hti ρ f'
+    (datumB_vac ρ i j t ▸ SquareIdent.isDatum_of_isDatumB g3) ιB h2
   rw [vA] at la
   rw [vB] at lb
   refine ⟨_, rf, rl, p, p', hM', fun ε hε Ξ Ψ u F F' hΞ hF hF' n Φ τ τ' hn ⟨ε', hε', c, d⟩ => ?_⟩
@@ -107,8 +107,8 @@ theorem thetaFlip_tuple_match (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) 
     fun w hw => (h1 w hw).1.2.2 (hΞ w hw).1
   obtain ⟨χ', s1, s2⟩ := exists_finPart hT'.geo.hM' hti.1.2.2.1 hinj (fun w φ => ιB w φ = Ψ w)
     fun w hw => (h2 w hw).1.2.2 (hΞ w hw).2.1
-  have dA := GlobalTheory.SquareIdent.isDatum_of_isDatumA (a ε' hε' n _ τ hf d φ p1 p2)
-  have dB := GlobalTheory.SquareIdent.isDatum_of_isDatumB (b ε' hε' n _ τ' (fun w hw => (hn w hw).2) c φ' q1 q2)
+  have dA := SquareIdent.isDatum_of_isDatumA (a ε' hε' n _ τ hf d φ p1 p2)
+  have dB := SquareIdent.isDatum_of_isDatumB (b ε' hε' n _ τ' (fun w hw => (hn w hw).2) c φ' q1 q2)
   have dF := la ε hε Ξ F hF χ r1 r2
   have dF' := lb ε hε Ψ F' hF' χ' s1 s2
   have gA := isGauss_smul f2 hs
@@ -128,8 +128,8 @@ theorem thetaFlip_tuple_match (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) 
   rw [(hy _ s1 _ dF').2] at hne hg
   rw [(hx _ r1 _ dF).2, y₀] at hg
   rw [(hx _ p1 _ dA).2, (hy _ q1 _ dB).2, y₁]
-  generalize (GlobalTheory.SmallThetaModules.pureT (GlobalTheory.TripleAssembly.vacIm Γ Rf) fun v => Rf.p' v (χ' v)) = z₀ at hne hg
-  generalize (GlobalTheory.SmallThetaModules.pureT (GlobalTheory.TripleAssembly.vacIm Γ Rf) fun v => Rf.p' v (φ' v)) = z
+  generalize (SmallThetaModules.pureT (TripleAssembly.vacIm Γ Rf) fun v => Rf.p' v (χ' v)) = z₀ at hne hg
+  generalize (SmallThetaModules.pureT (TripleAssembly.vacIm Γ Rf) fun v => Rf.p' v (φ' v)) = z
   have hz : z₀ ≠ 0 := fun h0 => hne (by rw [h0, TensorProduct.tmul_zero])
   obtain ⟨lz, hlz⟩ := Module.Projective.exists_dual_eq_one ℂ hz
   have e1 : (∏ w ∈ locPl G t, l w * u w) • x = g • y := by
@@ -141,7 +141,7 @@ theorem thetaFlip_tuple_match (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) 
       ∏ w ∈ locPl G t, l w * ((levVol G t i j w : ℝ) : ℂ)⁻¹ = ∏ w ∈ locPl G t, l w * u w := by
     rw [Finset.prod_mul_distrib, Finset.prod_mul_distrib, Finset.prod_inv_distrib, ← Complex.ofReal_prod]
     field_simp
-  change _ • (x ⊗ₜ[ℂ] (_ • z) : GlobalTheory.TripleAssembly.PiT R Γ Rf) = g • (y ⊗ₜ[ℂ] z : GlobalTheory.TripleAssembly.PiT R Γ Rf)
+  change _ • (x ⊗ₜ[ℂ] (_ • z) : TripleAssembly.PiT R Γ Rf) = g • (y ⊗ₜ[ℂ] z : TripleAssembly.PiT R Γ Rf)
   rw [TensorProduct.tmul_smul, smul_smul, e2, TensorProduct.smul_tmul', e1, TensorProduct.smul_tmul']
 end GlobalTheory.TopFlip
 end
@@ -151,7 +151,7 @@ open GlobalTheory.IndefiniteRowSideFullHecke.UnitCharTriangle (Tri)
 open GlobalTheory.ConstRatio (Factor)
 attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField borelKw borelSpaceKw
 namespace GlobalTheory.TopFlip
-private theorem away_imaginary_inv {D : D7} {m : ℕ} {z : ℂ} (h : GlobalTheory.KappaArith.AwayIm D m z) : GlobalTheory.KappaArith.AwayIm D m z⁻¹ := by
+private theorem away_imaginary_inv {D : D7} {m : ℕ} {z : ℂ} (h : KappaArith.AwayIm D m z) : KappaArith.AwayIm D m z⁻¹ := by
   obtain ⟨ζ, ⟨a, k, k', ⟨b, hb⟩, ha⟩, rfl⟩ := h
   refine ⟨ζ⁻¹, ?_, map_inv₀ _ _⟩
   by_cases hm : m = 0
