@@ -18,7 +18,7 @@ open Formalism.BasicNotions Formalism.MainNotions NumberField
 end GlobalTheory.BigTop.Fun.PolBound
 namespace GlobalTheory.BigTop.Fun
 open Formalism.BasicNotions Formalism.MainNotions NumberField GlobalTheory.BigTop.Fun.PolBound
-theorem desPol_alt : _root_.GlobalTheory.BigTop.Fun.DescentPolynomialCondition := by
+theorem desPol_alt : DescentPolynomialCondition := by
   refine ⟨0, fun CF _ => ?_⟩
   refine ⟨1 / 52, by norm_num, fun eps _ _ =>
     ⟨⟨0, fun _ => 0, fun l => 16 * ((⌈|l.getD 0 0|⌉₊ : ℝ) + 1 + 9) + 1, fun _ => 0⟩, fun Fm CH _ hL => ?_⟩⟩
