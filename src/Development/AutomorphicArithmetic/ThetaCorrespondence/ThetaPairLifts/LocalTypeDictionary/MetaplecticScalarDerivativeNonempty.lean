@@ -15,7 +15,7 @@ open scoped Matrix
 noncomputable section
 namespace GlobalTheory.MetaplecticScalarDeriv
 open MeasureTheory Filter Topology GlobalTheory.RealWeil
-theorem metaplectic_scalar_derivative_nonempty (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (l : Type) [Fintype l] [DecidableEq l] [Nonempty l]
+theorem metaplectic_scalar_derivative_nonempty (hP : FunPr.ThetaLocalInputs) (l : Type) [Fintype l] [DecidableEq l] [Nonempty l]
     (Z : Matrix (l ⊕ l) (l ⊕ l) ℝ) (hZ : Z ∈ LieAlgebra.Symplectic.sp l ℝ)
     (T : ℝ → Sch l →ₗ[ℂ] Sch l) (hT0 : T 0 = LinearMap.id) (hTadd : ∀ s t, T (s + t) = T s ∘ₗ T t)
     (hTrho : ∀ (t : ℝ) (w : l ⊕ l → ℝ) (h h₁ : Sch l), ⇑h₁ = rhoFun w ⇑h →
@@ -108,19 +108,19 @@ theorem metaplectic_scalar_derivative_nonempty (hP : _root_.GlobalTheory.FunPr.T
   ext x
   simp only [SchwartzMap.add_apply, SchwartzMap.smul_apply, SchwartzMap.sub_apply, smul_eq_mul, Complex.real_smul]
   ring
-theorem lift_splits_locally : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (l : Type) [Fintype l] [DecidableEq l]
+theorem lift_splits_locally : FunPr.ThetaLocalInputs → ∀ (l : Type) [Fintype l] [DecidableEq l]
     (Z : Matrix (l ⊕ l) (l ⊕ l) ℝ), Z ∈ LieAlgebra.Symplectic.sp l ℝ →
-    ∀ T : ℝ → GlobalTheory.RealWeil.Sch l →ₗ[ℂ] GlobalTheory.RealWeil.Sch l, T 0 = LinearMap.id → (∀ s t, T (s + t) = T s ∘ₗ T t) →
-    (∀ (t : ℝ) (w : l ⊕ l → ℝ) (h h₁ : GlobalTheory.RealWeil.Sch l), ⇑h₁ = GlobalTheory.RealWeil.rhoFun w ⇑h →
-      ⇑(T t h₁) = GlobalTheory.RealWeil.rhoFun (NormedSpace.exp (t • Z) *ᵥ w) ⇑(T t h)) →
-    (∀ (t : ℝ) (h : GlobalTheory.RealWeil.Sch l), ∫⁻ x, ‖T t h x‖ₑ ^ 2 = ∫⁻ x, ‖h x‖ₑ ^ 2) →
-    (∀ (h : GlobalTheory.RealWeil.Sch l) (x : EuclideanSpace ℝ l), Continuous fun t => T t h x) →
-    ∃ a : ℂ, ∀ f : GlobalTheory.RealWeil.Sch l,
-      Filter.Tendsto (fun t : ℝ => t⁻¹ • (T t f - f)) (nhdsWithin 0 {0}ᶜ) (nhds (a • f + GlobalTheory.RealWeil.quad Z f)) := by
+    ∀ T : ℝ → RealWeil.Sch l →ₗ[ℂ] RealWeil.Sch l, T 0 = LinearMap.id → (∀ s t, T (s + t) = T s ∘ₗ T t) →
+    (∀ (t : ℝ) (w : l ⊕ l → ℝ) (h h₁ : RealWeil.Sch l), ⇑h₁ = RealWeil.rhoFun w ⇑h →
+      ⇑(T t h₁) = RealWeil.rhoFun (NormedSpace.exp (t • Z) *ᵥ w) ⇑(T t h)) →
+    (∀ (t : ℝ) (h : RealWeil.Sch l), ∫⁻ x, ‖T t h x‖ₑ ^ 2 = ∫⁻ x, ‖h x‖ₑ ^ 2) →
+    (∀ (h : RealWeil.Sch l) (x : EuclideanSpace ℝ l), Continuous fun t => T t h x) →
+    ∃ a : ℂ, ∀ f : RealWeil.Sch l,
+      Filter.Tendsto (fun t : ℝ => t⁻¹ • (T t f - f)) (nhdsWithin 0 {0}ᶜ) (nhds (a • f + RealWeil.quad Z f)) := by
   intro hP l _ _ Z hZ T hT0 hTadd hTrho hTiso hTcont
   rcases isEmpty_or_nonempty l with hl | hl
   · exact main_empty l Z T hT0 hTadd hTcont
-  · exact _root_.GlobalTheory.MetaplecticScalarDeriv.metaplectic_scalar_derivative_nonempty hP l Z hZ T hT0 hTadd hTrho hTiso hTcont
+  · exact MetaplecticScalarDeriv.metaplectic_scalar_derivative_nonempty hP l Z hZ T hT0 hTadd hTrho hTiso hTcont
 end GlobalTheory.MetaplecticScalarDeriv
 end
 end
