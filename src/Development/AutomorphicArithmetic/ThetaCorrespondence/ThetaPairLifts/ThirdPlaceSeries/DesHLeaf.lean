@@ -14,7 +14,7 @@ open Formalism.BasicNotions Formalism.MainNotions NumberField Formalism.L2.Indef
 noncomputable section
 namespace GlobalTheory.BigTop.Fun.Close
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
-theorem desHLeaf_alt : _root_.GlobalTheory.BigTop.Fun.DescentHeightCondition := by
+theorem desHLeaf_alt : DescentHeightCondition := by
   refine ⟨0, fun CF _ => ⟨1, one_pos, fun eps heps _ => ⟨⟨0, fun _ => 0, fun _ => 0, fun _ => 0⟩, fun Fm CH hF _ => ?_⟩⟩⟩
   intro _
   refine ⟨0, fun C _ => ?_⟩
