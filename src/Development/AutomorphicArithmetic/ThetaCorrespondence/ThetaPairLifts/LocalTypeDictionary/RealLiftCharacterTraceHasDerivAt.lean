@@ -15,7 +15,7 @@ namespace GlobalTheory.RealLift.CharTrace
 open scoped Matrix
 open GlobalTheory.RealLift.OneParam
 variable {R S : ℕ}
-theorem deriv_characterTrace_realLift : _root_.GlobalTheory.FunPr.ThetaLocalInputs →
+theorem deriv_characterTrace_realLift : FunPr.ThetaLocalInputs →
   ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E) (β : Type) [Fintype β]
     [DecidableEq β] (R S : ℕ) (τ : ∀ w : InfinitePlace F, EmbOver E w) (J : Matrix β β (AE F E)) (b : ℂ)
     (C : InfinitePlace F → Matrix β (Ix R S) ℂ), IsCMExt F E σ → (∀ w, IsFrame (b • J.map (piInf (τ w))) (C w)) →
@@ -165,7 +165,7 @@ theorem deriv_characterTrace_realLift : _root_.GlobalTheory.FunPr.ThetaLocalInpu
     rw [hγe t, ← χG, hn _ (heU t), Finset.mul_sum, Complex.exp_sum]
     refine Finset.prod_congr rfl fun w _ => ?_
     rw [he]; simp only
-    rw [GlobalTheory.DetSqrtCover.det_exp, ← Complex.exp_int_mul, Matrix.trace_smul]
+    rw [DetSqrtCover.det_exp, ← Complex.exp_int_mul, Matrix.trace_smul]
     congr 1
     simp only [Complex.real_smul]
     ring
