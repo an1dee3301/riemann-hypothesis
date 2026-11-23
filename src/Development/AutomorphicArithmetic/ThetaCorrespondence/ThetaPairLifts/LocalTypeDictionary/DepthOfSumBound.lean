@@ -23,7 +23,7 @@ open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Form
 open IsDedekindDomain NumberField GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.RowTest GlobalTheory.DepthUnf GlobalTheory.SumSize GlobalTheory.RowClaim
 namespace GlobalTheory.DepthUnf
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
-theorem depthK_of_hypotheses_alt : _root_.GlobalTheory.FunPr.ThetaLocalInputs → SumOKK → DepthK := by
+theorem depthK_of_hypotheses_alt : FunPr.ThetaLocalInputs → SumOKK → DepthK := by
   intro _ _
   obtain ⟨CF0, h4⟩ := GlobalTheory.T.flatTensor_depth_conditions_away_from_twist
   refine ⟨CF0, fun CF hCF => ?_⟩
@@ -33,9 +33,9 @@ theorem depthK_of_hypotheses_alt : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
   refine ⟨x₀, fun D large₂ he hx Γ _ _ Pl0 T A Ks _ _ _ R F hS ch hi hsc hf => ?_⟩
   have H := h4 D large₂ he hx Γ Pl0 T A Ks R F hS ch hi hsc hf
   have hL : R.toLevCh.Is A.μ0 := hS.core.lev
-  have hde := GlobalTheory.RowClaim.Test.pde_ne_q hS
+  have hde := RowClaim.Test.pde_ne_q hS
   intro t Φ β hβ
-  have hc : ∀ P ∈ R.toLevCh.Q t, ((Ideal.absNorm D.host.ccK : ℕ) : 𝓞 D.host.E) ∉ P.asIdeal := GlobalTheory.RowClaim.Test.guard hS t
+  have hc : ∀ P ∈ R.toLevCh.Q t, ((Ideal.absNorm D.host.ccK : ℕ) : 𝓞 D.host.E) ∉ P.asIdeal := RowClaim.Test.guard hS t
   obtain ⟨K, hK, hval, hdep⟩ := H t Φ β hβ
   obtain ⟨τ, e, he, hexp⟩ := GridChoice.sumOK_ex hL ch.S.toGridChoice t Φ hde hc β hβ
   obtain ⟨τK, hτK⟩ := GlobalTheory.T.exists_cosetIndicatorExpansion_of_depthPeriodic hL ch.S.toGridChoice t Φ β e τ K hK he hexp (hdep e he)
