@@ -27,22 +27,22 @@ open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels (Base Spc Model Sp
 end GlobalTheory.TripleDarboux
 namespace GlobalTheory.TripleDarboux
 open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels (Base Spc Model SplitsFully Chars HasExp)
-theorem exists_darboux_basis_of_triple : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ), IsStdChar D ψ (-1) →
+theorem exists_darboux_basis_of_triple : FunPr.ThetaLocalInputs → ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ), IsStdChar D ψ (-1) →
     ∀ (W W₁ X : HSp D) (A : Fr W) (A₁ : Fr W₁) (B : Fr X) (α β : (AE D)ˣ →* Circle), IsTriple W W₁ X α β →
     ∀ (ωA : WRep W X) (ωB : WRep W₁ X), IsWeil ψ true W X β (β / α) ωA → IsWeil ψ false W₁ X α (α / β) ωB →
-      ∃ (e : Fin (W.rank + W₁.rank) ≃ Fin X.rank) (Bs : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E)
-        (Γ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig W.rank W₁.rank) (Xc : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E)
-        (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W) (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W)
-        (h : GlobalTheory.TripleRead.IsReading ψ A A₁ B α β e Bs Γ Xc), GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs Γ Xc om om' ∧
-        GlobalTheory.TripleRead.IsTransp ψ true Γ.M om ωA e (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.conjU W 1 h.JW) (GlobalTheory.TripleRead.toUX X e h.JX) ∧
-        GlobalTheory.TripleRead.IsTransp ψ false Γ.M' om' ωB e (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.conjU W₁ (-1) h.JW₁) (GlobalTheory.TripleRead.toUX X e h.JX) := by
+      ∃ (e : Fin (W.rank + W₁.rank) ≃ Fin X.rank) (Bs : IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E)
+        (Γ : IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig W.rank W₁.rank) (Xc : IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E)
+        (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W) (om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W)
+        (h : TripleRead.IsReading ψ A A₁ B α β e Bs Γ Xc), IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs Γ Xc om om' ∧
+        TripleRead.IsTransp ψ true Γ.M om ωA e (IndefiniteRowSideFullHecke.UnitaryConjugation.conjU W 1 h.JW) (TripleRead.toUX X e h.JX) ∧
+        TripleRead.IsTransp ψ false Γ.M' om' ωB e (IndefiniteRowSideFullHecke.UnitaryConjugation.conjU W₁ (-1) h.JW₁) (TripleRead.toUX X e h.JX) := by
   intro _ D ψ hψ W W₁ X A A₁ B α β h ωA ωB hA hB
   classical
   let e : Fin (W.rank + W₁.rank) ≃ Fin X.rank := finCongr h.rank.symm
-  choose τf hτf using (GlobalTheory.ConjTypeOverReal.conj_tauE_over_realPlace (D := D))
+  choose τf hτf using (ConjTypeOverReal.conj_tauE_over_realPlace (D := D))
   choose a b ha hb hab using h.gap
-  obtain ⟨mα, hα, eα⟩ := GlobalTheory.ConjInfExp.hasExp_conj_of_hasInfExp α a ha τf hτf
-  obtain ⟨mβ, hβ, eβ⟩ := GlobalTheory.ConjInfExp.hasExp_conj_of_hasInfExp β b hb τf hτf
+  obtain ⟨mα, hα, eα⟩ := ConjInfExp.hasExp_conj_of_hasInfExp α a ha τf hτf
+  obtain ⟨mβ, hβ, eβ⟩ := ConjInfExp.hasExp_conj_of_hasInfExp β b hb τf hτf
   obtain ⟨T, hT1, hT2, hT3⟩ := exists_ram_set h
   obtain ⟨v₁, hv₁, hv₁s, ⟨τ₁⟩⟩ := exists_good_place D T
   let Bs : Base D.host.F D.host.E :=
@@ -52,15 +52,15 @@ theorem exists_darboux_basis_of_triple : _root_.GlobalTheory.FunPr.ThetaLocalInp
   obtain ⟨p, q, hsig, hn1, hn2⟩ := h.sig
   have hneg : ∀ τ, gramAt D (sgn true W) τ = -gramAt D W τ := fun τ => by ext i j; simp [gramAt, neg_gram]
   obtain ⟨ΛV, basV, hV⟩ := exists_isHerm Bs τf hemb (sgn true W) (fun τ => sgnM true (A.cart τ))
-    (fun τ => isCartanInv_sgn true W τ (GlobalTheory.ArchRec.LieAtPlace.cart_isCartanInv A τ))
+    (fun τ => isCartanInv_sgn true W τ (ArchRec.LieAtPlace.cart_isCartanInv A τ))
     (fun τ => by rw [hneg]; exact hasSignature_neg (hsig τ).1)
   have eJ : (-1 : D.host.E) • (sgn true W).gram = (1 : D.host.E) • W.gram := by
     rw [neg_gram, neg_smul, one_smul, one_smul, neg_neg]
   have eθ : (fun w => -sgnM true (A.cart (τf w))) = fun w => A.cart (τf w) := funext fun w => neg_neg _
   rw [eJ, eθ] at hV
-  obtain ⟨ΛV', basV', hV'⟩ := exists_isHerm Bs τf hemb W₁ A₁.cart (GlobalTheory.ArchRec.LieAtPlace.cart_isCartanInv A₁)
+  obtain ⟨ΛV', basV', hV'⟩ := exists_isHerm Bs τf hemb W₁ A₁.cart (ArchRec.LieAtPlace.cart_isCartanInv A₁)
     fun τ => (hsig τ).2.1
-  obtain ⟨ΛX, basX, hX⟩ := exists_isSkew Bs τf hemb X e B.cart (GlobalTheory.ArchRec.LieAtPlace.cart_isCartanInv B)
+  obtain ⟨ΛX, basX, hX⟩ := exists_isSkew Bs τf hemb X e B.cart (ArchRec.LieAtPlace.cart_isCartanInv B)
     fun τ => (hsig τ).2.2
   have e3 : X.rank - (p + q) = W.rank + W₁.rank - (p + q) := by rw [h.rank]
   rw [e3] at hX
@@ -87,8 +87,8 @@ theorem exists_darboux_basis_of_triple : _root_.GlobalTheory.FunPr.ThetaLocalInp
     · obtain ⟨m, hm⟩ := hev
       show 2 * (p + q) + 1 < (W.rank - W₁.rank) / 2
       omega
-  · refine ⟨h.hecA, h.hecB, GlobalTheory.LFun.resEtaPow_of_resEta _ _ h2 _ _ ((GlobalTheory.LFun.resEta_iff _ _).1 h.resA),
-      GlobalTheory.LFun.resEtaPow_of_resEta _ _ h2 _ _ ((GlobalTheory.LFun.resEta_iff _ _).1 h.resB), hα, hβ, Finset.disjoint_empty_right _,
+  · refine ⟨h.hecA, h.hecB, LFun.resEtaPow_of_resEta _ _ h2 _ _ ((LFun.resEta_iff _ _).1 h.resA),
+      LFun.resEtaPow_of_resEta _ _ h2 _ _ ((LFun.resEta_iff _ _).1 h.resB), hα, hβ, Finset.disjoint_empty_right _,
       hTe.le, fun w hw => hT2 w (hTe ▸ hw), fun w hw => (hT3 w fun h0 => hw ?_).1, fun w hw => (hT3 w fun h0 => hw ?_).2,
       ⟨hTe.symm ▸ hv₁, hv₁s⟩⟩
     · rw [hTe]; exact h0
