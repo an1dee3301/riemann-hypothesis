@@ -17,7 +17,7 @@ open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Form
 open IsDedekindDomain NumberField Matrix GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.RowTest GlobalTheory.TestLat GlobalTheory.SumSize GlobalTheory.RowClaim
 namespace GlobalTheory.ClassCount
 set_option maxHeartbeats 2000000 in
-theorem archimedean_class_count_bound : _root_.GlobalTheory.FunPr.ThetaLocalInputs → InfClassK := by
+theorem archimedean_class_count_bound : FunPr.ThetaLocalInputs → InfClassK := by
   intro _
   obtain ⟨c1, hT1⟩ := GlobalTheory.T.principalCongruence_le_topLevel_classSum
   obtain ⟨c2, hR1⟩ := GlobalTheory.T.classSum_vertexLevels_contain_principalCongruence
