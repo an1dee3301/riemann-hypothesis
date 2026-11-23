@@ -22,13 +22,13 @@ end GlobalTheory.KFinCuspAvgType
 end
 namespace GlobalTheory.KFinCuspAvgType
 open Matrix Formalism.REAL Formalism.MainNotions.S GlobalTheory.TypeSum GlobalTheory.SmoothGlob GlobalTheory.LowTypeDetermined
-theorem kFinite_average_isTypeAt : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {D : D7} (θ : InfFam D), IsInfFam θ → ∀ N : GlobalTheory.Grid.Node D, N.V.SigOK →
-    ∀ (τ : D.what₂.Tau) (e : Formalism.REAL.KG (N.M.ε τ) → ℂ), Continuous e → GlobalTheory.TypeSum.KFinFun (N.M.ε τ) e →
-    ∀ φ : GA D N.V → ℂ, GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.IsCuspOfType θ N φ →
-    IsTypeAt θ N.V τ (N.S τ) (GlobalTheory.KFinCuspApprox.avgN θ N τ e φ) := by
+theorem kFinite_average_isTypeAt : FunPr.ThetaLocalInputs → ∀ {D : D7} (θ : InfFam D), IsInfFam θ → ∀ N : Grid.Node D, N.V.SigOK →
+    ∀ (τ : D.what₂.Tau) (e : Formalism.REAL.KG (N.M.ε τ) → ℂ), Continuous e → TypeSum.KFinFun (N.M.ε τ) e →
+    ∀ φ : GA D N.V → ℂ, IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.IsCuspOfType θ N φ →
+    IsTypeAt θ N.V τ (N.S τ) (KFinCuspApprox.avgN θ N τ e φ) := by
   intro hPr D θ hθ N _ τ e _ he φ hφ
   obtain ⟨H, i1, i2, σ, lam, ε', P, hE, hD, hP, hJ, hx⟩ := hφ.2.2 τ
-  obtain ⟨-, hε⟩ := GlobalTheory.SignedParTest.isEnum_unique hE (N.M.enum τ)
+  obtain ⟨-, hε⟩ := SignedParTest.isEnum_unique hE (N.M.enum τ)
   subst hε
   haveI : CompleteSpace H := hD.1
   have hσ : Std (N.M.ε τ) σ := std_of_isDS hPr.harishChandraModules hD
@@ -60,9 +60,9 @@ theorem kFinite_average_isTypeAt : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
       congr 2
       simp only [Matrix.mul_assoc, Matrix.nonsing_inv_mul_cancel_left _ _ hdP, Matrix.nonsing_inv_mul_cancel_left _ _ hdf]) _ h1
   obtain ⟨S, hS, hc, v, ℓ, C, h⟩ := h2
-  have h3 := GlobalTheory.SeriesToClosure.moves_avg hθ hf hfJ hσ he φ x S v ℓ C hS hc h
+  have h3 := SeriesToClosure.moves_avg hθ hf hfJ hσ he φ x S v ℓ C hS hc h
   have h4 : HasTypeAll (lieSet (N.M.ε τ)) (UJset (N.M.ε τ)) σ
-      (GlobalTheory.SeriesToClosure.res θ N.V τ fr (GlobalTheory.KFinCuspApprox.avgN θ N τ e φ) x) := ⟨S, hS, hc, _, ℓ, C, h3⟩
+      (SeriesToClosure.res θ N.V τ fr (KFinCuspApprox.avgN θ N τ e φ) x) := ⟨S, hS, hc, _, ℓ, C, h3⟩
   have hfi : IsUnit fr⁻¹ := (isUnit_iff_isUnit_det _).2 (Matrix.isUnit_nonsing_inv_det _ hdf)
   have hfiJ : (fr⁻¹)ᴴ * gramAt D N.V τ * fr⁻¹ = Jm (N.M.ε τ) := by
     rw [← hfJ]
@@ -75,9 +75,9 @@ theorem kFinite_average_isTypeAt : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
       rw [Matrix.nonsing_inv_nonsing_inv _ hdf]
       simp only [Matrix.mul_assoc, Matrix.mul_nonsing_inv_cancel_left _ _ hdf, Matrix.mul_nonsing_inv _ hdf,
         Matrix.mul_one]) _ h4
-  have e5 : (fun y => GlobalTheory.SeriesToClosure.res θ N.V τ fr (GlobalTheory.KFinCuspApprox.avgN θ N τ e φ) x (fr⁻¹⁻¹ * y * fr⁻¹)) =
-      fun y => GlobalTheory.KFinCuspApprox.avgN θ N τ e φ (x * atTau θ N.V τ y) := funext fun y => by
-    rw [Matrix.nonsing_inv_nonsing_inv _ hdf, GlobalTheory.SeriesToClosure.res_conj hf]
+  have e5 : (fun y => SeriesToClosure.res θ N.V τ fr (KFinCuspApprox.avgN θ N τ e φ) x (fr⁻¹⁻¹ * y * fr⁻¹)) =
+      fun y => KFinCuspApprox.avgN θ N τ e φ (x * atTau θ N.V τ y) := funext fun y => by
+    rw [Matrix.nonsing_inv_nonsing_inv _ hdf, SeriesToClosure.res_conj hf]
   rw [e5] at h5
   exact hasTypeAll_iff.1 h5
 end GlobalTheory.KFinCuspAvgType
