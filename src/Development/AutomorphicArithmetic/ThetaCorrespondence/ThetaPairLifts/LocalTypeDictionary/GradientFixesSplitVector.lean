@@ -31,7 +31,7 @@ open NumberField IsDedekindDomain Formalism.MainNotions.GlobalTheoryTheory.Genus
 open scoped TensorProduct Matrix
 noncomputable section
 namespace GlobalTheory.NabFixSplit
-theorem gradient_fixes_split_vector : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E) (B : Base F E)
+theorem gradient_fixes_split_vector : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E) (B : Base F E)
     (a a' : ℕ) (G : Geo σ a a') (X : Chars F E) (om : Rep σ G.V G.W) (om' : Rep σ G.V' G.W), IsTriple B G X om om' →
     ∀ (v : Pl F), Formalism.MainNotions.SchurIrreducible.IsSplit (E := E) v → v ∉ X.T → PsiUnr B.ψ v → (2 : 𝓞 F) ∉ v.asIdeal →
     G.M'.vac v = Set.indicator {x | ∀ i, x i ∈ v.adicCompletionIntegers F} 1 →
@@ -40,15 +40,15 @@ theorem gradient_fixes_split_vector : _root_.GlobalTheory.FunPr.ThetaLocalInputs
       IsDblCoord (cA σ) (-1) (incM F G.V'.J) (incM F G.W.J) G.M'.co dd →
       IsUWeilSplit (cA σ) (adeleClass F) B.ψ (-1) (incM F G.V'.J) (dbl (incM F G.W.J)) dd X.α (diagCols (Fin (a + a'))) omd →
     ∀ R : (Fin a' × Fin (a + a') → AF F) → ℂ, R 0 ≠ 0 → Rest (evFin F v) (G.M'.vac v) R →
-    ∀ n ∈ GlobalTheory.InertDbl.NabD σ G.W v, omd n (GlobalTheory.InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R)) =
-      GlobalTheory.InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R) := by
-  have hLine := _root_.GlobalTheory.T.doubleVacuum_line_eigenspace_split
-  have hConj := GlobalTheory.T.adelicSchwartzSpace_le_span_pureTensors
+    ∀ n ∈ InertDbl.NabD σ G.W v, omd n (InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R)) =
+      InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R) := by
+  have hLine := T.doubleVacuum_line_eigenspace_split
+  have hConj := T.adelicSchwartzSpace_le_span_pureTensors
   intro hP F E _ _ _ _ _ σ B a a' G X om om' hTr v hsp hT hψ h2 hvac dd omd hdc hws R hR0 hRv n hn
-  set Φ := GlobalTheory.InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R) with hΦdef
+  set Φ := InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R) with hΦdef
   obtain ⟨c, hc⟩ := hLine hP F E σ B a a' G X om om' hTr v hsp hT hψ h2 hvac dd omd hdc hws R hR0 hRv n hn.1
   obtain ⟨s, hs, hsn⟩ := hConj F E σ B hTr.base (a + a') G.W v hsp h2 n hn
-  have hs1 : omd s Φ = Φ := _root_.GlobalTheory.T.split_double_parabolic_derivative_fixed hP F E σ B a a' G X om om' hTr v hsp hT hψ h2 hvac dd omd hdc hws R hR0 hRv s hs
+  have hs1 : omd s Φ = Φ := T.split_double_parabolic_derivative_fixed hP F E σ B a a' G X om om' hTr v hsp hT hψ h2 hvac dd omd hdc hws R hR0 hRv s hs
   have hs2 : omd s⁻¹ Φ = Φ := by
     conv_lhs => rw [← hs1]
     rw [← Module.End.mul_apply, ← map_mul, inv_mul_cancel, map_one, Module.End.one_apply]
