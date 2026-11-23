@@ -18,7 +18,7 @@ open IsDedekindDomain NumberField MeasureTheory GlobalTheory.ChiGrid GlobalTheor
 attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField borelKw borelSpaceKw
 noncomputable section
 namespace GlobalTheory.FlipRun
-theorem cuspStep_down_of_large_flipRun : (∀ D : D7, GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidalSmoothAt D) → _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.RowClaim.Big fun {D} _ _ _ _ {T} _ _ _ _ _ _ ch =>
+theorem cuspStep_down_of_large_flipRun : (∀ D : D7, IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidalSmoothAt D) → FunPr.ThetaLocalInputs → RowClaim.Big fun {D} _ _ _ _ {T} _ _ _ _ _ _ ch =>
   ∀ (t : T) (M : Vol ch.G), M.Is t → ∀ a : Arrow T, IsGridArrow D.R.m t a → (∃ i j, a = Arrow.down t i j) →
     ∀ e, IsIdemSum e (locPl ch.G t) → ∀ φ f, IsLocVec ch.W a.pair e (vacOf ch.rm a) φ f →
     ∀ (Q : PolF D (ch.G.pT a.pair).rank (ch.G.pS a.pair).rank) (F : Fn ch.G a.src), IsCuspListed ch.W.θ a.src F →
@@ -32,11 +32,11 @@ theorem cuspStep_down_of_large_flipRun : (∀ D : D7, GlobalTheory.IndefiniteRow
     rcases ha with ⟨_, _, _, _, h⟩ | ⟨i', j', h1, h2, h⟩
     · cases h
     · cases h; exact ⟨h1, h2⟩
-  obtain ⟨G, hG, hMa⟩ := GlobalTheory.GridJoin.exists_gridPre hP.discreteSeriesUpqExists hP.discreteSeriesCover
+  obtain ⟨G, hG, hMa⟩ := GridJoin.exists_gridPre hP.discreteSeriesUpqExists hP.discreteSeriesCover
     hP.harishChandraModules hset.host hset.size hset.core hgap ch.W hch.weil
-  have hRB : GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.RowBase R :=
+  have hRB : IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.RowBase R :=
     ⟨hset.core.lev, hset.core.models.inf, hset.core.models.νY, hset.core.models.νY', hset.core.models.νX⟩
-  have hCS := hS D (GlobalTheory.RowSizes.sizes_of_sizeRows large₂ hset.size) Γ Pl0 T A Ks R G hRB hG
+  have hCS := hS D (RowSizes.sizes_of_sizeRows large₂ hset.size) Γ Pl0 T A Ks R G hRB hG
   have eA := ga_eq_of_match hMa hi (Nat.succ_le_of_lt hj)
   have eB := ga_eq_of_match hMa hi hj.le
   have hΨ := GlobalTheory.T.isThetaFunction_fock_vector_downward_arrow ch.rm t i j hi hj he hf Q
