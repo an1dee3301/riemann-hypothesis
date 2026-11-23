@@ -77,10 +77,10 @@ open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.Glob
 open IsDedekindDomain NumberField MeasureTheory GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.RowTest GlobalTheory.StdFrames GlobalTheory.RowClaim GlobalTheory.FlipRun
 attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField borelKw borelSpaceKw
 namespace GlobalTheory.FlipRun
-theorem cuspStep_of_large_flipRun : GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal → _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.RowClaim.Big fun {_} _ _ _ _ {T} _ _ _ _ _ _ ch => ∀ (t : T) (M : Vol ch.G), M.Is t → GlobalTheory.FlipRun.CuspStep ch.W M ch.rm t := by
+theorem cuspStep_of_large_flipRun : IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal → FunPr.ThetaLocalInputs → RowClaim.Big fun {_} _ _ _ _ {T} _ _ _ _ _ _ ch => ∀ (t : T) (M : Vol ch.G), M.Is t → CuspStep ch.W M ch.rm t := by
   intro hLC hP
   have hS := _root_.GlobalTheory.T.cuspidal_lift_smooth_at_cusps hLC hP
-  have hRight : (∀ D : D7, GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidalSmoothAt D) → _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.RowClaim.Big fun {D} _ _ _ _ {T} _ _ _ _ _ _ ch =>
+  have hRight : (∀ D : D7, IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidalSmoothAt D) → FunPr.ThetaLocalInputs → RowClaim.Big fun {D} _ _ _ _ {T} _ _ _ _ _ _ ch =>
     ∀ (t : T) (M : Vol ch.G), M.Is t → ∀ a : Arrow T, IsGridArrow D.R.m t a → (∃ i j, a = Arrow.right i j) →
       ∀ e, IsIdemSum e (locPl ch.G t) → ∀ φ f, IsLocVec ch.W a.pair e (vacOf ch.rm a) φ f →
       ∀ (Q : PolF D (ch.G.pT a.pair).rank (ch.G.pS a.pair).rank) (F : Fn ch.G a.src), IsCuspListed ch.W.θ a.src F →
@@ -92,17 +92,17 @@ theorem cuspStep_of_large_flipRun : GlobalTheory.IndefiniteRowSideFullHecke.Cusp
     obtain ⟨i', j', hi, hj, h'⟩ | ⟨_, _, _, _, _, h'⟩ := ha
     · cases h'
       have hcg : ch.sc.cGap = 1 := by rw [hsc]
-      obtain ⟨G, hG, hMa⟩ := GlobalTheory.GridJoin.exists_gridPre hP.discreteSeriesUpqExists hP.discreteSeriesCover
+      obtain ⟨G, hG, hMa⟩ := GridJoin.exists_gridPre hP.discreteSeriesUpqExists hP.discreteSeriesCover
         hP.harishChandraModules hSet.host hSet.size hSet.core hcg ch.W hch.weil
-      have hRB : GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.RowBase R :=
+      have hRB : IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.RowBase R :=
         ⟨hSet.core.lev, hSet.core.models.inf, hSet.core.models.νY, hSet.core.models.νY', hSet.core.models.νX⟩
-      have hSm := (hLS D (GlobalTheory.RowSizes.sizes_of_sizeRows large₂ hSet.size) Γ Pl0 T A Ks R G hRB hG).X t i j hi hj
-      have hgm := GlobalTheory.RightArrowCusp.meas_haar_fund hSet.core G hG t i j hi.le hj
-      exact GlobalTheory.RightArrowCusp.lift_right_of_smooth hcg ch.W hch.weil ch.rm hch.vac M t hM i j hi hj (G.V i j) (G.V (i + 1) j)
-        (hMa.1.vert i j hi.le hj).sp (hMa.1.vert (i + 1) j hi hj).sp (GlobalTheory.RightArrowCusp.vert_par hSet.core G hG i j hi.le hj)
-        (GlobalTheory.RightArrowCusp.vert_par hSet.core G hG (i + 1) j hi hj) (G.meas t i j) hgm.1 hgm.2 (G.X i j).ω (hMa.2.omX i j hi hj) hSm
+      have hSm := (hLS D (RowSizes.sizes_of_sizeRows large₂ hSet.size) Γ Pl0 T A Ks R G hRB hG).X t i j hi hj
+      have hgm := RightArrowCusp.meas_haar_fund hSet.core G hG t i j hi.le hj
+      exact RightArrowCusp.lift_right_of_smooth hcg ch.W hch.weil ch.rm hch.vac M t hM i j hi hj (G.V i j) (G.V (i + 1) j)
+        (hMa.1.vert i j hi.le hj).sp (hMa.1.vert (i + 1) j hi hj).sp (RightArrowCusp.vert_par hSet.core G hG i j hi.le hj)
+        (RightArrowCusp.vert_par hSet.core G hG (i + 1) j hi hj) (G.meas t i j) hgm.1 hgm.2 (G.X i j).ω (hMa.2.omX i j hi hj) hSm
         e he φ f hf Q F' hF
-  have hDown : (∀ D : D7, GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidalSmoothAt D) → _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.RowClaim.Big fun {D} _ _ _ _ {T} _ _ _ _ _ _ ch =>
+  have hDown : (∀ D : D7, IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidalSmoothAt D) → FunPr.ThetaLocalInputs → RowClaim.Big fun {D} _ _ _ _ {T} _ _ _ _ _ _ ch =>
     ∀ (t : T) (M : Vol ch.G), M.Is t → ∀ a : Arrow T, IsGridArrow D.R.m t a → (∃ i j, a = Arrow.down t i j) →
       ∀ e, IsIdemSum e (locPl ch.G t) → ∀ φ f, IsLocVec ch.W a.pair e (vacOf ch.rm a) φ f →
       ∀ (Q : PolF D (ch.G.pT a.pair).rank (ch.G.pS a.pair).rank) (F : Fn ch.G a.src), IsCuspListed ch.W.θ a.src F →
@@ -116,11 +116,11 @@ theorem cuspStep_of_large_flipRun : GlobalTheory.IndefiniteRowSideFullHecke.Cusp
       rcases ha with ⟨_, _, _, _, h⟩ | ⟨i', j', h1, h2, h⟩
       · cases h
       · cases h; exact ⟨h1, h2⟩
-    obtain ⟨G, hG, hMa⟩ := GlobalTheory.GridJoin.exists_gridPre hP.discreteSeriesUpqExists hP.discreteSeriesCover
+    obtain ⟨G, hG, hMa⟩ := GridJoin.exists_gridPre hP.discreteSeriesUpqExists hP.discreteSeriesCover
       hP.harishChandraModules hset.host hset.size hset.core hgap ch.W hch.weil
-    have hRB : GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.RowBase R :=
+    have hRB : IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.RowBase R :=
       ⟨hset.core.lev, hset.core.models.inf, hset.core.models.νY, hset.core.models.νY', hset.core.models.νX⟩
-    have hCS := hS D (GlobalTheory.RowSizes.sizes_of_sizeRows large₂ hset.size) Γ Pl0 T A Ks R G hRB hG
+    have hCS := hS D (RowSizes.sizes_of_sizeRows large₂ hset.size) Γ Pl0 T A Ks R G hRB hG
     have eA := ga_eq_of_match hMa hi (Nat.succ_le_of_lt hj)
     have eB := ga_eq_of_match hMa hi hj.le
     have hΨ := GlobalTheory.T.isThetaFunction_fock_vector_downward_arrow ch.rm t i j hi hj he hf Q
@@ -143,7 +143,7 @@ theorem cuspStep_of_large_flipRun : GlobalTheory.IndefiniteRowSideFullHecke.Cusp
       convert hcusp using 2 with h
       rw [liftA_apply, ← (key _).2]
       simp only [hK]
-  refine (GlobalTheory.RowClaim.Big.and (hRight hS hP) (hDown hS hP)).imp fun CF0 h ε CF hC => ?_
+  refine (RowClaim.Big.and (hRight hS hP) (hDown hS hP)).imp fun CF0 h ε CF hC => ?_
   obtain ⟨x₀, h⟩ := h ε CF hC
   refine ⟨x₀, fun D large₂ e hx Γ _ _ Pl0 T A Ks _ _ _ R F s ch hch hsc t M hM a ha e' he φ f hf Q F' hF => ?_⟩
   have H := h D large₂ e hx Γ Pl0 T A Ks R F s ch hch hsc
