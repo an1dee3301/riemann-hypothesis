@@ -18,8 +18,8 @@ public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLif
 section
 open GlobalTheory.SumSize GlobalTheory.RowClaim
 namespace GlobalTheory.SumCount
-theorem archimedean_sum_count_bound : _root_.GlobalTheory.FunPr.ThetaLocalInputs → DepthK → InfCountK := fun hP hD =>
-  infCountK_of GlobalTheory.T.datumCountBound_largeData (_root_.GlobalTheory.T.theta_kCoset_count_formula hP) (GlobalTheory.T.pureTensorCountBound_of_cosetDepthBound hD)
+theorem archimedean_sum_count_bound : FunPr.ThetaLocalInputs → DepthK → InfCountK := fun hP hD =>
+  infCountK_of T.datumCountBound_largeData (T.theta_kCoset_count_formula hP) (T.pureTensorCountBound_of_cosetDepthBound hD)
 end GlobalTheory.SumCount
 end
 
