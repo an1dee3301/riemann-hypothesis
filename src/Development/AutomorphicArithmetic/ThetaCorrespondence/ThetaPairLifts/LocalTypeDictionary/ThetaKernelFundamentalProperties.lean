@@ -15,7 +15,7 @@ open NumberField IsDedekindDomain MeasureTheory Filter Topology Formalism.MainNo
 open GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.ThK
 open scoped TensorProduct NNReal Matrix
 namespace GlobalTheory.ThKBasic
-theorem theta_kernel_basic_properties : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.ThK.ThetaBasic := by
+theorem theta_kernel_basic_properties : FunPr.ThetaLocalInputs → ThK.ThetaBasic := by
   intro hKP F E _ _ _ _ _ σ B n d X W M χX χW om r s r' s' hP
   have hS := hP.weil.isUSplitting
   obtain ⟨l, hl, hlt⟩ := GlobalTheory.T.exists_admissibleForm_adelicThetaSum F (Fin n × Fin d)
