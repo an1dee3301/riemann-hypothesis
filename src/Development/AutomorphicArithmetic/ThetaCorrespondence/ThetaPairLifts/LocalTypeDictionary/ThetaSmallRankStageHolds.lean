@@ -29,12 +29,12 @@ open GlobalTheory.ConstRatio (NegIdx Factor)
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
 noncomputable section
 namespace GlobalTheory.StageSmall
-theorem theta_stage_of_small_rank : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
+theorem theta_stage_of_small_rank : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
   GBig fun {D} T _ _ G μ₀ _ _ _ => ∀ (W : G.Weil) (S : GridChoice W Set.univ), IsStdChar D W.ψ (-1) →
-    NumbersIn D.what₂.embLL S μ₀ → ∀ (i j : Fin D.R.m) (p q : ℕ) (A A' WW : HSp D) (X : Tri T A A' WW), GlobalTheory.SqTower.IsStageC W i j p q X →
+    NumbersIn D.what₂.embLL S μ₀ → ∀ (i j : Fin D.R.m) (p q : ℕ) (A A' WW : HSp D) (X : Tri T A A' WW), SqTower.IsStageC W i j p q X →
       ∃ P' : PolF D WW.rank A'.rank, (∀ t h, MeasureTheory.IntegrableOn (X.ker' W.ψ W.θ t P' h) X.fd' X.m') ∧ ∀ t, X.I' W.ψ W.θ t P' ≠ 0 := by
   intro hP hK hL
-  obtain ⟨c, hc⟩ := GlobalTheory.SqTop.Model.gBig_and (_root_.GlobalTheory.T.smallStage_thetaIntegral_nonzero_case hP hK hL) (_root_.GlobalTheory.T.smallStage_thetaIntegral_large_rank_case hP hK hL)
+  obtain ⟨c, hc⟩ := SqTop.Model.gBig_and (_root_.GlobalTheory.T.smallStage_thetaIntegral_nonzero_case hP hK hL) (_root_.GlobalTheory.T.smallStage_thetaIntegral_large_rank_case hP hK hL)
   refine ⟨c, fun ε CF hCF => ?_⟩
   obtain ⟨C0, x0, h⟩ := hc ε CF hCF
   refine ⟨C0, x0, fun C hC D large₂ a b r T Lc μ hL G W S hW hN i j p q A A' WW X hX => ?_⟩
