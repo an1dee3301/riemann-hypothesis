@@ -22,10 +22,10 @@ namespace GlobalTheory.DownGrowth
 open GlobalTheory.Grid GlobalTheory.ChainFr GlobalTheory.DownApprox
 open scoped ENNReal
 set_option maxHeartbeats 2000000 in
-theorem downward_growth_approximation : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (D : D7), GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.Sizes D → ∀ (G₀ : Type) [Group G₀] [Fintype G₀] (Pl0 T : Type) (A : FamIn D.what₂.LL G₀ Pl0 T D.R.m) (Ks : Type) [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] (R : RealDat D A Ks) (G : GlobalTheory.Grid.GridPre R), GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.RowBase R → G.Is → ∀ i, i < D.R.m → ∃ N : ℕ, ∀ (K : Finset ℕ) (F : ℕ → (G.P (i + 1)).Maps) (v : ℕ → SmT (G.P (i + 1)).M), (∀ k ∈ K, F k ∈ (G.P (i + 1)).Cusp R.θ) → ∀ Φ, IsThetaFunO R.ψ (GlobalTheory.Grid.neg (G.P (i + 1)).V) (G.P i).V Φ → ∀ ε : ENNReal, 0 < ε → ∃ (J : Finset ℕ) (f : ℕ → WO (G.P (i + 1)).V (G.P i).V → ℂ) (p : ℕ → GlobalTheory.Grid.Pol (G.P (i + 1)) (G.P i)), (∀ j ∈ J, GlobalTheory.Grid.IsFinVec R.ψ R.θ true (G.P (i + 1)) (G.P i) (f j)) ∧ GlobalTheory.Size.growthSize (G.P i).V N (fun h => (∑ k ∈ K, ∫ g in (G.mP (i + 1)).fd, thetaKO (G.dn i).ω g h (Φ) * (F k (v k)) g ∂(G.mP (i + 1)).ν) - ∑ j ∈ J, ∑ k ∈ K, ∫ g in (G.mP (i + 1)).fd, thetaKO (G.dn i).ω g h (GlobalTheory.Grid.fock R.ψ R.θ true (G.P (i + 1)) (G.P i) (f j) (p j)) * (F k (v k)) g ∂(G.mP (i + 1)).ν) < ε := by
+theorem downward_growth_approximation : FunPr.ThetaLocalInputs → ∀ (D : D7), IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.Sizes D → ∀ (G₀ : Type) [Group G₀] [Fintype G₀] (Pl0 T : Type) (A : FamIn D.what₂.LL G₀ Pl0 T D.R.m) (Ks : Type) [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] (R : RealDat D A Ks) (G : Grid.GridPre R), IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.RowBase R → G.Is → ∀ i, i < D.R.m → ∃ N : ℕ, ∀ (K : Finset ℕ) (F : ℕ → (G.P (i + 1)).Maps) (v : ℕ → SmT (G.P (i + 1)).M), (∀ k ∈ K, F k ∈ (G.P (i + 1)).Cusp R.θ) → ∀ Φ, IsThetaFunO R.ψ (Grid.neg (G.P (i + 1)).V) (G.P i).V Φ → ∀ ε : ENNReal, 0 < ε → ∃ (J : Finset ℕ) (f : ℕ → WO (G.P (i + 1)).V (G.P i).V → ℂ) (p : ℕ → Grid.Pol (G.P (i + 1)) (G.P i)), (∀ j ∈ J, Grid.IsFinVec R.ψ R.θ true (G.P (i + 1)) (G.P i) (f j)) ∧ Size.growthSize (G.P i).V N (fun h => (∑ k ∈ K, ∫ g in (G.mP (i + 1)).fd, thetaKO (G.dn i).ω g h (Φ) * (F k (v k)) g ∂(G.mP (i + 1)).ν) - ∑ j ∈ J, ∑ k ∈ K, ∫ g in (G.mP (i + 1)).fd, thetaKO (G.dn i).ω g h (Grid.fock R.ψ R.θ true (G.P (i + 1)) (G.P i) (f j) (p j)) * (F k (v k)) g ∂(G.mP (i + 1)).ν) < ε := by
   intro hP D _ G₀ _ _ Pl0 T A Ks _ _ _ R G hRB hG i hi
   classical
-  obtain ⟨Ae, d, H⟩ := GlobalTheory.KernelSeminorm.thetaGrowth D (neg (G.P (i + 1)).V).rank (G.P i).V.rank
+  obtain ⟨Ae, d, H⟩ := KernelSeminorm.thetaGrowth D (neg (G.P (i + 1)).V).rank (G.P i).V.rank
   refine ⟨Ae, fun K Fm v hF Φ hΦ ε hε => ?_⟩
   have hθ : IsInfFam R.θ := hRB.inf
   have hW := (hG.arrows.dn i hi).weil
@@ -37,22 +37,22 @@ theorem downward_growth_approximation : _root_.GlobalTheory.FunPr.ThetaLocalInpu
     by_cases hd : i + 1 = D.R.m
     · exact ⟨(h.1 hd).1.1, (h.1 hd).2⟩
     · exact ⟨(h.2 hd).1.1, (h.2 hd).2⟩
-  have hFv : ∀ k ∈ K, GlobalTheory.Grow.RapidDec (G.P (i + 1)).V (Fm k (v k)) := fun k hk => by
-    have h := GlobalTheory.LowVanishObj.multT_apply_cusp R.θ (G.P (i + 1)).M ∅ 1 (Fm k) (hF k hk) (v k)
-    exact (GlobalTheory.Size.rapidDecSm_of_cuspForm hP.cuspRapidDecay hθ h.1 h.2).rapidDec
-  have hB : ∀ k ∈ K, ∃ B : ℝ, ∀ g, ‖Fm k (v k) g‖ * GlobalTheory.Grow.quotHeight (G.P (i + 1)).V g ^ Ae ≤ B :=
+  have hFv : ∀ k ∈ K, Grow.RapidDec (G.P (i + 1)).V (Fm k (v k)) := fun k hk => by
+    have h := LowVanishObj.multT_apply_cusp R.θ (G.P (i + 1)).M ∅ 1 (Fm k) (hF k hk) (v k)
+    exact (Size.rapidDecSm_of_cuspForm hP.cuspRapidDecay hθ h.1 h.2).rapidDec
+  have hB : ∀ k ∈ K, ∃ B : ℝ, ∀ g, ‖Fm k (v k) g‖ * Grow.quotHeight (G.P (i + 1)).V g ^ Ae ≤ B :=
     fun k hk => (hFv k hk).decay Ae
   choose! B hB using hB
-  obtain ⟨μ, 𝓓, hμ⟩ := GlobalTheory.Size.exists_isCovolOne (neg (G.P (i + 1)).V) (G.P i).V
-  obtain ⟨U, hU, hΦU, happ⟩ := GlobalTheory.FockDensity.fockDense D _ _ (negFr (G.P (i + 1))) (Fr.ofModel (G.P i).M) R.θ R.ψ
+  obtain ⟨μ, 𝓓, hμ⟩ := Size.exists_isCovolOne (neg (G.P (i + 1)).V) (G.P i).V
+  obtain ⟨U, hU, hΦU, happ⟩ := FockDensity.fockDense D _ _ (negFr (G.P (i + 1))) (Fr.ofModel (G.P i).M) R.θ R.ψ
     hω.std hθ μ 𝓓 hμ Φ hΦ
   haveI : BorelSpace (GA D (G.P (i + 1)).V) := ⟨rfl⟩
   haveI hfin : IsFiniteMeasure ((G.mP (i + 1)).ν.restrict (G.mP (i + 1)).fd) :=
-    isFiniteMeasure_restrict.2 (GlobalTheory.Chain.LiftReg.vol_ne_top hν hfd)
+    isFiniteMeasure_restrict.2 (Chain.LiftReg.vol_ne_top hν hfd)
   have hker : ∀ U' : AddSubgroup (WO (neg (G.P (i + 1)).V) (G.P i).V), IsOpen (U' : Set (WO (neg (G.P (i + 1)).V) (G.P i).V)) →
-      ∃ Kc : ℝ, 0 ≤ Kc ∧ ∀ f ∈ GlobalTheory.Size.thetaLevel R.ψ (neg (G.P (i + 1)).V) (G.P i).V U', ∀ g h,
-        ‖thetaKO (G.dn i).ω g h f‖ ≤ Kc * (GlobalTheory.Size.sobO R.ψ R.θ μ 𝓓 d f).toReal *
-          GlobalTheory.Grow.quotHeight (G.P (i + 1)).V g ^ Ae * GlobalTheory.Grow.height (G.P i).V h ^ Ae := by
+      ∃ Kc : ℝ, 0 ≤ Kc ∧ ∀ f ∈ Size.thetaLevel R.ψ (neg (G.P (i + 1)).V) (G.P i).V U', ∀ g h,
+        ‖thetaKO (G.dn i).ω g h f‖ ≤ Kc * (Size.sobO R.ψ R.θ μ 𝓓 d f).toReal *
+          Grow.quotHeight (G.P (i + 1)).V g ^ Ae * Grow.height (G.P i).V h ^ Ae := by
     intro U' hU'
     obtain ⟨C, hC0, hC⟩ := (H (neg (G.P (i + 1)).V) (G.P i).V rfl rfl).real R.ψ hθ hU'
     refine ⟨C * 2 ^ Ae, by positivity, fun f hf g h => ?_⟩
@@ -63,42 +63,42 @@ theorem downward_growth_approximation : _root_.GlobalTheory.FunPr.ThetaLocalInpu
       show ((G.dn i).ω.toSgn true) ((ofSgn true (G.P (i + 1)).V).symm (γ * g), h) f 0 =
         ((G.dn i).ω.toSgn true) ((ofSgn true (G.P (i + 1)).V).symm g, h) f 0
       rw [e1, map_mul, Module.End.mul_apply]
-      exact hω.om_aut _ (GlobalTheory.SquareComm.ofSgn_symm_mem_GQ true hγ) 1 (one_mem _) _ (hω.om_pres _ _ hf.1)
-    have hgr : ∀ g, ‖thetaKO (G.dn i).ω g h f‖ ≤ (C * (GlobalTheory.Size.sobO R.ψ R.θ μ 𝓓 d f).toReal *
-        GlobalTheory.Grow.height (G.P i).V h ^ Ae) * GlobalTheory.Grow.height (G.P (i + 1)).V g ^ Ae := fun g => by
+      exact hω.om_aut _ (SquareComm.ofSgn_symm_mem_GQ true hγ) 1 (one_mem _) _ (hω.om_pres _ _ hf.1)
+    have hgr : ∀ g, ‖thetaKO (G.dn i).ω g h f‖ ≤ (C * (Size.sobO R.ψ R.θ μ 𝓓 d f).toReal *
+        Grow.height (G.P i).V h ^ Ae) * Grow.height (G.P (i + 1)).V g ^ Ae := fun g => by
       have := hb ((ofSgn true (G.P (i + 1)).V).symm g) h
       refine this.trans_eq ?_
-      show C * (GlobalTheory.Size.sobO R.ψ R.θ μ 𝓓 d f).toReal *
-        (GlobalTheory.Grow.height (G.P (i + 1)).V g * GlobalTheory.Grow.height (G.P i).V h) ^ Ae = _
+      show C * (Size.sobO R.ψ R.θ μ 𝓓 d f).toReal *
+        (Grow.height (G.P (i + 1)).V g * Grow.height (G.P i).V h) ^ Ae = _
       ring
-    refine (GlobalTheory.Grow.norm_le_quotHeight_pow (f := fun g => thetaKO (G.dn i).ω g h f) hinv hgr g).trans_eq ?_
+    refine (Grow.norm_le_quotHeight_pow (f := fun g => thetaKO (G.dn i).ω g h f) hinv hgr g).trans_eq ?_
     ring
   have hbound : ∀ U' : AddSubgroup (WO (neg (G.P (i + 1)).V) (G.P i).V), IsOpen (U' : Set (WO (neg (G.P (i + 1)).V) (G.P i).V)) →
-      ∃ Kc : ℝ, 0 ≤ Kc ∧ ∀ f ∈ GlobalTheory.Size.thetaLevel R.ψ (neg (G.P (i + 1)).V) (G.P i).V U', ∀ k ∈ K, ∀ h,
+      ∃ Kc : ℝ, 0 ≤ Kc ∧ ∀ f ∈ Size.thetaLevel R.ψ (neg (G.P (i + 1)).V) (G.P i).V U', ∀ k ∈ K, ∀ h,
         IntegrableOn (fun g => thetaKO (G.dn i).ω g h f * Fm k (v k) g) (G.mP (i + 1)).fd (G.mP (i + 1)).ν ∧
         ‖∫ g in (G.mP (i + 1)).fd, thetaKO (G.dn i).ω g h f * Fm k (v k) g ∂(G.mP (i + 1)).ν‖ ≤
-          Kc * (GlobalTheory.Size.sobO R.ψ R.θ μ 𝓓 d f).toReal * max (B k) 0 * ((G.mP (i + 1)).ν (G.mP (i + 1)).fd).toReal *
-            GlobalTheory.Grow.height (G.P i).V h ^ Ae := by
+          Kc * (Size.sobO R.ψ R.θ μ 𝓓 d f).toReal * max (B k) 0 * ((G.mP (i + 1)).ν (G.mP (i + 1)).fd).toReal *
+            Grow.height (G.P i).V h ^ Ae := by
     intro U' hU'
     obtain ⟨Kc, hK0, hK⟩ := hker U' hU'
     refine ⟨Kc, hK0, fun f hf k hk h => ?_⟩
-    have hs : 0 ≤ (GlobalTheory.Size.sobO R.ψ R.θ μ 𝓓 d f).toReal := ENNReal.toReal_nonneg
+    have hs : 0 ≤ (Size.sobO R.ψ R.θ μ 𝓓 d f).toReal := ENNReal.toReal_nonneg
     have hcont : Continuous fun g => thetaKO (G.dn i).ω g h f * Fm k (v k) g :=
       ((hω.om_cont f hf.1 0).comp ((continuous_ofSgn_symm true _).prodMk continuous_const)).mul (hFv k hk).continuous
-    have h5 : 0 ≤ GlobalTheory.Grow.height (G.P i).V h ^ Ae := pow_nonneg (GlobalTheory.Grow.height_pos _ h).le Ae
+    have h5 : 0 ≤ Grow.height (G.P i).V h ^ Ae := pow_nonneg (Grow.height_pos _ h).le Ae
     have hpt : ∀ g, ‖thetaKO (G.dn i).ω g h f * Fm k (v k) g‖ ≤
-        Kc * (GlobalTheory.Size.sobO R.ψ R.θ μ 𝓓 d f).toReal * max (B k) 0 * GlobalTheory.Grow.height (G.P i).V h ^ Ae := by
+        Kc * (Size.sobO R.ψ R.θ μ 𝓓 d f).toReal * max (B k) 0 * Grow.height (G.P i).V h ^ Ae := by
       intro g
       rw [norm_mul]
       have h1 := hK f hf g h
-      have h3 : ‖Fm k (v k) g‖ * GlobalTheory.Grow.quotHeight (G.P (i + 1)).V g ^ Ae ≤ max (B k) 0 :=
+      have h3 : ‖Fm k (v k) g‖ * Grow.quotHeight (G.P (i + 1)).V g ^ Ae ≤ max (B k) 0 :=
         (hB k hk g).trans (le_max_left _ _)
       calc ‖thetaKO (G.dn i).ω g h f‖ * ‖Fm k (v k) g‖
-          ≤ Kc * (GlobalTheory.Size.sobO R.ψ R.θ μ 𝓓 d f).toReal * GlobalTheory.Grow.quotHeight (G.P (i + 1)).V g ^ Ae *
-              GlobalTheory.Grow.height (G.P i).V h ^ Ae * ‖Fm k (v k) g‖ := mul_le_mul_of_nonneg_right h1 (norm_nonneg _)
-        _ = Kc * (GlobalTheory.Size.sobO R.ψ R.θ μ 𝓓 d f).toReal * GlobalTheory.Grow.height (G.P i).V h ^ Ae *
-              (‖Fm k (v k) g‖ * GlobalTheory.Grow.quotHeight (G.P (i + 1)).V g ^ Ae) := by ring
-        _ ≤ Kc * (GlobalTheory.Size.sobO R.ψ R.θ μ 𝓓 d f).toReal * GlobalTheory.Grow.height (G.P i).V h ^ Ae * max (B k) 0 := by
+          ≤ Kc * (Size.sobO R.ψ R.θ μ 𝓓 d f).toReal * Grow.quotHeight (G.P (i + 1)).V g ^ Ae *
+              Grow.height (G.P i).V h ^ Ae * ‖Fm k (v k) g‖ := mul_le_mul_of_nonneg_right h1 (norm_nonneg _)
+        _ = Kc * (Size.sobO R.ψ R.θ μ 𝓓 d f).toReal * Grow.height (G.P i).V h ^ Ae *
+              (‖Fm k (v k) g‖ * Grow.quotHeight (G.P (i + 1)).V g ^ Ae) := by ring
+        _ ≤ Kc * (Size.sobO R.ψ R.θ μ 𝓓 d f).toReal * Grow.height (G.P i).V h ^ Ae * max (B k) 0 := by
           gcongr
         _ = _ := by ring
     refine ⟨Integrable.of_bound hcont.aestronglyMeasurable _ (.of_forall hpt), ?_⟩
@@ -116,7 +116,7 @@ theorem downward_growth_approximation : _root_.GlobalTheory.FunPr.ThetaLocalInpu
   obtain ⟨g₀, hgS, hgU, hlt⟩ := happ d _ hδ
   obtain ⟨n, f, p, hf, rfl⟩ := exists_sum_of_mem_fockSpan hgS
   let f' : ℕ → (WO (G.P (i + 1)).V (G.P i).V → ℂ) := fun j => if hj : j < n then f ⟨j, hj⟩ else 0
-  let p' : ℕ → GlobalTheory.Grid.Pol (G.P (i + 1)) (G.P i) := fun j => if hj : j < n then p ⟨j, hj⟩ else 0
+  let p' : ℕ → Grid.Pol (G.P (i + 1)) (G.P i) := fun j => if hj : j < n then p ⟨j, hj⟩ else 0
   refine ⟨Finset.range n, f', p', fun j hj => ?_, ?_⟩
   · have hj' := Finset.mem_range.1 hj
     simp only [f', dif_pos hj']
@@ -128,8 +128,8 @@ theorem downward_growth_approximation : _root_.GlobalTheory.FunPr.ThetaLocalInpu
     intro l k hk h
     have ht : IsThetaFunO R.ψ (neg (G.P (i + 1)).V) (G.P i).V
         (ptF R.ψ R.θ (negFr (G.P (i + 1))) (Fr.ofModel (G.P i).M) (f l) (p l)) :=
-      GlobalTheory.Chain.InnerSteps.theta_pureTensorO hω.std hθ _ _ _ _ (hf l).1 (p l)
-    obtain ⟨U', hU', hl'⟩ := GlobalTheory.Size.isTheta_iff_level.1 ht
+      Chain.InnerSteps.theta_pureTensorO hω.std hθ _ _ _ _ (hf l).1 (p l)
+    obtain ⟨U', hU', hl'⟩ := Size.isTheta_iff_level.1 ht
     obtain ⟨_, _, hb⟩ := hbound U' hU'
     rw [← hpt l]
     exact (hb _ hl' k hk h).1
@@ -157,15 +157,15 @@ theorem downward_growth_approximation : _root_.GlobalTheory.FunPr.ThetaLocalInpu
         (fock R.ψ R.θ true (G.P (i + 1)) (G.P i) (f' j) (p' j)) * Fm k (v k) g ∂(G.mP (i + 1)).ν) n]
     refine Finset.sum_congr rfl fun l _ => ?_
     simp only [f', p', dif_pos l.isLt, Fin.eta]
-  set s := (GlobalTheory.Size.sobO R.ψ R.θ μ 𝓓 d
+  set s := (Size.sobO R.ψ R.θ μ 𝓓 d
     (Φ - ∑ l, ptF R.ψ R.θ (negFr (G.P (i + 1))) (Fr.ofModel (G.P i).M) (f l) (p l))).toReal with hsdef
   have hs0 : 0 ≤ s := ENNReal.toReal_nonneg
   have hs := ENNReal.toReal_lt_of_lt_ofReal hlt
-  have hle : GlobalTheory.Size.growthSize (G.P i).V Ae (fun h => (∑ k ∈ K, ∫ g in (G.mP (i + 1)).fd, thetaKO (G.dn i).ω g h Φ *
+  have hle : Size.growthSize (G.P i).V Ae (fun h => (∑ k ∈ K, ∫ g in (G.mP (i + 1)).fd, thetaKO (G.dn i).ω g h Φ *
       (Fm k (v k)) g ∂(G.mP (i + 1)).ν) - ∑ j ∈ Finset.range n, ∑ k ∈ K, ∫ g in (G.mP (i + 1)).fd, thetaKO (G.dn i).ω g h
         (fock R.ψ R.θ true (G.P (i + 1)) (G.P i) (f' j) (p' j)) * (Fm k (v k)) g ∂(G.mP (i + 1)).ν) ≤
       ENNReal.ofReal (M * s) := by
-    refine (GlobalTheory.Size.growthSize_le_iff (mul_nonneg hM0 hs0)).2 fun h => ?_
+    refine (Size.growthSize_le_iff (mul_nonneg hM0 hs0)).2 fun h => ?_
     rw [hsw h, ← Finset.sum_sub_distrib, Finset.sum_congr rfl fun k hk => e k hk h]
     refine (norm_sum_le _ _).trans ?_
     rw [hMdef, Finset.mul_sum, Finset.sum_mul, Finset.sum_mul]
