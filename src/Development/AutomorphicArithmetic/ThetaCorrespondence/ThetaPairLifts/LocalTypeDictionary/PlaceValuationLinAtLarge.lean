@@ -19,9 +19,9 @@ section Lin
 variable {T : Type} {D : D7} {L : LevCh D T} {sc : Consts} {G : GridData L sc} {W : G.Weil} {M : Vol G}
   {ρ : RealMatch W} {t : T}
 end Lin
-theorem placeValuation_linAt_large : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal → Big fun ch => LinAt ch := by
+theorem placeValuation_linAt_large : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal → Big fun ch => LinAt ch := by
   intro hP hL
-  obtain ⟨a0, ha⟩ := Big.and (Big.and (_root_.GlobalTheory.T.flipRun_cusp_transition hL hP) (_root_.GlobalTheory.EndCusp.leadingForm_mem_cuspList hP)) colFn_cont_left
+  obtain ⟨a0, ha⟩ := Big.and (Big.and (_root_.GlobalTheory.T.flipRun_cusp_transition hL hP) (EndCusp.leadingForm_mem_cuspList hP)) colFn_cont_left
   refine ⟨a0, fun ε CF hC => ?_⟩
   obtain ⟨x, hx⟩ := ha ε CF hC
   refine ⟨x, fun D large₂ he hxx Γ _ _ Pl0 T A Ks _ _ _ R F hS ch hch hsc => ?_⟩
@@ -31,10 +31,10 @@ theorem placeValuation_linAt_large : _root_.GlobalTheory.FunPr.ThetaLocalInputs 
     exact hS.core.models.inf
   intro t a τ hτ M hM τi y
   obtain ⟨e, he', φ, hφ, -⟩ := hτ
-  have hca : GlobalTheory.Unf.IsContAut _ (colFn ch a) := ⟨(hcol a).2, (hcol a).1⟩
-  have hFP : ∀ P : PolRow ch.G × PolDown ch.G, GlobalTheory.Unf.IsContAut _
+  have hca : Unf.IsContAut _ (colFn ch a) := ⟨(hcol a).2, (hcol a).1⟩
+  have hFP : ∀ P : PolRow ch.G × PolDown ch.G, Unf.IsContAut _
       (∑ d ∈ τ.support, τ d • liftP ch.W M (oppPath t D.R.m) (oppPure ch.W t P d) (formTop ch t y)) := fun P =>
-    GlobalTheory.SeeSaw.TrcProof.contAut_sum _ _ _ fun d hd =>
+    SeeSaw.TrcProof.contAut_sum _ _ _ fun d hd =>
       opp_contAut hP.cuspRapidDecay hθ (hstep t M hM) he' (htop t y) P d (φ d) (hφ d hd)
   simp only [lhs, liftT_oppTens]
   rw [bplus_fsum hch.toIsBase.vol hM hca _ _ _ fun P _ => hFP P, Finsupp.sum]
