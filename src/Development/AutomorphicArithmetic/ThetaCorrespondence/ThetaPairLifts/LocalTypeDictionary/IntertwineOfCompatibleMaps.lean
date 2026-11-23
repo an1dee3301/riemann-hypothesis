@@ -228,18 +228,18 @@ open scoped TensorProduct GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorMode
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
 open GlobalTheory.SquareComm GlobalTheory.SquareAgree
 namespace GlobalTheory.SquareAgree
-theorem _root_.GlobalTheory.BotUniqT.bottomLevel_ker_right : GlobalTheory.Published.HoweDualityReal → _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D) (W W₁ X : HSp D) (A : Fr W) (A₁ : Fr W₁)
+theorem _root_.GlobalTheory.BotUniqT.bottomLevel_ker_right : Published.HoweDualityReal → FunPr.ThetaLocalInputs → ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D) (W W₁ X : HSp D) (A : Fr W) (A₁ : Fr W₁)
     (B : Fr X) (α β : (AE D)ˣ →* Circle) (ν : Measure (GA D W)) (𝓕 : Set (GA D W)) (ν₁ : Measure (GA D W₁))
     (𝓕₁ : Set (GA D W₁)) (ωA : WRep W X) (ωB : WRep W₁ X) (e : Fin X.rank ≃ Fin (W.rank + W₁.rank))
-    (Bs : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E) (Γ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig W.rank W₁.rank)
-    (Xc : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E) (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W)
-    (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W) (cA : Matrix (Fin W.rank) (Fin (W.rank + W₁.rank)) (AE D) ≃+ WO W X)
+    (Bs : IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E) (Γ : IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig W.rank W₁.rank)
+    (Xc : IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E) (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W)
+    (om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W) (cA : Matrix (Fin W.rank) (Fin (W.rank + W₁.rank)) (AE D) ≃+ WO W X)
     (cB : Matrix (Fin W₁.rank) (Fin (W.rank + W₁.rank)) (AE D) ≃+ WO W₁ X),
     IsInfFam θ → IsTriple W W₁ X α β → ∀ (hO : IsOver ψ θ A A₁ B α β ν 𝓕 ν₁ 𝓕₁ ωA ωB e Bs Γ Xc om om' cA cB),
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs Γ Xc om om' →
-    ∀ R Rf, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs Γ Xc om om' R Rf →
+    IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs Γ Xc om om' →
+    ∀ R Rf, IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs Γ Xc om om' R Rf →
     ∀ Pi rf rl p p', IsMatch ψ θ A A₁ B α β ωA ωB Pi rf rl p p' →
-    ∀ Φ₀ ∈ algF ψ θ false A₁ B, ∀ Φ₀D ∈ algD Γ.M' Bs.ψ Bs.emb, IsDatum Γ.M' ψ cB Φ₀D Φ₀ → (p' Φ₀ = 0 ↔ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.PolMatch Bs Γ Xc R Rf 0 Φ₀D) := by
+    ∀ Φ₀ ∈ algF ψ θ false A₁ B, ∀ Φ₀D ∈ algD Γ.M' Bs.ψ Bs.emb, IsDatum Γ.M' ψ cB Φ₀D Φ₀ → (p' Φ₀ = 0 ↔ IndefiniteRowSideFullHecke.WeilTensorModels.PolMatch Bs Γ Xc R Rf 0 Φ₀D) := by
   intro hR hP D ψ θ W W₁ X A A₁ B α β ν 𝓕 ν₁ 𝓕₁ ωA ωB e Bs Γ Xc om om' cA cB hθ hT hO hT' R Rf hM Pi rf rl p p' hm
     Φ₀ hΦ₀ Φ₀D hΦ₀D hD
   obtain ⟨K, hK, hKs, hKne⟩ := _root_.GlobalTheory.T.thetaSubspace_eq_ker_projDerivation_of_square hP D ψ θ W W₁ X A A₁ B α β ν 𝓕 ν₁ 𝓕₁ ωA ωB e Bs Γ Xc om om' cA cB hθ hT hO hT'
@@ -311,11 +311,11 @@ private theorem commute_of_two_intertwiners {P₀ P : Type} [AddCommGroup P₀] 
   ext x
   simp only [Module.End.mul_apply, LinearEquiv.coe_coe, LinearEquiv.trans_apply]
   rw [hE, LinearEquiv.symm_apply_eq, hE', LinearEquiv.apply_symm_apply]
-theorem bottomLevel_unique_of_triple (hH : GlobalTheory.Published.HoweDualityReal) (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hL : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching)
-    {D : D7} {T : Type} {Lc : LevCh D T} {sc : GlobalTheory.ChiGrid.Consts} (G : GridData Lc sc) (W : G.Weil) (i j : Fin D.R.m)
+theorem bottomLevel_unique_of_triple (hH : Published.HoweDualityReal) (hP : FunPr.ThetaLocalInputs) (hL : IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching)
+    {D : D7} {T : Type} {Lc : LevCh D T} {sc : ChiGrid.Consts} (G : GridData Lc sc) (W : G.Weil) (i j : Fin D.R.m)
     {A A' WW : HSp D} (X : Tri T A A' WW) (hX : IsBottomTri W i j X) (t : T)
     (hT : IsTriple A A' WW (Lc.mu t (j + 1) * Lc.eta ^ (rankV D i j % 2)) (G.ch.chi (D.R.m - i) * Lc.eta ^ (rankV D i j % 2)))
-    (FA : GlobalTheory.ChainFr.Fr A) (FA' : GlobalTheory.ChainFr.Fr A') (FW : GlobalTheory.ChainFr.Fr WW)
+    (FA : ChainFr.Fr A) (FA' : ChainFr.Fr A') (FW : ChainFr.Fr WW)
     (Pi₀ : ModuleCat.{0} ℂ) (rf₀ : GA D WW → Module.End ℂ Pi₀)
     (rl₀ : D.what₂.Tau → Matrix (Fin WW.rank) (Fin WW.rank) ℂ → Module.End ℂ Pi₀)
     (p₀ : (WO A WW → ℂ) →ₗ[ℂ] Pi₀) (p₀' : (WO A' WW → ℂ) →ₗ[ℂ] Pi₀)
@@ -334,15 +334,15 @@ theorem bottomLevel_unique_of_triple (hH : GlobalTheory.Published.HoweDualityRea
   obtain ⟨R, Rf, hR⟩ := hL D.host.F D.host.E D.sp.cm.sig Bs A.rank A'.rank Γ Xc om om' hTD
   have kA : ∀ Φ ∈ algF W.ψ W.θ true FA FW, p₀ Φ = 0 ↔ p Φ = 0 := fun Φ hΦ => by
     obtain ⟨ΦD, hΦD, hD⟩ := hO.algA Φ hΦ
-    rw [_root_.GlobalTheory.BotUniqT.bottomLevel_ker_left hH hP D _ _ A A' WW FA FA' FW _ _ _ _
+    rw [bottomLevel_ker_left hH hP D _ _ A A' WW FA FA' FW _ _ _ _
         _ _ _ _ e Bs Γ Xc om om' cA cB hθ hT hO hTD R Rf hR Pi₀ rf₀ rl₀ p₀ p₀' hm₀ Φ hΦ ΦD hΦD hD,
-      _root_.GlobalTheory.BotUniqT.bottomLevel_ker_left hH hP D _ _ A A' WW FA FA' FW _ _ _ _
+      bottomLevel_ker_left hH hP D _ _ A A' WW FA FA' FW _ _ _ _
         _ _ _ _ e Bs Γ Xc om om' cA cB hθ hT hO hTD R Rf hR Pi rf rl p p' hm Φ hΦ ΦD hΦD hD]
   have kB : ∀ Φ ∈ algF W.ψ W.θ false FA' FW, p₀' Φ = 0 ↔ p' Φ = 0 := fun Φ hΦ => by
     obtain ⟨ΦD, hΦD, hD⟩ := hO.algB Φ hΦ
-    rw [_root_.GlobalTheory.BotUniqT.bottomLevel_ker_right hH hP D _ _ A A' WW FA FA' FW _ _
+    rw [bottomLevel_ker_right hH hP D _ _ A A' WW FA FA' FW _ _
         _ _ _ _ _ _ e Bs Γ Xc om om' cA cB hθ hT hO hTD R Rf hR Pi₀ rf₀ rl₀ p₀ p₀' hm₀ Φ hΦ ΦD hΦD hD,
-      _root_.GlobalTheory.BotUniqT.bottomLevel_ker_right hH hP D _ _ A A' WW FA FA' FW _ _
+      bottomLevel_ker_right hH hP D _ _ A A' WW FA FA' FW _ _
         _ _ _ _ _ _ e Bs Γ Xc om om' cA cB hθ hT hO hTD R Rf hR Pi rf rl p p' hm Φ hΦ ΦD hΦD hD]
   obtain ⟨EA, hEA⟩ := exists_equiv_of_same_kernel _ p₀ p hm₀.mapA.onto hm.mapA.onto kA
   obtain ⟨EB, hEB⟩ := exists_equiv_of_same_kernel _ p₀' p' hm₀.mapB.onto hm.mapB.onto kB
@@ -363,7 +363,7 @@ theorem bottomLevel_unique_of_triple (hH : GlobalTheory.Published.HoweDualityRea
   let ι := {g // g ∈ GfC WW} ⊕ {x : D.what₂.Tau × Matrix (Fin WW.rank) (Fin WW.rank) ℂ // x.2 ∈ lieAt WW x.1}
   let ρ : ι → Module.End ℂ Pi₀ := Sum.elim (fun g => rf₀ g.1) (fun x => rl₀ x.1.1 x.1.2)
   have hrank : Module.rank ℂ Pi₀ ≤ Cardinal.aleph0 :=
-    _root_.GlobalTheory.SquareAgree.rank_polarization_pi_le_aleph0 hH hP D _ _ A A' WW FA FA' FW _ _ _ _ _ _ _ _ e Bs Γ Xc om om'
+    SquareAgree.rank_polarization_pi_le_aleph0 hH hP D _ _ A A' WW FA FA' FW _ _ _ _ _ _ _ _ e Bs Γ Xc om om'
       cA cB hθ hT hO hTD R Rf hR Pi₀ rf₀ rl₀ p₀ p₀' hm₀
   have hirr : ∀ N : Submodule ℂ Pi₀, (∀ k, ∀ x ∈ N, ρ k x ∈ N) → N = ⊥ ∨ N = ⊤ := fun N hN =>
     hm₀.irred.2 N (fun g hg x hx => hN (Sum.inl ⟨g, hg⟩) x hx) fun τ Y hY x hx => hN (Sum.inr ⟨(τ, Y), hY⟩) x hx
@@ -372,7 +372,7 @@ theorem bottomLevel_unique_of_triple (hH : GlobalTheory.Published.HoweDualityRea
     rintro (⟨g, hg⟩ | ⟨⟨τ, Y⟩, hY⟩)
     · exact commute_of_two_intertwiners EA EB _ _ (fA g hg) (fB g hg)
     · exact commute_of_two_intertwiners EA EB _ _ (lA τ Y hY) (lB τ Y hY)
-  obtain ⟨c, hc⟩ := GlobalTheory.dixmier_commutant_scalar ι Pi₀ ρ hrank hirr _ hcomm
+  obtain ⟨c, hc⟩ := dixmier_commutant_scalar ι Pi₀ ρ hrank hirr _ hcomm
   have hT' : ∀ x, EB.symm (EA x) = c • x := fun x => by
     have := LinearMap.congr_fun hc x
     simpa using this
