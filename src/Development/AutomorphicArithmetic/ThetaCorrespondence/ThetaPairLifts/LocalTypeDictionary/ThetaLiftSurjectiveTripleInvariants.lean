@@ -22,28 +22,28 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 open GlobalTheory.SquareComm
 open scoped GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
 namespace GlobalTheory.TripleInv
-theorem theta_lift_surjective_triple_invariants : GlobalTheory.Published.HoweDualityReal → _root_.GlobalTheory.FunPr.ThetaLocalInputs →
+theorem theta_lift_surjective_triple_invariants : Published.HoweDualityReal → FunPr.ThetaLocalInputs →
     ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D), IsStdChar D ψ (-1) → IsInfFam θ →
     ∀ (W W₁ X : HSp D) (A : Fr W) (A₁ : Fr W₁) (B : Fr X) (α β : (AE D)ˣ →* Circle), IsTriple W W₁ X α β →
     ∀ (ωA : WRep W X) (ωB : WRep W₁ X), IsWeil ψ true W X β (β / α) ωA → IsWeil ψ false W₁ X α (α / β) ωB →
-    ∀ (e : Fin (W.rank + W₁.rank) ≃ Fin X.rank) (Bs : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E)
-      (Γ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig W.rank W₁.rank) (Xc : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E)
-      (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W) (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W)
-      (h : GlobalTheory.TripleRead.IsReading ψ A A₁ B α β e Bs Γ Xc),
-      GlobalTheory.TripleRead.IsTransp ψ true Γ.M om ωA e (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.conjU W 1 h.JW) (GlobalTheory.TripleRead.toUX X e h.JX) →
-      GlobalTheory.TripleRead.IsTransp ψ false Γ.M' om' ωB e (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.conjU W₁ (-1) h.JW₁) (GlobalTheory.TripleRead.toUX X e h.JX) →
-      ∀ R Rf, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs Γ Xc om om' R Rf →
-        (∀ Φ ∈ algF ψ θ true A B, ∃ Ψ ∈ GlobalTheory.TripleAssembly.darbAlg Γ.M Bs.ψ Bs.emb,
-            GlobalTheory.TripleRead.thO Γ.M ψ (sgn true W).gram e Ψ = Φ) ∧
-          ∀ Φ ∈ algF ψ θ false A₁ B, ∃ Ψ ∈ GlobalTheory.TripleAssembly.darbAlg Γ.M' Bs.ψ Bs.emb,
-            GlobalTheory.TripleRead.thO Γ.M' ψ (sgn false W₁).gram e Ψ = Φ := by
+    ∀ (e : Fin (W.rank + W₁.rank) ≃ Fin X.rank) (Bs : IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E)
+      (Γ : IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig W.rank W₁.rank) (Xc : IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E)
+      (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W) (om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W)
+      (h : TripleRead.IsReading ψ A A₁ B α β e Bs Γ Xc),
+      TripleRead.IsTransp ψ true Γ.M om ωA e (IndefiniteRowSideFullHecke.UnitaryConjugation.conjU W 1 h.JW) (TripleRead.toUX X e h.JX) →
+      TripleRead.IsTransp ψ false Γ.M' om' ωB e (IndefiniteRowSideFullHecke.UnitaryConjugation.conjU W₁ (-1) h.JW₁) (TripleRead.toUX X e h.JX) →
+      ∀ R Rf, IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs Γ Xc om om' R Rf →
+        (∀ Φ ∈ algF ψ θ true A B, ∃ Ψ ∈ TripleAssembly.darbAlg Γ.M Bs.ψ Bs.emb,
+            TripleRead.thO Γ.M ψ (sgn true W).gram e Ψ = Φ) ∧
+          ∀ Φ ∈ algF ψ θ false A₁ B, ∃ Ψ ∈ TripleAssembly.darbAlg Γ.M' Bs.ψ Bs.emb,
+            TripleRead.thO Γ.M' ψ (sgn false W₁).gram e Ψ = Φ := by
   intro hHowe hPr D ψ θ hψ hθ W W₁ X A A₁ B α β hT ωA ωB hA hB e Bs Γ Xc om om' h hTr hTr' R Rf hM
-  have hstd : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ := h.ψ ▸ hM.triple.base.std
+  have hstd : IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ := h.ψ ▸ hM.triple.base.std
   have hG : Γ.M.IsGood ψ := h.ψ ▸ hM.triple.geo.hM
   have hG' : Γ.M'.IsGood ψ := h.ψ ▸ hM.triple.geo.hM'
   have hX : Γ.W.J.det ≠ 0 := by
     rw [h.JX, Matrix.det_smul, Matrix.det_submatrix_equiv_self, Matrix.det_transpose]
-    exact mul_ne_zero (pow_ne_zero _ (GlobalTheory.DualPairCompare.embedding_xi_zero_ne_zero D)) (gram_det_ne X)
+    exact mul_ne_zero (pow_ne_zero _ (DualPairCompare.embedding_xi_zero_ne_zero D)) (gram_det_ne X)
   have hV : Γ.V.J.det ≠ 0 := by
     rw [h.JW, one_smul]; exact gram_det_ne W
   have hV' : Γ.V'.J.det ≠ 0 := by
