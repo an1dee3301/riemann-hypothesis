@@ -17,7 +17,7 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 end GlobalTheory.BigTop.Fun
 namespace GlobalTheory.BigTop.Fun
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
-theorem rankGapBound_alt : _root_.GlobalTheory.BigTop.Fun.RankGapBound' := by
+theorem rankGapBound_alt : RankGapBound' := by
   refine ⟨0, fun CF _ => ⟨1, one_pos, fun eps heps heps1 => ⟨⟨0, fun _ => 0, fun _ => 0, fun _ => 0⟩,
     fun Fm CH hF _ => ?_⟩⟩⟩
   refine fun _ => ?_
@@ -125,7 +125,7 @@ theorem rankGapBound_alt : _root_.GlobalTheory.BigTop.Fun.RankGapBound' := by
       rw [Real.log_pow]; push_cast; ring
     have e5 : Real.log ((2 * C) ^ 2) ≤ Real.log x := Real.log_le_log (by positivity) hxC
     linarith
-  refine GlobalTheory.SizeLeafCheck.tree_leaf_parameter_arithmetic_of_bounds d.O C p.Z.b hC hH1 hH7 ?_ ?_ hL
+  refine SizeLeafCheck.tree_leaf_parameter_arithmetic_of_bounds d.O C p.Z.b hC hH1 hH7 ?_ ?_ hL
   · rw [hb]
     exact l1
   · exact l2
