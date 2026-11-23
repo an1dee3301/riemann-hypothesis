@@ -33,7 +33,7 @@ structure NGalTiedAlt (D : D7) where
   mt : MtFam D
   hecke : HeckeTied D mt
   av : AVTied D mt
-  au : _root_.Formalism.L2.AUTiedAlt D lp mt av
+  au : L2.AUTiedAlt D lp mt av
   rational : HeckeRational D mt
   tup : D.what₂.Tup → Fin D.R.m → Host.HChar D.host.E
   level : LevelTied D mt tup
