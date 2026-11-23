@@ -31,12 +31,12 @@ section Units
 variable {K : Type} [Field K] [NumberField K] [StarRing K]
 end Units
 section Descent
-variable {D : D7} {T : Type} {Lc : LevCh D T} {sc : GlobalTheory.ChiGrid.Consts} {G : GridData Lc sc} {W : G.Weil} {μ₀ : T}
+variable {D : D7} {T : Type} {Lc : LevCh D T} {sc : ChiGrid.Consts} {G : GridData Lc sc} {W : G.Weil} {μ₀ : T}
 end Descent
 end GlobalTheory.SqTower
 namespace GlobalTheory.SqTower
 open GlobalTheory.SqTower
-theorem tower_alt_bis : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching → LNe → Tower := by
+theorem tower_alt_bis : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching → LNe → Tower := by
   intro hP hK hM hL
   have H := gbig_and (_root_.GlobalTheory.T.witt_tower_top_stage_theta_norm_formula hP hK hM) (gbig_and (_root_.GlobalTheory.T.exists_factor_of_isStageC hP hK hM) (gbig_and (_root_.GlobalTheory.T.witt_tower_norm_step_of_small_rank hP hK hM)
     (gbig_and (_root_.GlobalTheory.T.witt_tower_norm_step_of_large_rank hP hK hM) (gbig_and (_root_.GlobalTheory.T.witt_tower_constant_ratio_eq_bottom hP hK hM) hL))))
