@@ -38,23 +38,23 @@ open GlobalTheory.SquareComm GlobalTheory.SquareAgree
 open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
 noncomputable section
 namespace GlobalTheory.PureProdRuleDual
-theorem lift_splits_locally : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (D : D7) (θ : InfFam D) (X : HSp D) {a a' : ℕ} (e : Fin X.rank ≃ Fin (a + a'))
-    (Bs : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E) (Γ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig a a')
-    (Xc : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E) (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W)
-    (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W) (hJ : Γ.W.J = D.host.xi0 • reindex e e X.gramᵀ),
-    IsInfFam θ → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs Γ Xc om om' →
+theorem lift_splits_locally : FunPr.ThetaLocalInputs → ∀ (D : D7) (θ : InfFam D) (X : HSp D) {a a' : ℕ} (e : Fin X.rank ≃ Fin (a + a'))
+    (Bs : IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E) (Γ : IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig a a')
+    (Xc : IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E) (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W)
+    (om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W) (hJ : Γ.W.J = D.host.xi0 • reindex e e X.gramᵀ),
+    IsInfFam θ → IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs Γ Xc om om' →
     ∀ l : List (D.what₂.Tau × Matrix (Fin X.rank) (Fin X.rank) ℂ), (∀ q ∈ l, q.2 ∈ lieAt X q.1) →
     ∀ f ∈ Γ.M'.Pol Bs.ψ Bs.emb, ∀ φ : ∀ v : IsDedekindDomain.HeightOneSpectrum (𝓞 D.host.F), (Fin a' × Fin (a + a') → v.adicCompletion D.host.F) → ℂ,
-    (∀ v, φ v ∈ GlobalTheory.WeilM.SB _) → (∀ᶠ v in Filter.cofinite, φ v = Γ.M'.vac v) →
+    (∀ v, φ v ∈ WeilM.SB _) → (∀ᶠ v in Filter.cofinite, φ v = Γ.M'.vac v) →
     ∀ Ψ : Fin l.length → (Fin a' × Fin (a + a') → AF D.host.F) → ℂ,
     (∀ i, Ψ i ∈ algD Γ.M' Bs.ψ Bs.emb ∧
-        ∀ x, HasDerivAt (fun t : ℝ => om' (1, kapX X e hJ (oneP θ X (l.get i).1 (l.get i).2 t)) (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure f φ) x) (Ψ i x) 0) →
-    ∀ x, HasDerivAt (fun t : ℝ => om' (1, kapX X e hJ ((l.map fun q => oneP θ X q.1 q.2 t).prod)) (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure f φ) x) (∑ i, Ψ i x) 0 := by
+        ∀ x, HasDerivAt (fun t : ℝ => om' (1, kapX X e hJ (oneP θ X (l.get i).1 (l.get i).2 t)) (IndefiniteRowSideFullHecke.WeilTensorModels.pure f φ) x) (Ψ i x) 0) →
+    ∀ x, HasDerivAt (fun t : ℝ => om' (1, kapX X e hJ ((l.map fun q => oneP θ X q.1 q.2 t).prod)) (IndefiniteRowSideFullHecke.WeilTensorModels.pure f φ) x) (∑ i, Ψ i x) 0 := by
   classical
   intro hP D θ X a a' e Bs Γ Xc om om' hJ hθ hTr l hl f hf φ hφ hvac Ψ hΨ x
   have hline : ∀ i : Fin l.length, ∃ γ ∈ Lines D.sp.cm.sig Γ.W, ∀ t : ℝ,
       γ (Multiplicative.ofAdd t) = kapX X e hJ (oneP θ X (l.get i).1 (l.get i).2 t) := fun i =>
-    GlobalTheory.KapXLine.exists_line D θ X (l.get i).1 (l.get i).2 hθ (hl _ (List.get_mem _ _)) e Γ.W hJ
+    KapXLine.exists_line D θ X (l.get i).1 (l.get i).2 hθ (hl _ (List.get_mem _ _)) e Γ.W hJ
   choose γ hγ hγt using hline
   have hT := fun i => _root_.GlobalTheory.T.archimedean_theta_family_exists_smooth hP Γ.M' Bs.ψ Xc.α (Xc.α / Xc.β) om' hTr.base.cm hTr.base.std hTr.weil' (γ i) (hγ i)
   choose T hTa hTadd hT0 using hT
@@ -65,7 +65,7 @@ theorem lift_splits_locally : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀
   obtain ⟨r, hR, hpure⟩ : ∃ r : (Fin a' × Fin (a + a') → AF D.host.F) → ℂ,
       (∀ g : SInf D.host.F (Fin a' × Fin (a + a')), Rest (evI D.host.F) ⇑g r) ∧
       ∀ g : SInf D.host.F (Fin a' × Fin (a + a')), pure g φ = tens (evI D.host.F) ⇑g r :=
-    ⟨_, fun g => GlobalTheory.ThK.EvUniqInf.rest_pure g φ hφ hstd, fun g => rfl⟩
+    ⟨_, fun g => ThK.EvUniqInf.rest_pure g φ hφ hstd, fun g => rfl⟩
   have hlist : ∀ (t : ℝ) (L : List (Fin l.length)) (g : SInf D.host.F (Fin a' × Fin (a + a'))),
       (L.map fun i => om' (1, γ i (Multiplicative.ofAdd t))).prod (tens (evI D.host.F) ⇑g r) =
         tens (evI D.host.F) ⇑((L.map fun i => T i t).prod g) r := by
@@ -78,8 +78,8 @@ theorem lift_splits_locally : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀
       rw [ih g]
       exact hTa i t _ r (hR _)
   let κ : GA D X →* UA D.sp.cm.sig Γ.W.J :=
-    { toFun := kapX X e hJ, map_one' := GlobalTheory.KapXLine.kapX_one X e hJ,
-      map_mul' := GlobalTheory.KapXLine.kapX_mul X e hJ }
+    { toFun := kapX X e hJ, map_one' := KapXLine.kapX_one X e hJ,
+      map_mul' := KapXLine.kapX_mul X e hJ }
   let H : GA D X →* Module.End ℂ ((Fin a' × Fin (a + a') → AF D.host.F) → ℂ) :=
     (om'.comp (MonoidHom.inr _ _)).comp κ
   have hH : ∀ g, H g = om' (1, kapX X e hJ g) := fun g => rfl
