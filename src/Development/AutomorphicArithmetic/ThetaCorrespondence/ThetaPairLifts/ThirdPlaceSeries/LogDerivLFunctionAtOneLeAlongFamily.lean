@@ -20,7 +20,7 @@ section
 open Formalism.BasicNotions Formalism.MainNotions GlobalTheory.BigTop GlobalTheory.BigTop.Fun GlobalTheory.SqTop
 namespace GlobalTheory
 theorem logDeriv_LFunction_at_one_le_along_family_alt :
-    _root_.GlobalTheory.FunPr.ThetaLocalInputs → (Closed FamHyp fun Fm _ => _root_.GlobalTheory.BigTop.EventuallyAtPoints Fm fun x _ i _ =>
+    FunPr.ThetaLocalInputs → (Closed FamHyp fun Fm _ => BigTop.EventuallyAtPoints Fm fun x _ i _ =>
       |(Fm.L x i).logDerivativeAtOne| ≤ (Fm.L x i).sc.x ^ (Fm.L x i).sc.eps) := by
   intro _
   refine ⟨1, one_pos, fun eps _ _ => ⟨⟨0, fun _ => 0, fun _ => 0, fun _ => 0⟩, fun Fm _ _ _ => ?_⟩⟩
