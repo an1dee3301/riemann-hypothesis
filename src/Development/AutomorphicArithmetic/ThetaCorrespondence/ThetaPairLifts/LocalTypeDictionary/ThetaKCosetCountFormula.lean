@@ -18,13 +18,13 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.Local
   GlobalTheory.FunObj.borelSpaceKw
 namespace GlobalTheory.CosCount
 variable {D : D7} {T : Type} {L : LevCh D T} {sc : Consts} {G : GridData L sc} {W : G.Weil} {U : Set T}
-theorem card_kCosets_theta : _root_.GlobalTheory.FunPr.ThetaLocalInputs → CosK := by
+theorem card_kCosets_theta : FunPr.ThetaLocalInputs → CosK := by
   intro _
   refine ⟨0, fun CF _ => ⟨0, fun ε C hC => ⟨0, fun D large₂ _ _ Γ _ _ Pl0 T A Ks _ _ _ R F s ch _ _ _ => ?_⟩⟩⟩
   intro Φ
   have hL := s.core.lev
-  have hde := GlobalTheory.RowClaim.Test.pde_ne_q s
-  have hQ := GlobalTheory.LiftLower.Q_base hL
+  have hde := RowClaim.Test.pde_ne_q s
+  have hQ := LiftLower.Q_base hL
   have hsub : (ch.S.supp A.μ0 Φ).Subsingleton := supp_subsingleton hL ch.S.toGridChoice A.μ0 Φ hde hQ
   have h1 : ((ch.S.supp A.μ0 Φ).ncard : ℝ) ≤ 1 := by
     haveI : Finite (ch.S.supp A.μ0 Φ) := hsub.finite.to_subtype
