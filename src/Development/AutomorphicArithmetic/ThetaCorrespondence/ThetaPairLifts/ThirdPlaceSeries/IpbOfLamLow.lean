@@ -17,7 +17,7 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 end GlobalTheory.BigTop.Fun.IPbProof
 namespace GlobalTheory.BigTop.Fun
 open GlobalTheory.BigTop.Fun.IPbProof
-theorem ipb_of_lamLow_alt : _root_.GlobalTheory.BigTop.LambdaLowerBound₂ → _root_.GlobalTheory.BigTop.Fun.LeafInfinitePlaceBound := by
+theorem ipb_of_lamLow_alt : LambdaLowerBound₂ → LeafInfinitePlaceBound := by
   intro hL
   refine ⟨0, ?_⟩
   intro CF hCF
@@ -74,7 +74,7 @@ theorem ipb_of_lamLow_alt : _root_.GlobalTheory.BigTop.LambdaLowerBound₂ → _
         C * (((Fm.D x i).R.f : ℝ) * (d.O.N : ℝ) ^ 2 * (Fm.L x i).sc.L) :=
       mul_le_mul_of_nonneg_right hC1 hB0
     nlinarith
-  refine GlobalTheory.InfinitePlacesProbe.clauseB_of_lifts (p.S false) (p.S true) (p.N C CH) d.O hC0 hb ⟨rfl, rfl, rfl⟩ h6
+  refine InfinitePlacesProbe.clauseB_of_lifts (p.S false) (p.S true) (p.N C CH) d.O hC0 hb ⟨rfl, rfl, rfl⟩ h6
     (by simp; rfl) fun j => ?_
   have hm0 : 0 ≤ ∑ ρ : Formalism.L2.DIV.RPl (Fm.D x i).R,
       (Formalism.L2.DIV.ofRecord (Fm.D x i) (Fm.L x i) p.Del p.h0).logHook
