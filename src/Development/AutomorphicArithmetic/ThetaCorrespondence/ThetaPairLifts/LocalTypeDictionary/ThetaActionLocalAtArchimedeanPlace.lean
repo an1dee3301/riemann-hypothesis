@@ -14,7 +14,7 @@ open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels NumberField IsDede
 open scoped Matrix
 noncomputable section
 namespace GlobalTheory.ArchLocality
-theorem theta_action_local_at_archimedean_place : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E}
+theorem theta_action_local_at_archimedean_place : FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E}
     {n d : ℕ} {X : Spc F E n} {W : Spc F E d} (M : Model σ X W) (ψ : AddChar (AF F) ℂ) (χX χW : Chr F E) (om : Rep σ X W),
     IsCMExt F E σ → IsStd ψ → M.IsWeil ψ χX χW om →
     ∀ h ∈ UAt σ W (evI F), ∀ f : SInf F (Fin n × Fin d), ∃ f₁ : SInf F (Fin n × Fin d), Acts (evI F) (om (1, h)) f f₁ := by
@@ -41,7 +41,7 @@ theorem theta_action_local_at_archimedean_place : _root_.GlobalTheory.FunPr.Thet
     exact e
   set Φ₁ := tens (evI F) (f : (Fin n × Fin d → mixedEmbedding.mixedSpace F) → ℂ) r with hΦ₁
   set Φ₂ : (Fin n × Fin d → AF F) → ℂ := r y • (fun w => Φ₀ (w + u • (-y))) with hΦ₂
-  have hm₂ : Φ₂ ∈ schA F _ := Submodule.smul_mem _ _ (GlobalTheory.SchwartzTranslation.schA_add_const _ _ hm₀)
+  have hm₂ : Φ₂ ∈ schA F _ := Submodule.smul_mem _ _ (SchwartzTranslation.schA_add_const _ _ hm₀)
   have hz2 : ∀ z : Fin n × Fin d → AF F, At (evI F) z → ∀ i, (z i).2 = 0 := by
     intro z hz i
     have := congrArg Prod.snd (congrFun (hz u hu0) i)
