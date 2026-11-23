@@ -21,7 +21,7 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.Local
 noncomputable section
 namespace GlobalTheory.ColFockRed
 open GlobalTheory.Grid
-theorem theta_lift_finite_sum_smooth : GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal → _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (D : D7), GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.Sizes D → ∀ (G₀ : Type) [Group G₀] [Fintype G₀] (Pl0 T : Type) (A : FamIn D.what₂.LL G₀ Pl0 T D.R.m) (Ks : Type) [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] (R : RealDat D A Ks) (G : GlobalTheory.Grid.GridPre R), GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.RowBase R → G.Is → ∀ t j, j < D.R.m → ∀ Φ, IsThetaFunO R.ψ (G.Xp j).V (G.Xp (j + 1)).V Φ →
+theorem theta_lift_finite_sum_smooth : IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal → FunPr.ThetaLocalInputs → ∀ (D : D7), IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.Sizes D → ∀ (G₀ : Type) [Group G₀] [Fintype G₀] (Pl0 T : Type) (A : FamIn D.what₂.LL G₀ Pl0 T D.R.m) (Ks : Type) [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] (R : RealDat D A Ks) (G : Grid.GridPre R), IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.RowBase R → G.Is → ∀ t j, j < D.R.m → ∀ Φ, IsThetaFunO R.ψ (G.Xp j).V (G.Xp (j + 1)).V Φ →
     ∀ (n : ℕ) (F : Fin n → (G.Xp j).Cusp R.θ) (w : Fin n → SmT (G.Xp j).M),
     (∀ h, IntegrableOn (fun g => thetaKO (G.col t j).ω g h Φ * (∑ i, (F i).1 (w i)) g) (G.measX j).fd (G.measX j).ν) →
     ∃ (k : ℕ) (F' : Fin k → (G.Xp (j + 1)).Cusp R.θ) (z : Fin k → SmT (G.Xp (j + 1)).M),
@@ -31,12 +31,12 @@ theorem theta_lift_finite_sum_smooth : GlobalTheory.IndefiniteRowSideFullHecke.C
   have hθ : IsInfFam R.θ := hRB.inf
   obtain ⟨νS, PS, hS⟩ := xp_is hG j hj.le
   obtain ⟨νT, PT, hT⟩ := xp_is hG (j + 1) hj
-  obtain ⟨hsig, hdef⟩ := GlobalTheory.ColTypeLift.xp_definite hG j hj.le
+  obtain ⟨hsig, hdef⟩ := ColTypeLift.xp_definite hG j hj.le
   obtain ⟨χ, hχ⟩ := GlobalTheory.T.exists_realCentralCharacter_definiteVertexMultiplicity D R.θ hθ (G.Xp j) νS PS hS
-  have hψc : GlobalTheory.SeeSaw.HasCen (G.Xp j).V χ (∑ i, (F i).1 (w i)) := fun z hz hc h => by
+  have hψc : SeeSaw.HasCen (G.Xp j).V χ (∑ i, (F i).1 (w i)) := fun z hz hc h => by
     simp only [Finset.sum_apply, Finset.mul_sum]
     exact Finset.sum_congr rfl fun i _ => hχ (F i) (w i) z hz hc h
-  have hψa : GlobalTheory.Unf.IsContAut (G.Xp j).V (∑ i, (F i).1 (w i)) := by
+  have hψa : Unf.IsContAut (G.Xp j).V (∑ i, (F i).1 (w i)) := by
     refine ⟨fun γ hγ g => ?_, by rw [Finset.sum_fn]; exact continuous_finsetSum _ fun i _ => (isContAut_cusp (F i) (w i)).2⟩
     simp only [Finset.sum_apply]
     exact Finset.sum_congr rfl fun i _ => (isContAut_cusp (F i) (w i)).1 γ hγ g
