@@ -27,14 +27,14 @@ noncomputable section
 open Classical
 namespace GlobalTheory.DefiniteDecomp
 open Formalism.IndefR.Mult Matrix GlobalTheory.Grid
-theorem cusp_forms_decompose_definite_unitary : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {D : D7} (θ : InfFam D) (N : GlobalTheory.Grid.Node D), IsInfFam θ → N.V.SigOK → N.V.IsDefinite →
-    ∀ φ, GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.IsCuspOfType θ N φ →
+theorem cusp_forms_decompose_definite_unitary : FunPr.ThetaLocalInputs → ∀ {D : D7} (θ : InfFam D) (N : Grid.Node D), IsInfFam θ → N.V.SigOK → N.V.IsDefinite →
+    ∀ φ, IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.IsCuspOfType θ N φ →
       ∃ (n : ℕ) (F : Fin n → N.Cusp θ) (w : Fin n → SmT N.M), φ = ∑ i, (F i).1 (w i) := by
   intro hP D θ N hθ hs hd φ hφ
   obtain ⟨hAut, -, hType⟩ := hφ
-  haveI hfd : ∀ τ, FiniteDimensional ℂ (N.M.H τ) := fun τ => GlobalTheory.DefiniteEnd.finiteDimensional_model hs hd N.M τ
+  haveI hfd : ∀ τ, FiniteDimensional ℂ (N.M.H τ) := fun τ => DefiniteEnd.finiteDimensional_model hs hd N.M τ
   have hmulK : ∀ τ, ∀ g ∈ Formalism.QuantumDeterminants.UH (gramAt D N.V τ), ∀ h ∈ Formalism.QuantumDeterminants.UH (gramAt D N.V τ),
-      g * h ∈ Formalism.QuantumDeterminants.UH (gramAt D N.V τ) := fun τ g hg h hh => GlobalTheory.PointAtPlaceHom.mul_mem_UH hg hh
+      g * h ∈ Formalism.QuantumDeterminants.UH (gramAt D N.V τ) := fun τ g hg h hh => PointAtPlaceHom.mul_mem_UH hg hh
   have hρ : ∀ τ, ∀ g ∈ Formalism.QuantumDeterminants.UH (gramAt D N.V τ), ∀ h ∈ Formalism.QuantumDeterminants.UH (gramAt D N.V τ),
       (N.M.rep τ (g * h) : N.M.H τ →ₗ[ℂ] N.M.H τ) =
         (N.M.rep τ g : N.M.H τ →ₗ[ℂ] N.M.H τ) ∘ₗ (N.M.rep τ h : N.M.H τ →ₗ[ℂ] N.M.H τ) := by
@@ -85,7 +85,7 @@ theorem cusp_forms_decompose_definite_unitary : _root_.GlobalTheory.FunPr.ThetaL
       MultilinearMap.compLinearMap_apply, MultilinearMap.mkPiAlgebra_apply, Pi.smul_apply, smul_eq_mul]
   have hMult : ∀ a, IsMultMap θ N.M ∅ 1 (T a) := by
     intro a
-    refine ⟨fun v => ?_, fun v => GlobalTheory.DefiniteEnd.isCuspFun_of_definite hs hd _,
+    refine ⟨fun v => ?_, fun v => DefiniteEnd.isCuspFun_of_definite hs hd _,
       fun v k' hk' => absurd hk' (Set.notMem_empty k'), fun τ₀ h hh v w hw => ?_, fun τ v x => ?_⟩
     · have e : T a v = ∑ J : (∀ τ, Fin (m τ)), (∏ τ, ℓ a τ (J τ) (v τ)) •
           rTr N.V (realProd θ N.V (fun τ => k τ (J τ))) φ := by
@@ -93,8 +93,8 @@ theorem cusp_forms_decompose_definite_unitary : _root_.GlobalTheory.FunPr.ThetaL
         rw [hT, Finset.sum_apply]
         rfl
       rw [e]
-      refine Finset.sum_induction _ (IsAutFunSm θ N.V) (fun f g hf hg => GlobalTheory.MultMem.isAutFunSm_add hf hg) ?_
-        (fun J _ => GlobalTheory.MultMem.isAutFunSm_smul _ (isAutFunSm_realProd hθ _ hAut))
+      refine Finset.sum_induction _ (IsAutFunSm θ N.V) (fun f g hf hg => MultMem.isAutFunSm_add hf hg) ?_
+        (fun J _ => MultMem.isAutFunSm_smul _ (isAutFunSm_realProd hθ _ hAut))
       exact Formalism.L2.Theta.isAutFunSm_const (θ := θ) (V := N.V) (c := (0 : ℂ))
     · funext x
       have hkJ : ∀ J : (∀ τ, Fin (m τ)), ∀ τ, (fun τ => k τ (J τ)) τ ∈ Formalism.QuantumDeterminants.UH (gramAt D N.V τ) :=
@@ -106,7 +106,7 @@ theorem cusp_forms_decompose_definite_unitary : _root_.GlobalTheory.FunPr.ThetaL
         have e1 := realProd_update hθ (hkJ J) τ₀ (hmulK τ₀ h hh _ (hk τ₀ (J τ₀)))
         have e2 := realProd_update hθ (hkJ J) τ₀ (hk τ₀ (J τ₀))
         rw [Function.update_eq_self] at e2
-        rw [e1, e2, GlobalTheory.PointAtPlaceHom.atTau_mul hθ N.V τ₀ hh (hk τ₀ (J τ₀))]
+        rw [e1, e2, PointAtPlaceHom.atTau_mul hθ N.V τ₀ hh (hk τ₀ (J τ₀))]
         simp only [mul_assoc]
       show T a (Function.update v τ₀ w) x = T a v (x * atTau θ N.V τ₀ h)
       rw [hT, hT]
@@ -128,7 +128,7 @@ theorem cusp_forms_decompose_definite_unitary : _root_.GlobalTheory.FunPr.ThetaL
         (hρ τ₀) (k τ₀) (hk τ₀) (B τ₀) (hB2 τ₀) _ hf (hmulK τ₀) ((bH τ₀).coord (a τ₀)) (v τ₀ : N.M.H τ₀) hh
       simp only [ℓ, LinearMap.comp_apply, Submodule.subtype_apply, hw]
       exact this
-    · exact GlobalTheory.DefiniteEnd.exists_sobCont N.M τ (T a) v x
+    · exact DefiniteEnd.exists_sobCont N.M τ (T a) v x
   have hmem : ∀ a, PiTensorProduct.lift (T a) ∈ N.Cusp θ := fun a =>
     (mem_multT θ N.M ∅ 1 _).2 (by rw [LinearEquiv.symm_apply_apply]; exact Submodule.subset_span (hMult a))
   let e : ∀ τ, Fin (Module.finrank ℂ (N.M.H τ)) → N.M.sm τ := fun τ i => ⟨bH τ i, by rw [sm_eq_top N.M τ]; trivial⟩
@@ -147,7 +147,7 @@ theorem cusp_forms_decompose_definite_unitary : _root_.GlobalTheory.FunPr.ThetaL
     have h2 := GlobalTheory.T.eq_sum_prod_of_expansion_in_each_coordinate (X := fun _ => Matrix (Fin N.V.rank) (Fin N.V.rank) ℂ)
       (fun τ => Formalism.QuantumDeterminants.UH (gramAt D N.V τ)) m k hk
       (fun τ j g => LinearMap.trace ℂ (N.M.H τ) ((N.M.rep τ g : N.M.H τ →ₗ[ℂ] N.M.H τ) ∘ₗ B τ j)) (F x)
-      (fun τ₀ g hg => hFexp x τ₀ g hg) (fun _ => 1) (fun τ => GlobalTheory.PointAtPlaceHom.one_mem_UH _)
+      (fun τ₀ g hg => hFexp x τ₀ g hg) (fun _ => 1) (fun τ => PointAtPlaceHom.one_mem_UH _)
     rw [h1, h2]
     simp only [hT]
     rw [Finset.sum_comm]
