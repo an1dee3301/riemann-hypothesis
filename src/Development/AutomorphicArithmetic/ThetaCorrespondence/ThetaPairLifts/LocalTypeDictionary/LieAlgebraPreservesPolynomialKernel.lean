@@ -24,14 +24,14 @@ open scoped TensorProduct
 noncomputable section
 namespace GlobalTheory.PolKerLie
 open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.PolKer
-theorem polynomialKernel_constTerm_lieDeriv : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
-    (Bs : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (Xc : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
-    (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W) (R : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a')
-    (Rf : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'), GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs G Xc om om' R Rf → ∀ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ G.W, ∀ Φ Φ₁, GlobalTheory.PolKer.PolZero Bs G Xc R Rf (Φ) →
-    (∀ x, HasDerivAt (fun t : ℝ => om (1, γ (Multiplicative.ofAdd t)) Φ x) (Φ₁ x) 0) → GlobalTheory.PolKer.PolZero Bs G Xc R Rf (Φ₁) := by
+theorem polynomialKernel_constTerm_lieDeriv : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
+    (Bs : IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (Xc : IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
+    (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W) (R : IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a')
+    (Rf : IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'), IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs G Xc om om' R Rf → ∀ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ G.W, ∀ Φ Φ₁, PolKer.PolZero Bs G Xc R Rf (Φ) →
+    (∀ x, HasDerivAt (fun t : ℝ => om (1, γ (Multiplicative.ofAdd t)) Φ x) (Φ₁ x) 0) → PolKer.PolZero Bs G Xc R Rf (Φ₁) := by
   intro hP F E _ _ _ _ _ σ Bs a a' G Xc om om' R Rf hM γ hγ Φ Φ₁ hΦ hd
   obtain ⟨T, hT, m, f, φ, hf, rfl, hz⟩ := hΦ
-  have act := _root_.GlobalTheory.T.dualPair_preserves_polarization hP _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ (GlobalTheory.ThK.RealUniq.isPair_V hM.triple)
+  have act := _root_.GlobalTheory.T.dualPair_preserves_polarization hP _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ (ThK.RealUniq.isPair_V hM.triple)
   obtain ⟨D, hDm, hDi⟩ := act.2.2.1 γ hγ
   have hstd : ∀ i, ∀ᶠ v in Filter.cofinite,
       φ i v = Set.indicator {x | ∀ j, x j ∈ v.adicCompletionIntegers F} 1 := by
@@ -41,7 +41,7 @@ theorem polynomialKernel_constTerm_lieDeriv : _root_.GlobalTheory.FunPr.ThetaLoc
   have hder : ∀ i x, HasDerivAt (fun t : ℝ => om (1, γ (Multiplicative.ofAdd t)) (pure (f i) (φ i)) x)
       (pure (D (f i)) (φ i) x) 0 := fun i x =>
     (hDi (f i) (hf i).1 (D (f i))).2 rfl _
-      (GlobalTheory.ThK.EvUniqInf.rest_pure (f i) (φ i) (hf i).2.1 (hstd i)) x
+      (ThK.EvUniqInf.rest_pure (f i) (φ i) (hf i).2.1 (hstd i)) x
   have hsum : ∀ x, HasDerivAt (fun t : ℝ => om (1, γ (Multiplicative.ofAdd t)) (∑ i, pure (f i) (φ i)) x)
       (∑ i, pure (D (f i)) (φ i) x) 0 := by
     intro x
@@ -64,11 +64,11 @@ theorem polynomialKernel_constTerm_lieDeriv : _root_.GlobalTheory.FunPr.ThetaLoc
     exact ⟨⟨g, hg⟩, e⟩
   have ker0 : ∀ g ∈ G.M.Pol Bs.ψ Bs.emb, R.p g = 0 → R.p (D g) = 0 := fun g hg h0 => by
     have := hM.real.lie γ hγ g hg 0 (zero_mem _) (D g) 0 ((hDi g hg _).2 rfl)
-      (GlobalTheory.ThK.RealUniq.actsD_zero _) (by rw [h0, map_zero])
+      (ThK.RealUniq.actsD_zero _) (by rw [h0, map_zero])
     rwa [map_zero] at this
-  let A := GlobalTheory.ThK.RealUniq.induced π hπ (D.restrict hDm) (fun u hu => ker0 u.1 u.2 hu)
+  let A := ThK.RealUniq.induced π hπ (D.restrict hDm) (fun u hu => ker0 u.1 u.2 hu)
   have hA : ∀ i, R.p (D (f i)) = A (R.p (f i)) := fun i =>
-    (GlobalTheory.ThK.RealUniq.induced_apply π hπ (D.restrict hDm) (fun u hu => ker0 u.1 u.2 hu) ⟨f i, (hf i).1⟩).symm
+    (ThK.RealUniq.induced_apply π hπ (D.restrict hDm) (fun u hu => ker0 u.1 u.2 hu) ⟨f i, (hf i).1⟩).symm
   have := congrArg (A.rTensor _) hz
   set_option synthInstance.maxHeartbeats 100000 in
     simpa [map_sum, hA] using this
