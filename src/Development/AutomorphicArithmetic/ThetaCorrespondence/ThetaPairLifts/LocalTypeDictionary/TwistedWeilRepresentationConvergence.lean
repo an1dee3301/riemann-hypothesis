@@ -21,7 +21,7 @@ open scoped TensorProduct ENNReal
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
 open GlobalTheory.SquareComm
 namespace GlobalTheory.WeilConv
-theorem twisted_weil_representation_convergence : GlobalTheory.Published.SiegelSetUnitary → _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.SquareSt.WeilConvergence :=
+theorem twisted_weil_representation_convergence : Published.SiegelSetUnitary → FunPr.ThetaLocalInputs → SquareSt.WeilConvergence :=
   fun hRT _ => weilConvergence_of_siegelSet hRT
 end GlobalTheory.WeilConv
 end
