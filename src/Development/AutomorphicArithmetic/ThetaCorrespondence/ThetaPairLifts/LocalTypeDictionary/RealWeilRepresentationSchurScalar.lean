@@ -19,10 +19,10 @@ variable {l : Type} [Fintype l]
 end GlobalTheory.RealWeil.SchurSchwartz
 namespace GlobalTheory.RealWeil.SchurSchwartz
 variable {l : Type} [Fintype l]
-theorem weil_schwartz_schur_lemma : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (l : Type) [Fintype l] (U : GlobalTheory.RealWeil.Sch l →ₗ[ℂ] GlobalTheory.RealWeil.Sch l),
-    (∀ (w : l ⊕ l → ℝ) (h h₁ : GlobalTheory.RealWeil.Sch l), ⇑h₁ = GlobalTheory.RealWeil.rhoFun w ⇑h →
-      ⇑(U h₁) = GlobalTheory.RealWeil.rhoFun w ⇑(U h)) →
-    (∀ h : GlobalTheory.RealWeil.Sch l, ∫⁻ x, ‖U h x‖ₑ ^ 2 = ∫⁻ x, ‖h x‖ₑ ^ 2) →
+theorem weil_schwartz_schur_lemma : FunPr.ThetaLocalInputs → ∀ (l : Type) [Fintype l] (U : RealWeil.Sch l →ₗ[ℂ] RealWeil.Sch l),
+    (∀ (w : l ⊕ l → ℝ) (h h₁ : RealWeil.Sch l), ⇑h₁ = rhoFun w ⇑h →
+      ⇑(U h₁) = rhoFun w ⇑(U h)) →
+    (∀ h : RealWeil.Sch l, ∫⁻ x, ‖U h x‖ₑ ^ 2 = ∫⁻ x, ‖h x‖ₑ ^ 2) →
     ∃ a : ℂ, ‖a‖ = 1 ∧ ∀ h, U h = a • h := by
   intro _ l _ U hc hU
   by_cases h0 : ∃ (g : Sch l) (y : EuclideanSpace ℝ l), g y ≠ 0
