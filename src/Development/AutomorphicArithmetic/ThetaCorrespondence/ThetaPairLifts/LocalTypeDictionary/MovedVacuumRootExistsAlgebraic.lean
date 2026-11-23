@@ -52,17 +52,17 @@ private theorem norm_root_of_unity_eq_one {K : Type} [NormedField K] (σ : Qbar 
   have e' : ‖σ ⟨c, hc⟩‖ ^ m = 1 := by rw [← norm_pow, ← map_pow, e, map_one, norm_one]
   exact (pow_eq_one_iff_of_nonneg (norm_nonneg _) hm.ne').1 e'
 private theorem isOpen_principal_level_subgroup {D : D7} (T : HSp D) {N : ℕ} (hN : 0 < N) :
-    IsOpen (((GlobalTheory.Member.PrincLevel.levelGroup T N).subgroupOf (GfC T) : Subgroup (GfC T)) : Set (GfC T)) := by
+    IsOpen (((Member.PrincLevel.levelGroup T N).subgroupOf (GfC T) : Subgroup (GfC T)) : Set (GfC T)) := by
   let F : GfC T → Formalism.IndefR.Bridge.Gf T := fun x => (finHom T).rangeRestrict x.1
   have hG : Continuous fun x : GfC T => (finHom T x.1 : GL (Fin T.rank) (Formalism.L2.Herm.Af D.host.F ⊗[D.host.F] D.host.E)) := by
-    refine Units.continuous_iff.2 ⟨(GlobalTheory.Member.continuous_finHom_val D T).comp continuous_subtype_val, ?_⟩
-    have h := ((GlobalTheory.Member.continuous_finHom_val D T).comp continuous_inv).comp
+    refine Units.continuous_iff.2 ⟨(Member.continuous_finHom_val D T).comp continuous_subtype_val, ?_⟩
+    have h := ((Member.continuous_finHom_val D T).comp continuous_inv).comp
       (continuous_subtype_val (p := fun x => x ∈ GfC T))
     refine h.congr fun x => ?_
     simp [Function.comp_def, map_inv]
   have hF : Continuous F := hG.subtype_mk _
-  have e : (((GlobalTheory.Member.PrincLevel.levelGroup T N).subgroupOf (GfC T) : Subgroup (GfC T)) : Set (GfC T)) =
-      F ⁻¹' (((GlobalTheory.Member.PrincLevel.levelGroup T N).map (finHom T).rangeRestrict : Subgroup (Formalism.IndefR.Bridge.Gf T)) :
+  have e : (((Member.PrincLevel.levelGroup T N).subgroupOf (GfC T) : Subgroup (GfC T)) : Set (GfC T)) =
+      F ⁻¹' (((Member.PrincLevel.levelGroup T N).map (finHom T).rangeRestrict : Subgroup (Formalism.IndefR.Bridge.Gf T)) :
         Set (Formalism.IndefR.Bridge.Gf T)) := by
     ext x
     simp only [SetLike.mem_coe, Subgroup.mem_subgroupOf, Set.mem_preimage]
@@ -74,11 +74,11 @@ private theorem isOpen_principal_level_subgroup {D : D7} (T : HSp D) {N : ℕ} (
       have e' : finHom T k' = finHom T x.1 := congrArg Subtype.val e
       refine ⟨x.2, ?_⟩
       have hc := hk'.2
-      unfold GlobalTheory.Member.FinCong at hc ⊢
+      unfold Member.FinCong at hc ⊢
       rw [← e']
       exact hc
   rw [e]
-  exact (GlobalTheory.SmoothVac.isOpen_map_levelGroup T hN).preimage hF
+  exact (SmoothVac.isOpen_map_levelGroup T hN).preimage hF
 private theorem exists_pow_mem_open_subgroup {G : Type} [Group G] [TopologicalSpace G] [IsTopologicalGroup G] (H K U : Subgroup G)
     (hKH : K ≤ H) (hK : IsCompact (K : Set G)) (hU : IsOpen ((U.subgroupOf H : Subgroup H) : Set H)) {k : G} (hk : k ∈ K) :
     ∃ m : ℕ, 0 < m ∧ k ^ m ∈ U := by
@@ -154,20 +154,20 @@ set_option maxHeartbeats 1000000 in
 private theorem exists_pow_mem_principal_level {D : D7} (V : HSp D) (Λ : Submodule (𝓞 D.host.E) (Fin V.rank → D.host.E))
     (hΛ : Submodule.IsFullLattice D.host.E Λ) {k : GA D V} (hk : k ∈ GfC V)
     (hfix : Formalism.UG.CS.globLat (Formalism.IndefR.Lev.finE V k) Λ = Λ) {N : ℕ} (hN : 0 < N) :
-    ∃ m : ℕ, 0 < m ∧ k ^ m ∈ GlobalTheory.Member.PrincLevel.levelGroup V N := by
+    ∃ m : ℕ, 0 < m ∧ k ^ m ∈ Member.PrincLevel.levelGroup V N := by
   have := Formalism.L2.GlobalTheoryTheory.GenusMassVolumes.Unfold.topGroupHA D.sp.cm.sig V.gram
-  obtain ⟨β, hβ⟩ := GlobalTheory.latticeFrame.exists_frame D.host.F D.host.E _ Λ hΛ
+  obtain ⟨β, hβ⟩ := latticeFrame.exists_frame D.host.F D.host.E _ Λ hΛ
   have key := Formalism.UG.P.span_recovery_of_integral_adelic_approx Formalism.UG.P.integral_adele_approximation_holds D.host.F D.host.E (Fin V.rank) Λ
     (Module.Finite.iff_fg.2 hΛ.fg) hΛ.span_eq_top (Formalism.IndefR.Lev.finE V k)
   rw [hfix] at key
   have key' : ∀ u, u ∈ Formalism.L2.Herm.hatL (F := D.host.F) Λ ↔
       Matrix.mulVec ((Formalism.IndefR.Lev.finE V k)⁻¹).1 u ∈ Formalism.L2.Herm.hatL (F := D.host.F) Λ := key
   have hst : Formalism.IndefR.Lev.finE V k ∈ Formalism.L2.DIV.St β := by
-    refine (GlobalTheory.LevSplit.mem_St_iff β Λ hβ _).2 ⟨fun y hy => (key' _).2 ?_, fun y hy => (key' y).1 hy⟩
+    refine (LevSplit.mem_St_iff β Λ hβ _).2 ⟨fun y hy => (key' _).2 ?_, fun y hy => (key' y).1 hy⟩
     rw [Matrix.mulVec_mulVec, ← Units.val_mul, inv_mul_cancel, Units.val_one, Matrix.one_mulVec]
     exact hy
   exact exists_pow_mem_open_subgroup (GfC V) (Formalism.IndefR.Lev.levA V (Formalism.L2.DIV.St β)) _ inf_le_left
-    (GlobalTheory.AscInh.stab_compact_open V β).1 (isOpen_principal_level_subgroup V hN) ⟨hk, hst⟩
+    (AscInh.stab_compact_open V β).1 (isOpen_principal_level_subgroup V hN) ⟨hk, hst⟩
 set_option synthInstance.maxHeartbeats 400000 in
 set_option maxHeartbeats 1000000 in
 private theorem exists_root_of_unity_factor {D : D7} {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D} {S T : HSp D}
@@ -182,19 +182,19 @@ private theorem exists_root_of_unity_factor {D : D7} {ψ : AddChar (AF D.host.F)
     (h2 : Formalism.UG.CS.globLat (Formalism.IndefR.Lev.finE T k') ΛT = ΛT)
     (hf' : IsVacO ψ θ S T sS sT ΛS ΛT (om (k, k') f)) :
     ∃ (c : ℂ) (m : ℕ), 0 < m ∧ c ^ m = 1 ∧ om (k, k') f = c • f := by
-  obtain ⟨c, hc⟩ := GlobalTheory.LevelVac.vac_eq_smul hS hT hΛS hΛT hf hf'
-  obtain ⟨α, hα⟩ := GlobalTheory.latticeFrame.exists_frame D.host.F D.host.E _ ΛS (selfDual_full S ΛS hΛS)
-  obtain ⟨β, hβ⟩ := GlobalTheory.latticeFrame.exists_frame D.host.F D.host.E _ ΛT (selfDual_full T ΛT hΛT)
-  obtain ⟨N, hN, hfix⟩ := GlobalTheory.LevelVac.exists_level_fix hW hS hT hΛS hΛT hα hβ hf
+  obtain ⟨c, hc⟩ := LevelVac.vac_eq_smul hS hT hΛS hΛT hf hf'
+  obtain ⟨α, hα⟩ := latticeFrame.exists_frame D.host.F D.host.E _ ΛS (selfDual_full S ΛS hΛS)
+  obtain ⟨β, hβ⟩ := latticeFrame.exists_frame D.host.F D.host.E _ ΛT (selfDual_full T ΛT hΛT)
+  obtain ⟨N, hN, hfix⟩ := LevelVac.exists_level_fix hW hS hT hΛS hΛT hα hβ hf
   obtain ⟨a, ha, hka⟩ := exists_pow_mem_principal_level S ΛS (selfDual_full S ΛS hΛS) hk h1 hN
   obtain ⟨b, hb, hkb⟩ := exists_pow_mem_principal_level T ΛT (selfDual_full T ΛT hΛT) hk' h2 hN
-  have e1 : k ^ (a * b) ∈ GlobalTheory.Member.PrincLevel.levelGroup S N := by
+  have e1 : k ^ (a * b) ∈ Member.PrincLevel.levelGroup S N := by
     rw [pow_mul]; exact pow_mem hka b
-  have e2 : k' ^ (a * b) ∈ GlobalTheory.Member.PrincLevel.levelGroup T N := by
+  have e2 : k' ^ (a * b) ∈ Member.PrincLevel.levelGroup T N := by
     rw [pow_mul']; exact pow_mem hkb a
   have e3 := hfix _ e1.1 _ e2.1 e1.2 e2.2
-  have e4 : om (k ^ (a * b), k' ^ (a * b)) f = c ^ (a * b) • f := GlobalTheory.LevelVac.om_pow_eq om (k, k') f c hc (a * b)
-  obtain ⟨w, hw⟩ := GlobalTheory.SmoothVac.exists_ne_zero_of_isVacO hf
+  have e4 : om (k ^ (a * b), k' ^ (a * b)) f = c ^ (a * b) • f := LevelVac.om_pow_eq om (k, k') f c hc (a * b)
+  obtain ⟨w, hw⟩ := SmoothVac.exists_ne_zero_of_isVacO hf
   refine ⟨c, a * b, mul_pos ha hb, ?_, hc⟩
   have e5 := congrFun (e4.symm.trans e3) w
   rw [Pi.smul_apply, smul_eq_mul] at e5
@@ -219,11 +219,11 @@ private theorem inverse_image_standard_lattice {D : D7} {n : ℕ} (B : GL (Fin n
     exact Finset.sum_congr rfl fun j _ => mul_comm _ _
 set_option synthInstance.maxHeartbeats 400000 in
 set_option maxHeartbeats 1000000 in
-theorem movedVacuum_root_exists_algebraic (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hI : ∀ D, GlobalTheory.NormSum.Inp D) {D : D7} {Γ : Type} [Group Γ] [Fintype Γ] {Pl0 T : Type}
+theorem movedVacuum_root_exists_algebraic (hP : FunPr.ThetaLocalInputs) (hI : ∀ D, NormSum.Inp D) {D : D7} {Γ : Type} [Group Γ] [Fintype Γ] {Pl0 T : Type}
     {A : FamIn D.what₂.LL Γ Pl0 T D.R.m} {Ks : Type} [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] {R : RealDat D A Ks}
     (ch : Choice R) (hch : ch.Is) (p : Pair T) (hp : DefPair D.R.m p) (x : FinPt ch.G p.small) (y : FinPt ch.G p.big)
-    (hx : GlobalTheory.SumSize.latAt ch.S.toGridChoice p.small x = stdL D _)
-    (hy : GlobalTheory.SumSize.latAt ch.S.toGridChoice p.big y = stdL D _) :
+    (hx : SumSize.latAt ch.S.toGridChoice p.small x = stdL D _)
+    (hy : SumSize.latAt ch.S.toGridChoice p.big y = stdL D _) :
     ∃ (c : ℂ) (m : ℕ), 0 < m ∧ c ^ m = 1 ∧
       ch.W.om p (ch.G.toPair p ((x * ch.S.N.u p.small : FinPt ch.G p.small) : Formalism.L2.Theta.GA D (ch.G.V p.small))
         ((y * ch.S.N.u p.big : FinPt ch.G p.big) : Formalism.L2.Theta.GA D (ch.G.V p.big))) (ch.S.Z.vac p) = c • ch.S.Z.vac p := by
@@ -236,13 +236,13 @@ theorem movedVacuum_root_exists_algebraic (hP : _root_.GlobalTheory.FunPr.ThetaL
     simp only [GfC, MonoidHom.mem_ker, infHom, MonoidHom.comp_apply] at hg ⊢
     rw [e]
     exact hg
-  have hvac := _root_.GlobalTheory.MovedDict.moved_vacuum_isVacuumIntegral hP hI ch hch p hp x y
+  have hvac := MovedDict.moved_vacuum_isVacuumIntegral hP hI ch hch p hp x y
   have hv := ch.S.Z.vac_is p hp
-  have gx := GlobalTheory.MovedHomLat.movedLat_eq ch.S.toGridChoice _ h1 x
-  have gy := GlobalTheory.MovedHomLat.movedLat_eq ch.S.toGridChoice _ h2 y
-  have ix : inV (ch.S.N.fr p.small) (GlobalTheory.SumSize.latAt ch.S.toGridChoice p.small x) = (colLat (ch.S.N.fr p.small) : Set _) := by
+  have gx := MovedHomLat.movedLat_eq ch.S.toGridChoice _ h1 x
+  have gy := MovedHomLat.movedLat_eq ch.S.toGridChoice _ h2 y
+  have ix : inV (ch.S.N.fr p.small) (SumSize.latAt ch.S.toGridChoice p.small x) = (colLat (ch.S.N.fr p.small) : Set _) := by
     rw [hx, inverse_image_standard_lattice]
-  have iy : inV (ch.S.N.fr p.big) (GlobalTheory.SumSize.latAt ch.S.toGridChoice p.big y) = (colLat (ch.S.N.fr p.big) : Set _) := by
+  have iy : inV (ch.S.N.fr p.big) (SumSize.latAt ch.S.toGridChoice p.big y) = (colLat (ch.S.N.fr p.big) : Set _) := by
     rw [hy, inverse_image_standard_lattice]
   have fx := SetLike.coe_injective (gx.symm.trans ix)
   have fy := SetLike.coe_injective (gy.symm.trans iy)
