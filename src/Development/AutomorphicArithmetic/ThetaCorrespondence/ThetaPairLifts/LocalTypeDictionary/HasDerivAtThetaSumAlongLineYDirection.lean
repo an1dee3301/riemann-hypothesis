@@ -29,15 +29,15 @@ open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
 noncomputable section
 open scoped Classical
 namespace GlobalTheory.ThetaLineDerY
-theorem hasDerivAt_thetaSum_along_line_y_direction : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E} {n d : ℕ}
-    {Y : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} {Wd : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d} (M : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Model σ Y Wd) (ψ : AddChar (AF F) ℂ)
-    (χX χW : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E) (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ Y Wd),
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ → M.IsGood ψ → M.IsWeil ψ χX χW om →
-    ∀ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ Y, ∀ (f f₁ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)) (r : (Fin n × Fin d → AF F) → ℂ),
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rest (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI F) f r →
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ActsD (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI F) (fun t => om (γ (Multiplicative.ofAdd t), 1)) f f₁ →
-    ∀ u, HasDerivAt (fun t : ℝ => GlobalTheory.WeilM.thetaSum F (M.co.rho ψ u (om (γ (Multiplicative.ofAdd t), 1) (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.tens (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI F) f r))))
-      (GlobalTheory.WeilM.thetaSum F (M.co.rho ψ u (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.tens (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI F) f₁ r))) 0 := by
+theorem hasDerivAt_thetaSum_along_line_y_direction : FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E} {n d : ℕ}
+    {Y : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} {Wd : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d} (M : IndefiniteRowSideFullHecke.WeilTensorModels.Model σ Y Wd) (ψ : AddChar (AF F) ℂ)
+    (χX χW : IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E) (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ Y Wd),
+    IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ → M.IsGood ψ → M.IsWeil ψ χX χW om →
+    ∀ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ Y, ∀ (f f₁ : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)) (r : (Fin n × Fin d → AF F) → ℂ),
+    IndefiniteRowSideFullHecke.WeilTensorModels.Rest (IndefiniteRowSideFullHecke.WeilTensorModels.evI F) f r →
+    IndefiniteRowSideFullHecke.WeilTensorModels.ActsD (IndefiniteRowSideFullHecke.WeilTensorModels.evI F) (fun t => om (γ (Multiplicative.ofAdd t), 1)) f f₁ →
+    ∀ u, HasDerivAt (fun t : ℝ => WeilM.thetaSum F (M.co.rho ψ u (om (γ (Multiplicative.ofAdd t), 1) (IndefiniteRowSideFullHecke.WeilTensorModels.tens (IndefiniteRowSideFullHecke.WeilTensorModels.evI F) f r))))
+      (WeilM.thetaSum F (M.co.rho ψ u (IndefiniteRowSideFullHecke.WeilTensorModels.tens (IndefiniteRowSideFullHecke.WeilTensorModels.evI F) f₁ r))) 0 := by
   intro hP F E _ _ _ _ _ σ n d Y Wd M ψ χX χW om hψ hG hW γ hγ f f₁ r hR hD u
   by_cases hf : f = 0
   ·
@@ -51,14 +51,14 @@ theorem hasDerivAt_thetaSum_along_line_y_direction : _root_.GlobalTheory.FunPr.T
       simp only [ht0, map_zero] at h
       exact (h.unique (hasDerivAt_const (0 : ℝ) (0 : ℂ))).trans rfl
     have hrho0 : M.co.rho ψ u 0 = 0 := by
-      funext x; simp [GlobalTheory.WeilM.Darboux.rho, GlobalTheory.WeilM.schr]
-    have hth0 : GlobalTheory.WeilM.thetaSum F (0 : (Fin n × Fin d → AF F) → ℂ) = 0 := by
-      simp [GlobalTheory.WeilM.thetaSum]
+      funext x; simp [WeilM.Darboux.rho, WeilM.schr]
+    have hth0 : WeilM.thetaSum F (0 : (Fin n × Fin d → AF F) → ℂ) = 0 := by
+      simp [WeilM.thetaSum]
     simp only [ht0, h1, map_zero, hrho0, hth0]
     exact hasDerivAt_const (0 : ℝ) (0 : ℂ)
-  obtain ⟨c, g, hc, hlim⟩ := _root_.GlobalTheory.T.archimedean_line_pairing_twist hP M ψ χX χW om hψ hG hW γ hγ f r hR
-  obtain ⟨Λ, hΛ⟩ := GlobalTheory.ThetaSchrCont.exists_clm_hasSum M ψ hψ u f r hR hf
-  have hcurve : (fun t : ℝ => GlobalTheory.WeilM.thetaSum F (M.co.rho ψ u (om (γ (Multiplicative.ofAdd t), 1) (tens (evI F) f r))))
+  obtain ⟨c, g, hc, hlim⟩ := T.archimedean_line_pairing_twist hP M ψ χX χW om hψ hG hW γ hγ f r hR
+  obtain ⟨Λ, hΛ⟩ := ThetaSchrCont.exists_clm_hasSum M ψ hψ u f r hR hf
+  have hcurve : (fun t : ℝ => WeilM.thetaSum F (M.co.rho ψ u (om (γ (Multiplicative.ofAdd t), 1) (tens (evI F) f r))))
       = fun t => Λ (c t) := by
     funext t
     rw [hc t]
@@ -83,7 +83,7 @@ theorem hasDerivAt_thetaSum_along_line_y_direction : _root_.GlobalTheory.FunPr.T
       funext t; rw [hc t]
     rw [h3] at h2
     exact h2.unique h1
-  have hend : GlobalTheory.WeilM.thetaSum F (M.co.rho ψ u (tens (evI F) (⇑f₁) r)) = Λ g := by
+  have hend : WeilM.thetaSum F (M.co.rho ψ u (tens (evI F) (⇑f₁) r)) = Λ g := by
     rw [← hg]; exact (hΛ g).tsum_eq
   rw [hcurve, hend, hasDerivAt_iff_tendsto_slope]
   refine (Λ.continuous.tendsto g |>.comp hlim).congr' (Filter.Eventually.of_forall fun t => ?_)
