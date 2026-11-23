@@ -100,6 +100,17 @@ verification, follow the clean-build instructions below.
 
 ## Checking it
 
+The [Lean and Mathlib verification statement](https://leanprover-community.github.io/blog/posts/riemann-hypothesis/)
+certifies the Riemann Hypothesis proof from Alpöge's November 20 release. The
+[independent verification logs](https://math.mit.edu/~drew/grh/) cover all five theorem statements.
+
+The commands below reproduce the check of that release. For checks on changes to this fork's
+Lean `v4.36.0` `main` branch, follow [the contributor workflow](CONTRIBUTING.md#local-setup--workflow).
+
+Set `$CLEAN` to a clean checkout of the [original-release verification setup](https://github.com/leanprover-community/riemann-hypothesis/tree/7cce738ba719a32964ca3822d0994f4c6952c7ae).
+Use a separate checkout at `40e56bab026552e089d7afcfeff08d2defb9c005` for the solution, and set
+`$SOLUTION` to that checkout. Both checkouts use Lean `v4.33.1`.
+
 ```bash
 export LEAN_ABORT_ON_PANIC=1   # as Comparator sets it: stop on an internal error, don't continue
 export LAKE_ARTIFACT_CACHE=false   # rebuild the submission even if cache-env.sh was sourced earlier
@@ -111,31 +122,29 @@ lake exe mathlib/cache get
 lake build Challenge
 lake env lean4export Challenge -- $(cat export-targets.txt) > challenge.export
 
-# 2. Build the solution. Second clone, inside a sandbox with no network. Takes hours.
+# 2. Build the original solution in a sandbox with no network. Takes hours.
+cd "$SOLUTION"
 lake exe mathlib/cache get      # before entering the sandbox
 lake build Main         # inside the sandbox
 
 # 3. Export the solution. Still inside the sandbox; only solution.export comes out.
 lake env lean4export Main -- $(cat "$CLEAN/export-targets.txt") > solution.export
 
-# 4. Judge. Lean v4.36.0, from an empty directory, with the config from the clean clone.
+# 4. Copy solution.export out of the sandbox and set SOLUTION_EXPORT to its absolute path.
+# Run from an empty directory using Lean v4.36.0.
 lake comparator --config "$CLEAN/comparator.json" \
-  --challenge-from-export "$CLEAN/challenge.export" --solution-from-export solution.export
+  --challenge-from-export "$CLEAN/challenge.export" --solution-from-export "$SOLUTION_EXPORT"
 ```
 
 What to know before running it:
 
-- **Two Lean versions.** The project is pinned to Lean `v4.33.1`, and `lake comparator` exists
-  only from Lean 4.35. So the proof is built and exported with `v4.33.1` and judged with
-  `v4.36.0`. The exporter is [lean4export](https://github.com/leanprover/lean4export) at tag
-  `v4.33.0`, built with Lean `v4.33.1`.
+- **Exporter.** For both exports, build [lean4export](https://github.com/leanprover/lean4export)
+  at tag `v4.33.0` with Lean `v4.33.1` and make the executable available on `PATH`.
 - **Challenge first.** Compiling the submission runs its code, so the challenge is exported
-  where none of that code has been compiled. CI does step 1 on every push and publishes the
-  result as the `challenge-export` artifact. Its sha256 is
+  where none of that code has been compiled. The original challenge export's sha256 is
   `bd484ac9886a96f26b1d9a7a59ebd45b7a70d102c015d4f31f9302bbdd6ab2b9`.
-- **Not `lake exe cache get`.** In this repository that command also downloads prebuilt files
-  for the submission itself, and `lake build Main` then compiles nothing. Steps 1 and 2 use
-  `lake exe mathlib/cache get`, which fetches Mathlib only.
+- **Mathlib cache.** Use `lake exe mathlib/cache get` for steps 1 and 2. The fork's
+  `lake exe cache get` can also fetch prebuilt submission modules, bypassing a fresh build.
 - **Cost.** Hours on a large machine, about 100 GB of disk, and a lot of memory for step 4.
 
 The [notes](verification/NOTES.md) have the details: where the source came from, the Lean
