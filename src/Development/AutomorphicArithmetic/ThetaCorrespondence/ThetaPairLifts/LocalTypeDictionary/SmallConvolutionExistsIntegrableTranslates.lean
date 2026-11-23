@@ -18,8 +18,8 @@ open GlobalTheory.SplitFlip GlobalTheory.SplitWeil GlobalTheory.StdFrames
 attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField borelKw borelSpaceKw
 noncomputable section
 namespace GlobalTheory.SmallConv
-theorem small_convolution_exists_integrable_translates : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.SquareSt.WeilConvergence →
-    GlobalTheory.SquareSt.LocalMatching → GlobalTheory.SquareSt.ThetaIntegralsAgree → Big fun ch => ∀ i j t (M : Vol ch.G), M.Is t → ∀ Θ Θ',
+theorem small_convolution_exists_integrable_translates : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → SquareSt.WeilConvergence →
+    SquareSt.LocalMatching → SquareSt.ThetaIntegralsAgree → Big fun ch => ∀ i j t (M : Vol ch.G), M.Is t → ∀ Θ Θ',
       IsMatched ch.S.B t ch.rm i j Θ Θ' → ∀ g g₁,
     ∃ z, zdeg z ≠ 0 ∧ IntegrableOn (translates z (kerSmall ch.W Θ' g g₁)) (M.fd _) (M.ν _) := by
   intro _ hK _ _ _
@@ -36,23 +36,23 @@ theorem small_convolution_exists_integrable_translates : _root_.GlobalTheory.Fun
   have dec := (hK.1 D.host.F D.host.E D.sp.cm.sig Bs _ _ Γ' X om om' hTr).1
   obtain ⟨C, k, hC⟩ := (dec.2 Φ hΦ).1 0
   have hbd : ∀ u, ‖translates z (kerSmall ch.W Θ' g g₁) u‖ ≤
-      |C₀| * |C| * (2 * GlobalTheory.Grow.quotHeight _ g * GlobalTheory.Grow.height _ g₁) ^ k := by
+      |C₀| * |C| * (2 * Grow.quotHeight _ g * Grow.height _ g₁) ^ k := by
     intro u
-    obtain ⟨γ, hγ, hle⟩ := GlobalTheory.Grow.exists_height_le_two_mul_quotHeight _ g
+    obtain ⟨γ, hγ, hle⟩ := Grow.exists_height_le_two_mul_quotHeight _ g
     have e1 : translates z (kerSmall ch.W Θ' g g₁) u = translates z (kerSmall ch.W Θ' (γ * g) g₁) u := by
-      simp only [translates, GlobalTheory.ZConvLeft.kerSmall_rat_left hL ch.W ch.S.B ch.rm t i j Θ Θ' hΘ g₁ γ hγ]
+      simp only [translates, ZConvLeft.kerSmall_rat_left hL ch.W ch.S.B ch.rm t i j Θ Θ' hΘ g₁ γ hγ]
     rw [e1]
-    have h1 := hC (a u) (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁))
+    have h1 := hC (a u) (IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁))
     rw [pow_zero, mul_one] at h1
-    have h2 := GlobalTheory.BlockHeight.ht_blkU_le _ _ e h.JWW (γ * g) g₁
-    have h3 : (0 : ℝ) ≤ (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ht (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁)) : ℝ) := NNReal.coe_nonneg _
-    have h4 : (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ht (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁)) : ℝ) ≤
-        2 * GlobalTheory.Grow.quotHeight _ g * GlobalTheory.Grow.height _ g₁ :=
-      h2.trans (mul_le_mul_of_nonneg_right hle (GlobalTheory.Grow.height_pos _ _).le)
-    calc _ ≤ C₀ * ‖GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.theta om' Φ (a u) (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁))‖ := hid _ _
-      _ ≤ |C₀| * ‖GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.theta om' Φ (a u) (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁))‖ :=
+    have h2 := BlockHeight.ht_blkU_le _ _ e h.JWW (γ * g) g₁
+    have h3 : (0 : ℝ) ≤ (IndefiniteRowSideFullHecke.WeilTensorModels.ht (IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁)) : ℝ) := NNReal.coe_nonneg _
+    have h4 : (IndefiniteRowSideFullHecke.WeilTensorModels.ht (IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁)) : ℝ) ≤
+        2 * Grow.quotHeight _ g * Grow.height _ g₁ :=
+      h2.trans (mul_le_mul_of_nonneg_right hle (Grow.height_pos _ _).le)
+    calc _ ≤ C₀ * ‖IndefiniteRowSideFullHecke.WeilTensorModels.theta om' Φ (a u) (IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁))‖ := hid _ _
+      _ ≤ |C₀| * ‖IndefiniteRowSideFullHecke.WeilTensorModels.theta om' Φ (a u) (IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁))‖ :=
           mul_le_mul_of_nonneg_right (le_abs_self C₀) (norm_nonneg _)
-      _ ≤ |C₀| * (|C| * (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ht (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁)) : ℝ) ^ k) :=
+      _ ≤ |C₀| * (|C| * (IndefiniteRowSideFullHecke.WeilTensorModels.ht (IndefiniteRowSideFullHecke.UnitaryConjugation.blkU _ _ e h.JWW (γ * g, g₁)) : ℝ) ^ k) :=
           mul_le_mul_of_nonneg_left (h1.trans (mul_le_mul_of_nonneg_right (le_abs_self C) (pow_nonneg h3 k)))
             (abs_nonneg C₀)
       _ ≤ _ := by
@@ -60,8 +60,8 @@ theorem small_convolution_exists_integrable_translates : _root_.GlobalTheory.Fun
           exact mul_le_mul_of_nonneg_left (pow_le_pow_left₀ h3 h4 k) (mul_nonneg (abs_nonneg C₀) (abs_nonneg C))
   have hWl := (hM.vtx (.grid i j) ⟨i.2.le, j.2.le⟩).haar_fund
   haveI : IsFiniteMeasure ((M.ν (.grid i j)).restrict (M.fd (.grid i j))) :=
-    isFiniteMeasure_restrict.2 (GlobalTheory.CuspDecay.measure_lt_top GlobalTheory.Mem.VolFin.finVol _ _ _ hWl.1 hWl.2).ne
-  have hcont := GlobalTheory.SmallRoute.continuous_translates_kerSmall hL ch.W ch.S.B ch.rm t i j Θ Θ' hΘ g₁ z
+    isFiniteMeasure_restrict.2 (CuspDecay.measure_lt_top Mem.VolFin.finVol _ _ _ hWl.1 hWl.2).ne
+  have hcont := SmallRoute.continuous_translates_kerSmall hL ch.W ch.S.B ch.rm t i j Θ Θ' hΘ g₁ z
   exact ⟨z, hz, Integrable.of_bound ((hcont.comp (continuous_const.prodMk continuous_id)).aestronglyMeasurable) _
     (.of_forall hbd)⟩
 end GlobalTheory.SmallConv
