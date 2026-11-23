@@ -11,7 +11,7 @@ public import Development.AbelianVarietyTheory.Definitions.Divisors.DiscreteSeri
 
 section
 namespace GlobalTheory.PairLift
-theorem thetaPairLift_cuspidal_of_hypotheses : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal := fun h =>
+theorem thetaPairLift_cuspidal_of_hypotheses : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal := fun h =>
   liftsCuspidal_of_functoriality h.discreteSeriesCover h.harishChandraModules h.cuspRapidDecay h.casselmanWallach
 end GlobalTheory.PairLift
 end
