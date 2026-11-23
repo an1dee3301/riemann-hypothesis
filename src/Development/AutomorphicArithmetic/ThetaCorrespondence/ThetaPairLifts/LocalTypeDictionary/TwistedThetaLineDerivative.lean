@@ -28,16 +28,16 @@ end GlobalTheory.ThetaLineDeriv
 namespace GlobalTheory.ThetaLineDeriv
 open GlobalTheory.WeilM GlobalTheory.LFun Filter Topology
 open scoped Classical
-theorem lift_splits_locally : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E}
+theorem lift_splits_locally : FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E}
     {a a' : ℕ} (B : Base F E) (G : Geo σ a a') (X : Chars F E) (om : Rep σ G.V G.W) (om' : Rep σ G.V' G.W),
     IsTriple B G X om om' → ∀ γ ∈ Lines σ G.W, ∀ (m : ℕ) (f f₁ : Fin m → SInf F (Fin a × Fin (a + a')))
     (r : Fin m → (Fin a × Fin (a + a') → AF F) → ℂ), (∀ i, Rest (evI F) (⇑(f i)) (r i)) →
     (∀ i, ActsD (evI F) (fun t => om (1, γ (Multiplicative.ofAdd t))) (⇑(f i)) (⇑(f₁ i))) →
-    ∀ u, HasDerivAt (fun t : ℝ => GlobalTheory.WeilM.thetaSum F (G.M.co.rho B.ψ u
+    ∀ u, HasDerivAt (fun t : ℝ => WeilM.thetaSum F (G.M.co.rho B.ψ u
         (om (1, γ (Multiplicative.ofAdd t)) (∑ i, tens (evI F) (⇑(f i)) (r i)))))
-      (GlobalTheory.WeilM.thetaSum F (G.M.co.rho B.ψ u (∑ i, tens (evI F) (⇑(f₁ i)) (r i)))) 0 := by
+      (WeilM.thetaSum F (G.M.co.rho B.ψ u (∑ i, tens (evI F) (⇑(f₁ i)) (r i)))) 0 := by
   intro hP F E _ _ _ _ _ σ a a' B G X om om' hT γ hγ m f f₁ r hR hD u
-  have hS := _root_.GlobalTheory.WeilArchSmooth.exists_weilRep_archimedean_smooth_orbit hP G.M B.ψ X.β (X.β / X.α) om hT.base.cm hT.base.std hT.weil γ hγ
+  have hS := WeilArchSmooth.exists_weilRep_archimedean_smooth_orbit hP G.M B.ψ X.β (X.β / X.α) om hT.base.cm hT.base.std hT.weil γ hγ
   have key : ∀ i, ∃ (v : ℝ → ℂ) (w : ℂ), (∀ t : ℝ, HasSum (fun ξ : Fin a × Fin (a + a') → F =>
       G.M.co.rho B.ψ u (om (1, γ (Multiplicative.ofAdd t)) (tens (evI F) (⇑(f i)) (r i)))
         (fun j => algebraMap F (AF F) (ξ j))) (v t)) ∧
@@ -55,7 +55,7 @@ theorem lift_splits_locally : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀
       · rw [ht0, map_zero, rho_zero]; exact hasSum_zero
       · rw [ht1, rho_zero]; exact hasSum_zero
     · obtain ⟨c, c', hc0, hl, hact⟩ := hS (f i)
-      obtain ⟨T, hT'⟩ := GlobalTheory.ThetaSchrCont.exists_clm_hasSum G.M B.ψ hT.base.std u (f i) (r i) (hR i) h0
+      obtain ⟨T, hT'⟩ := ThetaSchrCont.exists_clm_hasSum G.M B.ψ hT.base.std u (f i) (r i) (hR i) h0
       have htens : tens (evI F) (⇑(f₁ i)) (r i) = tens (evI F) (⇑c') (r i) := by
         funext x
         have h1 := hD i (r i) (hR i) x
@@ -71,7 +71,7 @@ theorem lift_splits_locally : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀
       · rw [hact t (r i) (hR i)]; exact hT' (c t)
       · rw [htens]; exact hT' c'
   choose v w hv hw hd using key
-  have e1 : ∀ t : ℝ, GlobalTheory.WeilM.thetaSum F (G.M.co.rho B.ψ u (om (1, γ (Multiplicative.ofAdd t))
+  have e1 : ∀ t : ℝ, WeilM.thetaSum F (G.M.co.rho B.ψ u (om (1, γ (Multiplicative.ofAdd t))
       (∑ i, tens (evI F) (⇑(f i)) (r i)))) = ∑ i, v i t := by
     intro t
     set_option synthInstance.maxHeartbeats 100000 in
@@ -80,13 +80,13 @@ theorem lift_splits_locally : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀
     convert hasSum_sum (s := Finset.univ) (fun i _ => hv i t) using 1
     funext ξ
     simp [Finset.sum_apply]
-  have e2 : GlobalTheory.WeilM.thetaSum F (G.M.co.rho B.ψ u (∑ i, tens (evI F) (⇑(f₁ i)) (r i))) = ∑ i, w i := by
+  have e2 : WeilM.thetaSum F (G.M.co.rho B.ψ u (∑ i, tens (evI F) (⇑(f₁ i)) (r i))) = ∑ i, w i := by
     rw [rho_sum]
     refine HasSum.tsum_eq ?_
     convert hasSum_sum (s := Finset.univ) (fun i _ => hw i) using 1
     funext ξ
     simp [Finset.sum_apply]
-  rw [show (fun t : ℝ => GlobalTheory.WeilM.thetaSum F (G.M.co.rho B.ψ u (om (1, γ (Multiplicative.ofAdd t))
+  rw [show (fun t : ℝ => WeilM.thetaSum F (G.M.co.rho B.ψ u (om (1, γ (Multiplicative.ofAdd t))
       (∑ i, tens (evI F) (⇑(f i)) (r i))))) = fun t => ∑ i, v i t from funext e1, e2]
   have hs := HasDerivAt.sum (u := Finset.univ) (fun i _ => hd i)
   have e3 : (fun t : ℝ => ∑ i, v i t) = ∑ i, v i := by funext t; simp [Finset.sum_apply]
