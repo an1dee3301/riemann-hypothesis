@@ -29,17 +29,17 @@ open MeasureTheory Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Glo
 end GlobalTheory.KExpLineW
 namespace GlobalTheory.KExpLineW
 open MeasureTheory Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.ThK
-theorem KExpLine_stabilizes_line : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
-    (B : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (n d : ℕ) (X : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n) (W : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d)
-    (M : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Model σ X W) (χX χW : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E) (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ X W) (r s r' s' : ℕ),
-    GlobalTheory.ThK.IsPair B M χX χW om r s r' s' →
-    ∀ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ W, (∀ t, γ t ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.KInf σ W B.emb) →
-    ∀ N : Submodule ℂ (GlobalTheory.ThK.Fn F n d),
-      (∀ Ψ ∈ N, ∀ Ψ₁ ∈ GlobalTheory.ThK.PolData B M,
+theorem KExpLine_stabilizes_line : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
+    (B : IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (n d : ℕ) (X : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n) (W : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d)
+    (M : IndefiniteRowSideFullHecke.WeilTensorModels.Model σ X W) (χX χW : IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E) (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ X W) (r s r' s' : ℕ),
+    ThK.IsPair B M χX χW om r s r' s' →
+    ∀ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ W, (∀ t, γ t ∈ IndefiniteRowSideFullHecke.WeilTensorModels.KInf σ W B.emb) →
+    ∀ N : Submodule ℂ (ThK.Fn F n d),
+      (∀ Ψ ∈ N, ∀ Ψ₁ ∈ ThK.PolData B M,
         (∀ x, HasDerivAt (fun t : ℝ => om (1, γ (Multiplicative.ofAdd t)) Ψ x) (Ψ₁ x) 0) → Ψ₁ ∈ N) →
-      ∀ Φ ∈ N, Φ ∈ GlobalTheory.ThK.PolData B M → om (1, γ (Multiplicative.ofAdd (1 : ℝ))) Φ ∈ N := by
+      ∀ Φ ∈ N, Φ ∈ ThK.PolData B M → om (1, γ (Multiplicative.ofAdd (1 : ℝ))) Φ ∈ N := by
   intro hPr F E _ _ _ _ _ σ B n d X W M χX χW om r s r' s' hP γ hγL hγK N hN Φ hΦN hΦ
-  obtain ⟨-, -, hDer, hOp⟩ := _root_.GlobalTheory.T.dualPair_preserves_polarization hPr F E σ B n d X W M χX χW om r s r' s' hP
+  obtain ⟨-, -, hDer, hOp⟩ := T.dualPair_preserves_polarization hPr F E σ B n d X W M χX χW om r s r' s' hP
   obtain ⟨Dg, hDgP, hDg⟩ := hDer γ hγL
   choose D hDP hD using fun t : ℝ => hOp (γ (Multiplicative.ofAdd t)) (hγK _)
   let U : Multiplicative ℝ →* Module.End ℂ (Fn F n d) := om.comp ((MonoidHom.inr (UA σ X.J) (UA σ W.J)).comp γ)
@@ -59,7 +59,7 @@ theorem KExpLine_stabilizes_line : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
         intro s'
         rw [ofAdd_add, map_mul, Module.End.mul_apply, hpt t]
       have h0 := (hDg (D t f) (hDP t f hf) (Dg (D t f))).2 rfl _
-        (GlobalTheory.ThK.EvUniqInf.rest_pure (D t f) φ hφ hstd) x
+        (ThK.EvUniqInf.rest_pure (D t f) φ hφ hstd) x
       have h0' : DifferentiableAt ℝ (fun s' : ℝ => U (Multiplicative.ofAdd s') (pure (D t f) φ) x) 0 :=
         h0.differentiableAt
       have e : (fun s : ℝ => U (Multiplicative.ofAdd s) (pure f φ) x) =
