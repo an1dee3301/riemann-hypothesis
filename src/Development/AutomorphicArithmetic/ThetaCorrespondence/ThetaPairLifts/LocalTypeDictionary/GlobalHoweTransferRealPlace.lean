@@ -27,30 +27,30 @@ open NumberField IsDedekindDomain
 open scoped TensorProduct
 namespace GlobalTheory.HoweGlobal.RealTransfer
 open Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.RealActs
-theorem howe_real_place_transfer : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
-    (Bs : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (Xc : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
-    (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W)
-    (R : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a') (Rf : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'),
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs G Xc om om' R Rf →
-    ((∃ L : ℕ, ∀ (m : ℕ) (N : Fin m → Submodule ℂ (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin a × Fin (a + a')))),
-        StrictMono N → (∀ i, GlobalTheory.Published.ThetaSubInf G.M Bs.ψ Bs.emb om (N i)) → m ≤ L) ∧
-      ∀ N : Submodule ℂ (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin a × Fin (a + a'))), GlobalTheory.Published.ThetaSubInf G.M Bs.ψ Bs.emb om N →
+theorem howe_real_place_transfer : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
+    (Bs : IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (Xc : IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
+    (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W)
+    (R : IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a') (Rf : IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'),
+    IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs G Xc om om' R Rf →
+    ((∃ L : ℕ, ∀ (m : ℕ) (N : Fin m → Submodule ℂ (IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin a × Fin (a + a')))),
+        StrictMono N → (∀ i, Published.ThetaSubInf G.M Bs.ψ Bs.emb om (N i)) → m ≤ L) ∧
+      ∀ N : Submodule ℂ (IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin a × Fin (a + a'))), Published.ThetaSubInf G.M Bs.ψ Bs.emb om N →
         N ≠ G.M.Pol Bs.ψ Bs.emb → ∀ f ∈ N, R.p f = 0) →
     Module.rank ℂ ↥(G.M.Pol Bs.ψ Bs.emb) ≤ Cardinal.aleph0 ∧
     (∃ L : ℕ, ∀ (m : ℕ) (N : Fin m → Submodule ℂ ↥(G.M.Pol Bs.ψ Bs.emb)), StrictMono N →
-        (∀ j, GlobalTheory.HoweGlobal.relInf Bs G om ≤ N j ∧ ∀ g ∈ GlobalTheory.HoweGlobal.opInf Bs G om, ∀ x ∈ N j, g x ∈ N j) → m ≤ L) ∧
-    (∀ N : Submodule ℂ ↥(G.M.Pol Bs.ψ Bs.emb), GlobalTheory.HoweGlobal.relInf Bs G om ≤ N →
-        (∀ g ∈ GlobalTheory.HoweGlobal.opInf Bs G om, ∀ x ∈ N, g x ∈ N) → N ≠ ⊤ →
+        (∀ j, HoweGlobal.relInf Bs G om ≤ N j ∧ ∀ g ∈ HoweGlobal.opInf Bs G om, ∀ x ∈ N j, g x ∈ N j) → m ≤ L) ∧
+    (∀ N : Submodule ℂ ↥(G.M.Pol Bs.ψ Bs.emb), HoweGlobal.relInf Bs G om ≤ N →
+        (∀ g ∈ HoweGlobal.opInf Bs G om, ∀ x ∈ N, g x ∈ N) → N ≠ ⊤ →
         N ≤ LinearMap.ker (R.p ∘ₗ (G.M.Pol Bs.ψ Bs.emb).subtype)) ∧
-    GlobalTheory.HoweGlobal.relInf Bs G om ≤ LinearMap.ker (R.p ∘ₗ (G.M.Pol Bs.ψ Bs.emb).subtype) ∧
-    ∀ g ∈ GlobalTheory.HoweGlobal.opInf Bs G om, ∀ x ∈ LinearMap.ker (R.p ∘ₗ (G.M.Pol Bs.ψ Bs.emb).subtype),
+    HoweGlobal.relInf Bs G om ≤ LinearMap.ker (R.p ∘ₗ (G.M.Pol Bs.ψ Bs.emb).subtype) ∧
+    ∀ g ∈ HoweGlobal.opInf Bs G om, ∀ x ∈ LinearMap.ker (R.p ∘ₗ (G.M.Pol Bs.ψ Bs.emb).subtype),
       g x ∈ LinearMap.ker (R.p ∘ₗ (G.M.Pol Bs.ψ Bs.emb).subtype) := by
   intro hP F E _ _ _ _ _ σ Bs a a' G Xc om om' R Rf hM hreal
-  have hPair := GlobalTheory.ThK.RealUniq.isPair_V hM.triple
-  have PA : PolActs Bs G.M om := _root_.GlobalTheory.T.dualPair_preserves_polarization hP F E σ Bs _ _ _ _ G.M _ _ om _ _ _ _ hPair
+  have hPair := ThK.RealUniq.isPair_V hM.triple
+  have PA : PolActs Bs G.M om := T.dualPair_preserves_polarization hP F E σ Bs _ _ _ _ G.M _ _ om _ _ _ _ hPair
   set P := G.M.Pol Bs.ψ Bs.emb with hPdef
   have key : ∀ N : Submodule ℂ ↥P, relInf Bs G om ≤ N → (∀ g ∈ opInf Bs G om, ∀ x ∈ N, g x ∈ N) →
-      GlobalTheory.Published.ThetaSubInf G.M Bs.ψ Bs.emb om (N.map P.subtype) := by
+      Published.ThetaSubInf G.M Bs.ψ Bs.emb om (N.map P.subtype) := by
     intro N hrel hop
     refine ⟨Submodule.map_subtype_le _ _, ?_, ?_, ?_, ?_⟩
     · intro γ hγ f hf f₁ hA
@@ -84,7 +84,7 @@ theorem howe_real_place_transfer : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
     apply hN
     apply hinj
     rw [h, Submodule.map_subtype_top]
-  refine ⟨_root_.GlobalTheory.T.polarization_rank_le_dim hP F E σ Bs _ _ _ _ G.M _ _ om _ _ _ _ hPair, ?_, ?_, ?_, ?_⟩
+  refine ⟨T.polarization_rank_le_dim hP F E σ Bs _ _ _ _ G.M _ _ om _ _ _ _ hPair, ?_, ?_, ?_, ?_⟩
   · obtain ⟨L, hL⟩ := hreal.1
     refine ⟨L, fun m N hN hN' => hL m (fun i => (N i).map P.subtype)
       ((Submodule.map_strictMono_of_injective P.injective_subtype).comp hN) fun i => key _ (hN' i).1 (hN' i).2⟩
@@ -100,10 +100,10 @@ theorem howe_real_place_transfer : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
     show R.p ((g x : ↥P) : SInf F _) = 0
     rcases hg with ⟨k, hk, hA⟩ | ⟨γ, hγ, hA⟩
     · have := hM.real.cpt k hk x x.2 0 (G.M'.Pol Bs.ψ Bs.emb).zero_mem _ 0 (hA x)
-        (GlobalTheory.ThK.RealUniq.acts_zero _) (by rw [hx', map_zero])
+        (ThK.RealUniq.acts_zero _) (by rw [hx', map_zero])
       rw [this, map_zero]
     · have := hM.real.lie γ hγ x x.2 0 (G.M'.Pol Bs.ψ Bs.emb).zero_mem _ 0 (hA x)
-        (GlobalTheory.ThK.RealUniq.actsD_zero _) (by rw [hx', map_zero])
+        (ThK.RealUniq.actsD_zero _) (by rw [hx', map_zero])
       rw [this, map_zero]
 end GlobalTheory.HoweGlobal.RealTransfer
 end
