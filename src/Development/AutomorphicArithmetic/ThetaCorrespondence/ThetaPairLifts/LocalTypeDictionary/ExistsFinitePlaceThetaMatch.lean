@@ -90,17 +90,17 @@ private theorem local_matching_decomposition {B : Base F E} {a a' : ℕ} {G : Ge
       (∀ U : Matrix (Fin a') (Fin (a + a')) (Fv F v), ι' φ' (b'.1 * U * c'.1) = stdB (chrW X.ν (B.τ v)) (unifAt v.1) n a a' (g'.1 * U * (G.W.J.map (B.τ v))ᵀ * m.1)) ∧
       R.p v φ = R.p' v φ' ∧ R.p v φ ≠ 0 := by
   obtain ⟨ι, ι', hι, hι', -, -, hz⟩ := hZ
-  have hν : GlobalTheory.LFun.IsHecke F E X.ν := ⟨hT.chars.heckeα.1.div' hT.chars.heckeβ.1, fun x => by
+  have hν : LFun.IsHecke F E X.ν := ⟨hT.chars.heckeα.1.div' hT.chars.heckeβ.1, fun x => by
     rw [Chars.ν, MonoidHom.div_apply, hT.chars.heckeα.2, hT.chars.heckeβ.2, div_one]⟩
   have h1 := (GlobalTheory.T.splitPlaceCharacterComponent_smooth_unitary_conductor F E X.ν hν v (B.τ v)).2.1
   have hdiv : chrW X.ν (B.τ v) = chrW X.α (B.τ v) / chrW X.β (B.τ v) := by
     ext x
-    simp [chrW, Chars.ν, GlobalTheory.LFun.locChar]
+    simp [chrW, Chars.ν, LFun.locChar]
   have hϖ : IsUnif (unifAt v.1) := (exists_isUnif (k := Fv F v.1)).choose_spec
   obtain ⟨w⟩ : Nonempty (InfinitePlace F) := inferInstance
   have dV : G.V'.J.det ≠ 0 :=
-    GlobalTheory.TripleAssembly.PureImage.det_ne_of_sig_map (B.emb w).1 1 (by rw [one_smul]; exact hT.geo.hV'.sig w)
-  have dW : G.W.J.det ≠ 0 := GlobalTheory.TripleAssembly.PureImage.det_ne_of_sig_map (B.emb w).1 Complex.I (hT.geo.hW.sig w)
+    TripleAssembly.PureImage.det_ne_of_sig_map (B.emb w).1 1 (by rw [one_smul]; exact hT.geo.hV'.sig w)
+  have dW : G.W.J.det ≠ 0 := TripleAssembly.PureImage.det_ne_of_sig_map (B.emb w).1 Complex.I (hT.geo.hW.sig w)
   have dm : ∀ {k : ℕ} (J : Matrix (Fin k) (Fin k) E), J.det ≠ 0 → (J.map (B.τ v)).det ≠ 0 := fun J hJ => by
     have : (J.map (B.τ v)).det = B.τ v J.det := (RingHom.map_det (B.τ v : E →+* Fv F v) J).symm
     rw [this]
@@ -118,7 +118,7 @@ private theorem local_matching_decomposition {B : Base F E} {a a' : ℕ} {G : Ge
   have sB' := comp_mul_mem_SB (g' * b'⁻¹) (m⁻¹ * c)⁻¹ sB
   obtain ⟨φ, hφ, eφ⟩ := hι.bij.surjOn sA'
   obtain ⟨φ', hφ', eφ'⟩ := hι'.bij.surjOn (Submodule.smul_mem _ l sB')
-  have s0 : smallP (haarVol (GlobalTheory.SplitWeil.KO (Fv F v) (Fin a'))) (finSumFinEquiv (m := a) (n := a')) (chrW X.ν (B.τ v))
+  have s0 : smallP (haarVol (SplitWeil.KO (Fv F v) (Fin a'))) (finSumFinEquiv (m := a) (n := a')) (chrW X.ν (B.τ v))
       (chrW X.α (B.τ v)) 0 = 0 := by
     funext h; simp [smallP, smallF]
   have hl0 : l ≠ 0 := by
@@ -177,7 +177,7 @@ private theorem fock_vector_of_theta_at_lattice {ψ : AddChar (AF D.host.F) ℂ}
     {b : ∀ v : P, GL (Fin S.rank) (Fv D.host.F v)} {c : ∀ v : P, GL (Fin d) (Fv D.host.F v)}
     {ι : ∀ v : P, ((Fin S.rank × Fin d → Fv D.host.F v) → ℂ) →ₗ[ℂ] (Matrix (Fin S.rank) (Fin d) (Fv D.host.F v) → ℂ)}
     (hι : ∀ v, M.IsLin ψ (piW (t₁ v)) (piW (t₀ v)) (fun u => (b v).1 * u.map (piW (t₁ v)) * (c v).1) (ι v))
-    {φ : ∀ v : HeightOneSpectrum (𝓞 D.host.F), (Fin S.rank × Fin d → Fv D.host.F v) → ℂ} (hφ : ∀ v, φ v ∈ GlobalTheory.WeilM.SB _)
+    {φ : ∀ v : HeightOneSpectrum (𝓞 D.host.F), (Fin S.rank × Fin d → Fv D.host.F v) → ℂ} (hφ : ∀ v, φ v ∈ WeilM.SB _)
     (hφ' : ∀ v, v ∉ P → φ v = M.vac v) (hφ0 : ∀ v, φ v ≠ 0) {sS sX} {f₀ Φ f : WO (sgn ε S) X → ℂ}
     (hv : IsVacO ψ θ (sgn ε S) X sS sX (ΛS : Set (Fin S.rank → D.host.E)) (ΛX : Set (Fin X.rank → D.host.E)) f₀)
     (hΦ : ∀ x, Φ x = if IsHalf eh x then
@@ -185,14 +185,14 @@ private theorem fock_vector_of_theta_at_lattice {ψ : AddChar (AF D.host.F) ℂ}
     (hf : IsThetaAt ψ (symplO (sgn ε S) X) (heisO ψ (sgn ε S) X) eh
       (latO (sgn ε S) X (ΛS : Set (Fin S.rank → D.host.E)) (ΛX : Set (Fin X.rank → D.host.E)) fun _ => True) 1 f₀ Φ f)
     (hF : IsFinF ψ θ ε A B f) : ∀ g₁ ∈ M.Pol Bs.ψ Bs.emb, ∃ Q : PolF D X.rank S.rank,
-      fockF ψ θ ε A B f Q = thO M ψ (sgn ε S).gram e (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure g₁ φ) := by
+      fockF ψ θ ε A B f Q = thO M ψ (sgn ε S).gram e (IndefiniteRowSideFullHecke.WeilTensorModels.pure g₁ φ) := by
   obtain ⟨g, hg⟩ := UpperTheory.exists_thO_eq_of_isLatVac_thetaFun D ψ ε S X d e Bs Vs Ws M hP ΛS ΛX hL f₀ hv.2.theta hv.2.lat
   have g0 : g ≠ 0 := by
     rintro rfl
     have : f₀ = 0 := by
       rw [hg]
       funext x
-      simp [thO, GlobalTheory.WeilM.thetaSum, GlobalTheory.WeilM.Darboux.rho, GlobalTheory.WeilM.schr, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure]
+      simp [thO, WeilM.thetaSum, WeilM.Darboux.rho, WeilM.schr, IndefiniteRowSideFullHecke.WeilTensorModels.pure]
     subst this
     obtain ⟨⟨p, hp⟩, hn⟩ := hv.2.norm
     simpa [nrm2] using hn p hp
@@ -201,13 +201,13 @@ private theorem fock_vector_of_theta_at_lattice {ψ : AddChar (AF D.host.F) ℂ}
   refine UpperTheory.exists_polynomial_of_isFinF_thetaLift_pureTensor D ψ ε S X d e Bs Vs Ws M hP θ hθ A B hc _ φ hφ ?_ (smul_ne_zero hz g0) hφ0 hF
   exact Filter.eventually_cofinite.2 (P.finite_toSet.subset fun v hv => by_contra fun h => hv (hφ' v h))
 private theorem pure_tensor_ne_zero {ι : Type} {N : ι → Type} [∀ i, AddCommGroup (N i)] [∀ i, Module ℂ (N i)] {s ξ : ∀ i, N i}
-    (h : Formalism.MainNotions.KudlaSiegelWeil.Restr s ξ) (h0 : ∀ i, ξ i ≠ 0) : GlobalTheory.SmallThetaModules.pureT s ξ ≠ 0 := by
+    (h : Formalism.MainNotions.KudlaSiegelWeil.Restr s ξ) (h0 : ∀ i, ξ i ≠ 0) : SmallThetaModules.pureT s ξ ≠ 0 := by
   have : ∀ i, ∃ l : N i →ₗ[ℂ] ℂ, l (ξ i) = 1 := fun i => by
     obtain ⟨φ, hφ⟩ : ∃ φ : Module.Dual ℂ (N i), φ (ξ i) ≠ 0 :=
       not_forall.1 fun h => h0 i ((Module.forall_dual_apply_eq_zero_iff ℂ (ξ i)).1 h)
     exact ⟨(φ (ξ i))⁻¹ • φ, by rw [LinearMap.smul_apply, smul_eq_mul, inv_mul_cancel₀ hφ]⟩
   choose l hl using this
-  obtain ⟨Λ, hΛ⟩ := GlobalTheory.SmallThetaModules.pureT_sep s l (h.subset fun i hi e => hi (e ▸ hl i))
+  obtain ⟨Λ, hΛ⟩ := SmallThetaModules.pureT_sep s l (h.subset fun i hi e => hi (e ▸ hl i))
   intro e
   have := hΛ ξ h
   simp [e, hl] at this
@@ -223,12 +223,12 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.Local
 open GlobalTheory.IndefiniteRowSideFullHecke.UnitCharTriangle (Tri)
 variable {D : D7}
 set_option maxHeartbeats 1000000 in
-theorem exists_finite_place_theta_match (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hLM : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching) {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D}
+theorem exists_finite_place_theta_match (hP : FunPr.ThetaLocalInputs) (hLM : IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching) {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D}
     (hψ : IsStdChar D ψ (-1)) (hθ : IsInfFam θ) {T : Type} {A A' WW : HSp D} (X : Tri T A A' WW)
     {α β : T → ((AE D)ˣ →* Circle)} {νH : T → Formalism.L2.Host.HChar D.host.E} {S : T → Finset (HeightOneSpectrum (𝓞 D.host.E))}
     (hX : X.Is ψ θ α β νH S) (t : T) (hT : IsTriple A A' WW (α t) (β t))
-    (hram : ∀ v ε, IsPlaceIdem D v ε → ((∃ w ∈ S t, w.under (𝓞 D.host.F) = v) → ¬ GlobalTheory.WeilParts.UnramAt ε (α t / β t)) ∧
-      ((∀ w ∈ S t, w.under (𝓞 D.host.F) ≠ v) → GlobalTheory.WeilParts.UnramAt ε (α t) ∧ GlobalTheory.WeilParts.UnramAt ε (β t)))
+    (hram : ∀ v ε, IsPlaceIdem D v ε → ((∃ w ∈ S t, w.under (𝓞 D.host.F) = v) → ¬ WeilParts.UnramAt ε (α t / β t)) ∧
+      ((∀ w ∈ S t, w.under (𝓞 D.host.F) ≠ v) → WeilParts.UnramAt ε (α t) ∧ WeilParts.UnramAt ε (β t)))
     (FA : Fr A) (FA' : Fr A') (FW : Fr WW) (hf : IsFinF ψ θ true FA FW (X.f t)) (hf' : IsFinF ψ θ false FA' FW (X.f' t)) :
     ∃ (Pi : ModuleCat.{0} ℂ) (rf : GA D WW → Module.End ℂ Pi)
       (rl : D.what₂.Tau → Matrix (Fin WW.rank) (Fin WW.rank) ℂ → Module.End ℂ Pi)
@@ -262,7 +262,7 @@ theorem exists_finite_place_theta_match (hP : _root_.GlobalTheory.FunPr.ThetaLoc
   obtain ⟨g', hg'⟩ := UpperTheory.exists_gl_stdSnd_eq_product_local D _ _ (hX.idem t) Bs.P Bs.τ hPS hτ (α t / β t) (X.c t) A' WW A.rank hr X.rA'.β X.rW.β m
     fun _ => rfl
   obtain ⟨hh, hh'⟩ := UpperTheory.idempotentSum_fixes_iff_halfEl D _ _ (hX.idem t) Bs.P Bs.τ hPS hτ
-  have hν : Xc.ν = α t / β t := by rw [GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars.ν, h.α, h.β]
+  have hν : Xc.ν = α t / β t := by rw [IndefiniteRowSideFullHecke.WeilTensorModels.Chars.ν, h.α, h.β]
   choose b c b' c' ι ι' φl φl' hι hι' hφ hφ' eφ eφ' hp hp0 using fun v : Bs.P =>
     local_matching_decomposition hTr v (hM.fin.zeta v (by rw [hTP]; exact v.2)) (X.c t (splitPrime (Bs.τ v))) (g v) (g' v) (m v)
   let φ : ∀ v : HeightOneSpectrum (𝓞 D.host.F), (Fin A.rank × Fin (A.rank + A'.rank) → Fv D.host.F v) → ℂ :=
@@ -273,11 +273,11 @@ theorem exists_finite_place_theta_match (hP : _root_.GlobalTheory.FunPr.ThetaLoc
   have e1' : ∀ v : Bs.P, φ' v = φl' v := fun v => dif_pos v.2
   have e2 : ∀ v, v ∉ Bs.P → φ v = Γ.M.vac v := fun v hv => dif_neg hv
   have e2' : ∀ v, v ∉ Bs.P → φ' v = Γ.M'.vac v := fun v hv => dif_neg hv
-  have sb : ∀ v, φ v ∈ GlobalTheory.WeilM.SB _ := fun v => by
+  have sb : ∀ v, φ v ∈ WeilM.SB _ := fun v => by
     by_cases hv : v ∈ Bs.P
     · exact e1 ⟨v, hv⟩ ▸ hφ ⟨v, hv⟩
     · exact e2 v hv ▸ (hTr.geo.hM.vac v).1
-  have sb' : ∀ v, φ' v ∈ GlobalTheory.WeilM.SB _ := fun v => by
+  have sb' : ∀ v, φ' v ∈ WeilM.SB _ := fun v => by
     by_cases hv : v ∈ Bs.P
     · exact e1' ⟨v, hv⟩ ▸ hφ' ⟨v, hv⟩
     · exact e2' v hv ▸ (hTr.geo.hM'.vac v).1
@@ -315,7 +315,7 @@ theorem exists_finite_place_theta_match (hP : _root_.GlobalTheory.FunPr.ThetaLoc
   obtain ⟨f', hfP', hfy'⟩ := Submodule.mem_map.1 (hM.real.quot'.onto ▸ Submodule.mem_top (x := y))
   obtain ⟨Q, hQ⟩ := kA f hfP
   obtain ⟨Q', hQ'⟩ := kB f' hfP'
-  have mA := _root_.GlobalTheory.TripleAssembly.PureImage.firstFactorMap_thetaSum_pure_tensor hH hP D ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h
+  have mA := TripleAssembly.PureImage.firstFactorMap_thetaSum_pure_tensor hH hP D ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h
     hTA hTB R Rf hM 1 (fun _ => f) (fun _ => φ) (fun _ => ⟨sb, cof⟩)
     (by rw [Fin.sum_univ_one]; exact Submodule.subset_span ⟨f, φ, hfP, sb, cof, rfl⟩)
   have mB := _root_.GlobalTheory.T.tripleProduct_secondMap_theta_pure hH hP D ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h
@@ -331,10 +331,10 @@ theorem exists_finite_place_theta_match (hP : _root_.GlobalTheory.FunPr.ThetaLoc
   obtain ⟨fA, fB⟩ := _root_.GlobalTheory.T.theta_triple_maps_equivariant hH hP D ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h hTA hTB R Rf hM
   obtain ⟨dA, dB⟩ := _root_.GlobalTheory.T.theta_triple_lift_lie_equivariant hH hP D ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h hTA hTB R Rf hM
   have ir := _root_.GlobalTheory.T.theta_triple_lift_irreducible hH hP D ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h hTA hTB R Rf hM
-  refine ⟨ModuleCat.of ℂ (GlobalTheory.TripleAssembly.PiT R Γ Rf), _, _, _, _,
+  refine ⟨ModuleCat.of ℂ (TripleAssembly.PiT R Γ Rf), _, _, _, _,
     ⟨hA, hB, ir, ⟨sA.1, sA.2, oA, iA, lA, fA, dA⟩, ⟨sB.1, sB.2, oB, iB, lB, fB, dB⟩⟩, Q, Q', 1, ?_, ?_⟩
   · refine ne_of_eq_of_ne mA fun h0 => ?_
-    have hn := pure_tensor_ne_zero (s := GlobalTheory.TripleAssembly.vacIm Γ Rf) (ξ := fun v => Rf.p v (φ v))
+    have hn := pure_tensor_ne_zero (s := TripleAssembly.vacIm Γ Rf) (ξ := fun v => Rf.p v (φ v))
       ((Filter.eventually_cofinite.1 cof).subset fun v hv e => hv (congrArg (Rf.p v) e)) fun v => (im v).2
     obtain ⟨l, hl⟩ : ∃ l : Module.Dual ℂ R.Pi, l y ≠ 0 :=
       not_forall.1 fun h => hy ((Module.forall_dual_apply_eq_zero_iff ℂ y).1 h)
@@ -381,17 +381,17 @@ private theorem character_equality_pow {D : D7} {c : (AE D)ˣ →* Circle} {χ :
     exact map_pow Circle.coeHom _ _
 private theorem grid_ramification_characterised {D : D7} {T : Type} {Lc : LevCh D T} {sc : Consts} (G : GridData Lc sc) {μ₀ : T} (hL : Lc.Is μ₀)
     (t : T) (i j : Fin D.R.m) (v : HeightOneSpectrum (𝓞 D.host.F)) (e : AF D.host.F) (he : IsPlaceIdem D v e) :
-    ((∃ w ∈ locPl G t, w.under (𝓞 D.host.F) = v) → ¬ GlobalTheory.WeilParts.UnramAt e
+    ((∃ w ∈ locPl G t, w.under (𝓞 D.host.F) = v) → ¬ WeilParts.UnramAt e
       (Lc.mu t (j + 1) * Lc.eta ^ (rankV D i j % 2) / (G.ch.chi (D.R.m - i) * Lc.eta ^ (rankV D i j % 2)))) ∧
-    ((∀ w ∈ locPl G t, w.under (𝓞 D.host.F) ≠ v) → GlobalTheory.WeilParts.UnramAt e (Lc.mu t (j + 1) * Lc.eta ^ (rankV D i j % 2)) ∧
-      GlobalTheory.WeilParts.UnramAt e (G.ch.chi (D.R.m - i) * Lc.eta ^ (rankV D i j % 2))) := by
+    ((∀ w ∈ locPl G t, w.under (𝓞 D.host.F) ≠ v) → WeilParts.UnramAt e (Lc.mu t (j + 1) * Lc.eta ^ (rankV D i j % 2)) ∧
+      WeilParts.UnramAt e (G.ch.chi (D.R.m - i) * Lc.eta ^ (rankV D i j % 2))) := by
   classical
   have hm1 : 1 ≤ D.R.m - (i : ℕ) := by omega
   have hm2 : D.R.m - (i : ℕ) ≤ D.R.m := by omega
   have hα : ChrEq (Lc.mu t (j + 1) * Lc.eta ^ (rankV D i j % 2)) (alphaH Lc t i j) :=
-    GlobalTheory.TwistChr.chrEq_mul (GlobalTheory.TwistChr.chrEq_mul (hL.mu0 j) (hL.xi t)) (character_equality_pow hL.eta _)
+    TwistChr.chrEq_mul (TwistChr.chrEq_mul (hL.mu0 j) (hL.xi t)) (character_equality_pow hL.eta _)
   have hβ : ChrEq (G.ch.chi (D.R.m - i) * Lc.eta ^ (rankV D i j % 2)) (betaH G i j) :=
-    GlobalTheory.TwistChr.chrEq_mul (G.ch.chi_eq _ hm1 hm2) (character_equality_pow hL.eta _)
+    TwistChr.chrEq_mul (G.ch.chi_eq _ hm1 hm2) (character_equality_pow hL.eta _)
   have hν : ChrEq (Lc.mu t (j + 1) * Lc.eta ^ (rankV D i j % 2) / (G.ch.chi (D.R.m - i) * Lc.eta ^ (rankV D i j % 2)))
       (nuH G t i j) := by
     rw [mul_div_mul_right_eq_div]
@@ -410,7 +410,7 @@ private theorem grid_ramification_characterised {D : D7} {T : Type} {Lc : LevCh 
     by_contra hc
     rcases (hL.Q_ram t P).1 hc with h | ⟨PP', h, hc'⟩
     · exact hP P h rfl
-    · exact hP PP' h (GlobalTheory.LevelPlaces.under_eq_of_isConjPl hc')
+    · exact hP PP' h (LevelPlaces.under_eq_of_isConjPl hc')
   have hchi : ∀ P : HeightOneSpectrum (𝓞 D.host.E), P.under (𝓞 D.host.F) ∉ G.pl.S0 →
       (G.ch.chiH (D.R.m - i)).UnrAt P := fun P hP => G.ch.unr _ hm1 hm2 P hP
   have heta : ∀ P : HeightOneSpectrum (𝓞 D.host.E), (Lc.C.eta ^ (rankV D i j % 2)).UnrAt P :=
@@ -423,10 +423,10 @@ private theorem grid_ramification_characterised {D : D7} {T : Type} {Lc : LevCh 
         exact Or.inl (hv ▸ (G.pl.under_w hu).symm ▸ hu)
       · exact Or.inr ⟨w, hw, hv⟩
     have key : ∀ P : HeightOneSpectrum (𝓞 D.host.E), P.under (𝓞 D.host.F) = v → (nuH G t i j).UnrAt P :=
-      fun P hP => (GlobalTheory.LFun.unrAt_iff_of_chrEq hν P).1 (GlobalTheory.UnrOverPlace.unrAt_of_unramAt D _ v e he hu P hP)
+      fun P hP => (LFun.unrAt_iff_of_chrEq hν P).1 (UnrOverPlace.unrAt_of_unramAt D _ v e he hu P hP)
     by_cases h0 : v = G.pl.v0
     · subst h0
-      exact GlobalTheory.RowTest.squareNuHeckeCharacter_not_unramified_at_chosenPlace hL G t i j (key _ (G.pl.under_w (G.pl.mem_S0_of_sum_eq.2 (Or.inl rfl))))
+      exact RowTest.squareNuHeckeCharacter_not_unramified_at_chosenPlace hL G t i j (key _ (G.pl.under_w (G.pl.mem_S0_of_sum_eq.2 (Or.inl rfl))))
     · by_cases h1 : v ∈ S1 D
       · have hv : v ∈ G.pl.S0 := G.pl.mem_S0_of_sum_eq.2 (Or.inr h1)
         have hwv' := G.pl.under_w hv
