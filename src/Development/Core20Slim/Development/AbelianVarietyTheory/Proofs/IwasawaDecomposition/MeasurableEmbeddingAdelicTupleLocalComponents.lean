@@ -3,21 +3,6 @@ module
 public import Mathlib
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.T2SpaceNumberFieldInfiniteAdeles
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.Order.Filter.Cofinite
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
-public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-public import Mathlib.RingTheory.Valuation.ValuationSubring
-public import Mathlib.Topology.Algebra.RestrictedProduct.TopologicalSpace
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
