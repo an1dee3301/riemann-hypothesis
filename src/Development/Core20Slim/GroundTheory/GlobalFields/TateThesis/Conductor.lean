@@ -292,6 +292,12 @@ theorem finite_support_conductorExponentAt (hH : NoSmallSubgroups H)
   by_contra hvS
   exact hv (Nat.eq_zero_of_le_zero ((h v).trans (h0 v hvS).le))
 
+theorem conductorExponentAt_eq_zero_iff (hH : NoSmallSubgroups H)
+    (χ : (FiniteAdeleRing (𝓞 K) K)ˣ →* H) (hχ : Continuous χ) (v : HeightOneSpectrum (𝓞 K)) :
+    conductorExponentAt χ v = 0 ↔
+      (Submonoid.ofClass (v.adicCompletionIntegers K)).units ≤
+        (χ.comp (finiteUnitsSingle v)).ker :=
+  conductorExponent_eq_zero_iff v hH _ (hχ.comp (continuous_finiteUnitsSingle v))
 
 end Character
 

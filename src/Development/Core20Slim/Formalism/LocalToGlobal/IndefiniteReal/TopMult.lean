@@ -79,7 +79,22 @@ theorem mem_GfC' (h : GA D V) : h ∈ GfC V ↔ (Eqv.matA D V h).map (infPart D)
   rw [Units.ext_iff]
   exact Iff.rfl
 
+theorem psiT_of_mem_GfC' {h : GA D V} (hh : h ∈ GfC V) (τ : D.what₂.Tau) : (Eqv.matA D V h).map (Eqv.psiT D τ) = 1 := by
+  have h1 := (mem_GfC' h).1 hh
+  unfold Eqv.psiT
+  rw [RingHom.coe_comp, ← Matrix.map_map, h1]
+  exact Matrix.map_one _ (map_zero _) (map_one _)
 
+theorem inf_GinfC_GfC' : GinfC V ⊓ GfC V = ⊥ := by
+  rw [eq_bot_iff]
+  rintro a ⟨ha, hb⟩
+  rw [Subgroup.mem_bot]
+  apply Eqv.matA_inj D V
+  rw [Eqv.matA_one]
+  apply Eqv.mat_ext D
+  · intro τ
+    rw [psiT_of_mem_GfC' hb τ, Matrix.map_one _ (map_zero _) (map_one _)]
+  · rw [(Eqv.mem_GinfC D V a).1 ha, Matrix.map_one _ (map_zero _) (map_one _)]
 
 theorem mem_GfC_of_psiT {h : GA D V} (hh : ∀ τ, (Eqv.matA D V h).map (Eqv.psiT D τ) = 1) : h ∈ GfC V := by
   rw [mem_GfC']
@@ -125,6 +140,7 @@ section Generic
 variable {D : D7} {V : HSp D} {S : D.what₂.Tau → SPar} (θ : Datum.InfFam D) (M : DSModel V S) (c : CoefA V)
   (pr : c.W →ₗ[ℂ] SmT M →ₗ[ℂ] ℂ)
 
+theorem rr_of_GinfC {a : GA D V} (ha : a ∈ GinfC V) : (finHom V).rangeRestrict a = 1 := Subtype.ext (MonoidHom.mem_ker.mp ha)
 
 
 variable {θ M c pr}
@@ -136,7 +152,22 @@ variable {J' : Subgroup (Bridge.Gf V)} {χ' : J' →* ℂˣ} {F : Bridge.Gf V �
 
 
 
+theorem exists_lift (y : Bridge.Gf V) : ∃ h, h ∈ GfC V ∧ (finHom V).rangeRestrict h = y := by
+  obtain ⟨g, rfl⟩ := (finHom V).rangeRestrict_surjective y
+  obtain ⟨h, hh, a, ha, rfl⟩ := ga_decomp g
+  exact ⟨h, hh, by rw [map_mul, rr_of_GinfC ha, mul_one]⟩
 
+theorem lift_unique {h h' : GA D V} (hh : h ∈ GfC V) (hh' : h' ∈ GfC V)
+    (e : (finHom V).rangeRestrict h = (finHom V).rangeRestrict h') : h = h' := by
+  have h1 : h⁻¹ * h' ∈ GinfC V := by
+    show h⁻¹ * h' ∈ (finHom V).ker
+    have e2 := congrArg Subtype.val e
+    simp only [MonoidHom.coe_rangeRestrict] at e2
+    rw [MonoidHom.mem_ker, map_mul, map_inv, e2, inv_mul_cancel]
+  have h2 : h⁻¹ * h' ∈ GfC V := mul_mem (inv_mem hh) hh'
+  have h3 : h⁻¹ * h' ∈ GinfC V ⊓ GfC V := ⟨h1, h2⟩
+  rw [inf_GinfC_GfC', Subgroup.mem_bot] at h3
+  exact inv_mul_eq_one.mp h3
 
 
 

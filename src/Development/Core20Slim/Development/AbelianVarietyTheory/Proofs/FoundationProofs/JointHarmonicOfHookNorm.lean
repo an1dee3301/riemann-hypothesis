@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.BlockTheory.TorsionBlocks.BottomMinor
 public import Formalism.FockGram.StatementFock
 public import Formalism.SmithDeterminants.StatementGram
 public import Init.Classical

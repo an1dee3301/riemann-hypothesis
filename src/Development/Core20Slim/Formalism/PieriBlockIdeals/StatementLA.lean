@@ -2,6 +2,7 @@ module
 
 public import Formalism.GradedWeylDivisibility.StatementA
 public import Development.Core20Slim.Formalism.RankGapBounds.CloudMinFalse
+public import Development.Core20Slim.Formalism.RankGapBounds.TheoremALocOfLemmaA
 public import Init.Core
 public import Init.Data.Cast
 public import Init.Data.Fin.Basic

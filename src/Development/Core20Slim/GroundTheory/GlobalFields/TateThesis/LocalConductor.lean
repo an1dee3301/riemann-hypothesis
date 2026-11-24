@@ -256,6 +256,10 @@ theorem unitsLevel_le_ker_iff (hH : NoSmallSubgroups H) (χ : (v.adicCompletion 
     (exists_unitsLevel_le_ker v hH χ hχ).imp fun _ h ↦ h.2
   refine ⟨fun h ↦ Nat.sInf_le h, fun h ↦ (unitsLevel_antitone v h).trans (Nat.sInf_mem hne)⟩
 
+theorem conductorExponent_eq_zero_iff (hH : NoSmallSubgroups H) (χ : (v.adicCompletion K)ˣ →* H)
+    (hχ : Continuous χ) :
+    conductorExponent v χ = 0 ↔ (Submonoid.ofClass (v.adicCompletionIntegers K)).units ≤ χ.ker := by
+  rw [← unitsLevel_zero, unitsLevel_le_ker_iff v hH χ hχ, Nat.le_zero]
 
 end Character
 
