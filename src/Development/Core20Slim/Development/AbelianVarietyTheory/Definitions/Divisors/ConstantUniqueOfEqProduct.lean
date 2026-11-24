@@ -4,6 +4,7 @@ public import Mathlib
 public import Formalism.LocalToGlobal.IndefiniteReal.OneMapT
 public import Formalism.LocalToGlobal.IndefiniteReal.FWExist
 public import Formalism.LocalRingCardinality.SpanPowerMembership.Spaces
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Divisors.MarkAd
 public import Development.AbelianVarietyTheory.Proofs.SiegelThetaTransformation.ExistsInfFamAndStdChar
 public import Development.AbelianVarietyTheory.Definitions.Divisors.IsUnitaryOnTheta
 public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow

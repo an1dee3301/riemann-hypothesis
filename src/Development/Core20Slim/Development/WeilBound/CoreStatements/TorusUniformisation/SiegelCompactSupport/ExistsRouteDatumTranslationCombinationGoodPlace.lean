@@ -1138,6 +1138,16 @@ theorem cont_at : Continuous (atPlace (F := F) v) := continuous_const.prodMk (co
 def sub {n d : ℕ} {k : Type} [Field k] (γ : GL (Fin n) k) : Module.End ℂ (Matrix (Fin n) (Fin d) k → ℂ) :=
   LinearMap.funLeft ℂ ℂ fun Y => γ.1 * Y
 
+theorem sub_mem {n d : ℕ} (γ : GL (Fin n) (Fv F v)) {f : Matrix (Fin n) (Fin d) (Fv F v) → ℂ} (hf : f ∈ SB _) :
+    sub γ f ∈ SB (Matrix (Fin n) (Fin d) (Fv F v)) := by
+  let h : Matrix (Fin n) (Fin d) (Fv F v) ≃ₜ Matrix (Fin n) (Fin d) (Fv F v) :=
+    { toFun := fun Y => γ.1 * Y
+      invFun := fun Y => (γ⁻¹).1 * Y
+      left_inv := fun Y => by simp only [← Matrix.mul_assoc, Units.inv_mul, Matrix.one_mul]
+      right_inv := fun Y => by simp only [← Matrix.mul_assoc, Units.mul_inv, Matrix.one_mul]
+      continuous_toFun := continuous_const.matrix_mul continuous_id
+      continuous_invFun := continuous_const.matrix_mul continuous_id }
+  exact ⟨hf.1.comp_continuous h.continuous, hf.2.comp_homeomorph h⟩
 
 
 end Gen

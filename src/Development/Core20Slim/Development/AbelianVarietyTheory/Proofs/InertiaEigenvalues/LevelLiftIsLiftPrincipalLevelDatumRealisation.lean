@@ -32,7 +32,9 @@ open GlobalTheory.ExportSeries GlobalTheory.ExportSeries.DualType GlobalTheory.E
 variable {D : D7} {S T : HSp D}
 
 
+def princG {r : ℕ} (G : TypeDat D r) : TypeDat D r := ⟨G.Pg, LevelP.triv _ _ _, G.mu⟩
 
+def princ (B : Base S T) : Base S T := { B with G := princG B.G }
 
 
 

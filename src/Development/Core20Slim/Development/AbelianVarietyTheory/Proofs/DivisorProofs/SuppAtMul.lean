@@ -1,0 +1,48 @@
+module
+
+public import Mathlib
+public import Formalism.LocalToGlobal.IndefiniteReal.PrimitivePackageFullHecke
+public import Formalism.LocalToGlobal.IndefiniteReal.PackageFromPrimitiveStatements
+public import Development.AbelianVarietyTheory.Definitions.Divisors.TupleReadBaseTupleEqFamily
+public import Development.AbelianVarietyTheory.Definitions.HeightFunctions.ConclOfInputs4
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.ConjTupRefl
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.LeafDataOfOnTieOfIntegral
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.LevelLiftIsLiftPrincipalLevelDatumRealisation
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsOmegaField
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.Divisibility.LiftLat
+
+@[expose] public section
+
+set_option autoImplicit false
+noncomputable section
+open NumberField IsDedekindDomain
+open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.DIV.Cons Formalism.L2.Pj Formalism.L2.DIV Formalism.L2.Indef Formalism.L2.Indef.Tree Formalism.IndefR Formalism.IndefR.Links Formalism.IndefR.Cx
+open Formalism.IndefR.FWT GlobalTheory.BigTop GlobalTheory.OntoChain GlobalTheory.RealIndexBound GlobalTheory.OnTies GlobalTheory.SeriesTie GlobalTheory.ExportSeries
+open Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.IndefR.Mult Formalism.IndefR.Datum
+open GlobalTheory.ConjTwist (BaseOf UnitOff)
+open GlobalTheory.FlatVecSum (princ)
+open scoped TensorProduct
+set_option synthInstance.maxHeartbeats 400000
+set_option maxHeartbeats 1600000
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+open Classical
+
+namespace GlobalTheory.BigOn.Exp.TupLe.Swap
+
+section Defs
+
+variable {D : D7} {G : Type} [Group G] [Fintype G] {Pl0 T0 : Type} {A : FamIn D.what₂.LL G Pl0 T0 D.R.m}
+  {Ks : Type} [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] (R : RealDat D A Ks) (i : Fin D.R.m)
+
+
+
+
+
+
+
+
+end Defs
+
+
+end GlobalTheory.BigOn.Exp.TupLe.Swap

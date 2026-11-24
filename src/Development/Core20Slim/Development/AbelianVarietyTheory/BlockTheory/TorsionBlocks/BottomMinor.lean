@@ -40,5 +40,15 @@ def hookProd {l : ℕ} (a : Fin l → ℕ) : ℚ :=
 
 
 
+open MvPolynomial in
+theorem _root_.GlobalTheory.IndefiniteRowSideFullHecke.CornerMinors.hookDen_pos {l : ℕ} {a : Fin l → ℕ} (ha : Antitone a) :
+    0 < _root_.GlobalTheory.IndefiniteRowSideFullHecke.CornerMinors.hookDen a := by
+  unfold _root_.GlobalTheory.IndefiniteRowSideFullHecke.CornerMinors.hookDen
+  refine Finset.prod_pos fun i _ => Finset.prod_pos fun j hj => ?_
+  have hij : i < j := Finset.mem_Ioi.mp hj
+  have hle : a j ≤ a i := ha hij.le
+  have h1 : ((a j : ℕ) : ℚ) ≤ (a i : ℚ) := by exact_mod_cast hle
+  have h2 : ((i : ℕ) : ℚ) < ((j : ℕ) : ℚ) := by exact_mod_cast hij
+  linarith
 
 end GlobalTheory.IndefiniteRowSideFullHecke.CornerMinors

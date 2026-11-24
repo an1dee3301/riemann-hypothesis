@@ -104,6 +104,8 @@ def homeo {S : Type} [CommRing S] [TopologicalSpace S] [IsTopologicalRing S] (g 
   continuous_toFun := Continuous.matrix_mulVec continuous_const continuous_id
   continuous_invFun := Continuous.matrix_mulVec continuous_const continuous_id
 
+theorem homeo_apply {S : Type} [CommRing S] [TopologicalSpace S] [IsTopologicalRing S] (g : F →+* S)
+    (A : Matrix κ κ F) (hA : IsUnit A.det) (x : κ → S) : homeo g A hA x = A⁻¹.map g *ᵥ x := rfl
 
 def linEquiv {S : Type} [CommRing S] [Algebra ℝ S] [TopologicalSpace S] [IsTopologicalRing S] (g : F →+* S)
     (A : Matrix κ κ F) (hA : IsUnit A.det) : (κ → S) ≃L[ℝ] (κ → S) where
