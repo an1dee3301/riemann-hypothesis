@@ -15,10 +15,56 @@ namespace GlobalTheory.ClassPet
 
 variable {L : Type} [Field L] [NumberField L] [IsCMField L] {n : ℕ}
 
+theorem cong_mul {N : ℕ} {a b : GAf L n} (ha : NG.Cong L n N a) (hb : NG.Cong L n N b) :
+    NG.Cong L n N (a * b) := by
+  refine ⟨Subgroup.mul_mem _ ha.1 hb.1, fun i j => ?_⟩
+  choose y hy e using ha.2
+  choose z hz e' using hb.2
+  have hbU : ∀ k l, (b.1 : Matrix (Fin n) (Fin n) (AL L)) k l ∈ ALint L := hb.1
+  refine ⟨∑ k, y i k * (b.1 : Matrix (Fin n) (Fin n) (AL L)) k j + z i j,
+    Subring.add_mem _ (Subring.sum_mem _ fun k _ => Subring.mul_mem _ (hy i k) (hbU k j)) (hz i j), ?_⟩
+  have hA : (a.1 : Matrix (Fin n) (Fin n) (AL L)) = 1 + (N : AL L) • Matrix.of y := by
+    ext k l; simp only [Matrix.add_apply, Matrix.smul_apply, Matrix.of_apply, smul_eq_mul]; rw [← e]; ring
+  have hB : (b.1 : Matrix (Fin n) (Fin n) (AL L)) = 1 + (N : AL L) • Matrix.of z := by
+    ext k l; simp only [Matrix.add_apply, Matrix.smul_apply, Matrix.of_apply, smul_eq_mul]; rw [← e']; ring
+  have : ((a * b).1 : Matrix (Fin n) (Fin n) (AL L)) = (a.1 : Matrix _ _ _) * (b.1 : Matrix _ _ _) := rfl
+  rw [this]
+  conv_lhs => rw [hA, Matrix.add_mul, Matrix.one_mul, Matrix.smul_mul]
+  rw [hB]
+  simp only [Matrix.add_apply, Matrix.smul_apply, Matrix.mul_apply, Matrix.of_apply, smul_eq_mul]
+  ring
+
+theorem cong_one (N : ℕ) : NG.Cong L n N (1 : GAf L n) := by
+  refine ⟨Subgroup.one_mem _, fun i j => ⟨0, Subring.zero_mem _, ?_⟩⟩
+  simp
+
+theorem cong_inv {N : ℕ} {a : GAf L n} (ha : NG.Cong L n N a) : NG.Cong L n N a⁻¹ := by
+  refine ⟨Subgroup.inv_mem _ ha.1, fun i j => ?_⟩
+  choose y hy e using ha.2
+  have hiU : ∀ k l, ((a⁻¹).1 : Matrix (Fin n) (Fin n) (AL L)) k l ∈ ALint L := Subgroup.inv_mem _ ha.1
+  refine ⟨-(∑ k, ((a⁻¹).1 : Matrix (Fin n) (Fin n) (AL L)) i k * y k j),
+    Subring.neg_mem _ (Subring.sum_mem _ fun k _ => Subring.mul_mem _ (hiU i k) (hy k j)), ?_⟩
+  have hA : (a.1 : Matrix (Fin n) (Fin n) (AL L)) = 1 + (N : AL L) • Matrix.of y := by
+    ext k l; simp only [Matrix.add_apply, Matrix.smul_apply, Matrix.of_apply, smul_eq_mul]; rw [← e]; ring
+  have hinv : ((a⁻¹).1 : Matrix (Fin n) (Fin n) (AL L)) * (a.1 : Matrix _ _ _) = 1 := by
+    have : (a⁻¹ * a).1 = 1 := by simp
+    exact congrArg (fun u : GL (Fin n) (AL L) => (u : Matrix (Fin n) (Fin n) (AL L))) this
+  have key : ((a⁻¹).1 : Matrix (Fin n) (Fin n) (AL L)) - 1 =
+      -((N : AL L) • (((a⁻¹).1 : Matrix (Fin n) (Fin n) (AL L)) * Matrix.of y)) := by
+    calc ((a⁻¹).1 : Matrix (Fin n) (Fin n) (AL L)) - 1
+        = ((a⁻¹).1 : Matrix (Fin n) (Fin n) (AL L)) - ((a⁻¹).1 : Matrix _ _ _) * (a.1 : Matrix _ _ _) := by rw [hinv]
+      _ = _ := by rw [hA, Matrix.mul_add, Matrix.mul_one, Matrix.mul_smul]; abel
+  have := congrFun (congrFun key i) j
+  simp only [Matrix.sub_apply, Matrix.neg_apply, Matrix.smul_apply, Matrix.mul_apply, Matrix.of_apply, smul_eq_mul] at this
+  rw [this]; ring
 
 
-
-
+variable (L n) in
+def congSub (N : ℕ) : Subgroup (GAf L n) where
+  carrier := {κ | NG.Cong L n N κ}
+  mul_mem' := cong_mul
+  one_mem' := cong_one N
+  inv_mem' := cong_inv
 
 
 
@@ -76,6 +122,23 @@ theorem exists_cosetReps {H K : Subgroup G} (hle : H ≤ K) (hne : H.relIndex K 
     show _ = (H.subgroupOf K).index
     rw [Subgroup.index, Nat.card_eq_fintype_card]
 
+theorem norm_eq_one_of_relIndex {J K : Subgroup G} (hle : K ≤ J) (hne : K.relIndex J ≠ 0) (χ : J →* ℂˣ)
+    (hχ : ∀ κ (h : κ ∈ K), χ ⟨κ, hle h⟩ = 1) (κ : J) : ‖((χ κ : ℂˣ) : ℂ)‖ = 1 := by
+  haveI : (K.subgroupOf J).FiniteIndex := ⟨hne⟩
+  obtain ⟨i, j, hij, e⟩ :=
+    Finite.exists_ne_map_eq_of_infinite (fun i : ℕ => ((κ ^ i : J) : J ⧸ K.subgroupOf J))
+  have hmem : ((κ ^ i)⁻¹ * κ ^ j : J) ∈ K.subgroupOf J := QuotientGroup.eq.1 e
+  have h1 : χ ((κ ^ i)⁻¹ * κ ^ j) = 1 := by
+    have := hχ _ (Subgroup.mem_subgroupOf.1 hmem)
+    rwa [Subtype.coe_eta] at this
+  have h2 : ((χ κ : ℂˣ) : ℂ) ^ i = ((χ κ : ℂˣ) : ℂ) ^ j := by
+    rw [map_mul, map_inv, map_pow, map_pow, inv_mul_eq_one] at h1
+    have := congrArg (fun u : ℂˣ => (u : ℂ)) h1
+    simpa using this
+  have h3 : ‖((χ κ : ℂˣ) : ℂ)‖ ^ i = ‖((χ κ : ℂˣ) : ℂ)‖ ^ j := by rw [← norm_pow, ← norm_pow, h2]
+  have hpos : 0 < ‖((χ κ : ℂˣ) : ℂ)‖ := norm_pos_iff.2 (Units.ne_zero _)
+  by_contra hne1
+  exact hij (pow_right_injective₀ hpos hne1 h3)
 
 end Grp
 

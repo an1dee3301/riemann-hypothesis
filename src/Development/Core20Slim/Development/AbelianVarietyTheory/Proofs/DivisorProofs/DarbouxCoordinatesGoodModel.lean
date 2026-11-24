@@ -4,6 +4,7 @@ public import Mathlib
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsSymp
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.AdelicHeisenbergActsByLocalSchrodinger
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsComplementaryAdelicSchwartzRestFunctionStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.RationalDarbouxCoordinatesCompareStatement
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.EigenIntertwinerSkewPlaneUniqueDual
 
 @[expose] public section

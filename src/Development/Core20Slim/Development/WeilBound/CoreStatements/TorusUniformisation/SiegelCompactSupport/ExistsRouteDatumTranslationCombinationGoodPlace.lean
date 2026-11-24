@@ -971,6 +971,16 @@ open GlobalTheory.EmbChart (tensAt compFin_tensAt tensAt_mul_right tensAt_tmul)
 variable {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E}
   {v : HeightOneSpectrum (𝓞 F)}
 
+theorem hasSig_det {n r s : ℕ} {M : Matrix (Fin n) (Fin n) ℂ} (h : HasSig M r s) : M.det ≠ 0 := by
+  obtain ⟨rfl, A, hA⟩ := h
+  intro h0
+  have e : (A.submatrix id finSumFinEquiv.symm)ᵀ * M * (A.map star).submatrix id finSumFinEquiv.symm =
+      (fromBlocks 1 0 0 (-1) : Matrix (Fin r ⊕ Fin s) (Fin r ⊕ Fin s) ℂ).submatrix finSumFinEquiv.symm finSumFinEquiv.symm := by
+    rw [← hA]; rfl
+  have := congrArg det e
+  rw [det_mul, det_mul, h0, det_submatrix_equiv_self, det_fromBlocks_zero₂₁, det_neg] at this
+  simp only [mul_zero, zero_mul, det_one, one_mul, mul_one] at this
+  exact pow_ne_zero _ (neg_ne_zero.2 one_ne_zero) this.symm
 
 theorem hTens_tr {R E : Type} [CommRing R] [CommRing E] [Algebra R E] (c : E →ₐ[R] E) {α β : Type} [Fintype α] [Fintype β]
     (JA : Matrix α α E) (JB : Matrix β β E) (x y : Matrix α β E) :
