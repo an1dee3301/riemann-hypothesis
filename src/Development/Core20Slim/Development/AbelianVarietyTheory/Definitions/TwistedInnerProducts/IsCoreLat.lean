@@ -9,21 +9,6 @@ public import Formalism.LocalRingCardinality.DataHost
 public import Formalism.LocalRingCardinality.Params
 public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Prelude
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.GroupWithZero.NonZeroDivisors
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Set.Defs
-public import Mathlib.LinearAlgebra.Span.Defs
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.RingTheory.FractionalIdeal.Basic
 
 @[expose] public section
 

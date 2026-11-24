@@ -1,55 +1,6 @@
 module
 
 public import Mathlib
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Actions
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Basic.Countable.Defs
-public import Mathlib.Basic.ENNReal.Action
-public import Mathlib.Basic.ENNReal.Basic
-public import Mathlib.Basic.ENNReal.Operations
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.NNReal.Defs
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Operations
-public import Mathlib.Dynamics.Ergodic.Action.Basic
-public import Mathlib.Dynamics.Ergodic.Action.Regular
-public import Mathlib.Logic.Function.Defs
-public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
-public import Mathlib.MeasureTheory.Group.Arithmetic
-public import Mathlib.MeasureTheory.Group.FundamentalDomain
-public import Mathlib.MeasureTheory.Group.MeasurableEquiv
-public import Mathlib.MeasureTheory.Group.Measure
-public import Mathlib.MeasureTheory.Group.Prod
-public import Mathlib.MeasureTheory.MeasurableSpace.Defs
-public import Mathlib.MeasureTheory.MeasurableSpace.Embedding
-public import Mathlib.MeasureTheory.Measure.Haar.Unique
-public import Mathlib.MeasureTheory.Measure.Map
-public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
-public import Mathlib.MeasureTheory.Measure.Module
-public import Mathlib.MeasureTheory.Measure.Typeclasses.SFinite
-public import Mathlib.Order.Notation
-public import Mathlib.Topology.Algebra.Group.Basic
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Monoid.Defs
-public import Mathlib.Topology.Bases
-public import Mathlib.Topology.Compactness.LocallyCompact
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
 
 @[expose] public section
 

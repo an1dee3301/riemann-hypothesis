@@ -72,6 +72,10 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 namespace GlobalTheory.AdTh.RecPair
 
 
+theorem selfDual_of_coe {D : D7} {V : HSp D} {Λ : Submodule (𝓞 D.host.E) (Fin V.rank → D.host.E)}
+    (h : (Λ : Set (Fin V.rank → D.host.E)) = L0c D V) : IsSelfDualC V Λ := by
+  obtain rfl : Λ = GlobalTheory.PlaceModel.latFrame V := SetLike.coe_injective (h.trans (GlobalTheory.PlaceModel.coe_latFrame V).symm)
+  exact GlobalTheory.PlaceModel.isSelfDualC_latFrame V
 
 theorem under_ne {D : D7} {e : Formalism.L2.Theta.AE D} {P : HeightOneSpectrum (𝓞 D.host.E)} (h : Formalism.L2.NTheta.IsIdemAt e P) {v ε}
     (hv : GlobalTheory.WeilParts.NonSplitAt D v ε) : P.under (𝓞 D.host.F) ≠ v := by
