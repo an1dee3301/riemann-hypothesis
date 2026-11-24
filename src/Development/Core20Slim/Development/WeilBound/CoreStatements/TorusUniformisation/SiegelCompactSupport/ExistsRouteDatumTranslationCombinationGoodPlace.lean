@@ -1063,6 +1063,10 @@ theorem spM_snd (h : IsCMExt F E σ) (t : E →ₐ[F] Fv F v) {m n : Type} (A B 
   show splitProj (t.comp σ) (compFin F E v (tensAt E v _)) = _
   rw [compFin_tensAt, splitProj_comp_symm]
 
+theorem spM_off (h : IsCMExt F E σ) (t : E →ₐ[F] Fv F v) {m n : Type} (A B : Matrix m n (Fv F v)) :
+    (1 - ep v) • spM h t A B = 0 := Matrix.ext fun i j => by
+  show (1 - ep v) • tensAt E v _ = 0
+  rw [sub_smul, one_smul, ep_smul, compFin_tensAt, sub_self]
 
 
 

@@ -1,0 +1,214 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.GroundTheory.GlobalFields.NormResidueSymbol.RestrictNormalInfiniteLocalSymbol
+public import Development.Core20Slim.GroundTheory.GlobalFields.FirstInequality
+public import Development.Core20Slim.GroundTheory.GlobalFields.FirstInequalityStatement
+public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.IdeleNorms.BaseChange
+public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.InfiniteProjInfiniteEmbeddingOfNe
+public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.LocalNormGroups
+public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.LocalNorms
+public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.LocalNormsEverywhere
+public import Development.Core20Slim.GroundTheory.GlobalFields.InfiniteNormIndex.LocalSymbol
+public import Development.Core20Slim.GroundTheory.GlobalFields.KummerTheory.Splitting
+public import Development.Core20Slim.GroundTheory.GlobalFields.NormResidueSymbol.Infinite
+public import Development.Core20Slim.GroundTheory.GlobalFields.NormResidueSymbol.RangeFiniteLocalNormLeKerLocalSymbol
+public import Development.Core20Slim.GroundTheory.GlobalFields.NormResidueSymbol.RangeIdeleNormLeKerIdeleSymbol
+public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.ContinuousCompletionMap
+public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.Infinite
+public import Development.Core20Slim.GroundTheory.LocalFields.ExistsUnitFiltrationUnitsLeRangeNormUnits
+public import Init.BinderNameHint
+public import Init.Classical
+public import Init.Core
+public import Init.Data.Function
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Subfield.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Equiv.Defs
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Pi.Hom
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Mathlib.Algebra.Group.Subgroup.Lattice
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.TypeTags.Basic
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.Group.Units.Hom
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Notation.Pi.Basic
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Order.AbsoluteValue.Basic
+public import Mathlib.Algebra.Quotient
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Subring.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Field.WithAbs
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Set.CoeSort
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Data.ZMod.Defs
+public import Mathlib.FieldTheory.Galois.Basic
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
+public import Mathlib.FieldTheory.IntermediateField.Basic
+public import Mathlib.FieldTheory.Normal.Defs
+public import Mathlib.GroupTheory.Coset.Defs
+public import Mathlib.GroupTheory.FiniteAbelian.Basic
+public import Mathlib.GroupTheory.Index
+public import Mathlib.GroupTheory.QuotientGroup.Basic
+public import Mathlib.GroupTheory.QuotientGroup.Defs
+public import Mathlib.GroupTheory.SpecificGroups.Cyclic
+public import Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic
+public import Mathlib.GroupTheory.SpecificGroups.Cyclic.Subgroup
+public import Mathlib.LinearAlgebra.Dimension.Finrank
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.NumberTheory.NumberField.Completion.InfinitePlace
+public import Mathlib.NumberTheory.NumberField.Completion.LiesOverInstances
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Ramification
+public import Mathlib.Order.BoundedOrder.Basic
+public import Mathlib.Order.CompleteLattice.Defs
+public import Mathlib.Order.CompletePartialOrder
+public import Mathlib.Order.ConditionallyCompleteLattice.Basic
+public import Mathlib.Order.ConditionallyCompleteLattice.Defs
+public import Mathlib.Order.Defs.Lattice
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.Order.Notation
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
+public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
+public import Mathlib.RingTheory.Ideal.Over
+public import Mathlib.RingTheory.Norm.Defs
+public import Mathlib.Tactic.Push
+
+@[expose] public section
+
+namespace GroundTheory.Global
+
+open IsDedekindDomain NumberField IdeleGroup IntermediateField
+
+noncomputable section
+
+section Trivial
+
+variable {K : Type*} [Field K] [NumberField K] (L : Type*) [Field L] [NumberField L] [Algebra K L]
+  [IsGalois K L] [IsMulCommutative (L ≃ₐ[K] L)]
+
+theorem range_ideleNorm_eq_top_of_ideleSymbol_eq_one (h : ∀ x, ideleSymbol K L x = 1) :
+    (ideleNorm K L).range = ⊤ := by
+  classical
+  refine eq_top_iff.2 fun x _ ↦ (IdeleNorm.mem_range_ideleNorm_iff_forall L x).2
+    ⟨fun v ↦ ?_, fun v ↦ ?_⟩
+  · obtain ⟨w⟩ := nonempty_placesOver L v
+    have h1 : finiteProj v x ∈ (localSymbol L v).ker := by
+      rw [MonoidHom.mem_ker, ← ideleSymbol_finiteEmbedding]
+      exact h _
+    rw [ker_localSymbol L v w] at h1
+    obtain ⟨y, hy⟩ := h1
+    exact ⟨Pi.mulSingle w y, by rw [IdeleNorm.finiteLocalNorm_mulSingle]; exact hy⟩
+  · obtain ⟨w⟩ := IdeleNorm.nonempty_infinitePlacesOver L v
+    have h1 : infiniteProj v x ∈ (infiniteLocalSymbol L v).ker := by
+      rw [MonoidHom.mem_ker, ← ideleSymbol_infiniteEmbedding]
+      exact h _
+    rw [ker_infiniteLocalSymbol L v w] at h1
+    obtain ⟨y, hy⟩ := h1
+    exact ⟨Pi.mulSingle w y, by rw [IdeleNorm.infiniteLocalNorm_mulSingle]; exact hy⟩
+
+end Trivial
+
+universe u
+
+section Cyclic
+
+variable {K L : Type u} [Field K] [NumberField K] [Field L] [NumberField L] [Algebra K L]
+  [IsGalois K L] [IsCyclic (L ≃ₐ[K] L)]
+
+theorem finrank_eq_one_of_ideleSymbol_eq_one (h : ∀ x, ideleSymbol K L x = 1) :
+    Module.finrank K L = 1 :=
+  firstInequality.finrank_eq_one_of_sup_eq_top
+    (top_le_iff.1 (range_ideleNorm_eq_top_of_ideleSymbol_eq_one L h ▸ le_sup_left))
+
+end Cyclic
+
+section Surjective
+
+variable {K L : Type u} [Field K] [NumberField K] [Field L] [NumberField L] [Algebra K L]
+  [IsGalois K L] [IsMulCommutative (L ≃ₐ[K] L)]
+
+attribute [local instance] galCommGroup
+
+
+omit [NumberField K] [NumberField L] [IsMulCommutative (L ≃ₐ[K] L)] in
+theorem restrictNormal_fixedField_eq_one {N : Subgroup (L ≃ₐ[K] L)} [N.Normal] {σ : L ≃ₐ[K] L}
+    (hσ : σ ∈ N) : σ.restrictNormal (fixedField N) = 1 := by
+  ext y
+  change ((σ.restrictNormal (fixedField N) y : fixedField N) : L) = y
+  exact (AlgEquiv.restrictNormal_commutes σ (fixedField N) y).trans
+    ((mem_fixedField_iff N y).1 y.2 σ hσ)
+
+theorem ideleSymbol_surjective : Function.Surjective (ideleSymbol K L) := by
+  classical
+  by_contra hs
+  obtain ⟨σ, hσ⟩ := not_forall.1 hs
+  set H := (ideleSymbol K L).range with hH
+  have hσH : σ ∉ H := fun ⟨x, hx⟩ ↦ hσ ⟨x, hx⟩
+  obtain ⟨ι, _, n, _, ⟨e⟩⟩ := CommGroup.equiv_prod_multiplicative_zmod_of_finite
+    ((L ≃ₐ[K] L) ⧸ H)
+  have hne : (QuotientGroup.mk' H σ) ≠ 1 := by
+    rwa [ne_eq, QuotientGroup.mk'_apply, QuotientGroup.eq_one_iff]
+  obtain ⟨i, hi⟩ : ∃ i, e (QuotientGroup.mk' H σ) i ≠ 1 := by
+    by_contra hall
+    push Not at hall
+    exact hne ((MulEquiv.map_eq_one_iff e).1 (funext hall))
+  set χ : (L ≃ₐ[K] L) →* Multiplicative (ZMod (n i)) :=
+    (Pi.evalMonoidHom (fun j ↦ Multiplicative (ZMod (n j))) i).comp
+      (e.toMonoidHom.comp (QuotientGroup.mk' H)) with hχ
+  set N := χ.ker with hN
+  have hHN : ∀ x, ideleSymbol K L x ∈ N := fun x ↦ by
+    have hq : QuotientGroup.mk' H (ideleSymbol K L x) = 1 := by
+      rw [QuotientGroup.mk'_apply, QuotientGroup.eq_one_iff]
+      exact ⟨x, rfl⟩
+    rw [hN, MonoidHom.mem_ker, hχ, MonoidHom.comp_apply, MonoidHom.comp_apply, hq, map_one, map_one]
+  have hσN : σ ∉ N := hi
+  set F := fixedField N with hF
+  have : IsCyclic (F ≃ₐ[K] F) := by
+    have e1 : (F ≃ₐ[K] F) ≃* χ.range :=
+      (IsGalois.normalAutEquivQuotient N).symm.trans (QuotientGroup.quotientKerEquivRange χ)
+    exact isCyclic_of_surjective e1.symm.toMonoidHom e1.symm.surjective
+  have hF1 : ∀ x, ideleSymbol K F x = 1 := fun x ↦ by
+    rw [← restrictNormal_ideleSymbol F L x]
+    exact restrictNormal_fixedField_eq_one (hHN x)
+  have hbot : F = ⊥ := finrank_eq_one_iff.1 (finrank_eq_one_of_ideleSymbol_eq_one hF1)
+  have htop : N = ⊤ := by
+    rw [← fixingSubgroup_fixedField N, ← hF, hbot, fixingSubgroup_bot]
+  exact hσN (htop ▸ Subgroup.mem_top σ)
+
+end Surjective
+
+end
+
+end GroundTheory.Global

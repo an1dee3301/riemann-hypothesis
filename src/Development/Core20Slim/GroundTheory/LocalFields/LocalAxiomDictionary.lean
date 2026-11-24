@@ -170,6 +170,12 @@ instance finiteDimensional_fixedField_openSubgroup (U : OpenSubgroup G) :
     rw [fixingSubgroup_fixedField_openSubgroup]
     exact U.isOpen)
 
+theorem fixingOpenSubgroup_fixedField (U : OpenSubgroup G) :
+    fixingOpenSubgroup (fixedField (U : Subgroup G)) = U :=
+  OpenSubgroup.ext fun σ => by
+    rw [← OpenSubgroup.mem_toSubgroup, coe_fixingOpenSubgroup,
+      fixingSubgroup_fixedField_openSubgroup]
+    rfl
 
 theorem fixingSubgroup_le_fixingSubgroup_iff {L L' : IntermediateField K Ω} :
     L.fixingSubgroup ≤ L'.fixingSubgroup ↔ L' ≤ L := by
