@@ -33,7 +33,7 @@ open Formalism.MainNotions.TaylorLogMetric Formalism.MainNotions.StandardLattice
 end GlobalTheory.DictFree
 namespace GlobalTheory.DictFree
 open Formalism.MainNotions.TaylorLogMetric Formalism.MainNotions.StandardLatticesGL3 MvPolynomial
-theorem twisted_dictionary_eventually_large : _root_.GlobalTheory.FunPr.ThetaLocalInputs → (∀ D, GlobalTheory.NormSum.Inp D) → Big fun ch => GlobalTheory.SumSize.DictAt ch := by
+theorem twisted_dictionary_eventually_large : FunPr.ThetaLocalInputs → (∀ D, NormSum.Inp D) → Big fun ch => SumSize.DictAt ch := by
   intro hP hI
   obtain ⟨CF0, hCF⟩ := _root_.GlobalTheory.T.translated_jets_dictionary hP hI
   refine ⟨CF0, fun ε CF hCF0 => ?_⟩
@@ -77,7 +77,7 @@ theorem twisted_dictionary_eventually_large : _root_.GlobalTheory.FunPr.ThetaLoc
       refine Finset.sum_congr rfl fun i _ => ?_
       push_cast; ring
     set_option synthInstance.maxHeartbeats 100000 in
-      rw [hfun, GlobalTheory.NormSum.RepInv.applyAt0_sum _ _ _ hGi, Finset.mul_sum, map_sum, Finset.mul_sum]
+      rw [hfun, NormSum.RepInv.applyAt0_sum _ _ _ hGi, Finset.mul_sum, map_sum, Finset.mul_sum]
     refine Finset.sum_congr rfl fun i _ => ?_
     rw [oppQ_coe]
     simp only [map_mul, opp_opp]

@@ -29,60 +29,60 @@ section Over
 variable {D : D7} {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D} {W W₁ X : HSp D} {A : Fr W} {A₁ : Fr W₁} {B : Fr X}
   {α β : (AE D)ˣ →* Circle} {ν : Measure (GA D W)} {𝓕 : Set (GA D W)} {ν₁ : Measure (GA D W₁)} {𝓕₁ : Set (GA D W₁)}
   {ωA : WRep W X} {ωB : WRep W₁ X} {e : Fin X.rank ≃ Fin (W.rank + W₁.rank)}
-  {Bs : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E} {Γ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig W.rank W₁.rank}
-  {Xc : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E} {om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W}
-  {om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W}
+  {Bs : IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E} {Γ : IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig W.rank W₁.rank}
+  {Xc : IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E} {om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W}
+  {om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W}
   {cA : Matrix (Fin W.rank) (Fin (W.rank + W₁.rank)) (AE D) ≃+ WO W X}
   {cB : Matrix (Fin W₁.rank) (Fin (W.rank + W₁.rank)) (AE D) ≃+ WO W₁ X}
-theorem hasDerivAt_large_parameter_theta_integral (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hθ : IsInfFam θ)
-    (hO : IsOver ψ θ A A₁ B α β ν 𝓕 ν₁ 𝓕₁ ωA ωB e Bs Γ Xc om om' cA cB) (hT : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs Γ Xc om om')
-    (hC : ∀ Φ ∈ GlobalTheory.WeilM.schA D.host.F _, Γ.M.Conv om Φ) {τ : D.what₂.Tau} {Y : Matrix (Fin X.rank) (Fin X.rank) ℂ}
+theorem hasDerivAt_large_parameter_theta_integral (hP : FunPr.ThetaLocalInputs) (hθ : IsInfFam θ)
+    (hO : IsOver ψ θ A A₁ B α β ν 𝓕 ν₁ 𝓕₁ ωA ωB e Bs Γ Xc om om' cA cB) (hT : IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs Γ Xc om om')
+    (hC : ∀ Φ ∈ WeilM.schA D.host.F _, Γ.M.Conv om Φ) {τ : D.what₂.Tau} {Y : Matrix (Fin X.rank) (Fin X.rank) ℂ}
     (hY : Y ∈ lieAt X τ) {Φ Φ' : WO W X → ℂ} (hΦ : Φ ∈ algF ψ θ true A B) (hΦ' : Φ' ∈ algF ψ θ true A B)
     (hd : IsDer θ X (fun h => ωA (1, h)) τ Y Φ Φ') (h : GA D X) :
     HasDerivAt (fun t : ℝ => thetaInt ωA ν 𝓕 Φ (h * oneP θ X τ Y t)) (thetaInt ωA ν 𝓕 Φ' h) 0 := by
-  obtain ⟨γ, hγ, hγt⟩ := GlobalTheory.KapXLine.exists_line D θ X τ Y hθ hY e Γ.W hO.JX
-  obtain ⟨δ, hδ⟩ := GlobalTheory.OscLie.exists_lie_deriv_pol Bs Γ Xc om om' hT γ hγ
+  obtain ⟨γ, hγ, hγt⟩ := KapXLine.exists_line D θ X τ Y hθ hY e Γ.W hO.JX
+  obtain ⟨δ, hδ⟩ := OscLie.exists_lie_deriv_pol Bs Γ Xc om om' hT γ hγ
   obtain ⟨ΦD, hΦD, hD⟩ := hO.algA Φ hΦ
   obtain ⟨Φ'D, -, hD'⟩ := hO.algA Φ' hΦ'
-  have hPD : ΦD ∈ GlobalTheory.ThK.PolData Bs Γ.M := by
+  have hPD : ΦD ∈ ThK.PolData Bs Γ.M := by
     refine Submodule.span_mono ?_ hΦD
     rintro _ ⟨f, φ, h1, h2, h3, rfl⟩
     exact ⟨f, h1, φ, h2, h3, rfl⟩
-  obtain ⟨T, m, f, φ, hf, rfl⟩ := GlobalTheory.ThK.CycGen.exists_decOn_some Γ.M ΦD hPD
-  have e1 := _root_.GlobalTheory.SquareAgree.DatA.polarization_datum_lie_derivative hP D ψ θ W W₁ X A A₁ B α β ν 𝓕 ν₁ 𝓕₁ ωA ωB e Bs Γ Xc om om' cA cB hO hT τ Y γ
+  obtain ⟨T, m, f, φ, hf, rfl⟩ := ThK.CycGen.exists_decOn_some Γ.M ΦD hPD
+  have e1 := SquareAgree.DatA.polarization_datum_lie_derivative hP D ψ θ W W₁ X A A₁ B α β ν 𝓕 ν₁ 𝓕₁ ωA ωB e Bs Γ Xc om om' cA cB hO hT τ Y γ
     hγt hγ Φ Φ' hd T m f (fun i => δ (f i)) φ hf (fun i => (hδ _ (hf i).1).2) hD Φ'D hD'
-  obtain ⟨l, hla, hl⟩ := GlobalTheory.ThetaIntAdm.exists_admissible_form_convergent_thetaIntegral Γ.M Bs.ψ _ _ om hT.weil hC
-  obtain ⟨Φ₁, -, hp, hI⟩ := _root_.GlobalTheory.ThetaIntegralLine.thetaIntegral_line_hasDerivAt hP Γ.M Bs.ψ _ _ om hT.base.cm hT.base.std hT.weil hC
+  obtain ⟨l, hla, hl⟩ := ThetaIntAdm.exists_admissible_form_convergent_thetaIntegral Γ.M Bs.ψ _ _ om hT.weil hC
+  obtain ⟨Φ₁, -, hp, hI⟩ := ThetaIntegralLine.thetaIntegral_line_hasDerivAt hP Γ.M Bs.ψ _ _ om hT.base.cm hT.base.std hT.weil hC
     (fun g hg x => by
       obtain ⟨L, hL⟩ := hT.weil.isUSplitting.adm (1, x) l hla g hg
       refine L.continuous.congr fun u => ?_
-      rw [GlobalTheory.BigNZ.I_eq_l hT hl (Submodule.subset_span ⟨u, g, hg, rfl⟩), ← hL u]
+      rw [BigNZ.I_eq_l hT hl (Submodule.subset_span ⟨u, g, hg, rfl⟩), ← hL u]
       rfl) hγ hD.1
   have hM := hT.geo.hM
-  have hrest : ∀ i, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rest (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI D.host.F) (⇑(f i)) (GlobalTheory.EvZeroInf.finPart (φ i)) := fun i =>
-    ⟨fun x z hz => GlobalTheory.EvZeroInf.finPart_add _ x z hz, by
-      rw [← GlobalTheory.EvZeroInf.pure_eq_tens]
-      exact (GlobalTheory.BigNZ.IsFinPart.fam (M := Γ.M) (T := T) (hf i).2).mem hM _⟩
+  have hrest : ∀ i, IndefiniteRowSideFullHecke.WeilTensorModels.Rest (IndefiniteRowSideFullHecke.WeilTensorModels.evI D.host.F) (⇑(f i)) (EvZeroInf.finPart (φ i)) := fun i =>
+    ⟨fun x z hz => EvZeroInf.finPart_add _ x z hz, by
+      rw [← EvZeroInf.pure_eq_tens]
+      exact (BigNZ.IsFinPart.fam (M := Γ.M) (T := T) (hf i).2).mem hM _⟩
   have e2 : Φ₁ = Φ'D := by
     funext x
     refine (hp x).unique ?_
     rw [e1]
     set_option synthInstance.maxHeartbeats 100000 in
-      simp only [map_sum, Finset.sum_apply, GlobalTheory.EvZeroInf.pure_eq_tens]
+      simp only [map_sum, Finset.sum_apply, EvZeroInf.pure_eq_tens]
     exact HasDerivAt.fun_sum fun i _ => (hδ _ (hf i).1).2 _ (hrest i) x
   have := hI (kapX X e hO.JX h)
   rw [e2] at this
-  simp only [int_eq hO hD, int_eq hO hD', GlobalTheory.KapXLine.kapX_mul, ← hγt]
+  simp only [int_eq hO hD, int_eq hO hD', KapXLine.kapX_mul, ← hγt]
   exact this
 end Over
-theorem convergent_theta_integral_ne_zero : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
+theorem convergent_theta_integral_ne_zero : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
   ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D), IsStdChar D ψ (-1) → IsInfFam θ →
   ∀ (W W₁ X : HSp D) (A : Fr W) (A₁ : Fr W₁) (B : Fr X) (α β : (AE D)ˣ →* Circle), IsTriple W W₁ X α β →
   ∀ (ν₁ : Measure (GA D W₁)) (𝓕₁ : Set (GA D W₁)), IsHaarFD W₁ ν₁ 𝓕₁ →
   ∀ ωA ωB Pi rf rl p p', IsMatch ψ θ A A₁ B α β ωA ωB Pi rf rl p p' →
   ∀ Φ' ∈ algF ψ θ false A₁ B, (∀ h, IntegrableOn (fun g => thetaKO ωB g h Φ') 𝓕₁ ν₁) → p' Φ' ≠ 0 → thetaInt ωB ν₁ 𝓕₁ Φ' ≠ 0 := by
   intro hP hK hL D ψ θ hψ hθ W W₁ X A A₁ B α β hT ν₁ 𝓕₁ hν₁ ωA ωB Pm rf rl p p' hm Φ' hΦ' hint' hp' h0'
-  obtain ⟨ν, 𝓕, hν⟩ := GlobalTheory.Ker.HypModel.exists_haar_fundDom D W
+  obtain ⟨ν, 𝓕, hν⟩ := Ker.HypModel.exists_haar_fundDom D W
   obtain ⟨e, Bs, Γ, Xc, om, om', cA, cB, hO, hTD⟩ :=
     GlobalTheory.T.exists_placewise_seesaw_triple_over_hermitian D ψ θ hθ W W₁ X A A₁ B α β hT ν 𝓕 ν₁ 𝓕₁ hν hν₁ ωA ωB hm.weilA hm.weilB
   have hC := (hK.1 _ _ _ Bs _ _ Γ Xc om om' hTD).1.1
@@ -124,7 +124,7 @@ theorem convergent_theta_integral_ne_zero : _root_.GlobalTheory.FunPr.ThetaLocal
     rintro τ Y hY _ ⟨Ψ, ⟨hΨS, hΨ0⟩, rfl⟩
     obtain ⟨Ψ', hΨ'S, hder⟩ := hm.mapA.stabX.2 τ Y hY Ψ hΨS
     refine ⟨Ψ', ⟨hΨ'S, funext fun h => ?_⟩, hm.mapA.eql τ Y hY Ψ hΨS Ψ' hΨ'S hder⟩
-    have h1 := _root_.GlobalTheory.ConvThetaNe.hasDerivAt_large_parameter_theta_integral hP hθ hO hTD hC hY hΨS hΨ'S hder h
+    have h1 := ConvThetaNe.hasDerivAt_large_parameter_theta_integral hP hθ hO hTD hC hY hΨS hΨ'S hder h
     rw [hΨ0] at h1
     exact h1.unique (hasDerivAt_const (0 : ℝ) (0 : ℂ))
   rcases hm.irred.2 (K.map p) stf stl with hbot | htop

@@ -26,8 +26,8 @@ namespace GlobalTheory.SqTop.BotConstPf
 end GlobalTheory.SqTop.BotConstPf
 namespace GlobalTheory.SqTop
 open BotConstPf
-theorem botConst_of_inputs_alt : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
-    (∀ D, GlobalTheory.NormSum.Inp D) → BotSmall → LNe → BotConst := by
+theorem botConst_of_inputs_alt : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
+    (∀ D, NormSum.Inp D) → BotSmall → LNe → BotConst := by
   intro hPr hK hM hInp hS hL
   refine gBig_imp (Model.gBig_and (Model.gBig_and (_root_.GlobalTheory.T.bottom_constant_ratio_eq_local_factor_ratio hPr hK hM hInp hS hL) (_root_.GlobalTheory.T.rallis_inner_product_formula_first_occurrence hPr hK hM hInp hS)) hS) ?_
   intro D T Lc sc G μ₀ C x b hμ H

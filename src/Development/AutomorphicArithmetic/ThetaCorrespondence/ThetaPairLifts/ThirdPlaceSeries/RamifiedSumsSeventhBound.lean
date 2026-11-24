@@ -19,9 +19,9 @@ end Norms
 end GlobalTheory.BigTop.Fun.RamSum
 namespace GlobalTheory.BigTop.Fun
 open RamSum
-theorem ramified_sums_seventh_bound_alt : _root_.GlobalTheory.BigTop.Fun.RamifiedSumBound' := by
+theorem ramified_sums_seventh_bound_alt : RamifiedSumBound' := by
   refine ⟨0, fun CF _ => ⟨1, one_pos, fun eps _ _ => ⟨⟨0, fun _ => 0, fun _ => 0, fun _ => 0⟩, fun Fm CH hF _ _ => ?_⟩⟩⟩
-  refine ⟨42, fun C hC => _root_.GlobalTheory.BigTop.EventuallyAtPoints.of_forall fun x hx i p _ d _ => ?_⟩
+  refine ⟨42, fun C hC => EventuallyAtPoints.of_forall fun x hx i p _ d _ => ?_⟩
   obtain ⟨-, -, hg, h1, h2, -⟩ := hF.1.2.2.2.2.2.2.2.2 x hx i
   have h3 := hF.2.2.1 x hx i
   have hb : 1 ≤ (Fm.L x i).sc.b := Real.one_le_exp (Real.rpow_nonneg (by linarith [(Fm.L x i).sc.one_lt_alt]) _)

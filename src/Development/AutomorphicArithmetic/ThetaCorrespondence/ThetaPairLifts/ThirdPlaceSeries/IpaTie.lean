@@ -23,7 +23,7 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 variable {D : D7} {L : SizeData₂ D} {hT : GatTies D} {Gi : Formalism.MainNotions.G.Inst D L} {Gl : Formalism.MainNotions.G.LatInst D} {Kc : Formalism.MainNotions.G.Consts} {Y : DivX D} {cX : ExtraC} {ex : Extra D L hT Gi Gl Kc Y cX} {Csz : ℝ}
 end Bound
 open GlobalTheory.BigTop GlobalTheory.BigTop.Fun GlobalTheory.SumSize in
-theorem leafHeightMapBound_tie_of_infK : _root_.GlobalTheory.BigTop.Fun.BundleCondition → _root_.GlobalTheory.BigTop.Fun.SettingAtPoint → InfK → _root_.GlobalTheory.BigTop.Fun.LeafHeightMapBound @Comparison₂ := by
+theorem leafHeightMapBound_tie_of_infK : BigTop.Fun.BundleCondition → BigTop.Fun.SettingAtPoint → InfK → BigTop.Fun.LeafHeightMapBound @Comparison₂ := by
   intro hB hS hI
   obtain ⟨CF0, hI⟩ := hI
   refine ⟨CF0, fun CF hCF => ?_⟩

@@ -32,14 +32,14 @@ open MeasureTheory
 open scoped TensorProduct
 noncomputable section
 namespace GlobalTheory.StageSmallBig
-theorem smallStage_thetaIntegral_of_large_rank : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
+theorem smallStage_thetaIntegral_of_large_rank : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
   GBig fun {D} T _ _ G μ₀ _ _ _ => ∀ (W : G.Weil) (S : GridChoice W Set.univ), IsStdChar D W.ψ (-1) →
-    NumbersIn D.what₂.embLL S μ₀ → ∀ (i j : Fin D.R.m) (p q : ℕ) (A A' WW : HSp D) (X : Tri T A A' WW), GlobalTheory.SqTower.IsStageC W i j p q X →
+    NumbersIn D.what₂.embLL S μ₀ → ∀ (i j : Fin D.R.m) (p q : ℕ) (A A' WW : HSp D) (X : Tri T A A' WW), SqTower.IsStageC W i j p q X →
       1 ≤ q → ∃ P' : PolF D WW.rank A'.rank, (∀ t h, MeasureTheory.IntegrableOn (X.ker' W.ψ W.θ t P' h) X.fd' X.m') ∧ ∀ t, X.I' W.ψ W.θ t P' ≠ 0 := by
   intro hP hK hL
   have hH := hP.howeDualityReal
   have hLM := _root_.GlobalTheory.T.twisted_local_factors_match hH hP hK hL
-  obtain ⟨c, hc⟩ := GlobalTheory.SqTop.Model.gBig_and GlobalTheory.T.towerStage_seesawDictionary_framesSignatures (_root_.GlobalTheory.T.theta_stage_nonzero_at_finite_places hP hK hL)
+  obtain ⟨c, hc⟩ := SqTop.Model.gBig_and GlobalTheory.T.towerStage_seesawDictionary_framesSignatures (_root_.GlobalTheory.T.theta_stage_nonzero_at_finite_places hP hK hL)
   refine ⟨c, fun ε CF hCF => ?_⟩
   obtain ⟨C0, x0, h⟩ := hc ε CF hCF
   refine ⟨C0, x0, fun C hC D large₂ a b r T Lc μ hLc G W S hW hN i j p q0 A A' WW X hX _ => ?_⟩
@@ -62,19 +62,19 @@ theorem smallStage_thetaIntegral_of_large_rank : _root_.GlobalTheory.FunPr.Theta
     obtain ⟨P1, rfl⟩ := hq' x
     obtain ⟨hint, hker⟩ := hP0 _ _ hTr hInf _ _ _ _ _ _ _ hm _ hf'
     have hint' := hint X.m' X.fd' hIs.meas'
-    have hne : pm' (GlobalTheory.SquareComm.fockF W.ψ W.θ false FA' FW (X.f' t) P0) ≠ 0 := fun h0 => by
+    have hne : pm' (SquareComm.fockF W.ψ W.θ false FA' FW (X.f' t) P0) ≠ 0 := fun h0 => by
       have h1 := hker h0 P1
       rw [hr' _ hf'] at h1
       exact e.map_ne_zero_iff.2 (tmul_ne_zero hx hy) h1
-    have eI' : GlobalTheory.SquareComm.thetaInt (X.ω' t) X.m' X.fd' (GlobalTheory.SquareComm.fockF W.ψ W.θ false FA' FW (X.f' t) P0) =
+    have eI' : SquareComm.thetaInt (X.ω' t) X.m' X.fd' (SquareComm.fockF W.ψ W.θ false FA' FW (X.f' t) P0) =
         X.I' W.ψ W.θ t P0 := by
-      funext h; simp only [GlobalTheory.SquareComm.thetaInt, Tri.I', hk']
+      funext h; simp only [SquareComm.thetaInt, Tri.I', hk']
     refine ⟨fun h => ?_, ?_⟩
     · have h1 := hint' h
       simp only [hk'] at h1
       exact h1
     · rw [← eI']
-      exact _root_.GlobalTheory.ConvThetaNe.convergent_theta_integral_ne_zero hP hK hL D W.ψ W.θ hW W.θ_is A A' WW FA FA' FW _ _ hTr X.m' X.fd' hIs.meas'
+      exact ConvThetaNe.convergent_theta_integral_ne_zero hP hK hL D W.ψ W.θ hW W.θ_is A A' WW FA FA' FW _ _ hTr X.m' X.fd' hIs.meas'
         _ _ _ _ _ _ _ hm _ (Submodule.subset_span ⟨_, P0, hf', rfl⟩) hint' hne
   exact ⟨P0, fun t => (key t).1, fun t => (key t).2⟩
 end GlobalTheory.StageSmallBig

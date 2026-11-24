@@ -17,9 +17,9 @@ open Formalism.BasicNotions Formalism.MainNotions GlobalTheory.BigTop GlobalTheo
 open Formalism.L2.Indef.Tree
 namespace GlobalTheory.BigTop.Fun.OneSqTie
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
-theorem lf_std_alt (hS : _root_.GlobalTheory.BigTop.Fun.SettingAtPoint) : _root_.GlobalTheory.BigTop.Fun.LeafConditions (Fitted @Comparison₂) fun _ _ d _ _ => Formalism.L2.Theta.IsStdChar _ d.W.ψ (-1) := by
+theorem lf_std_alt (hS : SettingAtPoint) : LeafConditions (Fitted @Comparison₂) fun _ _ d _ _ => Formalism.L2.Theta.IsStdChar _ d.W.ψ (-1) := by
   obtain ⟨CF0, h⟩ := hS.atPt big_std
-  refine ⟨CF0, fun CF hCF => (h CF hCF).imp fun Fm CH _ e _ => ⟨0, fun C _ => _root_.GlobalTheory.BigTop.Fun.evPt_mono e fun x hx i p _ hq d hd => ?_⟩⟩
+  refine ⟨CF0, fun CF hCF => (h CF hCF).imp fun Fm CH _ e _ => ⟨0, fun C _ => evPt_mono e fun x hx i p _ hq d hd => ?_⟩⟩
   obtain ⟨a, ha⟩ := hd.2
   exact hq d.G d.W d.n a ha.ok
 end GlobalTheory.BigTop.Fun.OneSqTie

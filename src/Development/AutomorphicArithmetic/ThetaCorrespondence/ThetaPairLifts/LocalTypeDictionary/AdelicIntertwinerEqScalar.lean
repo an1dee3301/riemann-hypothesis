@@ -15,7 +15,7 @@ namespace GlobalTheory.AdelicSchur
 variable {F : Type} [Field F] [NumberField F]
 end GlobalTheory.AdelicSchur
 namespace GlobalTheory.AdelicSchur
-theorem adelic_schur_lemma : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F : Type) [Field F] [NumberField F] (κ : Type) [Fintype κ] (ψ : AddChar (AF F) ℂ), IsStd ψ →
+theorem adelic_schur_lemma : FunPr.ThetaLocalInputs → ∀ (F : Type) [Field F] [NumberField F] (κ : Type) [Fintype κ] (ψ : AddChar (AF F) ℂ), IsStd ψ →
   ∀ M : Module.End ℂ ((κ → AF F) → ℂ), (∀ φ ∈ schA F κ, M φ ∈ schA F κ) →
     (∀ w : (κ → AF F) × (κ → AF F), ∀ φ ∈ schA F κ, M (schr ψ w φ) = schr ψ w (M φ)) →
     (∀ μ : @Measure (κ → AF F) (borel _), @Measure.IsAddHaarMeasure _ _ _ (borel _) μ →
@@ -24,11 +24,11 @@ theorem adelic_schur_lemma : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ 
   intro _ F _ _ κ _ ψ hψ M hpres hcomm hiso
   letI : MeasurableSpace (κ → AF F) := borel _
   haveI : BorelSpace (κ → AF F) := ⟨rfl⟩
-  haveI : SecondCountableTopology (AF F) := GlobalTheory.AdelicUnitaryTop.secondCountable_adele F
+  haveI : SecondCountableTopology (AF F) := AdelicUnitaryTop.secondCountable_adele F
   let μ : Measure (κ → AF F) := Measure.addHaar
   haveI hμH : μ.IsAddHaarMeasure := by dsimp [μ]; infer_instance
   have hL2 : ∀ φ ∈ schA F κ, MemLp φ 2 μ := fun φ hφ =>
-    GlobalTheory.WeilM.schA_memLp_two F κ μ hμH φ hφ
+    WeilM.schA_memLp_two F κ μ hμH φ hφ
   have hint : ∀ φ ∈ schA F κ, Integrable (fun x => ‖φ x‖ ^ 2) μ := fun φ hφ =>
     (hL2 φ hφ).integrable_norm_pow two_ne_zero
   have hnorm : ∀ φ ∈ schA F κ, ∫ x, ‖M φ x‖ ^ 2 ∂μ = ∫ x, ‖φ x‖ ^ 2 ∂μ := by
@@ -42,7 +42,7 @@ theorem adelic_schur_lemma : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ 
     rw [e _ (hpres φ hφ), e φ hφ] at h
     exact (ENNReal.ofReal_eq_ofReal_iff (integral_nonneg fun x => by positivity)
       (integral_nonneg fun x => by positivity)).1 h
-  have hψn : ∀ a, ‖ψ a‖ = 1 := GlobalTheory.HeisLineTheta.norm_psi hψ
+  have hψn : ∀ a, ‖ψ a‖ = 1 := HeisLineTheta.norm_psi hψ
   have hcy : ∀ y : κ → AF F, Continuous fun x : κ → AF F => ψ (x ⬝ᵥ y) := fun y =>
     hψ.1.comp (continuous_finsetSum _ fun i _ => (continuous_apply i).mul continuous_const)
   have hschr0 : ∀ (y : κ → AF F) (f : (κ → AF F) → ℂ) x, schr ψ (0, y) f x = ψ (x ⬝ᵥ y) * f x := by
@@ -54,8 +54,8 @@ theorem adelic_schur_lemma : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ 
     set D : (κ → AF F) → ℝ := fun x => ‖M φ x‖ ^ 2 - ‖φ x‖ ^ 2 with hD
     have hDi : Integrable D μ := (hint _ hMφ).sub (hint φ hφ)
     have hDc : Continuous D :=
-      ((GlobalTheory.ThetaTransformMeas.continuous_of_mem_schA F hMφ).norm.pow 2).sub
-        ((GlobalTheory.ThetaTransformMeas.continuous_of_mem_schA F hφ).norm.pow 2)
+      ((ThetaTransformMeas.continuous_of_mem_schA F hMφ).norm.pow 2).sub
+        ((ThetaTransformMeas.continuous_of_mem_schA F hφ).norm.pow 2)
     have hbi : ∀ (y : κ → AF F) (c : ℂ) (f : (κ → AF F) → ℂ), f ∈ schA F κ →
         Integrable (fun x => (c * ψ (x ⬝ᵥ y)).re * ‖f x‖ ^ 2) μ := fun y c f hf =>
       (hint f hf).bdd_mul (Complex.continuous_re.comp (continuous_const.mul (hcy y))).aestronglyMeasurable
@@ -66,7 +66,7 @@ theorem adelic_schur_lemma : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ 
     have hre : ∀ (y : κ → AF F) (c : ℂ), ∫ x, (c * ψ (x ⬝ᵥ y)).re * D x ∂μ = 0 := by
       intro y c
       have hg : φ + c • schr ψ (0, y) φ ∈ schA F κ :=
-        (schA F κ).add_mem hφ ((schA F κ).smul_mem c (GlobalTheory.HeisSchA.schr_mem_schA ψ hψ _ φ hφ))
+        (schA F κ).add_mem hφ ((schA F κ).smul_mem c (HeisSchA.schr_mem_schA ψ hψ _ φ hφ))
       have hMg : M (φ + c • schr ψ (0, y) φ) = M φ + c • schr ψ (0, y) (M φ) := by
         rw [map_add (f := _), map_smul, hcomm _ φ hφ]
       have h1 := hnorm _ hg
@@ -107,11 +107,11 @@ theorem adelic_schur_lemma : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ 
           simp [Complex.mul_re, Complex.mul_im]
         rw [e]
         exact hre y (-Complex.I)
-    have hD0 := GlobalTheory.CharFourierInj.real_eq_zero (G := κ → AF F) (A := κ → AF F) (fun y x => ψ (x ⬝ᵥ y)) hcy
+    have hD0 := CharFourierInj.real_eq_zero (G := κ → AF F) (A := κ → AF F) (fun y x => ψ (x ⬝ᵥ y)) hcy
       (fun y x x' => by simp only [add_dotProduct, AddChar.map_add_eq_mul])
       (fun y y' x => by simp only [dotProduct_add, AddChar.map_add_eq_mul])
       (fun x => by simp only [dotProduct_zero, AddChar.map_zero_eq_one])
-      (fun y x => hψn _) (fun x hx => GlobalTheory.AdelicSchur.sep ψ hψ x hx) μ D hDc hDi hF
+      (fun y x => hψn _) (fun x hx => sep ψ hψ x hx) μ D hDc hDi hF
     intro x
     have := congrFun hD0 x
     simp only [hD, Pi.zero_apply, sub_eq_zero] at this
@@ -122,7 +122,7 @@ theorem adelic_schur_lemma : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ 
     apply conj_mul_eq
     intro c
     have hg : φ + c • schr ψ (a, 0) φ' ∈ schA F κ :=
-      (schA F κ).add_mem hφ ((schA F κ).smul_mem c (GlobalTheory.HeisSchA.schr_mem_schA ψ hψ _ φ' hφ'))
+      (schA F κ).add_mem hφ ((schA F κ).smul_mem c (HeisSchA.schr_mem_schA ψ hψ _ φ' hφ'))
     have h1 := hdiag _ hg x
     rw [map_add (f := _), map_smul, hcomm _ φ' hφ'] at h1
     simpa [schr] using h1

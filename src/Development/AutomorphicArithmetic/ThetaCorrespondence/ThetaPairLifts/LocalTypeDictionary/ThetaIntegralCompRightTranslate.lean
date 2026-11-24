@@ -16,14 +16,14 @@ open NumberField IsDedekindDomain MeasureTheory Filter Topology Formalism.MainNo
 noncomputable section
 namespace GlobalTheory.ThetaRightTranslate
 variable {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E]
-theorem thetaIntegral_rightTranslate_eq : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E]
+theorem thetaIntegral_rightTranslate_eq : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E]
     [Algebra F E] (σ : E →ₐ[F] E)
     (B : Base F E) (n d : ℕ) (X : Spc F E n) (W : Spc F E d) (M : Model σ X W) (χX χW : Chr F E) (om : Rep σ X W)
     (r s r' s' : ℕ),
     IsPair B M χX χW om r s r' s' → ∀ g ∈ UAt σ X (evI F), ∀ (h : UA σ W.J) (Φ : (Fin n × Fin d → AF F) → ℂ),
       Φ ∈ schA F (Fin n × Fin d) → ∀ y, M.I om (om (g, h) Φ) y = M.I om Φ (y * h) := by
   intro hP F E _ _ _ _ _ σ B n d X W M χX χW om r s r' s' hp g _ h Φ hΦ y
-  have hTB := _root_.GlobalTheory.T.theta_kernel_fundamental_properties hP F E σ B n d X W M χX χW om r s r' s' hp
+  have hTB := T.theta_kernel_fundamental_properties hP F E σ B n d X W M χX χW om r s r' s' hp
   have hinv : ∀ γ ∈ ratU σ X.J, ∀ x, theta om Φ (γ * x) (y * h) = theta om Φ x (y * h) := by
     intro γ hγ x
     have := (hTB.1 Φ hΦ).2.1 γ hγ 1 (one_mem _) x (y * h)
@@ -32,7 +32,7 @@ theorem thetaIntegral_rightTranslate_eq : _root_.GlobalTheory.FunPr.ThetaLocalIn
   haveI : BorelSpace (UA σ X.J) := ⟨rfl⟩
   haveI := hp.good.haar
   haveI : M.μ.IsMulRightInvariant := isMulRightInvariant σ hp.base.cm X.J hp.herm.herm
-    (GlobalTheory.isUnit_det_of_isHerm F E σ B n X r s hp.herm) M.μ
+    (isUnit_det_of_isHerm F E σ B n X r s hp.herm) M.μ
   haveI := countable_ratU σ X.J
   haveI : MeasurableConstSMul (ratU σ X.J) (UA σ X.J) := ⟨fun c => measurable_const_mul (c : UA σ X.J)⟩
   haveI : SMulInvariantMeasure (ratU σ X.J) (UA σ X.J) M.μ :=

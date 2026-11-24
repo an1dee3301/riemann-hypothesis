@@ -37,11 +37,11 @@ noncomputable section
 namespace GlobalTheory.SchwartzSlope
 open Filter Topology
 open scoped SchwartzMap RealInnerProductSpace
-theorem schwartz_coordinate_slope_bound (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (l : Type) [Fintype l] [DecidableEq l]
-    (A : ℝ → (l ⊕ l → ℝ) →ₗ[ℝ] (l ⊕ l → ℝ)) (T : ℝ → GlobalTheory.RealWeil.Sch l →ₗ[ℂ] GlobalTheory.RealWeil.Sch l)
+theorem schwartz_coordinate_slope_bound (hP : FunPr.ThetaLocalInputs) (l : Type) [Fintype l] [DecidableEq l]
+    (A : ℝ → (l ⊕ l → ℝ) →ₗ[ℝ] (l ⊕ l → ℝ)) (T : ℝ → RealWeil.Sch l →ₗ[ℂ] RealWeil.Sch l)
     (hA : ∀ w, Continuous fun t => A t w) (hT : ∀ s t f, T (s + t) f = T s (T t f)) (hT0 : ∀ f, T 0 f = f)
-    (hI : ∀ t w (f f₁ : GlobalTheory.RealWeil.Sch l), ⇑f₁ = GlobalTheory.RealWeil.rhoFun w ⇑f →
-      ⇑(T t f₁) = GlobalTheory.RealWeil.rhoFun (A t w) ⇑(T t f))
+    (hI : ∀ t w (f f₁ : RealWeil.Sch l), ⇑f₁ = RealWeil.rhoFun w ⇑f →
+      ⇑(T t f₁) = RealWeil.rhoFun (A t w) ⇑(T t f))
     (hiso : ∀ t f, ∫ x, ‖T t f x‖ ^ 2 = ∫ x, ‖f x‖ ^ 2) (hpt : ∀ f y, Continuous fun t => T t f y) :
     ∀ f, ∃ g, Tendsto (fun t : ℝ => t⁻¹ • (T t f - f)) (𝓝[≠] 0) (𝓝 g) := by
   obtain ⟨hs, hgrp, h0⟩ := GlobalTheory.T.symplectic_and_flow_of_intertwining_unitary l A T hT hT0 hI hiso
@@ -70,7 +70,7 @@ theorem schwartz_coordinate_slope_bound (hP : _root_.GlobalTheory.FunPr.ThetaLoc
       obtain ⟨X, hX⟩ := GlobalTheory.T.continuous_matrix_oneParameterGroup_eq_exp _ M hMc hM0 hMm
       have hsp : X ∈ LieAlgebra.Symplectic.sp l ℝ := by
         refine GlobalTheory.T.mem_symplecticLieAlgebra_of_exp_smul_mem_symplecticGroup l X fun t => ?_
-        obtain ⟨N, hN⟩ := GlobalTheory.exists_symplecticGroup_of_sympl l (A t) (hs t)
+        obtain ⟨N, hN⟩ := exists_symplecticGroup_of_sympl l (A t) (hs t)
         have e : Matrix.toLin' (N : Matrix (l ⊕ l) (l ⊕ l) ℝ) = A t := LinearMap.ext fun w => by
           rw [Matrix.toLin'_apply, hN]
         have e2 : (N : Matrix (l ⊕ l) (l ⊕ l) ℝ) = M t := by
@@ -82,7 +82,7 @@ theorem schwartz_coordinate_slope_bound (hP : _root_.GlobalTheory.FunPr.ThetaLoc
     (fun t w h h₁ hh => by rw [hI t w h h₁ hh, hB]) hiso' hpt
   exact fun f => ⟨_, ha f⟩
 open GlobalTheory.ArchUniq GlobalTheory.RealWeil in
-theorem schwartz_slope_bound (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (V : Type) [NormedAddCommGroup V] [NormedSpace ℝ V] [FiniteDimensional ℝ V]
+theorem schwartz_slope_bound (hP : FunPr.ThetaLocalInputs) (V : Type) [NormedAddCommGroup V] [NormedSpace ℝ V] [FiniteDimensional ℝ V]
     [MeasurableSpace V] [BorelSpace V] (μ : Measure V) [μ.IsAddHaarMeasure] (P : V → V → ℝ) (hPp : IsPairing P)
     (A : ℝ → (V × V) →ₗ[ℝ] (V × V)) (T : ℝ → 𝓢(V, ℂ) →ₗ[ℂ] 𝓢(V, ℂ))
     (hAc : ∀ v, Continuous fun t => A t v) (hTadd : ∀ s t f, T (s + t) f = T s (T t f)) (hT0 : ∀ f, T 0 f = f)
@@ -140,7 +140,7 @@ theorem schwartz_slope_bound (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (
   have c6 : ∀ f y, Continuous fun t => T' t f y := by
     intro h y
     exact hTc (toV h) (C.symm y)
-  have hlim := _root_.GlobalTheory.SchwartzSlope.schwartz_coordinate_slope_bound hP (Fin (Module.finrank ℝ V)) A' T' c1 c2 c3 c4 c5 c6
+  have hlim := SchwartzSlope.schwartz_coordinate_slope_bound hP (Fin (Module.finrank ℝ V)) A' T' c1 c2 c3 c4 c5 c6
   intro f
   obtain ⟨g, hg⟩ := hlim (toE f)
   refine ⟨toV g, ?_⟩
@@ -151,17 +151,17 @@ theorem schwartz_slope_bound (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (
     simp only [ContinuousLinearMap.coe_restrictScalars', hT', hVE]
   rw [e]
   exact ((toV.restrictScalars ℝ).continuous.tendsto g).comp hg
-theorem lift_splits_locally : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E]
-    {σ : E →ₐ[F] E} {n d : ℕ} {X : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} {W : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d}
-    (M : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Model σ X W) (ψ : AddChar (AF F) ℂ) (χX χW : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E)
-    (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ X W), IsCMExt F E σ → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ → M.IsWeil ψ χX χW om →
-    ∀ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ W,
-    ∀ T : ℝ → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d) →ₗ[ℂ] GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d),
-    (∀ t (f : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)),
-      GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Acts (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI F) (om (1, γ (Multiplicative.ofAdd t))) ⇑f ⇑(T t f)) →
-    (∀ s t (f : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)), T (s + t) f = T s (T t f)) →
-    (∀ f : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d), T 0 f = f) →
-    ∀ f : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d), ∃ g : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d),
+theorem lift_splits_locally : FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E]
+    {σ : E →ₐ[F] E} {n d : ℕ} {X : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} {W : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d}
+    (M : IndefiniteRowSideFullHecke.WeilTensorModels.Model σ X W) (ψ : AddChar (AF F) ℂ) (χX χW : IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E)
+    (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ X W), IsCMExt F E σ → IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ → M.IsWeil ψ χX χW om →
+    ∀ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ W,
+    ∀ T : ℝ → IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d) →ₗ[ℂ] IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d),
+    (∀ t (f : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)),
+      IndefiniteRowSideFullHecke.WeilTensorModels.Acts (IndefiniteRowSideFullHecke.WeilTensorModels.evI F) (om (1, γ (Multiplicative.ofAdd t))) ⇑f ⇑(T t f)) →
+    (∀ s t (f : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)), T (s + t) f = T s (T t f)) →
+    (∀ f : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d), T 0 f = f) →
+    ∀ f : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d), ∃ g : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d),
       Filter.Tendsto (fun t : ℝ => t⁻¹ • (T t f - f)) (nhdsWithin 0 {0}ᶜ) (nhds g) := by
   classical
   intro hP F E _ _ _ _ _ σ n d X W M ψ χX χW om hCM hψ hW γ hγ T hT hadd h0
@@ -200,31 +200,31 @@ theorem lift_splits_locally : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀
       show x.2 w = 0
       exact Complex.ext hre him
 
-  have hPair : GlobalTheory.ArchUniq.IsPairing (GlobalTheory.ArchUniq.trP F (Fin n × Fin d)) := by
+  have hPair : ArchUniq.IsPairing (ArchUniq.trP F (Fin n × Fin d)) := by
     exact {
       addL x x' y := by
-        simp only [GlobalTheory.ArchUniq.trP, Pi.add_apply, add_mul, Finset.sum_add_distrib, map_add (f := _)]
+        simp only [ArchUniq.trP, Pi.add_apply, add_mul, Finset.sum_add_distrib, map_add (f := _)]
       addR x y y' := by
-        simp only [GlobalTheory.ArchUniq.trP, Pi.add_apply, mul_add, Finset.sum_add_distrib, map_add (f := _)]
+        simp only [ArchUniq.trP, Pi.add_apply, mul_add, Finset.sum_add_distrib, map_add (f := _)]
       smulL c x y := by
-        simp only [GlobalTheory.ArchUniq.trP, Pi.smul_apply, smul_mul_assoc, ← Finset.smul_sum, map_smul, smul_eq_mul]
+        simp only [ArchUniq.trP, Pi.smul_apply, smul_mul_assoc, ← Finset.smul_sum, map_smul, smul_eq_mul]
       smulR c x y := by
-        simp only [GlobalTheory.ArchUniq.trP, Pi.smul_apply, mul_smul_comm, ← Finset.smul_sum, map_smul, smul_eq_mul]
+        simp only [ArchUniq.trP, Pi.smul_apply, mul_smul_comm, ← Finset.smul_sum, map_smul, smul_eq_mul]
       nondegL x hx := by
         funext i
         apply eq_zero_of_trace
         intro b
         have h := hx (Pi.single i b)
-        simpa [GlobalTheory.ArchUniq.trP, Pi.single_apply, mul_ite, Finset.sum_ite_eq'] using h
+        simpa [ArchUniq.trP, Pi.single_apply, mul_ite, Finset.sum_ite_eq'] using h
       nondegR y hy := by
         funext i
         apply eq_zero_of_trace
         intro b
         have h := hy (Pi.single i b)
-        simpa [GlobalTheory.ArchUniq.trP, Pi.single_apply, ite_mul, Finset.sum_ite_eq', mul_comm] using h
+        simpa [ArchUniq.trP, Pi.single_apply, ite_mul, Finset.sum_ite_eq', mul_comm] using h
     }
 
-  exact _root_.GlobalTheory.SchwartzSlope.schwartz_slope_bound hP (Fin n × Fin d → mixedEmbedding.mixedSpace F) μ _ hPair A T hAc hadd h0 hA hiso hc1
+  exact SchwartzSlope.schwartz_slope_bound hP (Fin n × Fin d → mixedEmbedding.mixedSpace F) μ _ hPair A T hAc hadd h0 hA hiso hc1
 end GlobalTheory.SchwartzSlope
 end
 end

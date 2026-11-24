@@ -13,10 +13,10 @@ open GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun GlobalTheory.Inde
 open scoped TensorProduct NNReal Matrix
 open scoped Classical
 namespace GlobalTheory.ThetaModGrowthPair
-theorem theta_moderate_growth : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E) (B : Base F E) (n d : ℕ) (X : Spc F E n) (W : Spc F E d) (M : Model σ X W) (χX χW : Chr F E) (om : Rep σ X W) (r s r' s' : ℕ), IsPair B M χX χW om r s r' s' → ∀ Φ ∈ schA F (Fin n × Fin d), ∃ (C : ℝ) (k : ℕ), ∀ g h, ‖theta om Φ g h‖ ≤ C * ((ht g : ℝ) * ht h) ^ k := by
-  have hlat := GlobalTheory.T.adelicThetaSum_norm_le_polynomial_scale
-  have hfin := GlobalTheory.T.weilRep_rational_support_common_denominator
-  have harch := GlobalTheory.T.weilRepresentation_pointwise_archimedeanDecay_bound
+theorem theta_moderate_growth : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E) (B : Base F E) (n d : ℕ) (X : Spc F E n) (W : Spc F E d) (M : Model σ X W) (χX χW : Chr F E) (om : Rep σ X W) (r s r' s' : ℕ), IsPair B M χX χW om r s r' s' → ∀ Φ ∈ schA F (Fin n × Fin d), ∃ (C : ℝ) (k : ℕ), ∀ g h, ‖theta om Φ g h‖ ≤ C * ((ht g : ℝ) * ht h) ^ k := by
+  have hlat := T.adelicThetaSum_norm_le_polynomial_scale
+  have hfin := T.weilRep_rational_support_common_denominator
+  have harch := T.weilRepresentation_pointwise_archimedeanDecay_bound
   intro _ F E _ _ _ _ _ σ B n d X W M χX χW om r s r' s' hP Φ hΦ
   obtain ⟨N₀, k₂, C₂, hL⟩ := hlat F (Fin n × Fin d)
   obtain ⟨C₁, k₁, hA⟩ := harch F E σ B n d X W M χX χW om r s r' s' hP Φ hΦ N₀

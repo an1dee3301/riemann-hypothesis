@@ -94,7 +94,7 @@ private theorem exists_place_pz (C : NChoice D) (w w' : D.what₂.places.Pl) (hw
     exact Nat.cast_ne_zero.2 hp.ne_zero
   let f0 : D.ntw.O0 (C.twI w) →+* Kbar D.ntw (C.twI w) := (toBar D.ntw (C.twI w)).comp (algebraMap _ _)
   have hf0 : ∀ r, f0 r ∈ A := fun r => by
-    have e1 := GlobalTheory.ToricRational.toBar_algebraMap (X := D.ntw) (C.twI w) r
+    have e1 := ToricRational.toBar_algebraMap (X := D.ntw) (C.twI w) r
     have e2 := DFunLike.congr_fun hjk (algebraMap (D.ntw.O (C.twI w)) _ (algebraMap _ _ r))
     rw [RingHom.comp_apply, BlochKatoReduction.Gen.kMap, IsFractionRing.lift_algebraMap, RingHom.comp_apply, ← hje] at e2
     replace e2 := e2.trans e1.symm
@@ -112,7 +112,7 @@ private theorem exists_place_pz (C : NChoice D) (w w' : D.what₂.places.Pl) (hw
     refine Iff.trans ⟨fun h => ⟨a, h, ha⟩, fun ⟨y, hy, e⟩ => ?_⟩ (hw' x)
     rwa [← IsFractionRing.injective _ (FractionRing (D.ntw.O0 (C.twI w))) (e.trans ha.symm)]
   haveI : Countable D.what₂.LL := Countable.of_equiv _ (Module.finBasis ℚ D.what₂.LL).equivFun.toEquiv.symm
-  obtain ⟨g, hg⟩ := GlobalTheory.GaloisDescent.exists_complex_ringEquiv_comp_eq D.what₂.embLL (D.what₂.embLL.comp σ.toRingEquiv.toRingHom)
+  obtain ⟨g, hg⟩ := GaloisDescent.exists_complex_ringEquiv_comp_eq D.what₂.embLL (D.what₂.embLL.comp σ.toRingEquiv.toRingHom)
   refine ⟨je, A, g, hje, fun x y h => exists_unit A je hA hu h, hα, fun x => ?_, fun y hy => ?_⟩
   · rw [hg]
     exact congrArg D.what₂.embLL (σ.commutes x)
@@ -165,16 +165,16 @@ private theorem emb_mem_pz (σ : D.host.E →+* ℂ) (x : D.host.E) : σ x ∈ (
 section Point
 variable {L : SizeData₂ D} {hT : GatTies D} {Gi : Formalism.MainNotions.G.Inst D L} {Gl : Formalism.MainNotions.G.LatInst D} {Kc : Formalism.MainNotions.G.Consts} {Y : DivX D} {cX : ExtraC} {ex : Extra D L hT Gi Gl Kc Y cX} {Csz : ℝ} {p : PtAt ex Csz} {CF : ℝ} {G : Grid p CF}
 private theorem almostIn_pz (h : GridFit p G) (i j : Fin D.R.m) (l : ℕ) :
-    GlobalTheory.GalChar.AlmostIn (Formalism.L2.Host.embLL0 D) (nuH G p.P.A3.A.μ0 i j * p.R.C.delAt l) := by
+    GalChar.AlmostIn (Formalism.L2.Host.embLL0 D) (nuH G p.P.A3.A.μ0 i j * p.R.C.delAt l) := by
   unfold nuH
-  rw [GlobalTheory.ThmAUpper.xiH_base p, mul_one, div_eq_mul_inv]
-  refine ((GlobalTheory.GalChar.almostIn_of_valuesIn (h.frame.mu0 j)).mul
-    (GlobalTheory.GalChar.almostIn_of_valuesIn (h.field.values _ (by omega) (by omega))).inv).mul ?_
+  rw [ThmAUpper.xiH_base p, mul_one, div_eq_mul_inv]
+  refine ((GalChar.almostIn_of_valuesIn (h.frame.mu0 j)).mul
+    (GalChar.almostIn_of_valuesIn (h.field.values _ (by omega) (by omega))).inv).mul ?_
   unfold Formalism.L2.Host.CharFrame.delAt
   split_ifs
-  exacts [GlobalTheory.GalChar.almostIn_of_valuesIn h.frame.del', GlobalTheory.GalChar.almostIn_of_valuesIn h.frame.del]
+  exacts [GalChar.almostIn_of_valuesIn h.frame.del', GalChar.almostIn_of_valuesIn h.frame.del]
 private theorem isSet_pz (h : GridFit p G) {w : D.what₂.places.Pl} (hw : TwistedAt D w) :
-    IsFinSetSplitPlacesCoprimeConductor (GlobalTheory.FunObj.SqNum.condF G.pl) (belowSet (ex.nch.Q w)) := by
+    IsFinSetSplitPlacesCoprimeConductor (FunObj.SqNum.condF G.pl) (belowSet (ex.nch.Q w)) := by
   refine (placesBelow_splitCoprimeConductor_of_admissible (h.cond w hw) fun P hP => (h.list _ (h.setting.inW1 hw)).1 P ?_).1
   obtain ⟨v, hv, hd⟩ := (below P).prime.exists_mem_finset_dvd hP
   have e : below P = v := HeightOneSpectrum.ext
@@ -186,23 +186,23 @@ private theorem isSet_pz (h : GridFit p G) {w : D.what₂.places.Pl} (hw : Twist
     show _ ∣ (below (G.pl.w G.pl.v0)).asIdeal
     rw [this, ← h0]
   · refine Dvd.dvd.mul_right (dvd_pow (Ideal.dvd_span_singleton.2 ?_) two_ne_zero) _
-    have := (GlobalTheory.ChiGrid.S1_mem_OmF D).1 h1
+    have := (ChiGrid.S1_mem_OmF D).1 h1
     simp only [Nat.cast_mul, (below P).isPrime.mul_mem_iff_mem_or_mem, or_assoc]
     exact this
 end Point
-theorem _root_.GlobalTheory.T.toric_ratio_field_data_cm_alt : ∀ {D : D7} {L : SizeData₂ D} {hT : GatTies D} {Gi : Formalism.MainNotions.G.Inst D L} {Gl : Formalism.MainNotions.G.LatInst D} {Kc : Formalism.MainNotions.G.Consts} {Y : DivX D} {cX : ExtraC} {ex : Extra D L hT Gi Gl Kc Y cX} {Csz : ℝ} (p : PtAt ex Csz) (CF : ℝ) (d : FunIn p CF), p.PointConditions' → Fitted (@Comparison₂) p CF d → GlobalTheory.IndefiniteRowSideFullHecke.ToricSymbols.ToricRatioConjugates → (∃ (_ : IsCMField D.host.E) (_ : IsAbelianGalois ℚ D.host.E), GlobalTheory.IndefiniteRowSideFullHecke.ClassZetaValuationBounds.IsFieldData D.host.d (GlobalTheory.FunObj.SqNum.cmPhi D) ∧
-    GlobalTheory.CMVal.IsBaseCond (GlobalTheory.FunObj.SqNum.condF d.G.pl) ∧ ∃ Λ, GlobalTheory.IndefiniteRowSideFullHecke.ClassZetaValuationBounds.IsIntLattice D.host.d Λ) → ∀ w : D.what₂.places.Pl, TwistedAt D w → ∀ (i j : Fin D.R.m) (s : ℕ), 1 ≤ s → s ≤ halfRank D i j →
-    ∀ (T₀ : ℂ) (ψc : PicO (condQ (GlobalTheory.FunObj.SqNum.condF d.G.pl) (GlobalTheory.ToricDenom.belowSet (ex.nch.Q w))) →* ℂˣ) (T : (PicO (condQ (GlobalTheory.FunObj.SqNum.condF d.G.pl) (GlobalTheory.ToricDenom.belowSet (ex.nch.Q w))) →* ℂˣ) → ℂ), IsValChar (GlobalTheory.FunObj.SqNum.cmPhi D) s (GlobalTheory.FunObj.SqNum.kap D 1 i j s) (GlobalTheory.FunObj.SqNum.condF d.G.pl) ∅ (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) →
-      IsToricSum (GlobalTheory.FunObj.SqNum.cmPhi D) s (GlobalTheory.FunObj.SqNum.kap D 1 i j s) (GlobalTheory.FunObj.SqNum.condF d.G.pl) (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) T₀ → T₀ ≠ 0 →
+theorem _root_.GlobalTheory.T.toric_ratio_field_data_cm_alt : ∀ {D : D7} {L : SizeData₂ D} {hT : GatTies D} {Gi : Formalism.MainNotions.G.Inst D L} {Gl : Formalism.MainNotions.G.LatInst D} {Kc : Formalism.MainNotions.G.Consts} {Y : DivX D} {cX : ExtraC} {ex : Extra D L hT Gi Gl Kc Y cX} {Csz : ℝ} (p : PtAt ex Csz) (CF : ℝ) (d : FunIn p CF), p.PointConditions' → Fitted (@Comparison₂) p CF d → IndefiniteRowSideFullHecke.ToricSymbols.ToricRatioConjugates → (∃ (_ : IsCMField D.host.E) (_ : IsAbelianGalois ℚ D.host.E), IndefiniteRowSideFullHecke.ClassZetaValuationBounds.IsFieldData D.host.d (FunObj.SqNum.cmPhi D) ∧
+    CMVal.IsBaseCond (FunObj.SqNum.condF d.G.pl) ∧ ∃ Λ, IndefiniteRowSideFullHecke.ClassZetaValuationBounds.IsIntLattice D.host.d Λ) → ∀ w : D.what₂.places.Pl, TwistedAt D w → ∀ (i j : Fin D.R.m) (s : ℕ), 1 ≤ s → s ≤ halfRank D i j →
+    ∀ (T₀ : ℂ) (ψc : PicO (condQ (FunObj.SqNum.condF d.G.pl) (ToricDenom.belowSet (ex.nch.Q w))) →* ℂˣ) (T : (PicO (condQ (FunObj.SqNum.condF d.G.pl) (ToricDenom.belowSet (ex.nch.Q w))) →* ℂˣ) → ℂ), IsValChar (FunObj.SqNum.cmPhi D) s (FunObj.SqNum.kap D 1 i j s) (FunObj.SqNum.condF d.G.pl) ∅ (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) →
+      IsToricSum (FunObj.SqNum.cmPhi D) s (FunObj.SqNum.kap D 1 i j s) (FunObj.SqNum.condF d.G.pl) (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) T₀ → T₀ ≠ 0 →
       (∀ y, finPart (p.Tp.psi w) y = ψc (QuotientGroup.mk y)) →
-      (∀ ψ, GlobalTheory.IndefiniteRowSideFullHecke.ToricSymbols.IsTwistedSum (GlobalTheory.FunObj.SqNum.cmPhi D) s (GlobalTheory.FunObj.SqNum.kap D 1 i j s) (condQ (GlobalTheory.FunObj.SqNum.condF d.G.pl) (GlobalTheory.ToricDenom.belowSet (ex.nch.Q w))) (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) ψ (T ψ)) → ∀ z : D.what₂.LL, D.what₂.embLL z * T₀ = T ψc → (∃ ι : ℂ →+* GlobalTheory.ToricDenom.Kbar D.ntw (ex.nch.twI w),
-        (∀ x : D.LL0, ι (D.what₂.embLL (x : D.what₂.LL)) = GlobalTheory.ToricDenom.toBar D.ntw (ex.nch.twI w) (D.ntw.emb0 (ex.nch.twI w) x)) ∧
-        ∀ b : Bool, ∃ (lam : D.ntw.abelian₂ (ex.nch.twI w)) (jk : FractionRing (D.ntw.Ok (ex.nch.twI w) (ex.nch.k' w)) →+* GlobalTheory.ToricDenom.Kbar D.ntw (ex.nch.twI w)) (c : ℤ),
+      (∀ ψ, IndefiniteRowSideFullHecke.ToricSymbols.IsTwistedSum (FunObj.SqNum.cmPhi D) s (FunObj.SqNum.kap D 1 i j s) (condQ (FunObj.SqNum.condF d.G.pl) (ToricDenom.belowSet (ex.nch.Q w))) (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) ψ (T ψ)) → ∀ z : D.what₂.LL, D.what₂.embLL z * T₀ = T ψc → (∃ ι : ℂ →+* ToricDenom.Kbar D.ntw (ex.nch.twI w),
+        (∀ x : D.LL0, ι (D.what₂.embLL (x : D.what₂.LL)) = ToricDenom.toBar D.ntw (ex.nch.twI w) (D.ntw.emb0 (ex.nch.twI w) x)) ∧
+        ∀ b : Bool, ∃ (lam : D.ntw.abelian₂ (ex.nch.twI w)) (jk : FractionRing (D.ntw.Ok (ex.nch.twI w) (ex.nch.k' w)) →+* ToricDenom.Kbar D.ntw (ex.nch.twI w)) (c : ℤ),
             D.ntw.sideL (ex.nch.twI w) lam = b ∧ IsCoprime c (D.ntw.l (ex.nch.twI w) : ℤ) ∧
-            jk.comp (BlochKatoReduction.Gen.kMap D.ntw (ex.nch.twI w) (ex.nch.k' w)) = algebraMap (FractionRing (D.ntw.O (ex.nch.twI w))) (GlobalTheory.ToricDenom.Kbar D.ntw (ex.nch.twI w)) ∧
+            jk.comp (BlochKatoReduction.Gen.kMap D.ntw (ex.nch.twI w) (ex.nch.k' w)) = algebraMap (FractionRing (D.ntw.O (ex.nch.twI w))) (ToricDenom.Kbar D.ntw (ex.nch.twI w)) ∧
             ∀ a : ℤ, jk (BlochKatoReduction.Gen.thEval D.ntw (ex.nch.twI w) (ex.nch.Q w) lam (ex.nch.k' w) (BlochKatoReduction.Gen.psiAt (D.ntw.sideL (ex.nch.twI w) lam) (ex.nch.psi' w ^ a))) *
-                GlobalTheory.ToricDenom.atSide D.ntw b ι T₀ =
-              jk (BlochKatoReduction.Gen.kMap D.ntw (ex.nch.twI w) (ex.nch.k' w) (∑ δ, D.ntw.th (ex.nch.twI w) ∅ lam δ)) * GlobalTheory.ToricDenom.atSide D.ntw b ι (T (ψc ^ (c * a)))) →
+                ToricDenom.atSide D.ntw b ι T₀ =
+              jk (BlochKatoReduction.Gen.kMap D.ntw (ex.nch.twI w) (ex.nch.k' w) (∑ δ, D.ntw.th (ex.nch.twI w) ∅ lam δ)) * ToricDenom.atSide D.ntw b ι (T (ψc ^ (c * a)))) →
       ∃ (lam : D.ntw.abelian₂ (ex.nch.twI w)) (a : ℤ) (u : (ex.nch.Oe w)ˣ), IsCoprime a (D.ntw.l (ex.nch.twI w) : ℤ) ∧
         ex.nch.embW w z * ex.nch.kMapE w (BlochKatoReduction.Gen.kMap D.ntw (ex.nch.twI w) (ex.nch.k' w) (∑ δ, D.ntw.th (ex.nch.twI w) ∅ lam δ)) =
           algebraMap (ex.nch.Oe w) (FractionRing (ex.nch.Oe w)) (u : ex.nch.Oe w) *
@@ -215,29 +215,29 @@ theorem _root_.GlobalTheory.T.toric_ratio_field_data_cm_alt : ∀ {D : D7} {L : 
   obtain ⟨lam, jk, c, -, hc, hjk, hid⟩ := hread b
   obtain ⟨je, A, g, h1, h2, h3, h4⟩ := hb ι hι jk hjk
   have hU : UnramFin D.host.E := hfd.2.2.1
-  have hφ : IsCMType (GlobalTheory.FunObj.SqNum.cmPhi D) := hfd.2.2.2.2.2.2.1
+  have hφ : IsCMType (FunObj.SqNum.cmPhi D) := hfd.2.2.2.2.2.2.1
   generalize hχ : nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w) = χ at hv h0 hT'
-  have hal : GlobalTheory.GalChar.AlmostIn (Formalism.L2.Host.embLL0 D) χ := hχ ▸ almostIn_pz hfit.1 i j _
-  have hfin : Finite (PicO (condQ (GlobalTheory.FunObj.SqNum.condF d.G.pl) ∅)) := by
+  have hal : GalChar.AlmostIn (Formalism.L2.Host.embLL0 D) χ := hχ ▸ almostIn_pz hfit.1 i j _
+  have hfin : Finite (PicO (condQ (FunObj.SqNum.condF d.G.pl) ∅)) := by
     rw [condQ, Finset.prod_empty, mul_one]; exact h0.1
   have hval : ∀ y, (finPart χ y : ℂ) ∈ (Formalism.L2.Host.embLL0 D).fieldRange :=
-    GlobalTheory.ToricRational.finPart_mem hv.2.2.1 (GlobalTheory.ToricRational.condQ_ne_bot hbc.1 ∅)
+    ToricRational.finPart_mem hv.2.2.1 (ToricRational.condQ_ne_bot hbc.1 ∅)
       (OrderUnits.finPart_eq_one _ _ _ hφ s _ _ ∅ χ hU hbc (fun _ h => absurd h (Finset.notMem_empty _)) hv) _ emb_mem_pz
       (Filter.eventually_cofinite.1 hal).toFinset fun P hP => by simpa using hP
-  have hlam : ∀ y, g (GlobalTheory.IndefiniteRowSideFullHecke.ToricSymbols.lamF χ s y) = GlobalTheory.IndefiniteRowSideFullHecke.ToricSymbols.lamF χ s y := fun y => by
+  have hlam : ∀ y, g (IndefiniteRowSideFullHecke.ToricSymbols.lamF χ s y) = IndefiniteRowSideFullHecke.ToricSymbols.lamF χ s y := fun y => by
     have hm : ((modF y ^ s : ℝ) : ℂ) ∈ (Formalism.L2.Host.embLL0 D).fieldRange := by
       rw [Complex.ofReal_pow]
-      exact pow_mem (GlobalTheory.ToricRational.modF_mem _ y) s
+      exact pow_mem (ToricRational.modF_mem _ y) s
     refine h3 _ (mul_mem (hval y) hm) ?_
-    rw [GlobalTheory.IndefiniteRowSideFullHecke.ToricSymbols.lamF, map_mul, Complex.conj_ofReal, ← Complex.inv_eq_conj (show ‖(finPart χ y : ℂ)‖ = 1 from hv.1 _)]
+    rw [IndefiniteRowSideFullHecke.ToricSymbols.lamF, map_mul, Complex.conj_ofReal, ← Complex.inv_eq_conj (show ‖(finPart χ y : ℂ)‖ = 1 from hv.1 _)]
     exact mul_mem (inv_mem (hval y)) hm
   haveI : Nonempty D.what₂.Tau := Fintype.card_pos_iff.1 (by have := hfd.2.2.2.2.2.1; omega)
   let τ₀ : D.what₂.Tau := Classical.arbitrary _
-  let δ : D.host.K := ⟨D.host.sqrtMinusD, GlobalTheory.Mem.Col2.HostK.sqrt_mem D.host⟩
+  let δ : D.host.K := ⟨D.host.sqrtMinusD, Mem.Col2.HostK.sqrt_mem D.host⟩
   have hδ : δ ^ 2 = -(D.host.d : D.host.K) := Subtype.ext (by simpa using Formalism.BasicNotions.Host.sqrtMinusD_sq D.host)
   obtain ⟨ζ, hζ, hg⟩ := ratio_conj CompanionTheory.FamInh.globalArtin hG D.host.E D.host.K D.host.d δ _ _ _ s _ _ _ χ hU (Formalism.MainNotions.DIV.Bridge.LogAbsNormDifferent.finrank_K D)
-    hfd.1.pos hδ hφ (fun τ => GlobalTheory.RowEx.RatioField.cmPhi_comp_eq hfd τ τ₀) hs1
-    (fun τ => (GlobalTheory.FunObj.SqNum.Model.kap_add D 1 i j τ hs2).2) hbc (isSet_pz hfit.1 hw) hv h0 hT' g
+    hfd.1.pos hδ hφ (fun τ => RowEx.RatioField.cmPhi_comp_eq hfd τ τ₀) hs1
+    (fun τ => (FunObj.SqNum.Model.kap_add D 1 i j τ hs2).2) hbc (isSet_pz hfit.1 hw) hv h0 hT' g
     (fun τ x => h3 _ (emb_mem_pz _ x) (emb_mem_pz ((starRingEnd ℂ).comp _) x)) hlam ψc
   obtain ⟨n, hn⟩ := (p.Tp.psi_is w hw).ord
   rw [ex.nch.twI_l] at hc ⊢
@@ -248,7 +248,7 @@ theorem _root_.GlobalTheory.T.toric_ratio_field_data_cm_alt : ∀ {D : D7} {L : 
   have hid' := hid a
   rw [← he] at hid'
   have hz' : T ψc / T₀ = D.what₂.embLL z := by rw [← hz, mul_div_cancel_right₀ _ h0ne]
-  have hT : T (GlobalTheory.IndefiniteRowSideFullHecke.ToricSymbols.conjChar g ψc) = ζ * g (D.what₂.embLL z) * T₀ := by
+  have hT : T (IndefiniteRowSideFullHecke.ToricSymbols.conjChar g ψc) = ζ * g (D.what₂.embLL z) * T₀ := by
     rw [← hz', hg]
     field_simp
   have hζ1 : A.valuation (atSide D.ntw b ι ζ) = 1 := by

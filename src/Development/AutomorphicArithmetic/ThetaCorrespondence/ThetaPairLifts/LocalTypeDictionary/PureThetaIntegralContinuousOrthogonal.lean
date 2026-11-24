@@ -20,23 +20,23 @@ open NumberField IsDedekindDomain Formalism.MainNotions.GlobalTheoryTheory.Genus
 open GlobalTheory.WeilM
 noncomputable section
 namespace GlobalTheory.SoPureThetaCont
-theorem continuous_pure_theta_integral : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E]
+theorem continuous_pure_theta_integral : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E]
     (σ : E →ₐ[F] E) (B : Base F E) (a a' : ℕ) (G : Geo σ a a') (X : Chars F E) (om : Rep σ G.V G.W) (om' : Rep σ G.V' G.W),
     IsTriple B G X om om' → Decay B G om om' →
-    ∀ φ : ∀ v : Pl F, (Fin a' × Fin (a + a') → Fv F v) → ℂ, (∀ v, φ v ∈ GlobalTheory.WeilM.SB _) →
+    ∀ φ : ∀ v : Pl F, (Fin a' × Fin (a + a') → Fv F v) → ℂ, (∀ v, φ v ∈ WeilM.SB _) →
       (∀ᶠ v in cofinite, φ v = G.M'.vac v) → φ B.v₁ ∈ G.M'.SoLoc B.ψ B.τ₁ →
       ∀ h, Continuous fun f : SInf F (Fin a' × Fin (a + a')) => G.M'.I om' (pure f φ) h := by
   intro hP F E _ _ _ _ _ σ B a a' G X om om' hT hD φ hSB hev hSo h
-  have hPair := (GlobalTheory.ThK.Check.isPair_of_isTriple hT).2
+  have hPair := (ThK.Check.isPair_of_isTriple hT).2
   have hstd : ∀ᶠ v in cofinite, φ v = Set.indicator {x | ∀ i, x i ∈ v.adicCompletionIntegers F} 1 :=
     (hev.and hT.geo.hM'.std).mono fun v hv => hv.1.trans hv.2
   let A : (Fin a' × Fin (a + a') → Af F) → ℂ := fun z => ∏ᶠ v, φ v fun i => Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes.evalV F v (z i)
-  have hA : A ∈ SB (Fin a' × Fin (a + a') → Af F) := GlobalTheory.AdelicCoordSB.finprod_mem_SB F _ φ hSB hstd
+  have hA : A ∈ SB (Fin a' × Fin (a + a') → Af F) := AdelicCoordSB.finprod_mem_SB F _ φ hSB hstd
   have heq : ∀ u : SInf F (Fin a' × Fin (a + a')), pure u φ = pureA F u A := fun _ => rfl
   have hso : ∀ u : SInf F (Fin a' × Fin (a + a')), pure u φ ∈ G.M'.So B.ψ B.τ₁ := fun u =>
     Submodule.subset_span ⟨u, φ, hSB, hev, hSo, rfl⟩
   have hsch : ∀ u : SInf F (Fin a' × Fin (a + a')), pure u φ ∈ schA F _ := fun u =>
-    GlobalTheory.TensUniq.pure_mem_schA u φ hSB hstd
+    TensUniq.pure_mem_schA u φ hSB hstd
   have hpres : ∀ x, ∀ Φ ∈ schA F (Fin a' × Fin (a + a')), om' x Φ ∈ schA F _ := fun x Φ hΦ =>
     hPair.weil.isUSplitting.pres x Φ hΦ
   have hconv : ∀ u : SInf F (Fin a' × Fin (a + a')), IntegrableOn (fun g => theta om' (pure u φ) g h) G.M'.dom G.M'.μ :=
@@ -44,17 +44,17 @@ theorem continuous_pure_theta_integral : _root_.GlobalTheory.FunPr.ThetaLocalInp
   have hadd : ∀ (u u' : SInf F (Fin a' × Fin (a + a'))) g,
       theta om' (pure (u + u') φ) g h = theta om' (pure u φ) g h + theta om' (pure u' φ) g h := by
     intro u u' g
-    have e : pure (u + u') φ = pure u φ + pure u' φ := funext fun x => by simp [GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure, add_mul]
+    have e : pure (u + u') φ = pure u φ + pure u' φ := funext fun x => by simp [IndefiniteRowSideFullHecke.WeilTensorModels.pure, add_mul]
     simp only [theta, e, map_add (f := _)]
     exact thetaSum_add F (hpres _ _ (hsch u)) (hpres _ _ (hsch u'))
   have hsmul : ∀ (c : ℂ) (u : SInf F (Fin a' × Fin (a + a'))) g,
       theta om' (pure (c • u) φ) g h = c * theta om' (pure u φ) g h := by
     intro c u g
-    have e : pure (c • u) φ = c • pure u φ := funext fun x => by simp [GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure, mul_assoc]
+    have e : pure (c • u) φ = c • pure u φ := funext fun x => by simp [IndefiniteRowSideFullHecke.WeilTensorModels.pure, mul_assoc]
     simp only [theta, e, map_smul]
     exact thetaSum_smul F c _
   have hcontg : ∀ g, Continuous fun u : SInf F (Fin a' × Fin (a + a')) => theta om' (pure u φ) g h := fun g =>
-    (_root_.GlobalTheory.ThKBasic.theta_kernel_basic_properties hP F E σ B a' (a + a') G.V' G.W G.M' X.α (X.α / X.β) om' _ _ _ _ hPair).2 A hA g h
+    (ThKBasic.theta_kernel_basic_properties hP F E σ B a' (a + a') G.V' G.W G.M' X.α (X.α / X.β) om' _ _ _ _ hPair).2 A hA g h
   let μd := G.M'.μ.restrict G.M'.dom
   let T : SInf F (Fin a' × Fin (a + a')) → UA σ G.V'.J → ℂ := fun u g => theta om' (pure u φ) g h
   have hfin : ∀ u, (∫⁻ g, ‖T u g‖ₑ ∂μd) ≠ ⊤ := fun u => (hconv u).2.ne
@@ -71,7 +71,7 @@ theorem continuous_pure_theta_integral : _root_.GlobalTheory.FunPr.ThetaLocalInp
         simp only [T, hsmul, norm_mul]
         exact integral_const_mul _ _)
   haveI : BarrelledSpace ℂ (SInf F (Fin a' × Fin (a + a'))) := by
-    classical exact GlobalTheory.schwartzMap_barrelledSpace _
+    classical exact schwartzMap_barrelledSpace _
   have hN : LowerSemicontinuous fun u => ∫⁻ g, ‖T u g‖ₑ ∂μd := by
     rw [lowerSemicontinuous_iff_le_liminf]
     intro u

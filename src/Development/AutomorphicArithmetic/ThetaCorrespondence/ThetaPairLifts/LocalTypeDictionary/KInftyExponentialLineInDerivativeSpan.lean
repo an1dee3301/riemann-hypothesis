@@ -23,19 +23,19 @@ end GlobalTheory.KExpLine
 namespace GlobalTheory.KExpLine
 open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
 open scoped Classical
-theorem sub_mem_span_kInfty_exp_derivatives : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E]
+theorem sub_mem_span_kInfty_exp_derivatives : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E]
     [Algebra F E] (σ : E →ₐ[F] E)
-    (B : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (n d : ℕ) (X : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n) (W : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d)
-    (M : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Model σ X W) (χX χW : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E) (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ X W) (r s r' s' : ℕ),
-    GlobalTheory.ThK.IsPair B M χX χW om r s r' s' →
-    ∀ k ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.KInf σ X B.emb, ∀ f ∈ M.Pol B.ψ B.emb, ∀ f₁ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d),
-      GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Acts (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI F) (om (k, 1)) f f₁ →
-      f₁ - f ∈ Submodule.span ℂ {g₁ | g₁ ∈ M.Pol B.ψ B.emb ∧ ∃ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ X, ∃ g ∈ M.Pol B.ψ B.emb,
-        GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ActsD (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI F) (fun t => om (γ (Multiplicative.ofAdd t), 1)) g g₁} := by
+    (B : IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (n d : ℕ) (X : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n) (W : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d)
+    (M : IndefiniteRowSideFullHecke.WeilTensorModels.Model σ X W) (χX χW : IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E) (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ X W) (r s r' s' : ℕ),
+    ThK.IsPair B M χX χW om r s r' s' →
+    ∀ k ∈ IndefiniteRowSideFullHecke.WeilTensorModels.KInf σ X B.emb, ∀ f ∈ M.Pol B.ψ B.emb, ∀ f₁ : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d),
+      IndefiniteRowSideFullHecke.WeilTensorModels.Acts (IndefiniteRowSideFullHecke.WeilTensorModels.evI F) (om (k, 1)) f f₁ →
+      f₁ - f ∈ Submodule.span ℂ {g₁ | g₁ ∈ M.Pol B.ψ B.emb ∧ ∃ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ X, ∃ g ∈ M.Pol B.ψ B.emb,
+        IndefiniteRowSideFullHecke.WeilTensorModels.ActsD (IndefiniteRowSideFullHecke.WeilTensorModels.evI F) (fun t => om (γ (Multiplicative.ofAdd t), 1)) g g₁} := by
   intro hPr F E _ _ _ _ _ σ B n d X W M χX χW om r s r' s' hP k hk f hf f₁ hact
-  obtain ⟨hDer, hOp, -, -⟩ := _root_.GlobalTheory.T.dualPair_preserves_polarization hPr F E σ B n d X W M χX χW om r s r' s' hP
-  obtain ⟨γ, hγL, hγ1, hγK⟩ := GlobalTheory.T.exists_oneParameter_in_unitaryArchimedeanMaxCompact F E σ B n X r s hP.base hP.herm k hk
-  obtain ⟨S, hSfin, hS⟩ := _root_.GlobalTheory.T.fock_vectors_kFinite hPr F E σ B n d X W M χX χW om r s r' s' hP f hf
+  obtain ⟨hDer, hOp, -, -⟩ := T.dualPair_preserves_polarization hPr F E σ B n d X W M χX χW om r s r' s' hP
+  obtain ⟨γ, hγL, hγ1, hγK⟩ := T.exists_oneParameter_in_unitaryArchimedeanMaxCompact F E σ B n X r s hP.base hP.herm k hk
+  obtain ⟨S, hSfin, hS⟩ := T.fock_vectors_kFinite hPr F E σ B n d X W M χX χW om r s r' s' hP f hf
   haveI := hSfin
   obtain ⟨Dg, hDgP, hDg⟩ := hDer γ hγL
   choose D hDP hD using fun t : ℝ => hOp (γ (Multiplicative.ofAdd t)) (hγK _)
@@ -55,20 +55,20 @@ theorem sub_mem_span_kInfty_exp_derivatives : _root_.GlobalTheory.FunPr.ThetaLoc
     exact ((hD 0 f hf f).1 hA).symm
   have hder : ∀ y t, HasDerivAt (fun u => c u y) (Dg (c t) y) t := by
     intro y t
-    let ρ := GlobalTheory.ArchIsom.r0 F (Fin n × Fin d)
-    let x := GlobalTheory.ArchIsom.splitEquiv F (Fin n × Fin d) (y, 0)
-    have hx : (fun i => evI F (x i)) = y := funext fun i => GlobalTheory.ArchIsom.evI_splitEquiv _ _ i
+    let ρ := ArchIsom.r0 F (Fin n × Fin d)
+    let x := ArchIsom.splitEquiv F (Fin n × Fin d) (y, 0)
+    have hx : (fun i => evI F (x i)) = y := funext fun i => ArchIsom.evI_splitEquiv _ _ i
     have hρ : ρ x = 1 := by
-      show GlobalTheory.ArchIsom.g0 F (Fin n × Fin d) (fun i => (x i).2) = 1
+      show ArchIsom.g0 F (Fin n × Fin d) (fun i => (x i).2) = 1
       have : (fun i => (x i).2) = (0 : Fin n × Fin d → FiniteAdeleRing (𝓞 F) F) := rfl
       rw [this]
-      exact Set.indicator_of_mem (GlobalTheory.ArchIsom.zero_mem_intPts _) _
+      exact Set.indicator_of_mem (ArchIsom.zero_mem_intPts _) _
     have htens : ∀ g : SInf F (Fin n × Fin d), tens (evI F) (⇑g) ρ x = g y := by
       intro g
       show g (fun i => evI F (x i)) * ρ x = g y
       rw [hx, hρ, mul_one]
     have hom : ∀ u, om (γ (Multiplicative.ofAdd u), 1) (tens (evI F) (⇑f) ρ) = tens (evI F) (⇑(c u)) ρ :=
-      fun u => hcA u ρ (GlobalTheory.ArchIsom.restriction_at_standard_point _ f)
+      fun u => hcA u ρ (ArchIsom.restriction_at_standard_point _ f)
     have hsplit : ∀ s', om (γ (Multiplicative.ofAdd (s' + t)), 1) (tens (evI F) (⇑f) ρ) =
         om (γ (Multiplicative.ofAdd s'), 1) (tens (evI F) (⇑(c t)) ρ) := by
       intro s'
@@ -76,7 +76,7 @@ theorem sub_mem_span_kInfty_exp_derivatives : _root_.GlobalTheory.FunPr.ThetaLoc
           (γ (Multiplicative.ofAdd s'), 1) * (γ (Multiplicative.ofAdd t), 1) := by
         rw [ofAdd_add, map_mul, Prod.mk_mul_mk, mul_one]
       rw [e, map_mul, Module.End.mul_apply, hom t]
-    have h0 := (hDg (c t) (hcP t) (Dg (c t))).2 rfl ρ (GlobalTheory.ArchIsom.restriction_at_standard_point _ (c t)) x
+    have h0 := (hDg (c t) (hcP t) (Dg (c t))).2 rfl ρ (ArchIsom.restriction_at_standard_point _ (c t)) x
     have h0' : HasDerivAt (fun s' => c (s' + t) y) (Dg (c t) y) 0 := by
       have e1 : (fun s' : ℝ => om (γ (Multiplicative.ofAdd s'), 1) (tens (evI F) (⇑(c t)) ρ) x) =
           fun s' => c (s' + t) y := by

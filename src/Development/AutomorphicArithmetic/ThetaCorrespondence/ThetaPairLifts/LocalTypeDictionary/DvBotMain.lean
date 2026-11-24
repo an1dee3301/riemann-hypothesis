@@ -56,31 +56,31 @@ noncomputable section
 namespace GlobalTheory.BotMatch
 variable {D : D7}
 set_option maxHeartbeats 3200000 in
-theorem bottom_matching_of_triangle (hH : GlobalTheory.Published.HoweDualityReal) (hPr : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hLM : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching)
+theorem bottom_matching_of_triangle (hH : Published.HoweDualityReal) (hPr : FunPr.ThetaLocalInputs) (hLM : IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching)
     {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D} (hψ : IsStdChar D ψ (-1)) (hθ : IsInfFam θ) {T : Type} {A A' WW : HSp D}
-    (X : GlobalTheory.IndefiniteRowSideFullHecke.UnitCharTriangle.Tri T A A' WW) {α β : T → ((AE D)ˣ →* Circle)} {νH : T → Formalism.L2.Host.HChar D.host.E}
-    {S : T → Finset (Pl D.host.E)} (hX : X.Is ψ θ α β νH S) (t : T) (hT : GlobalTheory.SquareComm.IsTriple A A' WW (α t) (β t))
+    (X : IndefiniteRowSideFullHecke.UnitCharTriangle.Tri T A A' WW) {α β : T → ((AE D)ˣ →* Circle)} {νH : T → Formalism.L2.Host.HChar D.host.E}
+    {S : T → Finset (Pl D.host.E)} (hX : X.Is ψ θ α β νH S) (t : T) (hT : SquareComm.IsTriple A A' WW (α t) (β t))
     (hν : ChrEq (α t / β t) (νH t))
     (hτ : ∀ v : Pl D.host.F, (∃ w ∈ S t, w.under (𝓞 D.host.F) = v) → ∃ τ : D.host.E →ₐ[D.host.F] Fv D.host.F v,
       ∀ w ∈ S t, w.under (𝓞 D.host.F) = v → splitPrime τ = w)
-    (hram : ∀ w ∈ S t, ¬ GlobalTheory.LFun.UnrAt (α t / β t) w)
+    (hram : ∀ w ∈ S t, ¬ LFun.UnrAt (α t / β t) w)
     (hunr : ∀ w : Pl D.host.E, (∀ w' ∈ S t, w'.under (𝓞 D.host.F) ≠ w.under (𝓞 D.host.F)) →
-      GlobalTheory.LFun.UnrAt (α t) w ∧ GlobalTheory.LFun.UnrAt (β t) w)
+      LFun.UnrAt (α t) w ∧ LFun.UnrAt (β t) w)
     (hid : ∀ w ∈ S t, IsSplitIdem D (atPl w 1) ∧ atPl w 1 + cA D (atPl w 1) =
-      algebraMap (AF D.host.F) (AE D) (GlobalTheory.LatVac.liftV (w.under (𝓞 D.host.F)) 1))
-    (hε : X.e t = ∑ w ∈ S t, atPl w 1) (FA : GlobalTheory.ChainFr.Fr A) (FA' : GlobalTheory.ChainFr.Fr A') (FW : GlobalTheory.ChainFr.Fr WW)
-    (hf : GlobalTheory.SquareComm.IsFinF ψ θ true FA FW (X.f t)) (hf' : GlobalTheory.SquareComm.IsFinF ψ θ false FA' FW (X.f' t)) :
+      algebraMap (AF D.host.F) (AE D) (LatVac.liftV (w.under (𝓞 D.host.F)) 1))
+    (hε : X.e t = ∑ w ∈ S t, atPl w 1) (FA : ChainFr.Fr A) (FA' : ChainFr.Fr A') (FW : ChainFr.Fr WW)
+    (hf : SquareComm.IsFinF ψ θ true FA FW (X.f t)) (hf' : SquareComm.IsFinF ψ θ false FA' FW (X.f' t)) :
     ∃ (Pi : ModuleCat.{0} ℂ) (rf : GA D WW → Module.End ℂ Pi)
       (rl : D.what₂.Tau → Matrix (Fin WW.rank) (Fin WW.rank) ℂ → Module.End ℂ Pi) (p : (WO A WW → ℂ) →ₗ[ℂ] Pi)
-      (p' : (WO A' WW → ℂ) →ₗ[ℂ] Pi), GlobalTheory.SquareComm.IsMatch ψ θ FA FA' FW (α t) (β t) (X.ω t) (X.ω' t) Pi rf rl p p' ∧
-      ((∀ P, p (GlobalTheory.SquareComm.fockF ψ θ true FA FW (X.f t) P) = 0) ∨
+      (p' : (WO A' WW → ℂ) →ₗ[ℂ] Pi), SquareComm.IsMatch ψ θ FA FA' FW (α t) (β t) (X.ω t) (X.ω' t) Pi rf rl p p' ∧
+      ((∀ P, p (SquareComm.fockF ψ θ true FA FW (X.f t) P) = 0) ∨
         ∃ (P : PolF D WW.rank A.rank) (P' : PolF D WW.rank A'.rank) (κ : ℂ),
-          p (GlobalTheory.SquareComm.fockF ψ θ true FA FW (X.f t) P) ≠ 0 ∧
-          p (GlobalTheory.SquareComm.fockF ψ θ true FA FW (X.f t) P) = κ • p' (GlobalTheory.SquareComm.fockF ψ θ false FA' FW (X.f' t) P')) := by
+          p (SquareComm.fockF ψ θ true FA FW (X.f t) P) ≠ 0 ∧
+          p (SquareComm.fockF ψ θ true FA FW (X.f t) P) = κ • p' (SquareComm.fockF ψ θ false FA' FW (X.f' t) P')) := by
   classical
   have hA := hX.weil t
   have hB := hX.weil' t
-  have sA : IsSelfDualC (GlobalTheory.Grid.sgn true A) X.rA.Λ := GlobalTheory.RowTest.isSelfDualC_neg' hX.rigA.1
+  have sA : IsSelfDualC (Grid.sgn true A) X.rA.Λ := RowTest.isSelfDualC_neg' hX.rigA.1
   obtain ⟨Bs, Γ, Xc, om, om', h, hTr, hTA, hTB, hLV, hLV', hLW, hP, hPw⟩ :=
     exists_reading_lat hψ FA FA' FW hT hA hB sA hX.rigA'.1 hX.rigW.1 (S t) hτ hram hunr
   obtain rfl := h.ψ
@@ -92,7 +92,7 @@ theorem bottom_matching_of_triangle (hH : GlobalTheory.Published.HoweDualityReal
   have hmem : ∀ i : Bs.P, splitPrime (Bs.τ i) ∈ S t := fun i => (hPw _).2 ⟨i, rfl⟩
   have ha : ∀ i : Bs.P, IsSplitIdem D (atPl (splitPrime (Bs.τ i)) 1) ∧
       atPl (splitPrime (Bs.τ i)) 1 + cA D (atPl (splitPrime (Bs.τ i)) 1) =
-        algebraMap (AF D.host.F) (AE D) (GlobalTheory.LatVac.liftV i.1 1) := fun i => by
+        algebraMap (AF D.host.F) (AE D) (LatVac.liftV i.1 1) := fun i => by
     have := hid _ (hmem i)
     rwa [splitPrime_under] at this
   have he : X.e t = ∑ i : Bs.P, atPl (splitPrime (Bs.τ i)) 1 := by
@@ -109,7 +109,7 @@ theorem bottom_matching_of_triangle (hH : GlobalTheory.Published.HoweDualityReal
   have e1' : ∀ i : Bs.P, Φ' i = φ' i := fun i => dif_pos i.2
   have e2 : ∀ v ∉ Bs.P, Φ v = Γ.M.vac v := fun v hv => dif_neg hv
   have e2' : ∀ v ∉ Bs.P, Φ' v = Γ.M'.vac v := fun v hv => dif_neg hv
-  have hall : ∀ v, (Φ v ∈ GlobalTheory.WeilM.SB _ ∧ Φ v ≠ 0) ∧ (Φ' v ∈ GlobalTheory.WeilM.SB _ ∧ Φ' v ≠ 0) ∧ Rf.p v (Φ v) = Rf.p' v (Φ' v) := by
+  have hall : ∀ v, (Φ v ∈ WeilM.SB _ ∧ Φ v ≠ 0) ∧ (Φ' v ∈ WeilM.SB _ ∧ Φ' v ≠ 0) ∧ Rf.p v (Φ v) = Rf.p' v (Φ' v) := by
     intro v
     by_cases hv : v ∈ Bs.P
     · rw [e1 ⟨v, hv⟩, e1' ⟨v, hv⟩]
@@ -119,7 +119,7 @@ theorem bottom_matching_of_triangle (hH : GlobalTheory.Published.HoweDualityReal
   have ev : ∀ᶠ v in Filter.cofinite, Φ v = Γ.M.vac v := Bs.P.eventually_cofinite_notMem.mono e2
   have ev' : ∀ᶠ v in Filter.cofinite, Φ' v = Γ.M'.vac v := Bs.P.eventually_cofinite_notMem.mono e2'
   obtain ⟨f₀, nf₀, ef₀⟩ := exists_pure_pair true A WW hT.rank.symm Γ.M h.JW h.JX sA hX.rigW.1 hψ hTr.base hg.hV hg.hW hg.hM
-    (fun s hs => hLV ▸ GlobalTheory.BigDat.star_mem_conjSub hs) hLW hθ hX.isVac.2.theta (GlobalTheory.BigDat.vac_ne_zero (S := GlobalTheory.Grid.neg A) hX.isVac) hX.isVac.2.lat
+    (fun s hs => hLV ▸ BigDat.star_mem_conjSub hs) hLW hθ hX.isVac.2.theta (BigDat.vac_ne_zero (S := Grid.neg A) hX.isVac) hX.isVac.2.lat
     (Subtype.val : Bs.P → _) Subtype.val_injective _ ha he _ _ _ (fun i u => (half_iff (Bs.τ i) (ha i).2 u).1)
     (fun i u => (half_iff (Bs.τ i) (ha i).2 u).2)
     (fun i u => ((Γ.V.bas i)⁻¹).1 * u.map (piW (Bs.τ i)) * ((Γ.W.bas i)⁻¹).1ᵀ)
@@ -133,7 +133,7 @@ theorem bottom_matching_of_triangle (hH : GlobalTheory.Published.HoweDualityReal
       beta_reduce
       rw [hu, ← Matrix.mul_assoc, ← Matrix.mul_assoc, Units.inv_mul, Matrix.one_mul, Matrix.mul_assoc, ← transpose_mul,
         Units.inv_mul, transpose_one, Matrix.mul_one])
-    I (fun i => GlobalTheory.BigNZ.isLagrModel_of_isLin (hI i)) (hX.fst t)
+    I (fun i => BigNZ.isLagrModel_of_isLin (hI i)) (hX.fst t)
     (fun x hx => by
       by_contra hn
       exact hx (if_neg fun h' => hn h'.1))
@@ -154,20 +154,20 @@ theorem bottom_matching_of_triangle (hH : GlobalTheory.Published.HoweDualityReal
     have := RingHom.map_det (Bs.τ i : D.host.E →+* Fv D.host.F i.1) Γ.W.J
     refine (this ▸ IsUnit.map _ (Ne.isUnit ?_) : IsUnit ((Bs.τ i : D.host.E →+* Fv D.host.F i.1).mapMatrix Γ.W.J).det)
     rw [h.JX, Matrix.det_smul, Matrix.det_submatrix_equiv_self, Matrix.det_transpose]
-    exact mul_ne_zero (pow_ne_zero _ (GlobalTheory.DualPairCompare.embedding_xi_zero_ne_zero D)) (Formalism.L2.Theta.gram_det_ne WW)
+    exact mul_ne_zero (pow_ne_zero _ (DualPairCompare.embedding_xi_zero_ne_zero D)) (Formalism.L2.Theta.gram_det_ne WW)
   obtain ⟨f₁, nf₁, ef₁⟩ := exists_pure_pair false A' WW hT.rank.symm Γ.M' h.JW₁ h.JX hX.rigA'.1 hX.rigW.1 hψ hTr.base hg.hV' hg.hW
-    hg.hM' (fun s hs => hLV' ▸ GlobalTheory.BigDat.star_mem_conjSub hs) hLW hθ hX.isVac'.2.theta (GlobalTheory.BigDat.vac_ne_zero hX.isVac')
+    hg.hM' (fun s hs => hLV' ▸ BigDat.star_mem_conjSub hs) hLW hθ hX.isVac'.2.theta (BigDat.vac_ne_zero hX.isVac')
     hX.isVac'.2.lat (Subtype.val : Bs.P → _) Subtype.val_injective (fun i => cA D (atPl (splitPrime (Bs.τ i)) 1))
-    (fun i => ⟨GlobalTheory.BigDat.splitIdem_conj (ha i).1, by rw [GlobalTheory.DualPairCheck.cA_cA, add_comm, (ha i).2]⟩)
+    (fun i => ⟨BigDat.splitIdem_conj (ha i).1, by rw [DualPairCheck.cA_cA, add_comm, (ha i).2]⟩)
     (η := cA D (X.e t)) (by rw [he, map_sum]) _ _ _ (fun i u => (half_iff (Bs.τ i) (ha i).2 u).2)
-    (fun i u => by rw [GlobalTheory.DualPairCheck.cA_cA]; exact (half_iff (Bs.τ i) (ha i).2 u).1)
+    (fun i u => by rw [DualPairCheck.cA_cA]; exact (half_iff (Bs.τ i) (ha i).2 u).1)
     (fun i u => -((Γ.V'.bas i).1ᵀ * Γ.V'.J.map (Bs.τ i) * u.map (piW ((Bs.τ i).comp D.sp.cm.sig)) * (Γ.W.J.map (Bs.τ i))ᵀ *
       (Γ.W.bas i).1))
     (fun i u x => by rw [Matrix.map_add _ (map_add _), Matrix.mul_add, Matrix.add_mul, Matrix.add_mul, neg_add])
     (fun i u => by
       congr 4
       exact Matrix.ext fun p q => (map_mul (piW ((Bs.τ i).comp D.sp.cm.sig)) _ _).trans (by
-        rw [← GlobalTheory.FlipMatch.RowChart.piW_cA_eq, GlobalTheory.DualPairCheck.cA_cA, piW_atPl_one, one_mul]; rfl))
+        rw [← FlipMatch.RowChart.piW_cA_eq, DualPairCheck.cA_cA, piW_atPl_one, one_mul]; rfl))
     (fun i z => by
       obtain ⟨g₁, h₁⟩ := dV' i
       obtain ⟨g₂, h₂⟩ := dW i
@@ -176,7 +176,7 @@ theorem bottom_matching_of_triangle (hH : GlobalTheory.Published.HoweDualityReal
       beta_reduce
       rw [hu, Matrix.mul_assoc _ _ (Γ.W.bas i).1, ← h₁, ← h₂, ← Matrix.mul_assoc, ← Matrix.mul_assoc, Units.mul_inv,
         Matrix.one_mul, Matrix.mul_assoc, Units.inv_mul, Matrix.mul_one, neg_neg])
-    I' (fun i => GlobalTheory.BigNZ.isLagrModel_of_isLin (hI' i)) (hX.snd t)
+    I' (fun i => BigNZ.isLagrModel_of_isLin (hI' i)) (hX.snd t)
     (fun x hx => by
       by_contra hn
       exact hx (if_neg fun h' => hn h'.1))
@@ -196,17 +196,17 @@ theorem bottom_matching_of_triangle (hH : GlobalTheory.Published.HoweDualityReal
     (fun v => (hall v).2.1.1) ev' (fun v => (hall v).2.1.2) (ef₁.symm ▸ hf')
   rw [ef₀] at eL
   rw [ef₁] at eL'
-  have pA : ∀ P, GlobalTheory.TripleAssembly.mapA Bs.ψ (finCongr hT.rank.symm) Bs Γ R Rf
-      (GlobalTheory.SquareComm.fockF Bs.ψ θ true FA FW (X.f t) P) =
-      R.p (L P) ⊗ₜ[ℂ] GlobalTheory.SmallThetaModules.pureT (GlobalTheory.TripleAssembly.vacIm Γ Rf) (fun v => Rf.p v (Φ v)) := fun P => by
+  have pA : ∀ P, TripleAssembly.mapA Bs.ψ (finCongr hT.rank.symm) Bs Γ R Rf
+      (SquareComm.fockF Bs.ψ θ true FA FW (X.f t) P) =
+      R.p (L P) ⊗ₜ[ℂ] SmallThetaModules.pureT (TripleAssembly.vacIm Γ Rf) (fun v => Rf.p v (Φ v)) := fun P => by
     have := _root_.GlobalTheory.T.tripleProduct_image_thetaSum_pure hH hPr D Bs.ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h hTA hTB R Rf hM 1
       (fun _ => L P) (fun _ => Φ) (fun _ => ⟨fun v => (hall v).1.1, ev⟩) (by
         rw [Fin.sum_univ_one]
         exact Submodule.subset_span ⟨L P, Φ, rL ▸ ⟨P, rfl⟩, fun v => (hall v).1.1, ev, rfl⟩)
     rwa [Fin.sum_univ_one, Fin.sum_univ_one, eL] at this
-  have pB : ∀ P, GlobalTheory.TripleAssembly.mapB Bs.ψ (finCongr hT.rank.symm) Bs Γ R Rf
-      (GlobalTheory.SquareComm.fockF Bs.ψ θ false FA' FW (X.f' t) P) =
-      R.p' (L' P) ⊗ₜ[ℂ] GlobalTheory.SmallThetaModules.pureT (GlobalTheory.TripleAssembly.vacIm Γ Rf) (fun v => Rf.p' v (Φ' v)) := fun P => by
+  have pB : ∀ P, TripleAssembly.mapB Bs.ψ (finCongr hT.rank.symm) Bs Γ R Rf
+      (SquareComm.fockF Bs.ψ θ false FA' FW (X.f' t) P) =
+      R.p' (L' P) ⊗ₜ[ℂ] SmallThetaModules.pureT (TripleAssembly.vacIm Γ Rf) (fun v => Rf.p' v (Φ' v)) := fun P => by
     have := _root_.GlobalTheory.T.tripleProduct_secondMap_theta_pure hH hPr D Bs.ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h hTA hTB R Rf hM 1
       (fun _ => L' P) (fun _ => Φ') (fun _ => ⟨fun v => (hall v).2.1.1, ev'⟩) (by
         rw [Fin.sum_univ_one]
@@ -220,8 +220,8 @@ theorem bottom_matching_of_triangle (hH : GlobalTheory.Published.HoweDualityReal
   obtain ⟨fA, fB⟩ := _root_.GlobalTheory.T.theta_triple_maps_equivariant hH hPr D Bs.ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h hTA hTB R Rf hM
   obtain ⟨dA, dB⟩ := _root_.GlobalTheory.T.theta_triple_lift_lie_equivariant hH hPr D Bs.ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h hTA hTB R Rf hM
   have ir := _root_.GlobalTheory.T.theta_triple_lift_irreducible hH hPr D Bs.ψ θ hψ hθ A A' WW FA FA' FW _ _ hT _ _ hA hB _ Bs Γ Xc om om' h hTA hTB R Rf hM
-  refine ⟨ModuleCat.of ℂ (GlobalTheory.TripleAssembly.PiT R Γ Rf), _, _, GlobalTheory.TripleAssembly.mapA Bs.ψ (finCongr hT.rank.symm) Bs Γ R Rf,
-    GlobalTheory.TripleAssembly.mapB Bs.ψ (finCongr hT.rank.symm) Bs Γ R Rf,
+  refine ⟨ModuleCat.of ℂ (TripleAssembly.PiT R Γ Rf), _, _, TripleAssembly.mapA Bs.ψ (finCongr hT.rank.symm) Bs Γ R Rf,
+    TripleAssembly.mapB Bs.ψ (finCongr hT.rank.symm) Bs Γ R Rf,
     ⟨hA, hB, ir, ⟨tA.1, tA.2, oA, iA, lA, fA, dA⟩, ⟨tB.1, tB.2, oB, iB, lB, fB, dB⟩⟩, ?_⟩
   refine (em _).imp id fun hn => ?_
   obtain ⟨P, hP0⟩ := not_forall.1 hn

@@ -23,19 +23,19 @@ end Record
 end GlobalTheory.ThmAUpper.Read
 namespace GlobalTheory.ThmAUpper
 open Read GlobalTheory.ToricDenom GlobalTheory.FunObj.SqNum in
-theorem read_twisted_alt : ∀ {D : D7} {L : SizeData₂ D} {hT : GatTies D} {Gi : Formalism.MainNotions.G.Inst D L} {Gl : Formalism.MainNotions.G.LatInst D} {Kc : Formalism.MainNotions.G.Consts} {Y : DivX D} {cX : ExtraC} {ex : Extra D L hT Gi Gl Kc Y cX} {Csz : ℝ} (p : PtAt ex Csz) (CF : ℝ) (d : FunIn p CF), p.PointConditions' → Fitted (@Comparison₂) p CF d → GlobalTheory.IndefiniteRowSideFullHecke.ToricSymbols.ToricRatioConjugates → (∃ (_ : IsCMField D.host.E) (_ : IsAbelianGalois ℚ D.host.E), GlobalTheory.IndefiniteRowSideFullHecke.ClassZetaValuationBounds.IsFieldData D.host.d (GlobalTheory.FunObj.SqNum.cmPhi D) ∧
-    GlobalTheory.CMVal.IsBaseCond (GlobalTheory.FunObj.SqNum.condF d.G.pl) ∧ ∃ Λ, GlobalTheory.IndefiniteRowSideFullHecke.ClassZetaValuationBounds.IsIntLattice D.host.d Λ) → ∀ w : D.what₂.places.Pl, TwistedAt D w → ∀ (i j : Fin D.R.m) (s : ℕ), 1 ≤ s → s ≤ halfRank D i j →
-    ∀ (T₀ : ℂ) (ψc : PicO (condQ (GlobalTheory.FunObj.SqNum.condF d.G.pl) (GlobalTheory.ToricDenom.belowSet (ex.nch.Q w))) →* ℂˣ) (T : (PicO (condQ (GlobalTheory.FunObj.SqNum.condF d.G.pl) (GlobalTheory.ToricDenom.belowSet (ex.nch.Q w))) →* ℂˣ) → ℂ), IsValChar (GlobalTheory.FunObj.SqNum.cmPhi D) s (GlobalTheory.FunObj.SqNum.kap D 1 i j s) (GlobalTheory.FunObj.SqNum.condF d.G.pl) ∅ (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) →
-      IsToricSum (GlobalTheory.FunObj.SqNum.cmPhi D) s (GlobalTheory.FunObj.SqNum.kap D 1 i j s) (GlobalTheory.FunObj.SqNum.condF d.G.pl) (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) T₀ → T₀ ≠ 0 →
+theorem read_twisted_alt : ∀ {D : D7} {L : SizeData₂ D} {hT : GatTies D} {Gi : Formalism.MainNotions.G.Inst D L} {Gl : Formalism.MainNotions.G.LatInst D} {Kc : Formalism.MainNotions.G.Consts} {Y : DivX D} {cX : ExtraC} {ex : Extra D L hT Gi Gl Kc Y cX} {Csz : ℝ} (p : PtAt ex Csz) (CF : ℝ) (d : FunIn p CF), p.PointConditions' → Fitted (@Comparison₂) p CF d → IndefiniteRowSideFullHecke.ToricSymbols.ToricRatioConjugates → (∃ (_ : IsCMField D.host.E) (_ : IsAbelianGalois ℚ D.host.E), IndefiniteRowSideFullHecke.ClassZetaValuationBounds.IsFieldData D.host.d (FunObj.SqNum.cmPhi D) ∧
+    CMVal.IsBaseCond (FunObj.SqNum.condF d.G.pl) ∧ ∃ Λ, IndefiniteRowSideFullHecke.ClassZetaValuationBounds.IsIntLattice D.host.d Λ) → ∀ w : D.what₂.places.Pl, TwistedAt D w → ∀ (i j : Fin D.R.m) (s : ℕ), 1 ≤ s → s ≤ halfRank D i j →
+    ∀ (T₀ : ℂ) (ψc : PicO (condQ (FunObj.SqNum.condF d.G.pl) (ToricDenom.belowSet (ex.nch.Q w))) →* ℂˣ) (T : (PicO (condQ (FunObj.SqNum.condF d.G.pl) (ToricDenom.belowSet (ex.nch.Q w))) →* ℂˣ) → ℂ), IsValChar (FunObj.SqNum.cmPhi D) s (FunObj.SqNum.kap D 1 i j s) (FunObj.SqNum.condF d.G.pl) ∅ (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) →
+      IsToricSum (FunObj.SqNum.cmPhi D) s (FunObj.SqNum.kap D 1 i j s) (FunObj.SqNum.condF d.G.pl) (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) T₀ → T₀ ≠ 0 →
       (∀ y, finPart (p.Tp.psi w) y = ψc (QuotientGroup.mk y)) →
-      (∀ ψ, GlobalTheory.IndefiniteRowSideFullHecke.ToricSymbols.IsTwistedSum (GlobalTheory.FunObj.SqNum.cmPhi D) s (GlobalTheory.FunObj.SqNum.kap D 1 i j s) (condQ (GlobalTheory.FunObj.SqNum.condF d.G.pl) (GlobalTheory.ToricDenom.belowSet (ex.nch.Q w))) (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) ψ (T ψ)) → (∃ ι : ℂ →+* GlobalTheory.ToricDenom.Kbar D.ntw (ex.nch.twI w),
-        (∀ x : D.LL0, ι (D.what₂.embLL (x : D.what₂.LL)) = GlobalTheory.ToricDenom.toBar D.ntw (ex.nch.twI w) (D.ntw.emb0 (ex.nch.twI w) x)) ∧
-        ∀ b : Bool, ∃ (lam : D.ntw.abelian₂ (ex.nch.twI w)) (jk : FractionRing (D.ntw.Ok (ex.nch.twI w) (ex.nch.k' w)) →+* GlobalTheory.ToricDenom.Kbar D.ntw (ex.nch.twI w)) (c : ℤ),
+      (∀ ψ, IndefiniteRowSideFullHecke.ToricSymbols.IsTwistedSum (FunObj.SqNum.cmPhi D) s (FunObj.SqNum.kap D 1 i j s) (condQ (FunObj.SqNum.condF d.G.pl) (ToricDenom.belowSet (ex.nch.Q w))) (nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w)) ψ (T ψ)) → (∃ ι : ℂ →+* ToricDenom.Kbar D.ntw (ex.nch.twI w),
+        (∀ x : D.LL0, ι (D.what₂.embLL (x : D.what₂.LL)) = ToricDenom.toBar D.ntw (ex.nch.twI w) (D.ntw.emb0 (ex.nch.twI w) x)) ∧
+        ∀ b : Bool, ∃ (lam : D.ntw.abelian₂ (ex.nch.twI w)) (jk : FractionRing (D.ntw.Ok (ex.nch.twI w) (ex.nch.k' w)) →+* ToricDenom.Kbar D.ntw (ex.nch.twI w)) (c : ℤ),
             D.ntw.sideL (ex.nch.twI w) lam = b ∧ IsCoprime c (D.ntw.l (ex.nch.twI w) : ℤ) ∧
-            jk.comp (BlochKatoReduction.Gen.kMap D.ntw (ex.nch.twI w) (ex.nch.k' w)) = algebraMap (FractionRing (D.ntw.O (ex.nch.twI w))) (GlobalTheory.ToricDenom.Kbar D.ntw (ex.nch.twI w)) ∧
+            jk.comp (BlochKatoReduction.Gen.kMap D.ntw (ex.nch.twI w) (ex.nch.k' w)) = algebraMap (FractionRing (D.ntw.O (ex.nch.twI w))) (ToricDenom.Kbar D.ntw (ex.nch.twI w)) ∧
             ∀ a : ℤ, jk (BlochKatoReduction.Gen.thEval D.ntw (ex.nch.twI w) (ex.nch.Q w) lam (ex.nch.k' w) (BlochKatoReduction.Gen.psiAt (D.ntw.sideL (ex.nch.twI w) lam) (ex.nch.psi' w ^ a))) *
-                GlobalTheory.ToricDenom.atSide D.ntw b ι T₀ =
-              jk (BlochKatoReduction.Gen.kMap D.ntw (ex.nch.twI w) (ex.nch.k' w) (∑ δ, D.ntw.th (ex.nch.twI w) ∅ lam δ)) * GlobalTheory.ToricDenom.atSide D.ntw b ι (T (ψc ^ (c * a)))) := by
+                ToricDenom.atSide D.ntw b ι T₀ =
+              jk (BlochKatoReduction.Gen.kMap D.ntw (ex.nch.twI w) (ex.nch.k' w) (∑ δ, D.ntw.th (ex.nch.twI w) ∅ lam δ)) * ToricDenom.atSide D.ntw b ι (T (ψc ^ (c * a)))) := by
   intro D L hT Gi Gl Kc Y cX ex Csz p CF d hp hfit _ hF w hw i j s hs1 hs2 T₀ ψc T _ h0 _ hψ hT'
   obtain ⟨_, _, -, hb, -⟩ := hF
   obtain ⟨-, ι, hι, -, hall⟩ := hfit.1.list _ (hfit.1.setting.inW1 hw)
@@ -44,29 +44,29 @@ theorem read_twisted_alt : ∀ {D : D7} {L : SizeData₂ D} {hT : GatTies D} {Gi
   let a : Fin D.R.m := ⟨D.R.m - i - 1, by omega⟩
   have ha : a.1 + 1 = D.R.m - i := by simp only [a]; omega
   have hsN : s ≤ BlochKatoReduction.Gen.NFun D.R + 1 := by
-    have h3 : halfRank D i j ≤ GlobalTheory.ChiGrid.bigN D := by
-      have a : GlobalTheory.ChiGrid.rankV D (i + 1) (j + 1) ≤ GlobalTheory.ChiGrid.bigN D := by
+    have h3 : halfRank D i j ≤ ChiGrid.bigN D := by
+      have a : ChiGrid.rankV D (i + 1) (j + 1) ≤ ChiGrid.bigN D := by
         have h1 : (j + 1) * D.R.t ≤ D.R.m * D.R.t := Nat.mul_le_mul_right _ j.2
-        have h2 : (i + 1) * GlobalTheory.ChiGrid.sLen D ≤ D.R.m * GlobalTheory.ChiGrid.sLen D := Nat.mul_le_mul_right _ i.2
-        simp only [GlobalTheory.ChiGrid.rankV, GlobalTheory.ChiGrid.bigN, Ranks.r, mul_add] at *
+        have h2 : (i + 1) * ChiGrid.sLen D ≤ D.R.m * ChiGrid.sLen D := Nat.mul_le_mul_right _ i.2
+        simp only [ChiGrid.rankV, ChiGrid.bigN, Ranks.r, mul_add] at *
         omega
-      have e : GlobalTheory.ChiGrid.rankV D (i + 1) (j + 1) = GlobalTheory.ChiGrid.rankV D i j + D.R.t + GlobalTheory.ChiGrid.sLen D := by
-        simp only [GlobalTheory.ChiGrid.rankV]; ring
+      have e : ChiGrid.rankV D (i + 1) (j + 1) = ChiGrid.rankV D i j + D.R.t + ChiGrid.sLen D := by
+        simp only [ChiGrid.rankV]; ring
       unfold halfRank; omega
-    have h12 : BlochKatoReduction.Gen.NFun D.R = GlobalTheory.ChiGrid.bigN D := GlobalTheory.LamTie.nFun_eq_bigN D
+    have h12 : BlochKatoReduction.Gen.NFun D.R = ChiGrid.bigN D := LamTie.nFun_eq_bigN D
     omega
   obtain ⟨lam, hlam, -, hth⟩ := hall j a s b hs1 hsN
-  have e1 : GlobalTheory.LamTie.cond0 D.host (lamOf d.G).w0 = condF d.G.pl := cond0_eq d.G hb
+  have e1 : LamTie.cond0 D.host (lamOf d.G).w0 = condF d.G.pl := cond0_eq d.G hb
   have e2 : (lamOf d.G).lam0 (D.ntw.l (ex.nch.twI w)) j a =
       nuH d.G p.P.A3.A.μ0 i j * p.R.C.delAt (D.what₂.places.resChar w) := by
     rw [lambdaGrid_apply, ha, ex.nch.twI_l, nuH, xiH_base p, mul_one, div_mul_eq_mul_div]
-  have e3 : GlobalTheory.LamTie.phi D.host ∘ D.eTau = cmPhi D := rfl
+  have e3 : LamTie.phi D.host ∘ D.eTau = cmPhi D := rfl
   have e4 : (lamOf d.G).kap j a s ∘ D.eTau = kap D 1 i j s := by
     funext τ
-    simp only [Function.comp, GlobalTheory.LamTie.LamDat.kap, lamOf, kap, Formalism.L2.Host.eExp, Equiv.symm_apply_apply, ha]
-    have : (GlobalTheory.ChiGrid.num D 1 τ).e (j + 1) = ⌊(D.hc τ).e j⌋ := by
-      show GlobalTheory.SignedHC.GridData.extend 1 (D.hc τ).e (j + 1) = _
-      simp [GlobalTheory.SignedHC.GridData.extend]
+    simp only [Function.comp, LamTie.LamDat.kap, lamOf, kap, Formalism.L2.Host.eExp, Equiv.symm_apply_apply, ha]
+    have : (ChiGrid.num D 1 τ).e (j + 1) = ⌊(D.hc τ).e j⌋ := by
+      show SignedHC.GridData.extend 1 (D.hc τ).e (j + 1) = _
+      simp [SignedHC.GridData.extend]
     rw [this]
   rw [e1, e2] at hth
   obtain ⟨u, -, hth⟩ := hth
@@ -78,7 +78,7 @@ theorem read_twisted_alt : ∀ {D : D7} {L : SizeData₂ D} {hT : GatTies D} {Gi
   have e5 : condQ (condF d.G.pl) (belowSet (∅ : Finset (HeightOneSpectrum (𝓞 D.host.E)))) = condF d.G.pl := by
     simp [condQ, belowSet]
   have s0 := sum_th_eq ht0 hδ0 (t := T₀) (by rw [e5]; exact h0)
-  obtain ⟨J, hJ⟩ := GlobalTheory.ToricDistribution.exists_emb D.ntw (ex.nch.twI w) (ex.nch.k' w)
+  obtain ⟨J, hJ⟩ := ToricDistribution.exists_emb D.ntw (ex.nch.twI w) (ex.nch.k' w)
   obtain ⟨e, he, hchar⟩ := exists_pow_char hfit.1.psi hw (hp.ties.psiVal w hw) (atSide D.ntw b ι) J
   have hc : condQ (condF d.G.pl) (belowSet (ex.nch.Q w)) ≠ ⊥ :=
     mul_ne_zero hb.1 (Finset.prod_ne_zero_iff.2 fun q _ => q.ne_bot)

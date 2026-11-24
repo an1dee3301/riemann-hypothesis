@@ -21,7 +21,7 @@ public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLif
 section
 open GlobalTheory.SumSize GlobalTheory.RowClaim
 namespace GlobalTheory.SumSize
-theorem sum_size_dictionary_of_local_bounds (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hI : ∀ D, GlobalTheory.NormSum.Inp D) : DictK := by
+theorem sum_size_dictionary_of_local_bounds (hP : FunPr.ThetaLocalInputs) (hI : ∀ D, NormSum.Inp D) : DictK := by
   obtain ⟨CF0, h⟩ := _root_.GlobalTheory.T.twisted_dictionary_correspondence hP hI
   refine ⟨CF0, fun CF hCF => ⟨0, fun ε C _ => ?_⟩⟩
   obtain ⟨x₀, hx⟩ := h ε CF hCF

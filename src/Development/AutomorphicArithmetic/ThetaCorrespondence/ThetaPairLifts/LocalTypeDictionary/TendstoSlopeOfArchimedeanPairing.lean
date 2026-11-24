@@ -18,7 +18,7 @@ open GlobalTheory.ArchUniq MeasureTheory Filter Topology
 open scoped SchwartzMap Classical Matrix
 noncomputable section
 namespace GlobalTheory.ArchLinePair
-theorem tendsto_slope_of_archimedean_pairing (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
+theorem tendsto_slope_of_archimedean_pairing (hP : FunPr.ThetaLocalInputs) {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
     [FiniteDimensional ℝ V] [MeasurableSpace V] [BorelSpace V] (P : V → V → ℝ) (hp : IsPairing P)
     (A : ℝ → (V × V) →ₗ[ℝ] (V × V)) (T : ℝ → 𝓢(V, ℂ) →ₗ[ℂ] 𝓢(V, ℂ))
     (hAc : ∀ v, Continuous fun t => A t v) (hA0 : ∀ v, A 0 v = v) (hAm : ∀ s t v, A (s + t) v = A s (A t v))
@@ -50,20 +50,20 @@ theorem tendsto_slope_of_archimedean_pairing (hP : _root_.GlobalTheory.FunPr.The
   have hgm : ∀ s t, g (s + t) = g s * g t := fun s t => hext _ _ fun v => by
     rw [← Matrix.mulVec_mulVec, hg, hg, hg, ha, ha, ha, hAm]
   have hgs : ∀ t, g t ∈ Matrix.symplecticGroup (Fin n) ℝ := fun t => by
-    obtain ⟨M, hM⟩ := GlobalTheory.exists_symplecticGroup_of_sympl (Fin n) (a t) fun w w' => by
+    obtain ⟨M, hM⟩ := exists_symplecticGroup_of_sympl (Fin n) (a t) fun w w' => by
       obtain ⟨v, rfl⟩ := φ.surjective w
       obtain ⟨v', rfl⟩ := φ.surjective w'
       rw [ha, ha, hφ, hφ, hAo]
     rw [hext (g t) M fun v => by rw [hg, hM]]
     exact M.2
   obtain ⟨Z, hZ, hgZ⟩ := GlobalTheory.T.exists_symplecticLie_eq_exp_oneParam (Fin n) g hgc hg0 hgm hgs
-  let B : GlobalTheory.RealWeil.Sch (Fin n) →L[ℂ] 𝓢(V, ℂ) := SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (F := ℂ) C
-  let Bi : 𝓢(V, ℂ) →L[ℂ] GlobalTheory.RealWeil.Sch (Fin n) := SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (F := ℂ) C.symm
+  let B : RealWeil.Sch (Fin n) →L[ℂ] 𝓢(V, ℂ) := SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (F := ℂ) C
+  let Bi : 𝓢(V, ℂ) →L[ℂ] RealWeil.Sch (Fin n) := SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (F := ℂ) C.symm
   have hB : ∀ h, ⇑(B h) = ⇑h ∘ ⇑C := fun h => rfl
   have hBi : ∀ h, ⇑(Bi h) = ⇑h ∘ ⇑C.symm := fun h => rfl
   have hBBi : ∀ h, B (Bi h) = h := fun h => by ext x; simp [hB, hBi]
   have hBiB : ∀ h, Bi (B h) = h := fun h => by ext x; simp [hB, hBi]
-  let S : ℝ → GlobalTheory.RealWeil.Sch (Fin n) →ₗ[ℂ] GlobalTheory.RealWeil.Sch (Fin n) := fun t =>
+  let S : ℝ → RealWeil.Sch (Fin n) →ₗ[ℂ] RealWeil.Sch (Fin n) := fun t =>
     Bi.toLinearMap ∘ₗ T t ∘ₗ B.toLinearMap
   have hS : ∀ t h, S t h = Bi (T t (B h)) := fun t h => rfl
   have hint : ∀ h : 𝓢(V, ℂ), ∫⁻ x, ‖Bi h x‖ₑ ^ 2 = ∫⁻ x, ‖h x‖ₑ ^ 2 ∂(Measure.map C.symm volume) := fun h =>
@@ -85,7 +85,7 @@ theorem tendsto_slope_of_archimedean_pairing (hP : _root_.GlobalTheory.FunPr.The
   simp only [Function.comp_apply, ← Complex.coe_smul, map_smul, map_sub, hS, hBBi]
 variable {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E}
   {n d : ℕ} {X : Spc F E n} {W : Spc F E d}
-theorem exists_orbit_pair_archimedean_line (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (M : Model σ X W) (ψ : AddChar (AF F) ℂ) (χX χW : Chr F E)
+theorem exists_orbit_pair_archimedean_line (hP : FunPr.ThetaLocalInputs) (M : Model σ X W) (ψ : AddChar (AF F) ℂ) (χX χW : Chr F E)
     (om : Rep σ X W) (hψ : IsStd ψ) (hW : M.IsWeil ψ χX χW om) (δ : ℝ → UA σ X.J × UA σ W.J) (hδc : Continuous δ)
     (hδ0 : δ 0 = 1) (hδm : ∀ s t, δ (s + t) = δ s * δ t) (hδ1 : ∀ t, (δ t).1 ∈ UAt σ X (evI F))
     (hδ2 : ∀ t, (δ t).2 ∈ UAt σ W (evI F)) (f : SInf F (Fin n × Fin d)) :
@@ -101,10 +101,10 @@ theorem exists_orbit_pair_archimedean_line (hP : _root_.GlobalTheory.FunPr.Theta
     simp only [Darboux.rho, he, actAB_fin (hδ1 t) (hδ2 t) u hu] at h2
     exact h2
   choose S hS using hex
-  let g₀ := GlobalTheory.ArchLocality.intInd (F := F) (Fin n × Fin d)
-  have hg₀ : g₀ ∈ SB _ := GlobalTheory.ArchLocality.intInd_mem _
+  let g₀ := ArchLocality.intInd (F := F) (Fin n × Fin d)
+  have hg₀ : g₀ ∈ SB _ := ArchLocality.intInd_mem _
   have hg₀0 : g₀ 0 = 1 := by
-    simp only [g₀, GlobalTheory.ArchLocality.intInd]
+    simp only [g₀, ArchLocality.intInd]
     rw [Set.indicator_of_mem (show (0 : Fin n × Fin d → FiniteAdeleRing (𝓞 F) F) ∈ Set.pi Set.univ
       fun _ => (GroundTheory.Global.integralFiniteAdeles (𝓞 F) F : Set (FiniteAdeleRing (𝓞 F) F)) from
         fun i _ => zero_mem (GroundTheory.Global.integralFiniteAdeles (𝓞 F) F))]
@@ -114,14 +114,14 @@ theorem exists_orbit_pair_archimedean_line (hP : _root_.GlobalTheory.FunPr.Theta
     intro x z hz
     refine congrArg g₀ (funext fun i => ?_)
     show (x i).2 + (z i).2 = (x i).2
-    rw [GlobalTheory.ArchLocality.snd_eq_zero_of_at hz i, add_zero]
+    rw [ArchLocality.snd_eq_zero_of_at hz i, add_zero]
   have hR : ∀ f : SInf F (Fin n × Fin d), Rest (evI F) ⇑f r₀ := fun f =>
     ⟨hrr, Submodule.subset_span ⟨f, g₀, hg₀, rfl⟩⟩
   have hr0 : r₀ 0 ≠ 0 := by
     show g₀ 0 ≠ 0
     rw [hg₀0]; exact one_ne_zero
   have hinj : ∀ f₁ f₂ : SInf F (Fin n × Fin d), tens (evI F) ⇑f₁ r₀ = tens (evI F) ⇑f₂ r₀ → f₁ = f₂ :=
-    fun f₁ f₂ h => DFunLike.coe_injective (GlobalTheory.ArchFam.tens_inj r₀ hrr 0 hr0 _ _ h)
+    fun f₁ f₂ h => DFunLike.coe_injective (ArchFam.tens_inj r₀ hrr 0 hr0 _ _ h)
   have key : ∀ t (f : SInf F (Fin n × Fin d)), om (δ t) (tens (evI F) ⇑f r₀) = tens (evI F) ⇑(S t f) r₀ :=
     fun t f => hS t f r₀ (hR f)
   have tadd : ∀ f g : SInf F (Fin n × Fin d),
@@ -136,7 +136,7 @@ theorem exists_orbit_pair_archimedean_line (hP : _root_.GlobalTheory.FunPr.Theta
   have hT : ∀ t f, T t f = S t f := fun t f => rfl
   have hT0 : ∀ f, T 0 f = f := fun f => hinj _ _ (by rw [hT, ← key, hδ0, map_one, Module.End.one_apply])
   haveI : BorelSpace (Fin n × Fin d → mixedEmbedding.mixedSpace F) := inferInstance
-  obtain ⟨g, hg⟩ := _root_.GlobalTheory.ArchLinePair.tendsto_slope_of_archimedean_pairing hP (trP F (Fin n × Fin d)) (Coord.isPairing_trP _)
+  obtain ⟨g, hg⟩ := ArchLinePair.tendsto_slope_of_archimedean_pairing hP (trP F (Fin n × Fin d)) (Coord.isPairing_trP _)
     (fun t => amap M (δ t)) T (fun v => (continuous_amap M v).comp hδc)
     (fun v => by
       obtain ⟨w, rfl⟩ : ∃ w, Coord.coordI M w = v := ⟨_, Coord.coordI_lift M v⟩
@@ -152,18 +152,18 @@ theorem exists_orbit_pair_archimedean_line (hP : _root_.GlobalTheory.FunPr.Theta
     hT0
     (fun s t f => hinj _ _ (by rw [hT, hT, hT, ← key, hδm, map_mul, Module.End.mul_apply, key, key]))
     (fun t v f f₁ hf => by
-      have hc : (locV (M.co.e (GlobalTheory.ArchFam.wv M v)).1, locV (M.co.e (GlobalTheory.ArchFam.wv M v)).2) = v :=
+      have hc : (locV (M.co.e (ArchFam.wv M v)).1, locV (M.co.e (ArchFam.wv M v)).2) = v :=
         Coord.coordI_lift M v
-      have e1 : tens (evI F) ⇑f₁ r₀ = M.co.rho ψ (GlobalTheory.ArchFam.wv M v) (tens (evI F) ⇑f r₀) := by
-        rw [GlobalTheory.ArchFam.rho_tens ψ hψ M.co _ (GlobalTheory.ArchFam.at_wv M v) _ _ hrr, hc, ← hf]
-      have e2 := hs.impl (δ t) (GlobalTheory.ArchFam.wv M v) _ (hR f).2
-      have hat : At (evI F) (actAB (cA σ) (δ t) (GlobalTheory.ArchFam.wv M v)) := fun u hu => by
-        rw [← actAB_smul, GlobalTheory.ArchFam.at_wv M v u hu, actAB, Matrix.mul_zero, Matrix.zero_mul]
-      apply GlobalTheory.ArchFam.tens_inj r₀ hrr 0 hr0
-      rw [hT, hT, ← key, e1, e2, key, GlobalTheory.ArchFam.rho_tens ψ hψ M.co _ hat _ _ hrr]
+      have e1 : tens (evI F) ⇑f₁ r₀ = M.co.rho ψ (ArchFam.wv M v) (tens (evI F) ⇑f r₀) := by
+        rw [ArchFam.rho_tens ψ hψ M.co _ (ArchFam.at_wv M v) _ _ hrr, hc, ← hf]
+      have e2 := hs.impl (δ t) (ArchFam.wv M v) _ (hR f).2
+      have hat : At (evI F) (actAB (cA σ) (δ t) (ArchFam.wv M v)) := fun u hu => by
+        rw [← actAB_smul, ArchFam.at_wv M v u hu, actAB, Matrix.mul_zero, Matrix.zero_mul]
+      apply ArchFam.tens_inj r₀ hrr 0 hr0
+      rw [hT, hT, ← key, e1, e2, key, ArchFam.rho_tens ψ hψ M.co _ hat _ _ hrr]
       rfl)
     (fun μ hμ t f => by
-      obtain ⟨μA, hμA, c, hc0, hct, hc⟩ := GlobalTheory.ArchimedeanUnitaryL2.exists_haar F _ μ g₀ hg₀ hr0
+      obtain ⟨μA, hμA, c, hc0, hct, hc⟩ := ArchimedeanUnitaryL2.exists_haar F _ μ g₀ hg₀ hr0
       have hU := hs.unit μA hμA (δ t) (tens (evI F) f r₀) (hR f).2
       rw [key] at hU
       exact (ENNReal.mul_right_inj hc0 hct).1 (((hc (S t f)).symm.trans hU).trans (hc f)))
@@ -180,18 +180,18 @@ theorem exists_orbit_pair_archimedean_line (hP : _root_.GlobalTheory.FunPr.Theta
       exact (hpure (S t f) g₀).trans (by rw [hg₀0, one_mul, hT]))
     f
   exact ⟨fun t => T t f, g, hT0 f, hg, fun t => hS t f⟩
-theorem exists_curve_along_archimedean_line : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E} {n d : ℕ}
-    {Y : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} {Wd : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d} (M : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Model σ Y Wd) (ψ : AddChar (AF F) ℂ)
-    (χX χW : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E) (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ Y Wd),
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ → M.IsGood ψ → M.IsWeil ψ χX χW om →
-    ∀ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ Y, ∀ (f : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)) (r : (Fin n × Fin d → AF F) → ℂ),
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rest (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI F) f r →
-    ∃ (c : ℝ → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)) (g : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)),
-      (∀ t : ℝ, om (γ (Multiplicative.ofAdd t), 1) (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.tens (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI F) f r) =
-        GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.tens (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI F) (c t) r) ∧
+theorem exists_curve_along_archimedean_line : FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E} {n d : ℕ}
+    {Y : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} {Wd : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d} (M : IndefiniteRowSideFullHecke.WeilTensorModels.Model σ Y Wd) (ψ : AddChar (AF F) ℂ)
+    (χX χW : IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E) (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ Y Wd),
+    IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ → M.IsGood ψ → M.IsWeil ψ χX χW om →
+    ∀ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ Y, ∀ (f : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)) (r : (Fin n × Fin d → AF F) → ℂ),
+    IndefiniteRowSideFullHecke.WeilTensorModels.Rest (IndefiniteRowSideFullHecke.WeilTensorModels.evI F) f r →
+    ∃ (c : ℝ → IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)) (g : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d)),
+      (∀ t : ℝ, om (γ (Multiplicative.ofAdd t), 1) (IndefiniteRowSideFullHecke.WeilTensorModels.tens (IndefiniteRowSideFullHecke.WeilTensorModels.evI F) f r) =
+        IndefiniteRowSideFullHecke.WeilTensorModels.tens (IndefiniteRowSideFullHecke.WeilTensorModels.evI F) (c t) r) ∧
       Tendsto (fun t : ℝ => t⁻¹ • (c t - c 0)) (𝓝[≠] 0) (𝓝 g) := by
   intro hP F E _ _ _ _ _ σ n d Y Wd M ψ χX χW om hψ _ hW γ hγ f r hr
-  obtain ⟨c, g, hc0, hg, hc⟩ := _root_.GlobalTheory.ArchLinePair.exists_orbit_pair_archimedean_line hP M ψ χX χW om hψ hW (fun t => (γ (Multiplicative.ofAdd t), 1))
+  obtain ⟨c, g, hc0, hg, hc⟩ := ArchLinePair.exists_orbit_pair_archimedean_line hP M ψ χX χW om hψ hW (fun t => (γ (Multiplicative.ofAdd t), 1))
     ((hγ.1.comp continuous_ofAdd).prodMk continuous_const) (by rw [ofAdd_zero, map_one]; rfl)
     (fun s t => by rw [ofAdd_add, map_mul, Prod.mk_mul_mk, one_mul]) (fun t => hγ.2 _)
     (fun t u _ => by simp [mat]) f

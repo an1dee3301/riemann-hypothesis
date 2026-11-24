@@ -20,23 +20,23 @@ noncomputable section
 open MeasureTheory GlobalTheory.Grow GlobalTheory.Size
 open scoped ENNReal
 namespace GlobalTheory.KFinCuspApprox
-theorem kFinite_cusp_approx_at_one_place : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {D : D7} (θ : InfFam D), IsInfFam θ → ∀ (N : GlobalTheory.Grid.Node D) (φ : GA D N.V → ℂ), GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.IsCuspOfType θ N φ → ∀ (τ : D.what₂.Tau) (a : ℕ) (δ : ℝ), 0 < δ → ∃ e : Formalism.REAL.KG (N.M.ε τ) → ℂ, Continuous e ∧ GlobalTheory.TypeSum.KFinFun (N.M.ε τ) e ∧ ∀ g, ‖φ g - GlobalTheory.KFinCuspApprox.avgN θ N τ e φ g‖ * GlobalTheory.Grow.quotHeight N.V g ^ a ≤ δ := by
+theorem kFinite_cusp_approx_at_one_place : FunPr.ThetaLocalInputs → ∀ {D : D7} (θ : InfFam D), IsInfFam θ → ∀ (N : Grid.Node D) (φ : GA D N.V → ℂ), IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.IsCuspOfType θ N φ → ∀ (τ : D.what₂.Tau) (a : ℕ) (δ : ℝ), 0 < δ → ∃ e : Formalism.REAL.KG (N.M.ε τ) → ℂ, Continuous e ∧ TypeSum.KFinFun (N.M.ε τ) e ∧ ∀ g, ‖φ g - KFinCuspApprox.avgN θ N τ e φ g‖ * Grow.quotHeight N.V g ^ a ≤ δ := by
   intro hP D θ hθ N φ hφ τ a δ hδ
   obtain ⟨hA, hc, -⟩ := id hφ
   obtain ⟨U, hU, hlev⟩ := hA.level
   obtain ⟨d, C, hC⟩ := hP.cuspDecaySobolev D θ hθ N.V U hU 0 a
   have hr := rapidDecSm_of_cuspForm hP.cuspRapidDecay hθ hA hc
   have hη : 0 < δ / ((C : ℝ) + 1) := div_pos hδ (by positivity)
-  obtain ⟨e, he, hgrow⟩ := GlobalTheory.KAvgApprox.one_place D θ hθ N.V τ (N.M.ε τ) (N.M.fr τ) (N.M.fr_unit τ) (N.M.fr_gram τ) φ hr d _ hη
+  obtain ⟨e, he, hgrow⟩ := KAvgApprox.one_place D θ hθ N.V τ (N.M.ε τ) (N.M.fr τ) (N.M.fr_unit τ) (N.M.fr_gram τ) φ hr d _ hη
   have hec : Continuous e := by obtain ⟨F, -, h1, h2, -⟩ := he; exact h2 _ h1
-  have hav := GlobalTheory.KAvgApprox.avg_rapid D θ hθ N.V τ (N.M.ε τ) (N.M.fr τ) (N.M.fr_unit τ) (N.M.fr_gram τ) e hec φ hr
+  have hav := KAvgApprox.avg_rapid D θ hθ N.V τ (N.M.ε τ) (N.M.fr τ) (N.M.fr_unit τ) (N.M.fr_gram τ) e hec φ hr
   set ψ : GA D N.V → ℂ := φ - avgN θ N τ e φ with hψ
   have hψr : RapidDecSm θ N.V ψ := by
     have := hr.add (hav.smul (-1))
     rwa [neg_one_smul, ← sub_eq_add_neg] at this
   have hψc : IsCuspFun N.V ψ := by
-    have h2 := _root_.GlobalTheory.T.kFinite_cuspForm_average_approx θ hθ hP N τ e hec φ hA hc
-    have := GlobalTheory.MultMem.isCuspFun_add hr.toIsAutFun (hav.smul (-1)).toIsAutFun hc (GlobalTheory.MultMem.isCuspFun_smul (-1) h2)
+    have h2 := T.kFinite_cuspForm_average_approx θ hθ hP N τ e hec φ hA hc
+    have := MultMem.isCuspFun_add hr.toIsAutFun (hav.smul (-1)).toIsAutFun hc (MultMem.isCuspFun_smul (-1) h2)
     rwa [neg_one_smul, ← sub_eq_add_neg] at this
   have hψlev : ∀ k ∈ U, k ∈ GfC N.V → ∀ x, ψ (x * k) = ψ x := by
     intro k hk hk' x
@@ -46,7 +46,7 @@ theorem kFinite_cusp_approx_at_one_place : _root_.GlobalTheory.FunPr.ThetaLocalI
     congr 1; funext k'
     rw [mul_assoc, ← Formalism.IndefR.Eqv.Act.comm_inf_fin (Formalism.IndefR.Eqv.Act.atTau_mem θ τ _) hk', ← mul_assoc, hlev k hk hk']
   refine ⟨e, hec, he, fun g => ?_⟩
-  have h1 := hC ψ hψr.toIsAutFun hψlev hψr.smooth (GlobalTheory.CuspApproxAll.growthSob_zero_ne_top hψr) hψc
+  have h1 := hC ψ hψr.toIsAutFun hψlev hψr.smooth (CuspApproxAll.growthSob_zero_ne_top hψr) hψc
   have h2 : decaySize N.V a ψ ≤ ENNReal.ofReal δ := by
     have h4 : (C : ℝ≥0∞) * growthSob θ N.V d 0 ψ ≤ C * ENNReal.ofReal (δ / ((C : ℝ) + 1)) := by gcongr
     refine h1.trans (h4.trans ?_)

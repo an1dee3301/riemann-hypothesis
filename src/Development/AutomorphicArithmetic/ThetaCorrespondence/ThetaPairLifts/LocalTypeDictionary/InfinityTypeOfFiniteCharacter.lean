@@ -35,11 +35,11 @@ namespace GlobalTheory.BotKerRealInv
 open Matrix
 private theorem minor_polynomial_substitution {D : D7} {a d : ℕ} {n : D.what₂.Tau → ℕ} (T : Tup D a d n)
     (g : D.what₂.Tau → Matrix (Fin a) (Fin a) ℂ) :
-    GlobalTheory.CompactHowe.substF (fun _ => (1 : Matrix (Fin d) (Fin d) ℂ)) g (GlobalTheory.NormSum.minorPol D T) =
-      (∏ τ, (g τ).det ^ n τ) • GlobalTheory.NormSum.minorPol D T := by
-  unfold GlobalTheory.NormSum.minorPol
+    CompactHowe.substF (fun _ => (1 : Matrix (Fin d) (Fin d) ℂ)) g (NormSum.minorPol D T) =
+      (∏ τ, (g τ).det ^ n τ) • NormSum.minorPol D T := by
+  unfold NormSum.minorPol
   have key : ∀ (τ : D.what₂.Tau) (r : Fin a → Fin d),
-      GlobalTheory.CompactHowe.substF (fun _ => (1 : Matrix (Fin d) (Fin d) ℂ)) g
+      CompactHowe.substF (fun _ => (1 : Matrix (Fin d) (Fin d) ℂ)) g
         (Matrix.of fun i i' : Fin a => (MvPolynomial.X (τ, r i, i') : MvPolynomial (D.what₂.Tau × Fin d × Fin a) ℂ)).det =
       MvPolynomial.C (g τ).det *
         (Matrix.of fun i i' : Fin a => (MvPolynomial.X (τ, r i, i') : MvPolynomial (D.what₂.Tau × Fin d × Fin a) ℂ)).det := by
@@ -49,7 +49,7 @@ private theorem minor_polynomial_substitution {D : D7} {a d : ℕ} {n : D.what�
     congr 1
     ext1 i i'
     simp only [AlgHom.mapMatrix_apply, RingHom.mapMatrix_apply, Matrix.map_apply, Matrix.of_apply, Matrix.mul_apply,
-      GlobalTheory.CompactHowe.substF_X, Matrix.one_apply]
+      CompactHowe.substF_X, Matrix.one_apply]
     rw [Finset.sum_eq_single (r i)]
     · simp [mul_comm]
     · intro b _ hb
@@ -62,11 +62,11 @@ private theorem minor_polynomial_substitution {D : D7} {a d : ℕ} {n : D.what�
   rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ, Fintype.card_fin, map_pow]
 private theorem minor_form_substitution {D : D7} {a d a₁ d₁ : ℕ} {n : D.what₂.Tau → ℕ} (ha : a = a₁) (hd : d = d₁) (T : Tup D a d n)
     (g : D.what₂.Tau → Matrix (Fin a₁) (Fin a₁) ℂ) :
-    GlobalTheory.CompactHowe.substF (fun _ => (1 : Matrix (Fin d₁) (Fin d₁) ℂ)) g (GlobalTheory.BotFormula.minorF ha hd T) =
-      (∏ τ, (g τ).det ^ n τ) • GlobalTheory.BotFormula.minorF ha hd T := by
+    CompactHowe.substF (fun _ => (1 : Matrix (Fin d₁) (Fin d₁) ℂ)) g (BotFormula.minorF ha hd T) =
+      (∏ τ, (g τ).det ^ n τ) • BotFormula.minorF ha hd T := by
   subst ha hd
-  have e : GlobalTheory.BotFormula.minorF rfl rfl T = GlobalTheory.NormSum.minorPol D T := by
-    unfold GlobalTheory.BotFormula.minorF
+  have e : BotFormula.minorF rfl rfl T = NormSum.minorPol D T := by
+    unfold BotFormula.minorF
     exact MvPolynomial.rename_id_apply _
   rw [e]
   exact minor_polynomial_substitution T g
@@ -76,14 +76,14 @@ private theorem conj_transpose_inv_unitary {m : ℕ} {u : Matrix (Fin m) (Fin m)
   ext i j
   simp [Matrix.conjTranspose_apply]
 private theorem infinity_type_of_finite_character {D : D7} {N : ℕ} (χ : HeckeU D N) (e : ℤ) (χ' : Formalism.L2.Host.HChar D.host.E)
-    (hf : ∀ x, χ.f x ^ e = χ'.1 (GlobalTheory.Mem.Col2.SplitChar.finIdl D x)) :
+    (hf : ∀ x, χ.f x ^ e = χ'.1 (Mem.Col2.SplitChar.finIdl D x)) :
     χ'.HasInf (Formalism.L2.Host.embTau D) (fun τ => e * χ.n τ) := by
   intro u
   set φ := Formalism.L2.Host.embTau D
   have hA : ((χ.f (Units.map (inc D).toMonoidHom u) : ℂˣ) : ℂ) *
       ∏ τ, (φ τ u / ((‖φ τ u‖ : ℝ) : ℂ)) ^ (χ.n τ) = 1 := χ.aut u
   have hB := χ'.2.2 u
-  rw [← GlobalTheory.Mem.ChiLaws.infDiag_mul_finPart, map_mul, ← GlobalTheory.Mem.Col2.SplitChar.finIdl_incU, ← hf] at hB
+  rw [← Mem.ChiLaws.infDiag_mul_finPart, map_mul, ← Mem.Col2.SplitChar.finIdl_incU, ← hf] at hB
   have hB' : ((χ'.inf u : ℂˣ) : ℂ) * ((χ.f (Units.map (inc D).toMonoidHom u) : ℂˣ) : ℂ) ^ e = 1 := by
     have := congrArg Units.val hB
     simp only [Units.val_mul, Units.val_zpow_eq_zpow_val, Units.val_one] at this
@@ -109,8 +109,8 @@ private theorem infinity_exponent_of_bottom_pair {D : D7} {T : Type} {L : LevCh 
       refine Finset.prod_congr rfl fun τ _ => ?_
       rw [_root_.zpow_neg]
       rfl
-  have h4 := GlobalTheory.Chain.StepVac.hasInfExp_inv
-    (GlobalTheory.HeckeInfExp.hasInfExp_of_chrEq D _ _ _ (chrEq_nu G s i j hL) h2 τ)
+  have h4 := Chain.StepVac.hasInfExp_inv
+    (HeckeInfExp.hasInfExp_of_chrEq D _ _ _ (chrEq_nu G s i j hL) h2 τ)
   rw [neg_neg] at h4
   have e : G.ch.chi (D.R.m - i) * L.eta ^ (rankV D i j % 2) / (L.mu s (j + 1) * L.eta ^ (rankV D i j % 2)) =
       (G.nu s i (j + 1))⁻¹ := by
@@ -122,19 +122,19 @@ private theorem weil_rep_fixes_compact_vector {D : D7} {T : Type} {L : LevCh D T
     {i j : Fin D.R.m} {A A' WW : HSp D} {X : Tri T A A' WW} (hX : IsBottomTri W i j X) (s : T)
     {δ t0 : ℂ} {Q : ℕ} {P P' : Pair D ⊤ δ t0 Q} {𝔪} (hB : IsBottom G s i j 𝔪 P P') (ea : P.a = A.rank) (ed : P.d = WW.rank)
     (Tp : Tup D P.a P.d P.n) {k : Formalism.L2.Theta.GA D A} (hk : k ∈ GinfC A) :
-    X.ω s (k, 1) (pureTensorO W.ψ W.θ (GlobalTheory.Grid.neg A) WW (fun τ => -X.rA.s τ) X.rW.s X.rA.B X.rW.B (X.f s)
-      (GlobalTheory.BotFormula.minorF ea ed Tp)) =
-      pureTensorO W.ψ W.θ (GlobalTheory.Grid.neg A) WW (fun τ => -X.rA.s τ) X.rW.s X.rA.B X.rW.B (X.f s)
-        (GlobalTheory.BotFormula.minorF ea ed Tp) := by
+    X.ω s (k, 1) (pureTensorO W.ψ W.θ (Grid.neg A) WW (fun τ => -X.rA.s τ) X.rW.s X.rA.B X.rW.B (X.f s)
+      (BotFormula.minorF ea ed Tp)) =
+      pureTensorO W.ψ W.θ (Grid.neg A) WW (fun τ => -X.rA.s τ) X.rW.s X.rA.B X.rW.B (X.f s)
+        (BotFormula.minorF ea ed Tp) := by
   have h := hX.is
   have hψ : IsStdChar D W.ψ (-1) := h.isVac.1
   have hθ : IsInfFam W.θ := h.isVac.2.inf
   have hW := h.weil s
-  have hf : IsThetaFunO W.ψ (GlobalTheory.Grid.neg A) WW (X.f s) :=
-    GlobalTheory.JointHarm.isThetaFunO_of_isThetaAt hψ hθ (h.fst s) h.isVac.2.theta
-  have ho := GlobalTheory.PlaceModelSum.isOrthSum_of_isIdemSum (h.idem s)
-  have hv : ∀ ρ, IsFockVacAt (heisO W.ψ (GlobalTheory.Grid.neg A) WW) W.θ ρ (cplxO (-1) 1) (X.f s) := fun ρ => by
-    have := GlobalTheory.DatumFock.isFockVacAt_of_isThetaAt hψ.1.1 hθ ho.infPart_eq ho.conj.infPart_eq (h.fst s)
+  have hf : IsThetaFunO W.ψ (Grid.neg A) WW (X.f s) :=
+    JointHarm.isThetaFunO_of_isThetaAt hψ hθ (h.fst s) h.isVac.2.theta
+  have ho := PlaceModelSum.isOrthSum_of_isIdemSum (h.idem s)
+  have hv : ∀ ρ, IsFockVacAt (heisO W.ψ (Grid.neg A) WW) W.θ ρ (cplxO (-1) 1) (X.f s) := fun ρ => by
+    have := DatumFock.isFockVacAt_of_isThetaAt hψ.1.1 hθ ho.infPart_eq ho.conj.infPart_eq (h.fst s)
       h.isVac.2.theta hf (h.isVac.2.fock ρ)
     simpa [(hX.std.2.2 ρ).1, (hX.stdW.2.2 ρ).1] using this
   have hgA : ∀ τ, gramAt D A τ = 1 := fun τ => by rw [gramAt, hX.std.1]; simp
@@ -145,21 +145,21 @@ private theorem weil_rep_fixes_compact_vector {D : D7} {T : Type} {L : LevCh D T
   have e3 : X.rA.B = fun _ => 1 := funext fun τ => (hX.std.2.2 τ).2
   have e4 : X.rW.B = fun _ => 1 := funext fun τ => (hX.stdW.2.2 τ).2
   rw [e1, e2, e3, e4]
-  choose a ha using fun τ => GlobalTheory.SplitCharExp.exists_hasInfExp D W.θ _ _ τ hθ hW.hecS hW.resS
-  choose e he using fun τ => GlobalTheory.SplitParity.exists_int_add_half D _ _ τ _ hW.hecS hW.resS (ha τ)
-  let k' : Formalism.L2.Theta.GA D (GlobalTheory.Grid.neg A) := (GlobalTheory.Grid.ofSgn true A).symm k
-  have hk' : k' ∈ GinfC (GlobalTheory.Grid.neg A) :=
-    (GlobalTheory.SgnIdent.mem_GinfC_sgn true A _).2 (by rwa [MulEquiv.apply_symm_apply])
+  choose a ha using fun τ => SplitCharExp.exists_hasInfExp D W.θ _ _ τ hθ hW.hecS hW.resS
+  choose e he using fun τ => SplitParity.exists_int_add_half D _ _ τ _ hW.hecS hW.resS (ha τ)
+  let k' : Formalism.L2.Theta.GA D (Grid.neg A) := (Grid.ofSgn true A).symm k
+  have hk' : k' ∈ GinfC (Grid.neg A) :=
+    (SgnIdent.mem_GinfC_sgn true A _).2 (by rwa [MulEquiv.apply_symm_apply])
   have hu : ∀ τ, (compAt W.θ τ (Formalism.L2.Theta.mt A k))ᴴ * compAt W.θ τ (Formalism.L2.Theta.mt A k) = 1 := fun τ => by
     have e : (compAt W.θ τ (Formalism.L2.Theta.mt A k)).conjTranspose * (gramAt D A τ) * compAt W.θ τ (Formalism.L2.Theta.mt A k) =
-      gramAt D A τ := GlobalTheory.FockCompare.RealAction.infMat_mem_UH hθ A k τ
+      gramAt D A τ := FockCompare.RealAction.infMat_mem_UH hθ A k τ
     rwa [hgA, Matrix.mul_one] at e
-  have key := GlobalTheory.FockRealNeg.om_pureTensorO_neg D W.ψ W.θ A WW _ _ ((X.ω s).toSgn true) hW hθ (fun _ => 1) (fun _ => 1)
+  have key := FockRealNeg.om_pureTensorO_neg D W.ψ W.θ A WW _ _ ((X.ω s).toSgn true) hW hθ (fun _ => 1) (fun _ => 1)
     (fun τ => by rw [hgA]; simp) (fun τ => by rw [hgW]; simp) a (fun τ => (P.n τ : ℚ) + (P.d : ℚ) / 2) ha
     (infinity_exponent_of_bottom_pair hL G s i j hB) (fun τ => e τ - A.rank) (fun τ => -(P.n τ : ℤ))
     (fun τ => by push_cast; rw [he τ]; show _ + (A.rank : ℚ) / 2 - _ = _; ring)
-    (fun τ => by rw [← ed]; push_cast; ring) (X.f s) hf hv k' hk' 1 (one_mem _) (GlobalTheory.BotFormula.minorF ea ed Tp)
-  have c1 : ∀ τ, compAt W.θ τ (Formalism.L2.Theta.mt WW 1) = 1 := fun τ => GlobalTheory.JointHarm.compAt_mt_one' W.θ τ WW
+    (fun τ => by rw [← ed]; push_cast; ring) (X.f s) hf hv k' hk' 1 (one_mem _) (BotFormula.minorF ea ed Tp)
+  have c1 : ∀ τ, compAt W.θ τ (Formalism.L2.Theta.mt WW 1) = 1 := fun τ => JointHarm.compAt_mt_one' W.θ τ WW
   have ck : ∀ τ, compAt W.θ τ (Formalism.L2.Theta.mt (negSp A) k') = compAt W.θ τ (Formalism.L2.Theta.mt A k) := fun τ => rfl
   have s1 : (fun τ => (((fun _ => (1 : Matrix (Fin WW.rank) (Fin WW.rank) ℂ)) τ)⁻¹ * compAt W.θ τ (Formalism.L2.Theta.mt WW 1) *
       (fun _ => (1 : Matrix (Fin WW.rank) (Fin WW.rank) ℂ)) τ).map (starRingEnd ℂ)) = fun _ => 1 := by

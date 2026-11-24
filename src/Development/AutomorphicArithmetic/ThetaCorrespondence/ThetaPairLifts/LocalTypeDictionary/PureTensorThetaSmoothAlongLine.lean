@@ -28,30 +28,30 @@ open Filter Topology
 open GlobalTheory.AdelicU
 open scoped Classical
 namespace GlobalTheory.Twist.SmoothLine
-theorem smooth_line_of_pure_tensor_theta : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E} {n d : ℕ}
-    {Y : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} {Wd : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d} (M : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Model σ Y Wd) (ψ : AddChar (AF F) ℂ)
-    (χX χW : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E) (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ Y Wd),
+theorem smooth_line_of_pure_tensor_theta : FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E} {n d : ℕ}
+    {Y : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} {Wd : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E d} (M : IndefiniteRowSideFullHecke.WeilTensorModels.Model σ Y Wd) (ψ : AddChar (AF F) ℂ)
+    (χX χW : IndefiniteRowSideFullHecke.WeilTensorModels.Chr F E) (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ Y Wd),
     Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes.IsCMExt F E σ →
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ → M.IsGood ψ → M.IsWeil ψ χX χW om →
-    ∀ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ Wd, ∀ (f : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d))
-      (φ : ∀ v : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin n × Fin d → Fv F v) → ℂ),
-    (∀ v, φ v ∈ GlobalTheory.WeilM.SB _) → (∀ᶠ v in Filter.cofinite, φ v = M.vac v) →
+    IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ → M.IsGood ψ → M.IsWeil ψ χX χW om →
+    ∀ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.Lines σ Wd, ∀ (f : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d))
+      (φ : ∀ v : IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin n × Fin d → Fv F v) → ℂ),
+    (∀ v, φ v ∈ WeilM.SB _) → (∀ᶠ v in Filter.cofinite, φ v = M.vac v) →
     (∃ y : Fin n × Fin d → AF F, ∏ᶠ v, φ v (fun i => evFin F v (y i)) ≠ 0) →
-    ∀ c : ℝ → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d),
-      (∀ t : ℝ, om (1, γ (Multiplicative.ofAdd t)) (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure f φ) = GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure (c t) φ) →
-      ∃ g : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d), Tendsto (fun t : ℝ => t⁻¹ • (c t - c 0)) (𝓝[≠] 0) (𝓝 g) := by
+    ∀ c : ℝ → IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d),
+      (∀ t : ℝ, om (1, γ (Multiplicative.ofAdd t)) (IndefiniteRowSideFullHecke.WeilTensorModels.pure f φ) = IndefiniteRowSideFullHecke.WeilTensorModels.pure (c t) φ) →
+      ∃ g : IndefiniteRowSideFullHecke.WeilTensorModels.SInf F (Fin n × Fin d), Tendsto (fun t : ℝ => t⁻¹ • (c t - c 0)) (𝓝[≠] 0) (𝓝 g) := by
   intro hP F E _ _ _ _ _ σ n d Y Wd M ψ χX χW om hCM hψ hM hW γ hγ f φ hSB hvac hne c hc
-  obtain ⟨c₁, c', h0, hlim, hacts⟩ := _root_.GlobalTheory.WeilArchSmooth.exists_weilRep_archimedean_smooth_orbit hP M ψ χX χW om hCM hψ hW γ hγ f
+  obtain ⟨c₁, c', h0, hlim, hacts⟩ := WeilArchSmooth.exists_weilRep_archimedean_smooth_orbit hP M ψ χX χW om hCM hψ hW γ hγ f
   let r : (Fin n × Fin d → AF F) → ℂ := fun x => ∏ᶠ v, φ v fun i => evFin F v (x i)
   have hstd : ∀ᶠ v in Filter.cofinite,
       φ v = Set.indicator {x | ∀ i, x i ∈ v.adicCompletionIntegers F} 1 :=
     (hvac.and hM.std).mono fun v h => h.1.trans h.2
-  have hRest : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rest (evI F) (⇑f) r :=
-    ⟨fun x z hz => finprod_add_of_at φ x z hz, GlobalTheory.TensUniq.pure_mem_schA f φ hSB hstd⟩
+  have hRest : IndefiniteRowSideFullHecke.WeilTensorModels.Rest (evI F) (⇑f) r :=
+    ⟨fun x z hz => finprod_add_of_at φ x z hz, TensUniq.pure_mem_schA f φ hSB hstd⟩
   obtain ⟨y, hy⟩ := hne
   have heq : ∀ t, c t = c₁ t := by
     intro t
-    have h1 : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure (c t) φ = GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.tens (evI F) (⇑(c₁ t)) r :=
+    have h1 : IndefiniteRowSideFullHecke.WeilTensorModels.pure (c t) φ = IndefiniteRowSideFullHecke.WeilTensorModels.tens (evI F) (⇑(c₁ t)) r :=
       (hc t).symm.trans (hacts t r hRest)
     ext x
     let z : Fin n × Fin d → AF F := fun i => (show InfiniteAdeleRing F × FiniteAdeleRing (𝓞 F) F from
@@ -63,7 +63,7 @@ theorem smooth_line_of_pure_tensor_theta : _root_.GlobalTheory.FunPr.ThetaLocalI
       exact RingEquiv.apply_symm_apply _ _
     have hzF : (∏ᶠ v, φ v fun i => evFin F v (z i)) = ∏ᶠ v, φ v fun i => evFin F v (y i) := rfl
     have e := congrFun h1 z
-    simp only [GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.tens, r, hzI, hzF] at e
+    simp only [IndefiniteRowSideFullHecke.WeilTensorModels.pure, IndefiniteRowSideFullHecke.WeilTensorModels.tens, r, hzI, hzF] at e
     exact mul_right_cancel₀ hy e
   have hc' : c = c₁ := funext heq
   subst hc'

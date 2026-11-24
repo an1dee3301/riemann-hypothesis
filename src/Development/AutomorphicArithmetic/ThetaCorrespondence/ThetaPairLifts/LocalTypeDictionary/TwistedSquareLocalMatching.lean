@@ -65,17 +65,17 @@ open scoped TensorProduct
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
 open GlobalTheory.SquareComm
 namespace GlobalTheory.SquareLM
-theorem twisted_square_local_matching : GlobalTheory.Published.HoweDualityReal → _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree →
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching → GlobalTheory.SquareSt.LocalMatching := by
+theorem twisted_square_local_matching : Published.HoweDualityReal → FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree →
+    IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching → SquareSt.LocalMatching := by
   intro hH hP hT hL D ψ θ hψ hθ W W₁ X A A₁ B a b
-  obtain ⟨Pr, ρ, q, q', hq, hq', hrk, hirr, hfac⟩ := _root_.GlobalTheory.T.twisted_quotient_real hH hP hT hL D ψ θ hψ hθ W W₁ X A A₁ B a b
+  obtain ⟨Pr, ρ, q, q', hq, hq', hrk, hirr, hfac⟩ := T.twisted_quotient_real hH hP hT hL D ψ θ hψ hθ W W₁ X A A₁ B a b
   let ι := {x : D.what₂.Tau × Matrix (Fin X.rank) (Fin X.rank) ℂ // x.2 ∈ lieAt X x.1}
   have hirr' : ∀ N : Submodule ℂ Pr, (∀ i : ι, ∀ x ∈ N, ρ i.1.1 i.1.2 x ∈ N) → N = ⊥ ∨ N = ⊤ :=
     fun N hN => hirr N fun τ Y hY x hx => hN ⟨(τ, Y), hY⟩ x hx
-  have hS := GlobalTheory.dixmier_commutant_scalar ι Pr (fun i => ρ i.1.1 i.1.2) hrk hirr'
-  obtain ⟨h0, hadd, hsmul, hfadd, hfsmul⟩ := GlobalTheory.FinFockLin.finF_lin D ψ θ hψ hθ true W X A B
-  obtain ⟨h0', hadd', hsmul', hfadd', hfsmul'⟩ := GlobalTheory.FinFockLin.finF_lin D ψ θ hψ hθ false W₁ X A₁ B
-  refine ⟨Pr, q, q', hq, hq', fun α β htr hexp => ⟨_root_.GlobalTheory.T.twist_triple_matches hH hP hT hL D ψ θ hψ hθ W W₁ X A A₁ B α β htr, ?_⟩⟩
+  have hS := dixmier_commutant_scalar ι Pr (fun i => ρ i.1.1 i.1.2) hrk hirr'
+  obtain ⟨h0, hadd, hsmul, hfadd, hfsmul⟩ := FinFockLin.finF_lin D ψ θ hψ hθ true W X A B
+  obtain ⟨h0', hadd', hsmul', hfadd', hfsmul'⟩ := FinFockLin.finF_lin D ψ θ hψ hθ false W₁ X A₁ B
+  refine ⟨Pr, q, q', hq, hq', fun α β htr hexp => ⟨T.twist_triple_matches hH hP hT hL D ψ θ hψ hθ W W₁ X A A₁ B α β htr, ?_⟩⟩
   intro ωA ωB Pi rf rl p p' hm
   obtain ⟨hfa, hfb⟩ := hfac α β htr hexp ωA ωB Pi rf rl p p' hm
   let S : Submodule ℂ (WO W X → ℂ) :=
@@ -104,7 +104,7 @@ theorem twisted_square_local_matching : GlobalTheory.Published.HoweDualityReal �
     constructor
     · rintro ⟨f, Q, rfl⟩; exact ⟨_, ⟨f.1, Q, f.2, rfl⟩, rfl⟩
     · rintro ⟨_, ⟨f, Q, hf, rfl⟩, rfl⟩; exact ⟨⟨f, hf⟩, Q, rfl⟩
-  obtain ⟨Pf, r, r', e, hr, hr', he, he'⟩ := GlobalTheory.SquareLM.productForm ι Pr Pi _ _ _ _ (fun i => ρ i.1.1 i.1.2) (fun i => rl i.1.1 i.1.2)
+  obtain ⟨Pf, r, r', e, hr, hr', he, he'⟩ := productForm ι Pr Pi _ _ _ _ (fun i => ρ i.1.1 i.1.2) (fun i => rl i.1.1 i.1.2)
     q q' βA βB ⊤ ⊤ hq hq' hirr' hS
     (fun f _ => by
       obtain ⟨φ, h1, h2⟩ := hfa f.1 f.2

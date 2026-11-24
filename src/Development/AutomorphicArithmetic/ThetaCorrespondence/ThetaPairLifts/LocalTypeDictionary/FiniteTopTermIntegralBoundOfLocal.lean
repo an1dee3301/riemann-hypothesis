@@ -30,22 +30,22 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 namespace GlobalTheory.SumSize.TopInt
 theorem finite_top_term_integral_bound_of_local (hPL : ∃ C1 : ℝ, 0 < C1 ∧ ∀ (D : D7) (large₂ : SizeData₂ D) (Γ : Type) [Group Γ] [Fintype Γ] (Pl0 T : Type) (A : FamIn D.what₂.LL Γ Pl0 T D.R.m)
       (Ks : Type) [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] (R : RealDat D A Ks) (F : Face D A), HidaSetting large₂ R F →
-      ∀ (ch : Choice R) (CF : ℝ), ch.Is → ch.AtScale CF large₂.sc.b → ch.FieldOK → _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.NormSum.Inp D →
-      DictAt ch → ∀ (S : Finset ℕ) (δ : ℕ → ℝ), GlobalTheory.NormSum.Letters D S δ →
+      ∀ (ch : Choice R) (CF : ℝ), ch.Is → ch.AtScale CF large₂.sc.b → ch.FieldOK → FunPr.ThetaLocalInputs → NormSum.Inp D →
+      DictAt ch → ∀ (S : Finset ℕ) (δ : ℕ → ℝ), NormSum.Letters D S δ →
       ∀ (t : T) (p : Pair T), DefPair D.R.m p → ∀ (k : ℕ) (d : FinDatum ch.G t p), 0 < k → IsCosetDatum k d → d.z = 1 →
       d.P = locPl ch.G t → ∀ (x : FinPt ch.G p.small) (y : FinPt ch.G p.big), ch.S.Z.IsRatAt d x y →
       ∀ (w : PlL D) (l : ℕ), l.Prime → (l : 𝓞 D.what₂.LL) ∈ w.asIdeal → Away ch.G t w →
       ∀ (a : ℝ) (v : VV ℂ (wt ch.G p.small)), InLat _ w a (latAt ch.S.toGridChoice p.small x) v →
         InLat _ w (a + (vw w ((l : ℕ) : D.what₂.LL) : ℝ) * C1 *
-            GlobalTheory.SumSize.TopInt.kerLoss ch.G δ C1 large₂.sc.b p.small p.big l (padicValNat l k))
+            kerLoss ch.G δ C1 large₂.sc.b p.small p.big l (padicValNat l k))
           (latAt ch.S.toGridChoice p.big y) (ch.S.Z.kkMap 1 d x y v)) (hSL : ∀ C1 : ℝ, 0 < C1 → ∃ CF0 : ℝ, ∀ CF : ℝ, CF0 ≤ CF → ∃ C0 : ℝ, ∀ ε C : ℝ, C0 ≤ C → ∃ x₀ : ℝ,
       ∀ (D : D7) (large₂ : SizeData₂ D), large₂.sc.eps = ε → x₀ ≤ large₂.sc.x →
       ∀ (Γ : Type) [Group Γ] [Fintype Γ] (Pl0 T : Type) (A : FamIn D.what₂.LL Γ Pl0 T D.R.m)
       (Ks : Type) [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] (R : RealDat D A Ks) (F : Face D A), HidaSetting large₂ R F →
-      ∀ ch : Choice R, ch.Is → ch.AtScale CF large₂.sc.b → ch.FieldOK → GlobalTheory.NormSum.Inp D →
-      ∀ (S : Finset ℕ) (δ : ℕ → ℝ), GlobalTheory.NormSum.Letters D S δ →
-        Loss (GlobalTheory.SumSize.TopInt.topDl ch.G δ C1 large₂.sc.b) (bOne ch.G C large₂.sc.b)) :
-    _root_.GlobalTheory.FunPr.ThetaLocalInputs → (∀ D, GlobalTheory.NormSum.Inp D) → DictK → DepthK → FinTopK := by
+      ∀ ch : Choice R, ch.Is → ch.AtScale CF large₂.sc.b → ch.FieldOK → NormSum.Inp D →
+      ∀ (S : Finset ℕ) (δ : ℕ → ℝ), NormSum.Letters D S δ →
+        Loss (TopInt.topDl ch.G δ C1 large₂.sc.b) (bOne ch.G C large₂.sc.b)) :
+    FunPr.ThetaLocalInputs → (∀ D, NormSum.Inp D) → DictK → DepthK → FinTopK := by
   intro hP hI hD hE
   obtain ⟨C1, hC1, hPL⟩ := hPL
   obtain ⟨CF1, hS⟩ := hSL C1 hC1
@@ -64,7 +64,7 @@ theorem finite_top_term_integral_bound_of_local (hPL : ∃ C1 : ℝ, 0 < C1 ∧ 
     hD D large₂ he (le_trans (le_max_left _ _) (le_of_max_le_right hx)) Γ Pl0 T A Ks R F hs ch hch hsc hfo
   have dep : DepthAt ch :=
     hE D large₂ he (le_trans (le_max_right _ _) (le_of_max_le_right hx)) Γ Pl0 T A Ks R F hs ch hch hsc hfo
-  obtain ⟨S, δ, hL⟩ := (GlobalTheory.NormSum.letters_and_sizes D (hI D).g1).1
+  obtain ⟨S, δ, hL⟩ := (NormSum.letters_and_sizes D (hI D).g1).1
   have loss := hS D large₂ he (le_of_max_le_left hx) Γ Pl0 T A Ks R F hs ch hch hsc hfo (hI D) S δ hL
   refine ⟨topDl ch.G δ C1 large₂.sc.b, loss, ?_⟩
   intro t w hw Φ β d hocc c j a v hv
@@ -79,8 +79,8 @@ theorem finite_top_term_integral_bound_of_local (hPL : ∃ C1 : ℝ, 0 < C1 ∧ 
   have hdep := (dep t Φ β hβ).2 w (primeUnder w) (primeUnder_prime w) (primeUnder_mem w) hw
   have := le_topDl ch.G hL.2.1 hC1.le large₂.sc.b w j.2 hdep
   linarith
-theorem finite_top_term_integral_bound : _root_.GlobalTheory.FunPr.ThetaLocalInputs → (∀ D, GlobalTheory.NormSum.Inp D) → DictK → DepthK → FinTopK :=
-  _root_.GlobalTheory.SumSize.TopInt.finite_top_term_integral_bound_of_local _root_.GlobalTheory.T.divisor_decomposition_of_local_factors GlobalTheory.T.sum_equalSign_kernel_losses_bounded
+theorem finite_top_term_integral_bound : FunPr.ThetaLocalInputs → (∀ D, NormSum.Inp D) → DictK → DepthK → FinTopK :=
+  TopInt.finite_top_term_integral_bound_of_local _root_.GlobalTheory.T.divisor_decomposition_of_local_factors GlobalTheory.T.sum_equalSign_kernel_losses_bounded
 end GlobalTheory.SumSize.TopInt
 end
 end

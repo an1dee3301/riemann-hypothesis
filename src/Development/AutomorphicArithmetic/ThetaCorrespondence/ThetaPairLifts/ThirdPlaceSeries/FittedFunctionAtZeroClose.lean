@@ -43,32 +43,32 @@ open Formalism.BasicNotions Formalism.MainNotions NumberField Formalism.L2.Indef
 noncomputable section
 namespace GlobalTheory.BigTop.Fun.Close
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
-theorem fittedFunction_at_zero_close_alt : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.Published.HeckeFunctionalEquationAbs → GlobalTheory.IndefiniteRowSideFullHecke.ClassZetaValuationBounds.ToricDenominator →
-    GlobalTheory.IndefiniteRowSideFullHecke.LatticeNormTransport.Transport → GlobalTheory.ToricTransport.TwistedTransport → GlobalTheory.IndefiniteRowSideFullHecke.ZetaValueIdeals.ZetaDenominators → GlobalTheory.SqTop.Refl →
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching → GlobalTheory.IndefiniteRowSideFullHecke.LevelPlusSubgroup.FunctionalsSeparate →
-    _root_.GlobalTheory.BigTop.LambdaLowerBound₂ → _root_.GlobalTheory.BigTop.Fun.ConstantFunctionFits @GlobalTheory.BigTop.Fun.Fld := by
+theorem fittedFunction_at_zero_close_alt : FunPr.ThetaLocalInputs → Published.HeckeFunctionalEquationAbs → IndefiniteRowSideFullHecke.ClassZetaValuationBounds.ToricDenominator →
+    IndefiniteRowSideFullHecke.LatticeNormTransport.Transport → ToricTransport.TwistedTransport → IndefiniteRowSideFullHecke.ZetaValueIdeals.ZetaDenominators → SqTop.Refl →
+    IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching → IndefiniteRowSideFullHecke.LevelPlusSubgroup.FunctionalsSeparate →
+    LambdaLowerBound₂ → ConstantFunctionFits @GlobalTheory.BigTop.Fun.Fld := by
   intro hP hH hTD hTr hTw hZ hR hAg hMa hFS hL
   obtain ⟨hDenSum, hThbSt, hOneSqSt, hBotSmall, hBotNe, hFieldDat, hTorEx, hDenEx, hBotEx, hLNe, hTriEx, hTower⟩ :=
-    _root_.GlobalTheory.T.square_leading_term_bound hP.howeDualityReal hP hH hTD hTr hZ hR hAg hMa
-  obtain ⟨hFin, hAway, hInf⟩ := _root_.GlobalTheory.T.sum_size_bound_all_places hP
-  obtain ⟨hSumOK, hConst, hLin, hF2, hSumRat⟩ := _root_.GlobalTheory.T.local_sum_estimates_joined hP hAg hMa
-  have hInj := GlobalTheory.RowTest.injK_of_separates hFS (_root_.GlobalTheory.RowTest.twisted_convergence_with_real_places hP (_root_.GlobalTheory.T.twisted_thetaLift_cuspidal hP))
-  have hSize := _root_.GlobalTheory.T.size_at'
-  have hSet := _root_.GlobalTheory.T.set_at_of_size_at' hSize
-  have hDl := _root_.GlobalTheory.T.abs_logDerivativeAtOne_le_x_rpow_eps hP
-  have hInp := GlobalTheory.T.cmThetaNormBoundHypotheses_satisfied
-  have hIntSt := GlobalTheory.T.classSumDenominatorBound_of_cmThetaHypotheses hInp
-  have hArchSt := GlobalTheory.ArchTop.archSt_of_inp hInp
-  have hThA := _root_.GlobalTheory.T.toric_ratio_family_estimate' (GlobalTheory.ToricTransport.toricRatioConjugates_of_transport hTw) hSet hDl hFieldDat hTorEx
-  have hSq := _root_.GlobalTheory.T.sq_ratio_mem_range_emb_ll hP hAg hMa hSet hDl hConst hLNe hTriEx hTower
-  have hB : _root_.GlobalTheory.BigTop.Fun.BundleCondition := @_root_.GlobalTheory.BigTop.Fun.bundle_of_rows_alt
-  exact _root_.GlobalTheory.BigTop.Fun.fun0Fit_of_leaves_alt _ _ hB _root_.GlobalTheory.T.scaling_function_bound'
-    (_root_.GlobalTheory.T.existsFunctionIn_of_sqRatio_range hSet hDl hSumOK hSumRat hConst hSq hIntSt hFieldDat hTorEx hDenEx hBotEx hBotSmall)
-    (_root_.GlobalTheory.T.leafMinimalMass_of_setAt hSet) (_root_.GlobalTheory.T.oneMap_of_bundle_setAt_lin_inj_const_formula hB hSet hLin hInj hConst hF2) (_root_.GlobalTheory.T.leafKernel_tie_of_claim_inputs hB hSet hLin hInj hConst hF2)
-    (_root_.GlobalTheory.T.leafFixedPoint_of_finK_awayK hSet hFin hAway) (_root_.GlobalTheory.T.leafHeightMapBound_of_infK hB hSet hInf) (_root_.GlobalTheory.T.leafInfinitePlaceBound_of_lamLow hL)
-    (_root_.GlobalTheory.T.oneSq_of_log_derivative_bound_and_oneSqSt hSet hDl hThA hOneSqSt) (_root_.GlobalTheory.T.leafDensity_of_logDeriv_bound_and_denSum hSet hDl hDenSum) (_root_.GlobalTheory.T.leafIntegrality_of_logDeriv_bound hSet hDl hBotSmall hBotNe)
-    (_root_.GlobalTheory.T.arch_tie_of_setAt_logDeriv hSet hDl hArchSt hBotSmall) (_root_.GlobalTheory.T.leaf_theta_bound_of_set_at hSet hDl hThbSt) (_root_.GlobalTheory.T.weight_of_size_bound' hSize)
-    _root_.GlobalTheory.BigTop.Fun.Close.desHLeaf_alt _root_.GlobalTheory.T.rank_gap_bound _root_.GlobalTheory.T.ramified_sum_bound' _root_.GlobalTheory.T.polynomial_descent_estimate'
+    T.square_leading_term_bound hP.howeDualityReal hP hH hTD hTr hZ hR hAg hMa
+  obtain ⟨hFin, hAway, hInf⟩ := T.sum_size_bound_all_places hP
+  obtain ⟨hSumOK, hConst, hLin, hF2, hSumRat⟩ := T.local_sum_estimates_joined hP hAg hMa
+  have hInj := RowTest.injK_of_separates hFS (RowTest.twisted_convergence_with_real_places hP (T.twisted_thetaLift_cuspidal hP))
+  have hSize := T.size_at'
+  have hSet := T.set_at_of_size_at' hSize
+  have hDl := T.abs_logDerivativeAtOne_le_x_rpow_eps hP
+  have hInp := T.cmThetaNormBoundHypotheses_satisfied
+  have hIntSt := T.classSumDenominatorBound_of_cmThetaHypotheses hInp
+  have hArchSt := ArchTop.archSt_of_inp hInp
+  have hThA := T.toric_ratio_family_estimate' (ToricTransport.toricRatioConjugates_of_transport hTw) hSet hDl hFieldDat hTorEx
+  have hSq := T.sq_ratio_mem_range_emb_ll hP hAg hMa hSet hDl hConst hLNe hTriEx hTower
+  have hB : BundleCondition := @bundle_of_rows_alt
+  exact fun0Fit_of_leaves_alt _ _ hB T.scaling_function_bound'
+    (T.existsFunctionIn_of_sqRatio_range hSet hDl hSumOK hSumRat hConst hSq hIntSt hFieldDat hTorEx hDenEx hBotEx hBotSmall)
+    (T.leafMinimalMass_of_setAt hSet) (T.oneMap_of_bundle_setAt_lin_inj_const_formula hB hSet hLin hInj hConst hF2) (T.leafKernel_tie_of_claim_inputs hB hSet hLin hInj hConst hF2)
+    (T.leafFixedPoint_of_finK_awayK hSet hFin hAway) (T.leafHeightMapBound_of_infK hB hSet hInf) (T.leafInfinitePlaceBound_of_lamLow hL)
+    (T.oneSq_of_log_derivative_bound_and_oneSqSt hSet hDl hThA hOneSqSt) (T.leafDensity_of_logDeriv_bound_and_denSum hSet hDl hDenSum) (T.leafIntegrality_of_logDeriv_bound hSet hDl hBotSmall hBotNe)
+    (T.arch_tie_of_setAt_logDeriv hSet hDl hArchSt hBotSmall) (T.leaf_theta_bound_of_set_at hSet hDl hThbSt) (T.weight_of_size_bound' hSize)
+    desHLeaf_alt T.rank_gap_bound T.ramified_sum_bound' T.polynomial_descent_estimate'
 end GlobalTheory.BigTop.Fun.Close
 end
 end

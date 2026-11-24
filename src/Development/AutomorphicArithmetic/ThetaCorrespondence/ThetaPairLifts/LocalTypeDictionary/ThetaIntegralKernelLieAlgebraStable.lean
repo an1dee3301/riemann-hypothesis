@@ -84,18 +84,18 @@ noncomputable section
 namespace GlobalTheory.ThetaKFactor
 open MeasureTheory GlobalTheory.SquareComm
 variable {D : D7}
-private theorem thetaKernel_right_translate {M X : HSp D} (ω : GlobalTheory.Grid.WRep M X) (g : GA D M) (h h' : GA D X) (Φ : WO M X → ℂ) :
+private theorem thetaKernel_right_translate {M X : HSp D} (ω : Grid.WRep M X) (g : GA D M) (h h' : GA D X) (Φ : WO M X → ℂ) :
     thetaKO ω g h (ω (1, h') Φ) = thetaKO ω g (h * h') Φ := by
   show ω (g, h) (ω (1, h') Φ) 0 = ω (g, h * h') Φ 0
   rw [← Module.End.mul_apply, ← map_mul, Prod.mk_mul_mk, mul_one]
-private theorem theta_integral_right_translate {M X : HSp D} (ω : GlobalTheory.Grid.WRep M X) (ν : Measure (GA D M)) (𝓕 : Set (GA D M)) (h' : GA D X)
+private theorem theta_integral_right_translate {M X : HSp D} (ω : Grid.WRep M X) (ν : Measure (GA D M)) (𝓕 : Set (GA D M)) (h' : GA D X)
     (Φ : WO M X → ℂ) (h : GA D X) : thetaInt ω ν 𝓕 (ω (1, h') Φ) h = thetaInt ω ν 𝓕 Φ (h * h') := by
   simp only [thetaInt, thetaKernel_right_translate]
-private theorem theta_integral_zero {M X : HSp D} (ω : GlobalTheory.Grid.WRep M X) (ν : Measure (GA D M)) (𝓕 : Set (GA D M)) :
+private theorem theta_integral_zero {M X : HSp D} (ω : Grid.WRep M X) (ν : Measure (GA D M)) (𝓕 : Set (GA D M)) :
     thetaInt ω ν 𝓕 0 = 0 := by
   funext h
   simp [thetaInt, thetaKO]
-private theorem theta_integral_add {M X : HSp D} (ω : GlobalTheory.Grid.WRep M X) (ν : Measure (GA D M)) (𝓕 : Set (GA D M)) (Φ Ψ : WO M X → ℂ)
+private theorem theta_integral_add {M X : HSp D} (ω : Grid.WRep M X) (ν : Measure (GA D M)) (𝓕 : Set (GA D M)) (Φ Ψ : WO M X → ℂ)
     (hΦ : ∀ h, IntegrableOn (fun g => thetaKO ω g h Φ) 𝓕 ν) (hΨ : ∀ h, IntegrableOn (fun g => thetaKO ω g h Ψ) 𝓕 ν) :
     thetaInt ω ν 𝓕 (Φ + Ψ) = thetaInt ω ν 𝓕 Φ + thetaInt ω ν 𝓕 Ψ := by
   funext h
@@ -103,14 +103,14 @@ private theorem theta_integral_add {M X : HSp D} (ω : GlobalTheory.Grid.WRep M 
     funext g; simp [thetaKO]
   simp only [thetaInt, Pi.add_apply]
   rw [show (fun g => thetaKO ω g h (Φ + Ψ)) = _ from e, integral_add (hΦ h) (hΨ h)]
-private theorem theta_integral_smul {M X : HSp D} (ω : GlobalTheory.Grid.WRep M X) (ν : Measure (GA D M)) (𝓕 : Set (GA D M)) (c : ℂ)
+private theorem theta_integral_smul {M X : HSp D} (ω : Grid.WRep M X) (ν : Measure (GA D M)) (𝓕 : Set (GA D M)) (c : ℂ)
     (Φ : WO M X → ℂ) : thetaInt ω ν 𝓕 (c • Φ) = c • thetaInt ω ν 𝓕 Φ := by
   funext h
   simp [thetaInt, thetaKO, integral_const_mul]
 private theorem exists_haar_fundamental_domain (V : HSp D) : ∃ (ν : Measure (GA D V)) (𝓕 : Set (GA D V)), IsHaarFD V ν 𝓕 := by
-  have := (GlobalTheory.MemberAdelicTop.locallyCompact_secondCountable_t2 D V).1
-  have := (GlobalTheory.MemberAdelicTop.locallyCompact_secondCountable_t2 D V).2.1
-  have := (GlobalTheory.MemberAdelicTop.locallyCompact_secondCountable_t2 D V).2.2
+  have := (MemberAdelicTop.locallyCompact_secondCountable_t2 D V).1
+  have := (MemberAdelicTop.locallyCompact_secondCountable_t2 D V).2.1
+  have := (MemberAdelicTop.locallyCompact_secondCountable_t2 D V).2.2
   have : BorelSpace (GA D V) := ⟨rfl⟩
   have : IsModuleTopology (AF D.host.F) (AF D.host.F ⊗[D.host.F] D.host.E) := ⟨rfl⟩
   have : Module.Finite D.host.F D.host.E := Module.Finite.of_restrictScalars_finite ℚ _ _
@@ -118,32 +118,32 @@ private theorem exists_haar_fundamental_domain (V : HSp D) : ∃ (ν : Measure (
     IsModuleTopology.isTopologicalRing (AF D.host.F) _
   have : IsTopologicalGroup (GA D V) :=
     inferInstanceAs (IsTopologicalGroup (HR (AF D.host.F) D.sp.cm.sig V.gram))
-  obtain ⟨𝓕, h𝓕⟩ := GlobalTheory.FundDomDiscrete.exists_fundDom D V (Measure.haar) inferInstance
+  obtain ⟨𝓕, h𝓕⟩ := FundDomDiscrete.exists_fundDom D V (Measure.haar) inferInstance
   exact ⟨_, 𝓕, inferInstance, h𝓕⟩
 end GlobalTheory.ThetaKFactor
 namespace GlobalTheory.ThetaKFactor
 open MeasureTheory GlobalTheory.SquareComm
 variable {D : D7}
-theorem integrable_theta_of_mem_kFiniteVectors (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D}
-    (hψ : IsStdChar D ψ (-1)) (hθ : IsInfFam θ) {W W₁ X : HSp D} (A : GlobalTheory.ChainFr.Fr W) (B : GlobalTheory.ChainFr.Fr X)
+theorem integrable_theta_of_mem_kFiniteVectors (hP : FunPr.ThetaLocalInputs) {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D}
+    (hψ : IsStdChar D ψ (-1)) (hθ : IsInfFam θ) {W W₁ X : HSp D} (A : ChainFr.Fr W) (B : ChainFr.Fr X)
     {α β : (AE D)ˣ →* Circle} (hT : IsTriple W W₁ X α β) {ν : Measure (GA D W)} {𝓕 : Set (GA D W)}
-    (hν : IsHaarFD W ν 𝓕) {ωA : GlobalTheory.Grid.WRep W X} (hω : GlobalTheory.Grid.IsWeil ψ true W X β (β / α) ωA)
+    (hν : IsHaarFD W ν 𝓕) {ωA : Grid.WRep W X} (hω : Grid.IsWeil ψ true W X β (β / α) ωA)
     {Φ : WO W X → ℂ} (hΦ : Φ ∈ algF ψ θ true A B) (h : GA D X) :
     IntegrableOn (fun g => thetaKO ωA g h Φ) 𝓕 ν := by
   obtain ⟨p, q, hsig, hbig, -⟩ := hT.sig
   have hlt : X.rank < 2 * (W.rank - p) := by have := hT.rank; omega
-  obtain ⟨N, C, hC⟩ := _root_.GlobalTheory.WeilConv.twisted_weil_representation_convergence hP.siegelSetUnitary hP D ψ θ hθ true W X β (β / α) ωA hω p
-    ⟨D.eTau.symm 1, (hsig _).1⟩ hlt ν 𝓕 hν Φ (GlobalTheory.TripleWeilTransfer.isThetaFunO_of_mem_algF hψ hθ true A B hΦ)
+  obtain ⟨N, C, hC⟩ := WeilConv.twisted_weil_representation_convergence hP.siegelSetUnitary hP D ψ θ hθ true W X β (β / α) ωA hω p
+    ⟨D.eTau.symm 1, (hsig _).1⟩ hlt ν 𝓕 hν Φ (TripleWeilTransfer.isThetaFunO_of_mem_algF hψ hθ true A B hΦ)
   exact (hC h).1
-theorem exists_kFactor_of_thetaIntegral (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hK : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree)
-    (hL : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching) {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D}
-    (hψ : IsStdChar D ψ (-1)) (hθ : IsInfFam θ) {W W₁ X : HSp D} (A : GlobalTheory.ChainFr.Fr W) (A₁ : GlobalTheory.ChainFr.Fr W₁)
-    (B : GlobalTheory.ChainFr.Fr X) {α β : (AE D)ˣ →* Circle} (hT : IsTriple W W₁ X α β) {ν : Measure (GA D W)}
+theorem exists_kFactor_of_thetaIntegral (hP : FunPr.ThetaLocalInputs) (hK : IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree)
+    (hL : IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching) {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D}
+    (hψ : IsStdChar D ψ (-1)) (hθ : IsInfFam θ) {W W₁ X : HSp D} (A : ChainFr.Fr W) (A₁ : ChainFr.Fr W₁)
+    (B : ChainFr.Fr X) {α β : (AE D)ˣ →* Circle} (hT : IsTriple W W₁ X α β) {ν : Measure (GA D W)}
     {𝓕 : Set (GA D W)} (hν : IsHaarFD W ν 𝓕) {ωA ωB Pi rf rl p p'}
     (hM : IsMatch ψ θ A A₁ B α β ωA ωB Pi rf rl p p') :
     ∃ J₀ : Pi →ₗ[ℂ] (GA D X → ℂ), ∀ Φ ∈ algF ψ θ true A B, thetaInt ωA ν 𝓕 Φ = J₀ (p Φ) := by
   obtain ⟨ν₁, 𝓕₁, hν₁⟩ := exists_haar_fundamental_domain W₁
-  obtain ⟨c, -, hc⟩ := _root_.GlobalTheory.T.twisted_square_theta_integrals_eq hP hK hL D ψ θ hθ W W₁ X A A₁ B α β hT ν 𝓕 ν₁ 𝓕₁ hν hν₁
+  obtain ⟨c, -, hc⟩ := T.twisted_square_theta_integrals_eq hP hK hL D ψ θ hθ W W₁ X A A₁ B α β hT ν 𝓕 ν₁ 𝓕₁ hν hν₁
     ωA ωB Pi rf rl p p' hM
   obtain ⟨Φ₀, -, hrel, -, hI⟩ := hc 0 (Submodule.zero_mem _)
   have hrelker : finRel ωB (algF ψ θ false A₁ B) ≤ LinearMap.ker p' := by
@@ -160,8 +160,8 @@ theorem exists_kFactor_of_thetaIntegral (hP : _root_.GlobalTheory.FunPr.ThetaLoc
   let L : S →ₗ[ℂ] (GA D X → ℂ) :=
     { toFun := fun Φ => thetaInt ωA ν 𝓕 Φ.1
       map_add' := fun Φ Ψ => theta_integral_add ωA ν 𝓕 Φ.1 Ψ.1
-        (_root_.GlobalTheory.ThetaKFactor.integrable_theta_of_mem_kFiniteVectors hP hψ hθ A B hT hν hM.weilA Φ.2)
-        (_root_.GlobalTheory.ThetaKFactor.integrable_theta_of_mem_kFiniteVectors hP hψ hθ A B hT hν hM.weilA Ψ.2)
+        (ThetaKFactor.integrable_theta_of_mem_kFiniteVectors hP hψ hθ A B hT hν hM.weilA Φ.2)
+        (ThetaKFactor.integrable_theta_of_mem_kFiniteVectors hP hψ hθ A B hT hν hM.weilA Ψ.2)
       map_smul' := fun c Φ => theta_integral_smul ωA ν 𝓕 c Φ.1 }
   let pS : S →ₗ[ℂ] Pi := p ∘ₗ S.subtype
   have hsurj : Function.Surjective pS := by
@@ -208,57 +208,57 @@ private theorem hasDerivAt_integral_second_derivative {G : Type} [MeasurableSpac
   rw [e2]
   exact (norm_add_le _ _).trans (by gcongr)
 private theorem hasDerivAt_theta_integral {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D} (hθ : IsInfFam θ) {ε : Bool} {M X : HSp D}
-    {χ χ' : (AE D)ˣ →* Circle} {ω : GlobalTheory.Grid.WRep M X} (hω : GlobalTheory.Grid.IsWeil ψ ε M X χ χ' ω) {ν : Measure (GA D M)}
-    {𝓕 : Set (GA D M)} (hν : IsHaarFD M ν 𝓕) (hmod : ∀ Φ, IsThetaFunO ψ (GlobalTheory.Grid.sgn ε M) X Φ → ModInt θ ω ν 𝓕 Φ)
+    {χ χ' : (AE D)ˣ →* Circle} {ω : Grid.WRep M X} (hω : Grid.IsWeil ψ ε M X χ χ' ω) {ν : Measure (GA D M)}
+    {𝓕 : Set (GA D M)} (hν : IsHaarFD M ν 𝓕) (hmod : ∀ Φ, IsThetaFunO ψ (Grid.sgn ε M) X Φ → ModInt θ ω ν 𝓕 Φ)
     {τ : D.what₂.Tau} {Y : Matrix (Fin X.rank) (Fin X.rank) ℂ} (hY : Y ∈ lieAt X τ) {Φ : WO M X → ℂ}
-    (hΦ : IsThetaFunO ψ (GlobalTheory.Grid.sgn ε M) X Φ) (h : GA D X) :
+    (hΦ : IsThetaFunO ψ (Grid.sgn ε M) X Φ) (h : GA D X) :
     HasDerivAt (fun t : ℝ => thetaInt ω ν 𝓕 Φ (h * oneP θ X τ Y t))
-      (thetaInt ω ν 𝓕 (GlobalTheory.IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := GlobalTheory.Grid.sgn ε M) θ (ω.toSgn ε) τ Y Φ) h) 0 := by
-  have hω' : IsWeilDatumO ψ (GlobalTheory.Grid.sgn ε M) X χ χ' (ω.toSgn ε) := hω
-  obtain ⟨i1, i2, i3, i4, i5, i6, i7⟩ := GlobalTheory.Mem.AdelicGroupTop.adelic_unitary_topology D M
-  obtain ⟨j1, j2, j3, j4, j5, j6, j7⟩ := GlobalTheory.Mem.AdelicGroupTop.adelic_unitary_topology D X
+      (thetaInt ω ν 𝓕 (IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := Grid.sgn ε M) θ (ω.toSgn ε) τ Y Φ) h) 0 := by
+  have hω' : IsWeilDatumO ψ (Grid.sgn ε M) X χ χ' (ω.toSgn ε) := hω
+  obtain ⟨i1, i2, i3, i4, i5, i6, i7⟩ := Mem.AdelicGroupTop.adelic_unitary_topology D M
+  obtain ⟨j1, j2, j3, j4, j5, j6, j7⟩ := Mem.AdelicGroupTop.adelic_unitary_topology D X
   have hν1 := hν.1
-  obtain ⟨ht, hd⟩ := GlobalTheory.Chain.LiftReg.tame_dOmT hθ hω' hY
-  have hth : ∀ f, IsThetaFunO ψ (GlobalTheory.Grid.sgn ε M) X f →
-      IsThetaFunO ψ (GlobalTheory.Grid.sgn ε M) X (GlobalTheory.IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := GlobalTheory.Grid.sgn ε M) θ (ω.toSgn ε) τ Y f) := fun f hf => ht.theta (x := f) hf
-  have hco : Continuous fun t : ℝ => h * oneP θ X τ Y t := continuous_const.mul (GlobalTheory.Mem.Lift.continuous_oneP hθ hY)
-  have hder : ∀ f, IsThetaFunO ψ (GlobalTheory.Grid.sgn ε M) X f → ∀ (g : GA D M) (t : ℝ),
+  obtain ⟨ht, hd⟩ := Chain.LiftReg.tame_dOmT hθ hω' hY
+  have hth : ∀ f, IsThetaFunO ψ (Grid.sgn ε M) X f →
+      IsThetaFunO ψ (Grid.sgn ε M) X (IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := Grid.sgn ε M) θ (ω.toSgn ε) τ Y f) := fun f hf => ht.theta (x := f) hf
+  have hco : Continuous fun t : ℝ => h * oneP θ X τ Y t := continuous_const.mul (Mem.Lift.continuous_oneP hθ hY)
+  have hder : ∀ f, IsThetaFunO ψ (Grid.sgn ε M) X f → ∀ (g : GA D M) (t : ℝ),
       HasDerivAt (fun s : ℝ => thetaKO ω g (h * oneP θ X τ Y s) f)
-        (thetaKO ω g (h * oneP θ X τ Y t) (GlobalTheory.IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := GlobalTheory.Grid.sgn ε M) θ (ω.toSgn ε) τ Y f)) t := by
+        (thetaKO ω g (h * oneP θ X τ Y t) (IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := Grid.sgn ε M) θ (ω.toSgn ε) τ Y f)) t := by
     intro f hf g t
-    have h1 := hd f hf ((GlobalTheory.Grid.ofSgn ε M).symm g, h * oneP θ X τ Y t) 0
+    have h1 := hd f hf ((Grid.ofSgn ε M).symm g, h * oneP θ X τ Y t) 0
     rw [← sub_self t] at h1
     have h2 := HasDerivAt.comp_sub_const t t h1
     refine h2.congr_of_eventuallyEq (.of_forall fun s => ?_)
-    simp only [Prod.mk_mul_mk, mul_one, mul_assoc, ← GlobalTheory.Mem.Lift.oneP_add hθ hY, add_sub_cancel]
+    simp only [Prod.mk_mul_mk, mul_one, mul_assoc, ← Mem.Lift.oneP_add hθ hY, add_sub_cancel]
     rfl
-  have hcont : ∀ f, IsThetaFunO ψ (GlobalTheory.Grid.sgn ε M) X f →
+  have hcont : ∀ f, IsThetaFunO ψ (Grid.sgn ε M) X f →
       Continuous fun p : GA D M × ℝ => thetaKO ω p.1 (h * oneP θ X τ Y p.2) f := fun f hf =>
     (hω'.om_cont f hf 0).comp
-      (((GlobalTheory.Grid.continuous_ofSgn_symm ε M).comp continuous_fst).prodMk (hco.comp continuous_snd))
-  set Φ₁ := GlobalTheory.IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := GlobalTheory.Grid.sgn ε M) θ (ω.toSgn ε) τ Y Φ with e₁
+      (((Grid.continuous_ofSgn_symm ε M).comp continuous_fst).prodMk (hco.comp continuous_snd))
+  set Φ₁ := IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := Grid.sgn ε M) θ (ω.toSgn ε) τ Y Φ with e₁
   have hΦ₁ := hth Φ hΦ
-  set Φ₂ := GlobalTheory.IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := GlobalTheory.Grid.sgn ε M) θ (ω.toSgn ε) τ Y Φ₁ with e₂
+  set Φ₂ := IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := Grid.sgn ε M) θ (ω.toSgn ε) τ Y Φ₁ with e₂
   have hΦ₂ := hth Φ₁ hΦ₁
   obtain ⟨N₀, C₀, h₀⟩ := hmod Φ hΦ
   obtain ⟨N₁, C₁, h₁⟩ := hmod Φ₁ hΦ₁
   obtain ⟨N, C, h₂⟩ := hmod Φ₂ hΦ₂
-  obtain ⟨c, hc0, hc⟩ := GlobalTheory.Grow.height_comparison (V := X) hθ
+  obtain ⟨c, hc0, hc⟩ := Grow.height_comparison (V := X) hθ
   obtain ⟨K, hK⟩ := (isCompact_Icc (a := (-1 : ℝ)) (b := 1)).bddAbove_image
-    ((GlobalTheory.Grow.continuous_height X).comp hco).continuousOn
+    ((Grow.continuous_height X).comp hco).continuousOn
   have key := hasDerivAt_integral_second_derivative (ν.restrict 𝓕) (fun t g => thetaKO ω g (h * oneP θ X τ Y t) Φ)
     (fun t g => thetaKO ω g (h * oneP θ X τ Y t) Φ₁) (fun t g => thetaKO ω g (h * oneP θ X τ Y t) Φ₂)
     (hder Φ hΦ) (hder Φ₁ hΦ₁) (fun g => (hcont Φ₂ hΦ₂).comp (Continuous.prodMk_right g)) (hcont Φ₂ hΦ₂).measurable
     (fun t => (h₀ _).1) (h₁ _).1 (fun t => (h₂ _).1) (max C 0 * (c * K) ^ N) fun t htt => by
       refine (h₂ _).2.trans ?_
-      have a1 : (GlobalTheory.IndefiniteRowSideFullHecke.LieAlgebraExponentialFamilies.height θ X (h * oneP θ X τ Y t) : ℝ) ≤ c * K :=
+      have a1 : (IndefiniteRowSideFullHecke.LieAlgebraExponentialFamilies.height θ X (h * oneP θ X τ Y t) : ℝ) ≤ c * K :=
         (hc _).1.trans (mul_le_mul_of_nonneg_left (hK ⟨t, htt, rfl⟩) hc0.le)
-      have a2 : (0 : ℝ) ≤ GlobalTheory.IndefiniteRowSideFullHecke.LieAlgebraExponentialFamilies.height θ X (h * oneP θ X τ Y t) := NNReal.coe_nonneg _
+      have a2 : (0 : ℝ) ≤ IndefiniteRowSideFullHecke.LieAlgebraExponentialFamilies.height θ X (h * oneP θ X τ Y t) := NNReal.coe_nonneg _
       exact mul_le_mul (le_max_left _ _) (pow_le_pow_left₀ a2 a1 N) (pow_nonneg a2 N) (le_max_right _ _)
-  simpa only [thetaInt, GlobalTheory.Mem.Lift.oneP_zero hθ, mul_one] using key
-theorem thetaIntegral_kernel_lieAlgebra_stable (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D}
-    (hψ : IsStdChar D ψ (-1)) (hθ : IsInfFam θ) {W W₁ X : HSp D} (A : GlobalTheory.ChainFr.Fr W) (A₁ : GlobalTheory.ChainFr.Fr W₁)
-    (B : GlobalTheory.ChainFr.Fr X) {α β : (AE D)ˣ →* Circle} (hT : IsTriple W W₁ X α β) {ν : Measure (GA D W)}
+  simpa only [thetaInt, Mem.Lift.oneP_zero hθ, mul_one] using key
+theorem thetaIntegral_kernel_lieAlgebra_stable (hP : FunPr.ThetaLocalInputs) {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D}
+    (hψ : IsStdChar D ψ (-1)) (hθ : IsInfFam θ) {W W₁ X : HSp D} (A : ChainFr.Fr W) (A₁ : ChainFr.Fr W₁)
+    (B : ChainFr.Fr X) {α β : (AE D)ˣ →* Circle} (hT : IsTriple W W₁ X α β) {ν : Measure (GA D W)}
     {𝓕 : Set (GA D W)} (hν : IsHaarFD W ν 𝓕) {ωA ωB Pi rf rl p p'}
     (hM : IsMatch ψ θ A A₁ B α β ωA ωB Pi rf rl p p') (J₀ : Pi →ₗ[ℂ] (GA D X → ℂ))
     (hJ : ∀ Φ ∈ algF ψ θ true A B, thetaInt ωA ν 𝓕 Φ = J₀ (p Φ)) (τ : D.what₂.Tau)
@@ -267,25 +267,25 @@ theorem thetaIntegral_kernel_lieAlgebra_stable (hP : _root_.GlobalTheory.FunPr.T
   obtain ⟨Φ, hΦ, rfl⟩ := Submodule.mem_map.1 hx'
   obtain ⟨Φ', hΦ', hD⟩ := hM.mapA.stabX.2 τ Y hY Φ hΦ
   rw [← hM.mapA.eql τ Y hY Φ hΦ Φ' hΦ' hD, ← hJ Φ' hΦ']
-  have hth := GlobalTheory.TripleWeilTransfer.isThetaFunO_of_mem_algF hψ hθ true A B hΦ
-  have hω' : IsWeilDatumO ψ (GlobalTheory.Grid.sgn true W) X β (β / α) (ωA.toSgn true) := hM.weilA
-  have e : Φ' = GlobalTheory.IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := GlobalTheory.Grid.sgn true W) θ (ωA.toSgn true) τ Y Φ := by
+  have hth := TripleWeilTransfer.isThetaFunO_of_mem_algF hψ hθ true A B hΦ
+  have hω' : IsWeilDatumO ψ (Grid.sgn true W) X β (β / α) (ωA.toSgn true) := hM.weilA
+  have e : Φ' = IndefiniteRowSideFullHecke.RapidDecayLift.dOmT (V := Grid.sgn true W) θ (ωA.toSgn true) τ Y Φ := by
     funext z
-    have h1 := (GlobalTheory.Chain.LiftReg.tame_dOmT hθ hω' hY).2 Φ hth 1 z
+    have h1 := (Chain.LiftReg.tame_dOmT hθ hω' hY).2 Φ hth 1 z
     simp only [one_mul, map_one, Module.End.one_apply] at h1
     exact (hD z).unique h1
   obtain ⟨a, b, hsig, hbig, -⟩ := hT.sig
   have hlt : X.rank < 2 * (W.rank - a) := by have := hT.rank; omega
   funext h
   have h2 := hasDerivAt_theta_integral hθ hM.weilA hν
-    (_root_.GlobalTheory.WeilConv.twisted_weil_representation_convergence hP.siegelSetUnitary hP D ψ θ hθ true W X β (β / α) ωA hM.weilA a
+    (WeilConv.twisted_weil_representation_convergence hP.siegelSetUnitary hP D ψ θ hθ true W X β (β / α) ωA hM.weilA a
       ⟨D.eTau.symm 1, (hsig _).1⟩ hlt ν 𝓕 hν) hY hth h
   rw [hJ Φ hΦ, hx] at h2
   rw [e]
   exact h2.unique (hasDerivAt_const (0 : ℝ) (0 : ℂ))
-theorem thetaIntegral_eq_zero_or_injective (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D}
-    (hψ : IsStdChar D ψ (-1)) (hθ : IsInfFam θ) {W W₁ X : HSp D} (A : GlobalTheory.ChainFr.Fr W) (A₁ : GlobalTheory.ChainFr.Fr W₁)
-    (B : GlobalTheory.ChainFr.Fr X) {α β : (AE D)ˣ →* Circle} (hT : IsTriple W W₁ X α β) {ν : Measure (GA D W)}
+theorem thetaIntegral_eq_zero_or_injective (hP : FunPr.ThetaLocalInputs) {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D}
+    (hψ : IsStdChar D ψ (-1)) (hθ : IsInfFam θ) {W W₁ X : HSp D} (A : ChainFr.Fr W) (A₁ : ChainFr.Fr W₁)
+    (B : ChainFr.Fr X) {α β : (AE D)ˣ →* Circle} (hT : IsTriple W W₁ X α β) {ν : Measure (GA D W)}
     {𝓕 : Set (GA D W)} (hν : IsHaarFD W ν 𝓕) {ωA ωB Pi rf rl p p'}
     (hM : IsMatch ψ θ A A₁ B α β ωA ωB Pi rf rl p p') (J₀ : Pi →ₗ[ℂ] (GA D X → ℂ))
     (hJ : ∀ Φ ∈ algF ψ θ true A B, thetaInt ωA ν 𝓕 Φ = J₀ (p Φ)) : J₀ = 0 ∨ Function.Injective J₀ := by
@@ -299,7 +299,7 @@ theorem thetaIntegral_eq_zero_or_injective (hP : _root_.GlobalTheory.FunPr.Theta
     rw [theta_integral_right_translate, hJ Φ hΦ, hx]
     rfl
   have hl : ∀ τ, ∀ Y ∈ lieAt X τ, ∀ x ∈ LinearMap.ker J₀, rl τ Y x ∈ LinearMap.ker J₀ :=
-    fun τ Y hY x hx => _root_.GlobalTheory.ThetaKFactor.thetaIntegral_kernel_lieAlgebra_stable hP hψ hθ A A₁ B hT hν hM J₀ hJ τ Y hY x hx
+    fun τ Y hY x hx => ThetaKFactor.thetaIntegral_kernel_lieAlgebra_stable hP hψ hθ A A₁ B hT hν hM J₀ hJ τ Y hY x hx
   rcases hM.irred.2 (LinearMap.ker J₀) hf hl with h | h
   · exact Or.inr (LinearMap.ker_eq_bot.1 h)
   · exact Or.inl (LinearMap.ker_eq_top.1 h)

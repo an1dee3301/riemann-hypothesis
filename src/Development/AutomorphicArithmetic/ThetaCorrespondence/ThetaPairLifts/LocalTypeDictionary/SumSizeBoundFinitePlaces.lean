@@ -34,7 +34,7 @@ open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Form
 open IsDedekindDomain NumberField Matrix GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.RowTest GlobalTheory.RowClaim GlobalTheory.TestLat
 open GlobalTheory.SumSize
 namespace GlobalTheory.SumSize
-theorem finite_place_sum_size_bound (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hI : ∀ D, GlobalTheory.NormSum.Inp D) (hD : DictK) (hd : DepthK) : FinRowK := by
+theorem finite_place_sum_size_bound (hP : FunPr.ThetaLocalInputs) (hI : ∀ D, NormSum.Inp D) (hD : DictK) (hd : DepthK) : FinRowK := by
   have hG : PairInt.PairIntRatK := _root_.GlobalTheory.T.pairIntRatK_of_thetaLocalInputs hP hI hD
   obtain ⟨CF0, h⟩ := BigC.and hG hd
   refine ⟨CF0, fun CF hCF => ?_⟩

@@ -24,8 +24,8 @@ open GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.FunObj.SqNum GlobalTh
 open GlobalTheory.IndefiniteRowSideFullHecke.UnitCharTriangle (Tri)
 namespace GlobalTheory.SqTop
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
-theorem triEx_holds_alt : GlobalTheory.Published.HoweDualityReal → _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree →
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching → LNe → TriEx := by
+theorem triEx_holds_alt : Published.HoweDualityReal → FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree →
+    IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching → LNe → TriEx := by
   intro hH hP hK hM hL
   obtain ⟨CF1, H1⟩ := _root_.GlobalTheory.T.bottom_theta_norm_eq_prod_local_factors hH hP hK hM hL
   obtain ⟨CF2, H2⟩ := _root_.GlobalTheory.T.first_occurrence_theta_lift_ne_zero hP hK hM hL
@@ -33,7 +33,7 @@ theorem triEx_holds_alt : GlobalTheory.Published.HoweDualityReal → _root_.Glob
   obtain ⟨C1, x1, G1⟩ := H1 ε CF (le_trans (le_max_left _ _) hCF)
   obtain ⟨C2, x2, G2⟩ := H2 ε CF (le_trans (le_max_right _ _) hCF)
   refine ⟨max C1 C2, max x1 x2, fun C hC D large₂ he hx hR T Lc μ₀ hμ G W _ i j => ?_⟩
-  obtain ⟨A, A', WW, X, hX⟩ := GlobalTheory.RowTest.exists_bottomTri hμ G W i j
+  obtain ⟨A, A', WW, X, hX⟩ := RowTest.exists_bottomTri hμ G W i j
   obtain ⟨Pi, p, p', J, hs, ⟨P', hP'⟩, hJ, hI, hI'⟩ :=
     G1 C (le_trans (le_max_left _ _) hC) D large₂ he (le_trans (le_max_left _ _) hx) hR T Lc μ₀ hμ G W i j A A' WW X hX
   have hN := G2 C (le_trans (le_max_right _ _) hC) D large₂ he (le_trans (le_max_right _ _) hx) hR T Lc μ₀ hμ G W i j A A' WW X hX
@@ -45,7 +45,7 @@ theorem triEx_holds_alt : GlobalTheory.Published.HoweDualityReal → _root_.Glob
   have hlam0 : ∀ t, lam t ≠ 0 := fun t h0 => by
     obtain ⟨Q, h, hQ⟩ := (hN t).1
     exact hQ (by rw [hlam t Q, h0, zero_smul]; rfl)
-  have hF : GlobalTheory.ConstRatio.Factor X W.ψ W.θ lam :=
+  have hF : ConstRatio.Factor X W.ψ W.θ lam :=
     ⟨hlam0, Pi, p, p', J, hs, hinj, fun t P h => (hX.integrable t).1 P h, hlam, fun t Q _ => hI' t Q,
       P', hP', fun t h => (hX.integrable t).2 P' h⟩
   haveI : Nonempty T := ⟨μ₀⟩

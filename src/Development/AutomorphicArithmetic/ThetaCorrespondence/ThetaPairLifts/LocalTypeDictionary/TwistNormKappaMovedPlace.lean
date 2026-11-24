@@ -30,9 +30,9 @@ section Mean
 open MeasureTheory
 open scoped Pointwise
 end Mean
-theorem norm_kappa_of_moved_place : _root_.GlobalTheory.FunPr.ThetaLocalInputs → (∀ D, GlobalTheory.NormSum.Inp D) → ∀ {D : D7} {Γ : Type} [Group Γ] [Fintype Γ] {Pl0 T : Type}
+theorem norm_kappa_of_moved_place : FunPr.ThetaLocalInputs → (∀ D, NormSum.Inp D) → ∀ {D : D7} {Γ : Type} [Group Γ] [Fintype Γ] {Pl0 T : Type}
     {A : FamIn D.what₂.LL Γ Pl0 T D.R.m} {Ks : Type} [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] {R : RealDat D A Ks}
-    (ch : Choice R), ch.Is → ∀ (p : Pair T), DefPair D.R.m p → ∀ (x : FinPt ch.G p.small) (y : FinPt ch.G p.big) (κ : ℂ), GlobalTheory.MovedKappaEx.JetKap ch p x y κ → ‖κ‖ = 1 := by
+    (ch : Choice R), ch.Is → ∀ (p : Pair T), DefPair D.R.m p → ∀ (x : FinPt ch.G p.small) (y : FinPt ch.G p.big) (κ : ℂ), MovedKappaEx.JetKap ch p x y κ → ‖κ‖ = 1 := by
   intro hP hI D Γ _ _ Pl0 T A Ks _ _ _ R ch hch p hp x y κ hκ
   have hC := ch.S.Z.crv
   have he0 := ch.S.Z.e0_is p hp
@@ -40,7 +40,7 @@ theorem norm_kappa_of_moved_place : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
   have hvac := _root_.GlobalTheory.T.twisted_moved_vacuum_integral hP hI ch hch p hp x y
   have hvac0 := ch.S.Z.vac_is p hp
   have hc0 := ch.S.Z.kernelNorm_constant_spec p hp
-  have hd := _root_.GlobalTheory.MovedDict.Entire.differentiable_moved_operator_eval hP hI ch hch p hp x y
+  have hd := MovedDict.Entire.differentiable_moved_operator_eval hP hI ch hch p hp x y
   cases p with
   | chi i j =>
     obtain ⟨hi, rfl⟩ := hp
@@ -56,7 +56,7 @@ theorem norm_kappa_of_moved_place : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
     have hconj0 := GlobalTheory.T.isVacuum_conj_of_negHermitianSpace ch.W.ψ ch.W.θ (ch.G.V (.grid (i + 1) D.R.m)) (ch.G.V (.grid i D.R.m))
       (ch.W.cart (.grid (i + 1) D.R.m)) (ch.W.cart (.grid i D.R.m)) _ _ _ hvac0
     refine norm_eq_one_of_sq (c := starRingEnd ℂ (ch.S.Z.c0 (.chi i D.R.m) : ℂ))
-      (key _ _ (GlobalTheory.MovedVacuum.sd_stdL D _) (GlobalTheory.MovedVacuum.sd_stdL D _) _ (by rw [inV_stdL, inV_stdL]; exact hconj0) _
+      (key _ _ (MovedVacuum.sd_stdL D _) (MovedVacuum.sd_stdL D _) _ (by rw [inV_stdL, inV_stdL]; exact hconj0) _
         fun k => ?_) (key _ _ hsd.1 hsd.2 _ hconj _ fun k => ?_)
     · rw [iop_self hC he0]
       have h := congrArg (starRingEnd ℂ) ((h2 _ k).symm.trans (hc0 k))
@@ -65,7 +65,7 @@ theorem norm_kappa_of_moved_place : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
       show _ * starRingEnd ℂ (starRingEnd ℂ _) = _
       rw [Complex.conj_conj]
     · have h := congrArg (starRingEnd ℂ) ((h2 _ k).symm.trans (hκ k))
-      rw [Complex.conj_conj, map_mul, GlobalTheory.MovedKappa.applyAt0_const_mul D _ hd] at h
+      rw [Complex.conj_conj, map_mul, MovedKappa.applyAt0_const_mul D _ hd] at h
       refine h.trans ?_
       show _ * starRingEnd ℂ (starRingEnd ℂ _) = _
       rw [Complex.conj_conj, mul_left_comm _ κ, mul_assoc]
@@ -78,12 +78,12 @@ theorem norm_kappa_of_moved_place : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
       (ch.S.N.fr_on (.top j) (by show j ≤ D.R.m; omega)) (ch.S.N.fr_on (.top (j + 1)) hj1)
       (ch.W.cart_is (.top j) (by show j ≤ D.R.m; omega)) (ch.W.cart_is (.top (j + 1)) hj1) _ _ hC ch.S.Z.pt0 _ he0 Ls Lt
     refine norm_eq_one_of_sq (c := (ch.S.Z.c0 (.top t j) : ℂ))
-      (key _ _ (GlobalTheory.MovedVacuum.sd_stdL D _) (GlobalTheory.MovedVacuum.sd_stdL D _) _ (by rw [inV_stdL, inV_stdL]; exact hvac0) _
+      (key _ _ (MovedVacuum.sd_stdL D _) (MovedVacuum.sd_stdL D _) _ (by rw [inV_stdL, inV_stdL]; exact hvac0) _
         fun k => ?_) (key _ _ hsd.1 hsd.2 _ hvac _ fun k => ?_)
     · rw [iop_self hC he0]
       exact hc0 k
     · have h := hκ k
-      rw [GlobalTheory.MovedKappa.applyAt0_const_mul D _ hd] at h
+      rw [MovedKappa.applyAt0_const_mul D _ hd] at h
       refine h.trans ?_
       show _ * RingHom.id ℂ _ = _
       rw [RingHom.id_apply, mul_left_comm _ κ, mul_assoc]

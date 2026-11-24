@@ -33,7 +33,7 @@ theorem exists_unit_root_ze_leafC_of_square_nonzero (p : PtAt ex Csz) (hp : p.Po
   obtain ⟨hL, hI, hC, hF⟩ := hQ
   obtain ⟨κ, ze, hz, hform⟩ := hF ht.ok.field
   obtain ⟨R0, hR0⟩ := hR
-  obtain ⟨hinj, hrow⟩ := _root_.GlobalTheory.T.iC_iota_mulVec_eq_iC p hp
+  obtain ⟨hinj, hrow⟩ := T.iC_iota_mulVec_eq_iC p hp
   have hzK : ∀ t, ze t ≠ 0 := fun t h => by
     obtain ⟨n, hn, e⟩ := hz t
     rw [h, zero_pow hn.ne'] at e
@@ -45,8 +45,8 @@ theorem exists_unit_root_ze_leafC_of_square_nonzero (p : PtAt ex Csz) (hp : p.Po
         (cpt p.P.A3.fam3.base3.v0.embedding (((Df p).Pq t).mulVec y))) =
         κ * D.what₂.embLL ((d.V t).mulVec y b) := by
     intro t y b
-    rw [← _root_.GlobalTheory.T.theta_j_ev0_eq_ic_pq p hp t y, ht.sums t (TieModel.inUse p t) y b]
-    exact hform t _ (_root_.GlobalTheory.T.eV0_mem_goodF' p hp t y) b
+    rw [← T.theta_j_ev0_eq_ic_pq p hp t y, ht.sums t (TieModel.inUse p t) y b]
+    exact hform t _ (T.eV0_mem_goodF' p hp t y) b
   have lin : ∀ (b : Fin d.n) (z : Fin (p.S false).D → D.what₂.LL),
       psiK a.ch b ((p.R.toCx3 p.F).iC p.F.cr false p.P.A3.fam3.base3.μ0 (cpt p.P.A3.fam3.base3.v0.embedding z)) =
         ∑ k, D.what₂.embLL (z k) *
@@ -117,7 +117,7 @@ theorem exists_unit_root_ze_leafC_of_square_nonzero (p : PtAt ex Csz) (hp : p.Po
     rw [hs, Matrix.mulVec_single, Matrix.mulVec_single] at this
     simpa using this
   have hbij : Function.Bijective ((p.S false).ι p.P.A3.fam3.base3.μ0).mulVec := (hR0 ▸ R0.l1c).1 _
-  obtain ⟨⟨Ψ, -, hΨ⟩, -⟩ := GlobalTheory.complex_matrix_descends_of_rational_on_tuple D.what₂.embLL d.n (p.S false).D (Df p).dQ
+  obtain ⟨⟨Ψ, -, hΨ⟩, -⟩ := complex_matrix_descends_of_rational_on_tuple D.what₂.embLL d.n (p.S false).D (Df p).dQ
     (Df p).nV (p.S false).ι (Df p).Pq d.V r Set.univ p.P.A3.fam3.base3.μ0 Ψc trivial hbij
     (hwf.Pq_surj _) hmain
   refine ⟨ze', by simp only [ze']; exact div_self (hzK _), fun t => ?_, Ψ, fun t _ => ?_⟩
@@ -129,12 +129,12 @@ theorem exists_unit_root_ze_leafC_of_square_nonzero (p : PtAt ex Csz) (hp : p.Po
   · refine (hΨ t trivial).trans ?_
     show _ = (∏ ij, d.rq t ij)⁻¹ • ((ze' t)⁻¹ • d.V t)
     rw [smul_smul, mul_inv, mul_comm]
-theorem oneMap_of_bundle_setAt_kernel_conditions (hB : _root_.GlobalTheory.BigTop.Fun.BundleCondition) (hS : _root_.GlobalTheory.BigTop.Fun.SettingAtPoint) (h1 : LinK) (h2 : InjK) (h3 : ConstK) (h4 : Formula2K) : _root_.GlobalTheory.BigTop.Fun.LeafUniqueMap @Comparison₂ := by
+theorem oneMap_of_bundle_setAt_kernel_conditions (hB : BundleCondition) (hS : SettingAtPoint) (h1 : LinK) (h2 : InjK) (h3 : ConstK) (h4 : Formula2K) : LeafUniqueMap @Comparison₂ := by
   obtain ⟨CF0, hQ⟩ := hS.atPt (h1.and (h2.and (h3.and h4)))
-  refine ⟨CF0, fun CF hCF => (hQ CF hCF).imp fun Fm CH _ e _ => ⟨0, fun C _ => _root_.GlobalTheory.BigTop.Fun.evPt_mono e fun x hx i p hp q d hd => ?_⟩⟩
+  refine ⟨CF0, fun CF hCF => (hQ CF hCF).imp fun Fm CH _ e _ => ⟨0, fun C _ => evPt_mono e fun x hx i p hp q d hd => ?_⟩⟩
   obtain ⟨-, a, ht⟩ := hd
   obtain ⟨wf, R0, hR⟩ := hB p hp
-  exact _root_.GlobalTheory.BigTop.Fun.exists_unit_root_ze_leafC_of_square_nonzero p hp d a ht wf ⟨R0, hR⟩ (q d.G d.W d.n a ht.ok)
+  exact exists_unit_root_ze_leafC_of_square_nonzero p hp d a ht wf ⟨R0, hR⟩ (q d.G d.W d.n a ht.ok)
 end GlobalTheory.BigTop.Fun
 end
 end

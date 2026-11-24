@@ -27,47 +27,47 @@ open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.WeilM
 section Local
 variable {F : Type} [Field F] [NumberField F] {κ : Type} [Fintype κ]
 end Local
-theorem polynomial_matching_on_succ : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
-    (B : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (X : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
-    (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W) (R : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a')
-    (Rf : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'), GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched B G X om om' R Rf →
-    ∀ (T : Finset (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F))) (v : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F)), v ∈ T →
-    ∀ h ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ G.W (GlobalTheory.AdelicU.evFin F v), ∀ Φ Φ',
-    GlobalTheory.ThK.PolynomialMatching.PolMatchOn B G X R Rf T Φ Φ' → GlobalTheory.ThK.PolynomialMatching.PolMatchOn B G X R Rf T (om (1, h) Φ) (om' (1, h) Φ') := by
+theorem polynomial_matching_on_succ : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
+    (B : IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (X : IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
+    (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W) (R : IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a')
+    (Rf : IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'), IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched B G X om om' R Rf →
+    ∀ (T : Finset (IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F))) (v : IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F)), v ∈ T →
+    ∀ h ∈ IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ G.W (AdelicU.evFin F v), ∀ Φ Φ',
+    PolynomialMatching.PolMatchOn B G X R Rf T Φ Φ' → PolynomialMatching.PolMatchOn B G X R Rf T (om (1, h) Φ) (om' (1, h) Φ') := by
   classical
   intro hP F E _ _ _ _ _ σ B a a' G X om om' R Rf hM T v hv h hh Φ Φ' hPM
   obtain ⟨m, m', f, φ, f', φ', hφ, hφ', hΦ, hΦ', hsum⟩ := hPM
   have hT := hM.triple
-  have ex := (_root_.GlobalTheory.T.theta_kernel_local_operator_action hP) F E σ B _ _ _ _ _ _ _ _ _ _ _ _ (GlobalTheory.ThK.Inhab.pairV hT) v
-  have ex' := (_root_.GlobalTheory.T.theta_kernel_local_operator_action hP) F E σ B _ _ _ _ _ _ _ _ _ _ _ _ (GlobalTheory.ThK.Inhab.pairV' hT) v
-  have h1 : (1 : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UA σ G.V.J) ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ G.V (GlobalTheory.AdelicU.evFin F v) := by
+  have ex := (_root_.GlobalTheory.T.theta_kernel_local_operator_action hP) F E σ B _ _ _ _ _ _ _ _ _ _ _ _ (Inhab.pairV hT) v
+  have ex' := (_root_.GlobalTheory.T.theta_kernel_local_operator_action hP) F E σ B _ _ _ _ _ _ _ _ _ _ _ _ (Inhab.pairV' hT) v
+  have h1 : (1 : IndefiniteRowSideFullHecke.WeilTensorModels.UA σ G.V.J) ∈ IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ G.V (AdelicU.evFin F v) := by
     intro u _
     show u • ((1 : Matrix _ _ _) - 1) = 0
     simp
-  have h1' : (1 : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UA σ G.V'.J) ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ G.V' (GlobalTheory.AdelicU.evFin F v) := by
+  have h1' : (1 : IndefiniteRowSideFullHecke.WeilTensorModels.UA σ G.V'.J) ∈ IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ G.V' (AdelicU.evFin F v) := by
     intro u _
     show u • ((1 : Matrix _ _ _) - 1) = 0
     simp
   have E1 := fun x hx => (ex.1 1 h1 h hh x hx).exists
   have E1' := fun x hx => (ex'.1 1 h1' h hh x hx).exists
   let loc : ((Fin a × Fin (a + a') → Fv F v) → ℂ) → (Fin a × Fin (a + a') → Fv F v) → ℂ :=
-    fun x => if hx : x ∈ GlobalTheory.WeilM.SB _ then (E1 x hx).choose else 0
+    fun x => if hx : x ∈ WeilM.SB _ then (E1 x hx).choose else 0
   let loc' : ((Fin a' × Fin (a + a') → Fv F v) → ℂ) → (Fin a' × Fin (a + a') → Fv F v) → ℂ :=
-    fun x => if hx : x ∈ GlobalTheory.WeilM.SB _ then (E1' x hx).choose else 0
-  have hloc : ∀ x ∈ GlobalTheory.WeilM.SB (Fin a × Fin (a + a') → Fv F v), loc x ∈ GlobalTheory.WeilM.SB _ ∧
-      GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Acts (GlobalTheory.AdelicU.evFin F v) (om (1, h)) x (loc x) := fun x hx => by
+    fun x => if hx : x ∈ WeilM.SB _ then (E1' x hx).choose else 0
+  have hloc : ∀ x ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v), loc x ∈ WeilM.SB _ ∧
+      IndefiniteRowSideFullHecke.WeilTensorModels.Acts (AdelicU.evFin F v) (om (1, h)) x (loc x) := fun x hx => by
     simp only [loc, dif_pos hx]; exact (E1 x hx).choose_spec
-  have hloc' : ∀ x ∈ GlobalTheory.WeilM.SB (Fin a' × Fin (a + a') → Fv F v), loc' x ∈ GlobalTheory.WeilM.SB _ ∧
-      GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Acts (GlobalTheory.AdelicU.evFin F v) (om' (1, h)) x (loc' x) := fun x hx => by
+  have hloc' : ∀ x ∈ WeilM.SB (Fin a' × Fin (a + a') → Fv F v), loc' x ∈ WeilM.SB _ ∧
+      IndefiniteRowSideFullHecke.WeilTensorModels.Acts (AdelicU.evFin F v) (om' (1, h)) x (loc' x) := fun x hx => by
     simp only [loc', dif_pos hx]; exact (E1' x hx).choose_spec
-  have pre : ∀ y : Rf.Pi v, ∃ x ∈ GlobalTheory.WeilM.SB (Fin a × Fin (a + a') → Fv F v), Rf.p v x = y := fun y => by
-    have hy : y ∈ (GlobalTheory.WeilM.SB _).map (Rf.p v) := by rw [hM.fin.onto v]; trivial
+  have pre : ∀ y : Rf.Pi v, ∃ x ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v), Rf.p v x = y := fun y => by
+    have hy : y ∈ (WeilM.SB _).map (Rf.p v) := by rw [hM.fin.onto v]; trivial
     exact hy
-  have pre' : ∀ y : Rf.Pi v, ∃ x ∈ GlobalTheory.WeilM.SB (Fin a' × Fin (a + a') → Fv F v), Rf.p' v x = y := fun y => by
-    have hy : y ∈ (GlobalTheory.WeilM.SB _).map (Rf.p' v) := by rw [hM.fin.onto' v]; trivial
+  have pre' : ∀ y : Rf.Pi v, ∃ x ∈ WeilM.SB (Fin a' × Fin (a + a') → Fv F v), Rf.p' v x = y := fun y => by
+    have hy : y ∈ (WeilM.SB _).map (Rf.p' v) := by rw [hM.fin.onto' v]; trivial
     exact hy
   let A0 : Rf.Pi v → Rf.Pi v := fun y => Rf.p v (loc (pre y).choose)
-  have K : ∀ x ∈ GlobalTheory.WeilM.SB (Fin a × Fin (a + a') → Fv F v), A0 (Rf.p v x) = Rf.p v (loc x) := by
+  have K : ∀ x ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v), A0 (Rf.p v x) = Rf.p v (loc x) := by
     intro x hx
     obtain ⟨hx0, hx0e⟩ := (pre (Rf.p v x)).choose_spec
     obtain ⟨x', hx', hx'e⟩ := pre' (Rf.p v x)
@@ -76,16 +76,16 @@ theorem polynomial_matching_on_succ : _root_.GlobalTheory.FunPr.ThetaLocalInputs
     have a2 := hM.fin.equiv v h hh x hx x' hx' _ (hloc x hx).1 _ (hloc' x' hx').1 (hloc x hx).2 (hloc' x' hx').2
       hx'e.symm
     exact a1.trans a2.symm
-  have K' : ∀ x' ∈ GlobalTheory.WeilM.SB (Fin a' × Fin (a + a') → Fv F v), A0 (Rf.p' v x') = Rf.p' v (loc' x') := by
+  have K' : ∀ x' ∈ WeilM.SB (Fin a' × Fin (a + a') → Fv F v), A0 (Rf.p' v x') = Rf.p' v (loc' x') := by
     intro x' hx'
     obtain ⟨x, hx, hxe⟩ := pre (Rf.p' v x')
     rw [← hxe, K x hx]
     exact hM.fin.equiv v h hh x hx x' hx' _ (hloc x hx).1 _ (hloc' x' hx').1 (hloc x hx).2 (hloc' x' hx').2 hxe
-  have Klin : ∀ x ∈ GlobalTheory.WeilM.SB (Fin a × Fin (a + a') → Fv F v), ∀ y ∈ GlobalTheory.WeilM.SB (Fin a × Fin (a + a') → Fv F v),
+  have Klin : ∀ x ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v), ∀ y ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v),
       ∀ c d : ℂ, loc (c • x + d • y) = c • loc x + d • loc y := by
     intro x hx y hy c d
-    have hs : c • x + d • y ∈ GlobalTheory.WeilM.SB (Fin a × Fin (a + a') → Fv F v) :=
-      add_mem ((GlobalTheory.WeilM.SB _).smul_mem c hx) ((GlobalTheory.WeilM.SB _).smul_mem d hy)
+    have hs : c • x + d • y ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v) :=
+      add_mem ((WeilM.SB _).smul_mem c hx) ((WeilM.SB _).smul_mem d hy)
     exact acts_lin_eq v (om (1, h)) hx hy (hloc x hx).2 (hloc y hy).2 c d (hloc _ hs).2
   let A : Rf.Pi v →ₗ[ℂ] Rf.Pi v :=
     { toFun := A0
@@ -99,11 +99,11 @@ theorem polynomial_matching_on_succ : _root_.GlobalTheory.FunPr.ThetaLocalInputs
       map_smul' := by
         intro c y
         obtain ⟨x, hx, rfl⟩ := pre y
-        rw [← map_smul, K _ ((GlobalTheory.WeilM.SB _).smul_mem c hx), K x hx, RingHom.id_apply, ← map_smul]
+        rw [← map_smul, K _ ((WeilM.SB _).smul_mem c hx), K x hx, RingHom.id_apply, ← map_smul]
         congr 1
         simpa using Klin x hx x hx c 0 }
   have hvT : ∀ w, w ∉ T → w ≠ v := fun w hw e => hw (e ▸ hv)
-  have evc : ∀ {n : ℕ} {Y : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} (M : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Model σ Y G.W) (ρ : ∀ w : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin n × Fin (a + a') → Fv F w) → ℂ),
+  have evc : ∀ {n : ℕ} {Y : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} (M : IndefiniteRowSideFullHecke.WeilTensorModels.Model σ Y G.W) (ρ : ∀ w : IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin n × Fin (a + a') → Fv F w) → ℂ),
       (∀ w, w ∉ T → ρ w = M.vac w) → M.IsGood B.ψ →
       ∀ᶠ w in Filter.cofinite, ρ w = Set.indicator {x | ∀ i, x i ∈ w.adicCompletionIntegers F} 1 := by
     intro n Y M ρ hρ hG
@@ -112,9 +112,9 @@ theorem polynomial_matching_on_succ : _root_.GlobalTheory.FunPr.ThetaLocalInputs
         by_contra hc; exact hw (hρ w hc))
     filter_upwards [e0, hG.std] with w e1 e2
     rw [e1, e2]
-  let φN : Fin m → ∀ w : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin a × Fin (a + a') → Fv F w) → ℂ :=
+  let φN : Fin m → ∀ w : IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin a × Fin (a + a') → Fv F w) → ℂ :=
     fun i => Function.update (φ i) v (loc (φ i v))
-  let φN' : Fin m' → ∀ w : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin a' × Fin (a + a') → Fv F w) → ℂ :=
+  let φN' : Fin m' → ∀ w : IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin a' × Fin (a + a') → Fv F w) → ℂ :=
     fun j => Function.update (φ' j) v (loc' (φ' j v))
   refine ⟨m, m', f, φN, f', φN', fun i => ⟨(hφ i).1, fun w => ?_, fun w hw => ?_⟩,
     fun j => ⟨(hφ' j).1, fun w => ?_, fun w hw => ?_⟩, ?_, ?_, ?_⟩

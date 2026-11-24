@@ -28,14 +28,14 @@ noncomputable section
 namespace GlobalTheory.ThetaFinRelDef
 open GlobalTheory.SquareComm
 open scoped ComplexOrder
-theorem theta_integral_finite_relation_eq_zero : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D), IsStdChar D ψ (-1) → IsInfFam θ → ∀ (M X : HSp D) (A : GlobalTheory.ChainFr.Fr M) (B : GlobalTheory.ChainFr.Fr X) (χ χ' : (AE D)ˣ →* Circle) (ω : GlobalTheory.Grid.WRep M X), GlobalTheory.Grid.IsWeil ψ false M X χ χ' ω → (∀ τ, Formalism.UG.HasSignature (gramAt D M τ) M.rank 0) → ∀ (ν : Measure (GA D M)) (𝓕 : Set (GA D M)), IsHaarFD M ν 𝓕 → ∀ Φ ∈ finRel ω (algF ψ θ false A B), thetaInt ω ν 𝓕 Φ = 0 := by
+theorem theta_integral_finite_relation_eq_zero : FunPr.ThetaLocalInputs → ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D), IsStdChar D ψ (-1) → IsInfFam θ → ∀ (M X : HSp D) (A : ChainFr.Fr M) (B : ChainFr.Fr X) (χ χ' : (AE D)ˣ →* Circle) (ω : Grid.WRep M X), Grid.IsWeil ψ false M X χ χ' ω → (∀ τ, Formalism.UG.HasSignature (gramAt D M τ) M.rank 0) → ∀ (ν : Measure (GA D M)) (𝓕 : Set (GA D M)), IsHaarFD M ν 𝓕 → ∀ Φ ∈ finRel ω (algF ψ θ false A B), thetaInt ω ν 𝓕 Φ = 0 := by
   intro _ D ψ θ hψ hθ M X A B χ χ' ω hω hsig ν 𝓕 hF
   have hω' : IsWeilDatumO ψ M X χ χ' ω := hω
-  have hpd : ∀ τ, (gramAt D M τ).PosDef := fun τ => GlobalTheory.Core.CoefGram.posDef_of_hasSignature _ (hsig τ)
-  have hcc : GlobalTheory.Unf.CoCpt M := (GlobalTheory.Unf.CoCptOf.coCpt_of_isAniso_or_posDef D M).2 hpd
+  have hpd : ∀ τ, (gramAt D M τ).PosDef := fun τ => Core.CoefGram.posDef_of_hasSignature _ (hsig τ)
+  have hcc : Unf.CoCpt M := (Unf.CoCptOf.coCpt_of_isAniso_or_posDef D M).2 hpd
   have hth : ∀ Φ ∈ algF ψ θ false A B, IsThetaFunO ψ M X Φ := fun Φ hΦ =>
-    GlobalTheory.SquareComm.ThetaLeft.isThetaFunO_of_mem_algF hψ hθ A B hΦ
-  have hleft := GlobalTheory.SquareComm.ThetaLeft.main D ψ θ hθ M X A B χ χ' ω hω
+    SquareComm.ThetaLeft.isThetaFunO_of_mem_algF hψ hθ A B hΦ
+  have hleft := SquareComm.ThetaLeft.main D ψ θ hθ M X A B χ χ' ω hω
   have hsub : ∀ g k (Φ Ψ : WO M X → ℂ), thetaKO ω g k (Φ - Ψ) = thetaKO ω g k Φ - thetaKO ω g k Ψ := by
     intros; simp [thetaKO, map_sub]
   have hadd : ∀ g k (Φ Ψ : WO M X → ℂ), thetaKO ω g k (Φ + Ψ) = thetaKO ω g k Φ + thetaKO ω g k Ψ := by
@@ -46,7 +46,7 @@ theorem theta_integral_finite_relation_eq_zero : _root_.GlobalTheory.FunPr.Theta
     intros; simp [thetaKO]
   have hint : ∀ Φ ∈ algF ψ θ false A B, ∀ h, IntegrableOn (fun g => thetaKO ω g h Φ) 𝓕 ν := by
     intro Φ hΦ h
-    exact (GlobalTheory.Unf.contAut_rapidDec_bounded_integrable D M hcc _
+    exact (Unf.contAut_rapidDec_bounded_integrable D M hcc _
       ⟨fun γ hγ g => hleft Φ hΦ γ hγ g h, (hω'.om_cont Φ (hth Φ hΦ) 0).comp (Continuous.prodMk_left h)⟩).2.2
       ⟨ν, 𝓕, hF.1, hF.2⟩
   intro Φ hΦ

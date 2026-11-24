@@ -22,7 +22,7 @@ open scoped TensorProduct GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorMode
 open NumberField MeasureTheory Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.BasicNotions.TH GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.FockAlg GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.RealLift
 open scoped Classical
 open GlobalTheory.RealWeil GlobalTheory.ArchUniq
-theorem exists_archimedean_component : _root_.GlobalTheory.FunPr.ThetaLocalInputs → DerEx → VacLine →
+theorem exists_archimedean_component : FunPr.ThetaLocalInputs → DerEx → VacLine →
     ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E) (α β κ : Type) [Fintype α]
     [DecidableEq α] [Fintype β] [DecidableEq β] [Fintype κ] (P Q R S : ℕ) (ψ : AddChar (AF F) ℂ)
     (τ : ∀ w : InfinitePlace F, EmbOver E w) (JA : Matrix α α (AE F E)) (JB : Matrix β β (AE F E))
@@ -112,9 +112,9 @@ theorem exists_archimedean_component : _root_.GlobalTheory.FunPr.ThetaLocalInput
   · change Multiplicative ℝ →* UG (cA σ) JB at γ
     have hkY : ∀ (t : ℝ) w, k (γ (Multiplicative.ofAdd t)) w = NormedSpace.exp (t • Y w) := fun t w =>
       hcan w _ _ ((hkC _ w).symm.trans (hY t w))
-    have hYu : ∀ w, Y w ∈ upq R S := fun w => GlobalTheory.RealLiftGen.mem_upq_of (Y w) fun t => by
+    have hYu : ∀ w, Y w ∈ upq R S := fun w => RealLiftGen.mem_upq_of (Y w) fun t => by
       have := congrArg (fun X => X.map star) (hkJ (γ (Multiplicative.ofAdd t)) w)
-      simp only [GlobalTheory.RealLiftGen.map_star_mul, GlobalTheory.RealLiftGen.Jm_map_star, hkY] at this
+      simp only [RealLiftGen.map_star_mul, RealLiftGen.Jm_map_star, hkY] at this
       refine Eq.trans ?_ this
       congr 2
       ext i j
@@ -133,7 +133,7 @@ theorem exists_archimedean_component : _root_.GlobalTheory.FunPr.ThetaLocalInput
     have hΨ : ∀ c T, (toE.toLinearMap ∘ₗ Φ) (sumPl (fun w => heisOp (c w)) T) = dRho (φ c) ((toE.toLinearMap ∘ₗ Φ) T) := by
       intro c T
       obtain ⟨u, ⟨hu, hc⟩, -⟩ := GlobalTheory.T.existsUnique_archimedeanMatrix_adeleExtension_of_components σ τ hCM fun w => A w * c w * (C w)ᵀ
-      have e1 := (GlobalTheory.RealLift.actsLaws F κ (Φ T) _ _).2.2.2.2 _ (hΦ.2 u hu c hc T) (hD u hu (Φ T)).1
+      have e1 := (RealLift.actsLaws F κ (Φ T) _ _).2.2.2.2 _ (hΦ.2 u hu c hc T) (hD u hu (Φ T)).1
       ext x
       obtain ⟨y, rfl⟩ := θ.surjective x
       have e2 := SchrTransport.dRho_coords (trP F κ) θ φ₀ hp hq (locV (d.e u).1, locV (d.e u).2) (Φ T) (toE (Φ T))

@@ -22,8 +22,8 @@ open GlobalTheory.RowClaim
 end GlobalTheory.SquareComm
 namespace GlobalTheory.SquareComm
 open GlobalTheory.RowClaim
-theorem square_commutes_with_all : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.SquareSt.WeilConvergence → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree →
-    GlobalTheory.RowClaim.Big fun {D} _ _ _ _ {T} _ _ _ _ _ _ ch =>
+theorem square_commutes_with_all : FunPr.ThetaLocalInputs → SquareSt.WeilConvergence → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree →
+    RowClaim.Big fun {D} _ _ _ _ {T} _ _ _ _ _ _ ch =>
       ∀ (t : T) (i j : Fin D.R.m), CommutesWith ch.W ch.S.B ch.rm t i j (ch.c i j t) := by
   intro hPr hWC hK
   refine ⟨0, fun ε CF _ => ⟨0, fun D large₂ _ _ Γ _ _ Pl0 T A Ks _ _ _ R F s ch hch _ t i j => ?_⟩⟩

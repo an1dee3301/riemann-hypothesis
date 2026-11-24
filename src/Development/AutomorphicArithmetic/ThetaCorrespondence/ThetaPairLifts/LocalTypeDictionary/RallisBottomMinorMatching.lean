@@ -33,18 +33,18 @@ noncomputable section
 namespace GlobalTheory.BotMatch
 set_option maxHeartbeats 1000000 in
 open GlobalTheory.SqTop GlobalTheory.SquareComm in
-theorem theta_bottom_minor_match : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
-    (∀ D, GlobalTheory.NormSum.Inp D) → GlobalTheory.SqTop.BotSmall →
-    GlobalTheory.SqTop.GBig fun {D} T _ _ G _ _ _ _ => ∀ (W : G.Weil), IsStdChar D W.ψ (-1) → ∀ (i j : Fin D.R.m) (A A' WW : HSp D)
+theorem theta_bottom_minor_match : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
+    (∀ D, NormSum.Inp D) → SqTop.BotSmall →
+    SqTop.GBig fun {D} T _ _ G _ _ _ _ => ∀ (W : G.Weil), IsStdChar D W.ψ (-1) → ∀ (i j : Fin D.R.m) (A A' WW : HSp D)
       (X : Tri T A A' WW) (c0 : T → ℂ), IsBottomTri W i j X → X.IsConst W.ψ W.θ c0 →
-      ∃ κ₀ : ℂ, κ₀ ≠ 0 ∧ ∀ (s : T) (Q : ℕ) (δ t0 : ℂ) (P P' : Pair D ⊤ δ t0 Q), IsBottom G s i j (GlobalTheory.SqTop.modT G s) P P' →
+      ∃ κ₀ : ℂ, κ₀ ≠ 0 ∧ ∀ (s : T) (Q : ℕ) (δ t0 : ℂ) (P P' : Pair D ⊤ δ t0 Q), IsBottom G s i j (SqTop.modT G s) P P' →
         ∀ (ea : P.a = A.rank) (ea' : P'.a = A'.rank) (ed : P.d = WW.rank) (ed' : P'.d = WW.rank),
         ∃ (M : Tup D P.a P.d P.n → Tup D P'.a P'.d P'.n → ℤ) (M' : Tup D P'.a P'.d P'.n → Tup D P.a P.d P.n → ℤ),
           (∀ T₁ T₂, ∑ T, M' T₁ T * M T T₂ = if T₁ = T₂ then 1 else 0) ∧
-          ∀ (g : GA D WW) T, X.I W.ψ W.θ s (GlobalTheory.BotFormula.minorF ea ed T) g =
-            κ₀ * c0 s * ∑ T', (M T T' : ℂ) * X.I' W.ψ W.θ s (GlobalTheory.BotFormula.minorF ea' ed' T') g := by
+          ∀ (g : GA D WW) T, X.I W.ψ W.θ s (BotFormula.minorF ea ed T) g =
+            κ₀ * c0 s * ∑ T', (M T T' : ℂ) * X.I' W.ψ W.θ s (BotFormula.minorF ea' ed' T') g := by
   intro hP hK hM _ _
-  have hH : GlobalTheory.Published.HoweDualityReal := hP.howeDualityReal
+  have hH : Published.HoweDualityReal := hP.howeDualityReal
   have hLM := _root_.GlobalTheory.T.twisted_local_factors_match hH hP hK hM
   have hTA := _root_.GlobalTheory.T.twisted_square_theta_integrals_eq hP hK hM
   obtain ⟨CF1, H1⟩ := GlobalTheory.T.definiteBottom_dictionary_frames_exponents_kernel
@@ -201,13 +201,13 @@ theorem theta_bottom_minor_match : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
   have core : ∀ (a₁ a₁' d₁ d₁' : ℕ) (n n' : D.what₂.Tau → ℕ) (ea : a₁ = A.rank) (ea' : a₁' = A'.rank) (ed : d₁ = WW.rank)
       (ed' : d₁' = WW.rank) (hn : n' = n), ∃ (M : Tup D a₁ d₁ n → Tup D a₁' d₁' n' → ℤ) (M' : Tup D a₁' d₁' n' → Tup D a₁ d₁ n → ℤ),
         (∀ T₁ T₂, ∑ T, M' T₁ T * M T T₂ = if T₁ = T₂ then 1 else 0) ∧
-        ∀ (g : GA D WW) T, X.I W.ψ W.θ s (GlobalTheory.BotFormula.minorF ea ed T) g =
-          ρ / κ * c0 s * ∑ T', (M T T' : ℂ) * X.I' W.ψ W.θ s (GlobalTheory.BotFormula.minorF ea' ed' T') g := by
+        ∀ (g : GA D WW) T, X.I W.ψ W.θ s (BotFormula.minorF ea ed T) g =
+          ρ / κ * c0 s * ∑ T', (M T T' : ℂ) * X.I' W.ψ W.θ s (BotFormula.minorF ea' ed' T') g := by
     intro a₁ a₁' d₁ d₁' n n' ea ea' ed ed' hn
     subst ea ea' ed ed' hn
     obtain ⟨M, M', hMM, hMf⟩ := exists_signed_perm (complTup D hX.is.rank) (complTup_bijective D hX.is.rank) (εf _)
     refine ⟨M, M', fun T₁ T₂ => by rw [hMM T₁ T₂]; congr, fun g T => ?_⟩
-    rw [hMf T (fun T' => X.I' W.ψ W.θ s (GlobalTheory.BotFormula.minorF rfl rfl T') g), hlamJ, hεf, map_smul, ← hJ, hlc]
+    rw [hMf T (fun T' => X.I' W.ψ W.θ s (BotFormula.minorF rfl rfl T') g), hlamJ, hεf, map_smul, ← hJ, hlc]
     simp only [Pi.smul_apply, smul_eq_mul]
     field_simp
   exact core P.a P'.a P.d P'.d P.n P'.n ea ea' ed ed' hn

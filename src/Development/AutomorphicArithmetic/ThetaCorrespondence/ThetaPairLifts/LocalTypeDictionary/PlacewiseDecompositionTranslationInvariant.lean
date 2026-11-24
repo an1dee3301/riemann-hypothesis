@@ -42,7 +42,7 @@ open Formalism.REAL Formalism.MainNotions.S GlobalTheory.SmoothGlob GlobalTheory
 open scoped InnerProductSpace
 noncomputable section
 namespace GlobalTheory.PlaceDecomp
-theorem placeDecomposition_translate : ∀ (D : D7) (θ : InfFam D), IsInfFam θ → _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (N : GlobalTheory.Grid.Node D) (U : Subgroup (GA D N.V)) (W : D.what₂.Tau → Type) [∀ τ, AddCommGroup (W τ)] [∀ τ, Module ℂ (W τ)] (ρ : ∀ τ, Representation ℂ (Formalism.REAL.KG (N.M.ε τ)) (W τ)) (τ : D.what₂.Tau), ∀ g ∈ UJset (N.M.ε τ), HasCtp θ N U (TyOf θ N ρ) τ (N.M.σ τ g) := by
+theorem placeDecomposition_translate : ∀ (D : D7) (θ : InfFam D), IsInfFam θ → FunPr.ThetaLocalInputs → ∀ (N : Grid.Node D) (U : Subgroup (GA D N.V)) (W : D.what₂.Tau → Type) [∀ τ, AddCommGroup (W τ)] [∀ τ, Module ℂ (W τ)] (ρ : ∀ τ, Representation ℂ (Formalism.REAL.KG (N.M.ε τ)) (W τ)) (τ : D.what₂.Tau), ∀ g ∈ UJset (N.M.ε τ), HasCtp θ N U (TyOf θ N ρ) τ (N.M.σ τ g) := by
   intro D θ hθ hp N U W _ _ ρ τ g hg
   haveI : IsTopologicalGroup (GA D N.V) := Formalism.L2.GlobalTheoryTheory.GenusMassVolumes.Unfold.topGroupHA _ _
   have hP := N.M.fr_unit τ
@@ -53,7 +53,7 @@ theorem placeDecomposition_translate : ∀ (D : D7) (θ : InfFam D), IsInfFam θ
   have comm : ∀ τ', τ' ≠ τ → ∀ h ∈ Formalism.QuantumDeterminants.UH (gramAt D N.V τ'),
       atTau θ N.V τ ((N.M.fr τ)⁻¹ * g * N.M.fr τ) * atTau θ N.V τ' h =
         atTau θ N.V τ' h * atTau θ N.V τ ((N.M.fr τ)⁻¹ * g * N.M.fr τ) :=
-    fun τ' hne h hh => GlobalTheory.PointAtPlaceComm.atTau_comm D θ hθ N.V τ τ' (Ne.symm hne) _ hk h hh
+    fun τ' hne h hh => PointAtPlaceComm.atTau_comm D θ hθ N.V τ τ' (Ne.symm hne) _ hk h hh
   refine ⟨rTr N.V (atTau θ N.V τ ((N.M.fr τ)⁻¹ * g * N.M.fr τ)), ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩, ?_⟩
   · intro f hf
     exact hf.comp (continuous_mul_const _)
@@ -62,19 +62,19 @@ theorem placeDecomposition_translate : ∀ (D : D7) (θ : InfFam D), IsInfFam θ
   · intro c f _
     rfl
   · rintro f ⟨⟨a1, a2, a3⟩, a4⟩
-    refine ⟨⟨GlobalTheory.Mem.RealTranslate.isAutFunSm_rTr_atTau D θ hθ N.V f a1 τ _ hk, GlobalTheory.Cusp.isCuspFun_rTr a2 _,
-      fun τ' => GlobalTheory.CuspGKForms.isTypeAt_rTr hθ (a3 τ') hk⟩, fun k hkU hkf x => ?_⟩
+    refine ⟨⟨Mem.RealTranslate.isAutFunSm_rTr_atTau D θ hθ N.V f a1 τ _ hk, Cusp.isCuspFun_rTr a2 _,
+      fun τ' => CuspGKForms.isTypeAt_rTr hθ (a3 τ') hk⟩, fun k hkU hkf x => ?_⟩
     simp only [rTr]
-    rw [mul_assoc x, ← GlobalTheory.PointAtPlaceHom.comm_of_mem N.V (GlobalTheory.PointAtPlaceHom.atTau_mem N.V τ _) hkf, ← mul_assoc x]
+    rw [mul_assoc x, ← PointAtPlaceHom.comm_of_mem N.V (PointAtPlaceHom.atTau_mem N.V τ _) hkf, ← mul_assoc x]
     exact a4 k hkU hkf _
   · intro τ' hne f _ hf x
     have e : (fun k => rTr N.V (atTau θ N.V τ ((N.M.fr τ)⁻¹ * g * N.M.fr τ)) f
-        (x * GlobalTheory.Published.AutFin.kAt θ N.V τ' (N.M.ε τ') (N.M.fr τ') k)) =
+        (x * Published.AutFin.kAt θ N.V τ' (N.M.ε τ') (N.M.fr τ') k)) =
         fun k => f (x * atTau θ N.V τ ((N.M.fr τ)⁻¹ * g * N.M.fr τ) *
-          GlobalTheory.Published.AutFin.kAt θ N.V τ' (N.M.ε τ') (N.M.fr τ') k) := funext fun k => by
-      simp only [rTr, GlobalTheory.Published.AutFin.kAt]
+          Published.AutFin.kAt θ N.V τ' (N.M.ε τ') (N.M.fr τ') k) := funext fun k => by
+      simp only [rTr, Published.AutFin.kAt]
       rw [mul_assoc x, mul_assoc x, comm τ' hne _
-        (GlobalTheory.Published.AutFin.conj_mem_UH (N.M.fr_unit τ') (N.M.fr_gram τ') k)]
+        (Published.AutFin.conj_mem_UH (N.M.fr_unit τ') (N.M.fr_gram τ') k)]
     show (fun k => _) ∈ _
     rw [e]
     exact hf _
@@ -88,7 +88,7 @@ theorem placeDecomposition_translate : ∀ (D : D7) (θ : InfFam D), IsInfFam θ
     congr 1
     funext t
     rw [mul_assoc x, mul_assoc x, comm τ' hne _
-      (GlobalTheory.SmoothAutCheck.exp_mem_UH (GlobalTheory.SmoothAutCheck.gramAt_unit N.V τ') hX t)]
+      (SmoothAutCheck.exp_mem_UH (SmoothAutCheck.gramAt_unit N.V τ') hX t)]
   · intro φ _ x S v ℓ C hS _ h
     exact h.translate hσ.1 hS hg fun y hy => by
       simp only [res, rTr, at_mul hθ hP hJ hy hg, mul_assoc x]

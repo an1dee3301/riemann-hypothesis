@@ -32,28 +32,28 @@ variable {D : D7}
 end GlobalTheory.TripleAssembly.LieInv
 namespace GlobalTheory.TripleAssembly.LieInv
 variable {D : D7}
-theorem thetaLift_lie_derivative_eq_zero (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) {k : ℕ} (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D) (ε : Bool) {M X : HSp D}
-    {Yv : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc D.host.F D.host.E M.rank} {Z : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Spc D.host.F D.host.E k}
-    (Mo : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Model D.sp.cm.sig Yv Z) (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Yv Z) (ω : WRep M X)
+theorem thetaLift_lie_derivative_eq_zero (hP : FunPr.ThetaLocalInputs) {k : ℕ} (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D) (ε : Bool) {M X : HSp D}
+    {Yv : IndefiniteRowSideFullHecke.WeilTensorModels.Spc D.host.F D.host.E M.rank} {Z : IndefiniteRowSideFullHecke.WeilTensorModels.Spc D.host.F D.host.E k}
+    (Mo : IndefiniteRowSideFullHecke.WeilTensorModels.Model D.sp.cm.sig Yv Z) (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Yv Z) (ω : WRep M X)
     (e : Fin k ≃ Fin X.rank) (c : D.host.E) (hc : Yv.J = c • M.gram)
     (hX : Z.J = D.host.xi0 • (X.gramᵀ).submatrix e e)
-    (emb : ∀ w : InfinitePlace D.host.F, GlobalTheory.AdelicU.EmbOver (E := D.host.E) w)
-    (χX χW : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chr D.host.F D.host.E)
-    {P : Type} [AddCommGroup P] [Module ℂ P] (pr : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf D.host.F (Fin M.rank × Fin k) →ₗ[ℂ] P)
-    {N : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := D.host.F) → Type} [∀ v, AddCommGroup (N v)] [∀ v, Module ℂ (N v)]
+    (emb : ∀ w : InfinitePlace D.host.F, AdelicU.EmbOver (E := D.host.E) w)
+    (χX χW : IndefiniteRowSideFullHecke.WeilTensorModels.Chr D.host.F D.host.E)
+    {P : Type} [AddCommGroup P] [Module ℂ P] (pr : IndefiniteRowSideFullHecke.WeilTensorModels.SInf D.host.F (Fin M.rank × Fin k) →ₗ[ℂ] P)
+    {N : IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := D.host.F) → Type} [∀ v, AddCommGroup (N v)] [∀ v, Module ℂ (N v)]
     (pv : ∀ v, ((Fin M.rank × Fin k → Fv D.host.F v) → ℂ) →ₗ[ℂ] N v) (s : ∀ v, N v)
     (hs : ∀ᶠ v in Filter.cofinite, pv v (Mo.vac v) = s v)
-    (hstd : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ) (hM : Mo.IsGood ψ) (hW : Mo.IsWeil ψ χX χW om)
-    (hDer : ∀ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Lines D.sp.cm.sig Yv,
-      GlobalTheory.RealActs.DerOn (Mo.Pol ψ emb) (fun t => om (γ (Multiplicative.ofAdd t), 1)))
-    (hlie : ∀ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Lines D.sp.cm.sig Yv, ∀ f ∈ Mo.Pol ψ emb,
-      ∀ f₁ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf D.host.F (Fin M.rank × Fin k),
-      GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ActsD (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI D.host.F) (fun t => om (γ (Multiplicative.ofAdd t), 1)) f f₁ →
+    (hstd : IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ) (hM : Mo.IsGood ψ) (hW : Mo.IsWeil ψ χX χW om)
+    (hDer : ∀ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.Lines D.sp.cm.sig Yv,
+      RealActs.DerOn (Mo.Pol ψ emb) (fun t => om (γ (Multiplicative.ofAdd t), 1)))
+    (hlie : ∀ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.Lines D.sp.cm.sig Yv, ∀ f ∈ Mo.Pol ψ emb,
+      ∀ f₁ : IndefiniteRowSideFullHecke.WeilTensorModels.SInf D.host.F (Fin M.rank × Fin k),
+      IndefiniteRowSideFullHecke.WeilTensorModels.ActsD (IndefiniteRowSideFullHecke.WeilTensorModels.evI D.host.F) (fun t => om (γ (Multiplicative.ofAdd t), 1)) f f₁ →
         pr f₁ = 0)
     (T : ((Fin M.rank × Fin k → AF D.host.F) → ℂ) →ₗ[ℂ] (WO M X → ℂ))
-    (hT : ∀ Φ ∈ GlobalTheory.WeilM.schA D.host.F (Fin M.rank × Fin k), T Φ = GlobalTheory.TripleRead.thO Mo ψ (sgn ε M).gram e Φ)
-    (hinj : ∀ Φ ∈ GlobalTheory.WeilM.schA D.host.F (Fin M.rank × Fin k), T Φ = 0 → Φ = 0)
-    (htr : GlobalTheory.TripleRead.IsTransp ψ ε Mo om ω e (GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation.conjU M c hc) (GlobalTheory.TripleRead.toUX X e hX))
+    (hT : ∀ Φ ∈ WeilM.schA D.host.F (Fin M.rank × Fin k), T Φ = TripleRead.thO Mo ψ (sgn ε M).gram e Φ)
+    (hinj : ∀ Φ ∈ WeilM.schA D.host.F (Fin M.rank × Fin k), T Φ = 0 → Φ = 0)
+    (htr : TripleRead.IsTransp ψ ε Mo om ω e (IndefiniteRowSideFullHecke.UnitaryConjugation.conjU M c hc) (TripleRead.toUX X e hX))
     (hθ : IsInfFam θ) (τ : D.what₂.Tau) (Y : Matrix (Fin M.rank) (Fin M.rank) ℂ) (hY : Y ∈ lieAt M τ)
     (Ψ : (Fin M.rank × Fin k → AF D.host.F) → ℂ) (hΨ : Ψ ∈ darbAlg Mo ψ emb) (Φ' : WO M X → ℂ)
     (hD : IsDer θ M (fun g => ω (g, 1)) τ Y (T Ψ) Φ') :
@@ -62,41 +62,41 @@ theorem thetaLift_lie_derivative_eq_zero (hP : _root_.GlobalTheory.FunPr.ThetaLo
   obtain ⟨γ, hγ, hγt⟩ := exists_line_conjU θ M τ Y hθ hY Yv c hc
   obtain ⟨Dop, hDpol, hDiff⟩ := hDer γ hγ
   obtain ⟨m, f, φ, hf, rfl⟩ := exists_sum_pure Mo ψ emb hΨ
-  let f₁ : Fin m → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf D.host.F (Fin M.rank × Fin k) := fun i => Dop (f i)
-  have hA : ∀ i, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ActsD (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI D.host.F)
+  let f₁ : Fin m → IndefiniteRowSideFullHecke.WeilTensorModels.SInf D.host.F (Fin M.rank × Fin k) := fun i => Dop (f i)
+  have hA : ∀ i, IndefiniteRowSideFullHecke.WeilTensorModels.ActsD (IndefiniteRowSideFullHecke.WeilTensorModels.evI D.host.F)
       (fun t => om (γ (Multiplicative.ofAdd t), 1)) (f i) (f₁ i) := fun i => (hDiff (f i) (hf i).1 (f₁ i)).2 rfl
   have hstdv : ∀ i, ∀ᶠ v in Filter.cofinite,
       φ i v = Set.indicator {x | ∀ j, x j ∈ v.adicCompletionIntegers D.host.F} 1 := by
     intro i
     filter_upwards [hM.std, (hf i).2.2] with v hv hv' using hv'.trans hv
-  have hsch : ∀ g : Fin m → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.SInf D.host.F (Fin M.rank × Fin k),
-      ∑ i, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure (g i) (φ i) ∈ GlobalTheory.WeilM.schA D.host.F (Fin M.rank × Fin k) := fun g =>
-    Submodule.sum_mem _ fun i _ => GlobalTheory.TensUniq.pure_mem_schA _ _ (hf i).2.1 (hstdv i)
-  have hΨ₁ : ∑ i, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure (f₁ i) (φ i) ∈ darbAlg Mo ψ emb :=
+  have hsch : ∀ g : Fin m → IndefiniteRowSideFullHecke.WeilTensorModels.SInf D.host.F (Fin M.rank × Fin k),
+      ∑ i, IndefiniteRowSideFullHecke.WeilTensorModels.pure (g i) (φ i) ∈ WeilM.schA D.host.F (Fin M.rank × Fin k) := fun g =>
+    Submodule.sum_mem _ fun i _ => TensUniq.pure_mem_schA _ _ (hf i).2.1 (hstdv i)
+  have hΨ₁ : ∑ i, IndefiniteRowSideFullHecke.WeilTensorModels.pure (f₁ i) (φ i) ∈ darbAlg Mo ψ emb :=
     Submodule.sum_mem _ fun i _ => Submodule.subset_span ⟨f₁ i, φ i, hDpol _ (hf i).1, (hf i).2.1, (hf i).2.2, rfl⟩
-  have hder := _root_.GlobalTheory.ThetaLineDerFirst.hasDerivAt_thetaSum_along_line hP Mo ψ χX χW om hstd hM hW γ hγ m f f₁ φ (fun i => ⟨(hf i).2.1, (hf i).2.2⟩) hA
-  have hΦ' : Φ' = GlobalTheory.TripleRead.thO Mo ψ (sgn ε M).gram e (∑ i, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure (f₁ i) (φ i)) := by
+  have hder := ThetaLineDerFirst.hasDerivAt_thetaSum_along_line hP Mo ψ χX χW om hstd hM hW γ hγ m f f₁ φ (fun i => ⟨(hf i).2.1, (hf i).2.2⟩) hA
+  have hΦ' : Φ' = TripleRead.thO Mo ψ (sgn ε M).gram e (∑ i, IndefiniteRowSideFullHecke.WeilTensorModels.pure (f₁ i) (φ i)) := by
     funext z
     have h1 := hD z
-    have h2 := hder (GlobalTheory.TripleRead.ptO (sgn ε M).gram e z)
+    have h2 := hder (TripleRead.ptO (sgn ε M).gram e z)
     refine h1.unique (h2.congr_of_eventuallyEq (Filter.Eventually.of_forall fun t => ?_))
     have h3 := htr _ (hsch f) (oneP θ M τ Y t) 1
     rw [toUX_one, ← hγt t] at h3
-    show ω (oneP θ M τ Y t, 1) (T _) z = GlobalTheory.TripleRead.thO Mo ψ (sgn ε M).gram e _ z
+    show ω (oneP θ M τ Y t, 1) (T _) z = TripleRead.thO Mo ψ (sgn ε M).gram e _ z
     rw [hT _ (hsch f), ← h3]
-  have hsub := GlobalTheory.TripleAssembly.darbAlg_le_schA _ _ _ Mo ψ emb hM
-  have H : ∃ q : (Matrix (Fin X.rank) (Fin M.rank) (AE D) → ℂ) →ₗ[ℂ] P ⊗[ℂ] GlobalTheory.SmallThetaModules.RTens s,
-      ∀ Ψ ∈ darbAlg Mo ψ emb, q (GlobalTheory.TripleRead.thO Mo ψ (sgn ε M).gram e Ψ) = liftPure Mo pr pv s Ψ := by
+  have hsub := darbAlg_le_schA _ _ _ Mo ψ emb hM
+  have H : ∃ q : (Matrix (Fin X.rank) (Fin M.rank) (AE D) → ℂ) →ₗ[ℂ] P ⊗[ℂ] SmallThetaModules.RTens s,
+      ∀ Ψ ∈ darbAlg Mo ψ emb, q (TripleRead.thO Mo ψ (sgn ε M).gram e Ψ) = liftPure Mo pr pv s Ψ := by
     obtain ⟨q, hq⟩ := exists_factor T (darbAlg Mo ψ emb) (fun x hx => hinj x (hsub hx)) (liftPure Mo pr pv s)
     exact ⟨q, fun Ψ hΨ => by rw [← hT Ψ (hsub hΨ)]; exact hq Ψ hΨ⟩
   have e1 : thetaLift Mo ψ (sgn ε M).gram e (darbAlg Mo ψ emb) (liftPure Mo pr pv s) Φ' =
-      liftPure Mo pr pv s (∑ i, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure (f₁ i) (φ i)) := by
+      liftPure Mo pr pv s (∑ i, IndefiniteRowSideFullHecke.WeilTensorModels.pure (f₁ i) (φ i)) := by
     rw [hΦ']
     unfold thetaLift
     rw [dite_eq_left H]
     exact H.choose_spec _ hΨ₁
-  have HL := GlobalTheory.PureLift.exists_pureLift D.sp.cm.sig Yv Z Mo ψ hM P pr N pv s hs
-  have e2 : ∀ i, liftPure Mo pr pv s (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure (f₁ i) (φ i)) = 0 := by
+  have HL := PureLift.exists_pureLift D.sp.cm.sig Yv Z Mo ψ hM P pr N pv s hs
+  have e2 : ∀ i, liftPure Mo pr pv s (IndefiniteRowSideFullHecke.WeilTensorModels.pure (f₁ i) (φ i)) = 0 := by
     intro i
     unfold liftPure
     rw [dite_eq_left HL, HL.choose_spec _ _ (hf i).2.1 (hf i).2.2, hlie γ hγ (f i) (hf i).1 (f₁ i) (hA i),

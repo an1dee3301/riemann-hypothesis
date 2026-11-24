@@ -23,7 +23,7 @@ variable {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algeb
   {B : Base F E} {a a' : ℕ} {G : Geo σ a a'} {X : Chars F E} {V : Spc F E a} {V' : Spc F E a'} {Z : Spc F E (a + a')}
 variable {om : Rep σ G.V G.W} {om' : Rep σ G.V' G.W}
 attribute [local instance] GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField in
-theorem rebase_finite_scalar (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) {R R₂ : RealMaps F a a'} {Rf S : FinMaps F a a'}
+theorem rebase_finite_scalar (hP : FunPr.ThetaLocalInputs) {R R₂ : RealMaps F a a'} {Rf S : FinMaps F a a'}
     (hM : IsMatched B G X om om' R Rf) (hM₂ : IsMatched B (reG G V V' Z) X om om' R₂ S) :
     ∃ (ψ : ∀ v, Rf.Pi v ≃ₗ[ℂ] S.Pi v) (l : Pl F → ℂ), (∀ v ∉ X.T, l v = 1) ∧
       (∀ v, ∀ φ ∈ SB (Fin a × Fin (a + a') → Fv F v), S.p v φ = ψ v (Rf.p v φ)) ∧
@@ -55,7 +55,7 @@ theorem rebase_finite_scalar (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) {
       rw [h5 _ hv, h0, h1, h2, div_one, Units.val_one]
   rw [chr_kapId, Finset.prod_subset hc.sub (fun v _ hv => h5 v hv), ← Finset.prod_coe_sort B.P l]
   exact Finset.prod_congr rfl fun v _ => key v
-theorem rebase_constants_agree (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hK : ThetaIntegralsAgree) {R R₂ : RealMaps F a a'} {Rf S : FinMaps F a a'}
+theorem rebase_constants_agree (hP : FunPr.ThetaLocalInputs) (hK : ThetaIntegralsAgree) {R R₂ : RealMaps F a a'} {Rf S : FinMaps F a a'}
     (hM : IsMatched B G X om om' R Rf) (hM₂ : IsMatched B (reG G V V' Z) X om om' R₂ S)
     {g : UA σ G.V.J} (hg : g ∈ UAt σ G.V (evI F)) {g' : UA σ G.V'.J} (hg' : g' ∈ UAt σ G.V' (evI F))
     {h : UA σ G.W.J} (hh : h ∈ UAt σ G.W (evI F))
@@ -73,7 +73,7 @@ theorem rebase_constants_agree (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs)
     (hR' : ∀ f ∈ G.M'.Pol B.ψ B.emb, (reR R₂ T T').p' f = l₀ • ψ₀ (R.p' f))
     {c d : ℂ} (hc : IsConst B G X om om' R Rf c) (hd : IsConst B (reG G V V' Z) X om om' R₂ S d) :
     d = l₀ * X.ν (kapId B G V V' Z) * c := by
-  obtain ⟨ψ, l, hl1, h3, h4, hl⟩ := _root_.GlobalTheory.ReBase.rebase_finite_scalar hP hM hM₂
+  obtain ⟨ψ, l, hl1, h3, h4, hl⟩ := ReBase.rebase_finite_scalar hP hM hM₂
   obtain ⟨⟨-, hu, -⟩, -, hso⟩ := (hK.1 F E σ B a a' G X om om' hM.triple).2 R Rf hM
   have hT := hM.triple
   set Λ : ℂ := l₀ * X.ν (kapId B G V V' Z) with hΛ
@@ -84,7 +84,7 @@ theorem rebase_constants_agree (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs)
     rw [hl] at this
     exact polMatch_transport hT R₂ hg hg' hh hθ hθ' hθW hT1 hT2 hT1' hT2' S this
   have so : ∀ Φ' ∈ G.M'.So B.ψ B.τ₁, om' (g', h) Φ' ∈ (reG G V V' Z).M'.So B.ψ B.τ₁ := fun Φ' hΦ' =>
-    (GlobalTheory.ThKRealConj.so_reG' G V V' Z B.ψ B.τ₁).symm ▸ hso (g', h) Φ' hΦ'
+    (ThKRealConj.so_reG' G V V' Z B.ψ B.τ₁).symm ▸ hso (g', h) Φ' hΦ'
   have hc' : IsConst B G X om om' R Rf (d / Λ) := by
     rintro Φ Φ' ⟨hSo, m, m', r, f, s, r', f', s', hr, hr', hΦ, hΦ', hk⟩ y
     have e1 : ∀ u : Fin m → SInf F (Fin a × Fin (a + a')),
@@ -113,17 +113,17 @@ theorem rebase_constants_agree (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs)
       rw [hΦ']
       exact Submodule.sum_mem _ fun i _ => Submodule.subset_span ⟨f' i, r' i, (hr' i).1, rfl⟩
     have key := hd _ _ hm (y * h⁻¹)
-    have i1 := _root_.GlobalTheory.T.thetaIntegral_comp_rightTranslate hP F E σ B a (a + a') G.V G.W G.M _ _ om _ _ _ _ (GlobalTheory.ThK.RealUniq.isPair_V hT) g hg h _ sΦ
+    have i1 := _root_.GlobalTheory.T.thetaIntegral_comp_rightTranslate hP F E σ B a (a + a') G.V G.W G.M _ _ om _ _ _ _ (ThK.RealUniq.isPair_V hT) g hg h _ sΦ
       (y * h⁻¹)
-    have i2 := _root_.GlobalTheory.T.thetaIntegral_comp_rightTranslate hP F E σ B a' (a + a') G.V' G.W G.M' _ _ om' _ _ _ _ (GlobalTheory.ThK.RealUniq.isPair_V' hT) g' hg' h _
+    have i2 := _root_.GlobalTheory.T.thetaIntegral_comp_rightTranslate hP F E σ B a' (a + a') G.V' G.W G.M' _ _ om' _ _ _ _ (ThK.RealUniq.isPair_V' hT) g' hg' h _
       sΦ' (y * h⁻¹)
     rw [inv_mul_cancel_right] at i1 i2
     change G.M.I om (om (g, h) (Λ • Φ)) (y * h⁻¹) = d * G.M'.I om' (om' (g', h) Φ') (y * h⁻¹) at key
-    rw [i1, i2, GlobalTheory.PolIso.modelI_smul] at key
+    rw [i1, i2, PolIso.modelI_smul] at key
     rw [div_mul_eq_mul_div, eq_div_iff hΛ0, ← key, mul_comm]
   rw [hu.unique hc hc']
   field_simp
-theorem rebase_ratio_real_part (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (hK : ThetaIntegralsAgree) {Xa Xb : Chars F E} {R R₂ : RealMaps F a a'}
+theorem rebase_ratio_real_part (hP : FunPr.ThetaLocalInputs) (hK : ThetaIntegralsAgree) {Xa Xb : Chars F E} {R R₂ : RealMaps F a a'}
     {oa ob : Rep σ G.V G.W} {oa' ob' : Rep σ G.V' G.W} {Ra Rb Sa Sb : FinMaps F a a'} {ca cb da db : ℂ}
     (m1 : IsMatched B G Xa oa oa' R Ra) (m2 : IsMatched B G Xb ob ob' R Rb)
     (n1 : IsMatched B (reG G V V' Z) Xa oa oa' R₂ Sa) (n2 : IsMatched B (reG G V V' Z) Xb ob ob' R₂ Sb)
@@ -138,24 +138,24 @@ theorem rebase_ratio_real_part (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs)
   obtain ⟨h, hh, eh⟩ := GlobalTheory.T.skewHermitian_cartanInvolutionSystems_conjugate_archimedean F E σ B (a + a') _ _ G.W Z hB ta.geo.hW n1.triple.geo.hW
   obtain ⟨T, hTc, hT1, hT2⟩ := exists_op hB.std ta.weil hg hh
   obtain ⟨T', hTc', hT1', hT2'⟩ := exists_op hB.std ta.weil' hg' hh
-  have hR₃ := _root_.GlobalTheory.ReBase.real_maps_transport hP ta R₂ hg hg' hh eg eg' eh hT1 hT2 hT1' hT2' n1.triple n1.real
-  obtain ⟨ψ₀, l₀, hl₀, hR, hR'⟩ := _root_.GlobalTheory.ReBase.real_maps_unique hP F E σ B a a' G Xa oa oa' R Ra m1 _ hR₃
+  have hR₃ := real_maps_transport hP ta R₂ hg hg' hh eg eg' eh hT1 hT2 hT1' hT2' n1.triple n1.real
+  obtain ⟨ψ₀, l₀, hl₀, hR, hR'⟩ := real_maps_unique hP F E σ B a a' G Xa oa oa' R Ra m1 _ hR₃
   have eα : ∀ z : (AE F E)ˣ, At (evI F) ((z : AE F E) - 1) → Xa.α z = Xb.α z := fun z hz =>
     Circle.ext ((ta.chars.expα z hz).trans (tb.chars.expα z hz).symm)
   have eβ : ∀ z : (AE F E)ˣ, At (evI F) ((z : AE F E) - 1) → Xa.β z = Xb.β z := fun z hz =>
     Circle.ext ((ta.chars.expβ z hz).trans (tb.chars.expβ z hz).symm)
   have eV := fun g hg h hh => weil_arch_eq (g := g) (k := h) hB.cm hB.std ta.geo.hV.herm
-    (GlobalTheory.FinUniq.det_ne_zero_herm ta.geo.hV) ta.geo.hW.skew (GlobalTheory.FinUniq.det_ne_zero_skew ta.geo.hW) eβ
+    (FinUniq.det_ne_zero_herm ta.geo.hV) ta.geo.hW.skew (FinUniq.det_ne_zero_skew ta.geo.hW) eβ
     (fun z hz => by rw [MonoidHom.div_apply, MonoidHom.div_apply, eα z hz, eβ z hz]) ta.weil tb.weil hg hh
   have eV' := fun g hg h hh => weil_arch_eq (g := g) (k := h) hB.cm hB.std ta.geo.hV'.herm
-    (GlobalTheory.FinUniq.det_ne_zero_herm ta.geo.hV') ta.geo.hW.skew (GlobalTheory.FinUniq.det_ne_zero_skew ta.geo.hW) eα
+    (FinUniq.det_ne_zero_herm ta.geo.hV') ta.geo.hW.skew (FinUniq.det_ne_zero_skew ta.geo.hW) eα
     (fun z hz => by rw [MonoidHom.div_apply, MonoidHom.div_apply, eα z hz, eβ z hz]) ta.weil' tb.weil' hg hh
-  have hhi := GlobalTheory.MajTransport.uat_inv hh
-  have ha := _root_.GlobalTheory.ReBase.rebase_constants_agree hP hK m1 n1 hg hg' hh eg eg' eh hTc hTc' hT1 hT2 hT1' hT2' hl₀ hR hR' k1 l1
-  have hb := _root_.GlobalTheory.ReBase.rebase_constants_agree hP hK m2 n2 hg hg' hh eg eg' eh hTc hTc' (fun f => acts_congr (eV g hg h hh) (hT1 f))
-    (fun f => acts_congr (eV _ (GlobalTheory.MajTransport.uat_inv hg) _ hhi) (hT2 f))
+  have hhi := MajTransport.uat_inv hh
+  have ha := ReBase.rebase_constants_agree hP hK m1 n1 hg hg' hh eg eg' eh hTc hTc' hT1 hT2 hT1' hT2' hl₀ hR hR' k1 l1
+  have hb := ReBase.rebase_constants_agree hP hK m2 n2 hg hg' hh eg eg' eh hTc hTc' (fun f => acts_congr (eV g hg h hh) (hT1 f))
+    (fun f => acts_congr (eV _ (MajTransport.uat_inv hg) _ hhi) (hT2 f))
     (fun f => acts_congr (eV' g' hg' h hh) (hT1' f))
-    (fun f => acts_congr (eV' _ (GlobalTheory.MajTransport.uat_inv hg') _ hhi) (hT2' f)) hl₀ hR hR' k2 l2
+    (fun f => acts_congr (eV' _ (MajTransport.uat_inv hg') _ hhi) (hT2' f)) hl₀ hR hR' k2 l2
   refine ⟨kapId B G V V' Z, ?_⟩
   have h0 : (Xb.ν (kapId B G V V' Z) : ℂ) ≠ 0 := Circle.coe_ne_zero _
   rw [ha, hb, Circle.coe_div]

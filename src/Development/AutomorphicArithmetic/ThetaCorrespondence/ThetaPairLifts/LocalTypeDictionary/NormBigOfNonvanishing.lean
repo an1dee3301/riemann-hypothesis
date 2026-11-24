@@ -17,7 +17,7 @@ open GlobalTheory.SqTop GlobalTheory.FunObj.SqNum
 open GlobalTheory.NormSum (Pair)
 open GlobalTheory.CMVal (IsHeckeL)
 namespace GlobalTheory.NormBigProof
-theorem normBig_alt : _root_.GlobalTheory.FunPr.ThetaLocalInputs → (∀ D, GlobalTheory.NormSum.Inp D) → LNe → NormBig := by
+theorem normBig_alt : FunPr.ThetaLocalInputs → (∀ D, NormSum.Inp D) → LNe → NormBig := by
   intro hP hI hL
   obtain ⟨a1, k1⟩ := hL
   obtain ⟨a2, k2⟩ := _root_.GlobalTheory.T.theta_lift_petersson_norm_ratio_formula hP hI ⟨a1, k1⟩

@@ -30,18 +30,18 @@ open scoped Classical
 open MeasureTheory
 namespace GlobalTheory.ArchLine
 open scoped SchwartzMap
-theorem archimedean_real_line_invariance : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E]
+theorem archimedean_real_line_invariance : FunPr.ThetaLocalInputs → ∀ {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E]
     {σ : E →ₐ[F] E} {n d : ℕ} {X : Spc F E n} {W : Spc F E d} (M : Model σ X W) (ψ : AddChar (AF F) ℂ)
     (χX χW : Chr F E) (om : Rep σ X W), IsCMExt F E σ → IsStd ψ → M.IsWeil ψ χX χW om →
     ∀ γ ∈ Lines σ W, ∃ (l : Type) (_ : Fintype l) (_ : DecidableEq l)
-      (Φ : SInf F (Fin n × Fin d) ≃L[ℂ] GlobalTheory.RealWeil.Sch l) (g : ℝ → Matrix (l ⊕ l) (l ⊕ l) ℝ)
-      (T : ℝ → GlobalTheory.RealWeil.Sch l →ₗ[ℂ] GlobalTheory.RealWeil.Sch l),
+      (Φ : SInf F (Fin n × Fin d) ≃L[ℂ] RealWeil.Sch l) (g : ℝ → Matrix (l ⊕ l) (l ⊕ l) ℝ)
+      (T : ℝ → RealWeil.Sch l →ₗ[ℂ] RealWeil.Sch l),
       Continuous g ∧ g 0 = 1 ∧ (∀ s t, g (s + t) = g s * g t) ∧ (∀ t, g t ∈ Matrix.symplecticGroup l ℝ) ∧
       T 0 = LinearMap.id ∧ (∀ s t, T (s + t) = T s ∘ₗ T t) ∧
-      (∀ (t : ℝ) (w : l ⊕ l → ℝ) (h h₁ : GlobalTheory.RealWeil.Sch l), ⇑h₁ = GlobalTheory.RealWeil.rhoFun w ⇑h →
-        ⇑(T t h₁) = GlobalTheory.RealWeil.rhoFun (g t *ᵥ w) ⇑(T t h)) ∧
-      (∀ (t : ℝ) (h : GlobalTheory.RealWeil.Sch l), ∫⁻ x, ‖T t h x‖ₑ ^ 2 = ∫⁻ x, ‖h x‖ₑ ^ 2) ∧
-      (∀ (h : GlobalTheory.RealWeil.Sch l) (x : EuclideanSpace ℝ l), Continuous fun t => T t h x) ∧
+      (∀ (t : ℝ) (w : l ⊕ l → ℝ) (h h₁ : RealWeil.Sch l), ⇑h₁ = RealWeil.rhoFun w ⇑h →
+        ⇑(T t h₁) = RealWeil.rhoFun (g t *ᵥ w) ⇑(T t h)) ∧
+      (∀ (t : ℝ) (h : RealWeil.Sch l), ∫⁻ x, ‖T t h x‖ₑ ^ 2 = ∫⁻ x, ‖h x‖ₑ ^ 2) ∧
+      (∀ (h : RealWeil.Sch l) (x : EuclideanSpace ℝ l), Continuous fun t => T t h x) ∧
       ∀ (t : ℝ) (f : SInf F (Fin n × Fin d)),
         Acts (evI F) (om (1, γ (Multiplicative.ofAdd t))) ⇑f ⇑(Φ.symm (T t (Φ f))) := by
   intro hP F E _ _ _ _ _ σ n d X W M ψ χX χW om hCM hψ hW γ hγ
@@ -70,15 +70,15 @@ theorem archimedean_real_line_invariance : _root_.GlobalTheory.FunPr.ThetaLocalI
   have hψt : ∀ t w, ψt t w = φ (archAct M (γ (Multiplicative.ofAdd t)) (φ.symm w)) := fun t w => rfl
   let g : ℝ → Matrix (Fin N ⊕ Fin N) (Fin N ⊕ Fin N) ℝ := fun t => LinearMap.toMatrix' (ψt t)
   have hg : ∀ t w, g t *ᵥ w = ψt t w := fun t w => LinearMap.toMatrix'_mulVec _ _
-  let P1 : SInf F (Fin n × Fin d) →L[ℂ] GlobalTheory.RealWeil.Sch (Fin N) :=
+  let P1 : SInf F (Fin n × Fin d) →L[ℂ] RealWeil.Sch (Fin N) :=
     SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (F := ℂ) C.symm
-  let P2 : GlobalTheory.RealWeil.Sch (Fin N) →L[ℂ] SInf F (Fin n × Fin d) :=
+  let P2 : RealWeil.Sch (Fin N) →L[ℂ] SInf F (Fin n × Fin d) :=
     SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (F := ℂ) C
-  let eΦ : SInf F (Fin n × Fin d) ≃L[ℂ] GlobalTheory.RealWeil.Sch (Fin N) := ContinuousLinearEquiv.equivOfInverse P1 P2
+  let eΦ : SInf F (Fin n × Fin d) ≃L[ℂ] RealWeil.Sch (Fin N) := ContinuousLinearEquiv.equivOfInverse P1 P2
     (fun f => by ext x; simp [P1, P2]) (fun h => by ext x; simp [P1, P2])
   have hΦ : ∀ f x, eΦ f x = f (C.symm x) := fun f x => rfl
   have hΦs : ∀ h x, eΦ.symm h x = h (C x) := fun h x => rfl
-  let T : ℝ → GlobalTheory.RealWeil.Sch (Fin N) →ₗ[ℂ] GlobalTheory.RealWeil.Sch (Fin N) := fun t =>
+  let T : ℝ → RealWeil.Sch (Fin N) →ₗ[ℂ] RealWeil.Sch (Fin N) := fun t =>
     eΦ.toLinearMap ∘ₗ S t ∘ₗ eΦ.symm.toLinearMap
   have hT : ∀ t h x, T t h x = archOp om (γ (Multiplicative.ofAdd t)) (eΦ.symm h) (C.symm x) := fun t h x => rfl
   refine ⟨Fin N, inferInstance, inferInstance, eΦ, g, T, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
@@ -93,7 +93,7 @@ theorem archimedean_real_line_invariance : _root_.GlobalTheory.FunPr.ThetaLocalI
       rw [hψt, LinearMap.comp_apply, hψt, hψt, hγadd, amul, LinearEquiv.symm_apply_apply]
     simp only [g, e, LinearMap.toMatrix'_comp]
   · intro t
-    have hsym : ∀ w w', GlobalTheory.RealWeil.sympl (ψt t w) (ψt t w') = GlobalTheory.RealWeil.sympl w w' := fun w w' => by
+    have hsym : ∀ w w', RealWeil.sympl (ψt t w) (ψt t w') = RealWeil.sympl w w' := fun w w' => by
       rw [hψt, hψt, hφ, GlobalTheory.T.unitary_archimedean_coordinate_action_symplectic, ← hφ, LinearEquiv.apply_symm_apply, LinearEquiv.apply_symm_apply]
     obtain ⟨Mx, hMx⟩ := symplMatrix (Fin N) (ψt t) hsym
     have e : g t = Mx := Matrix.toLin'.injective (LinearMap.ext fun w => by

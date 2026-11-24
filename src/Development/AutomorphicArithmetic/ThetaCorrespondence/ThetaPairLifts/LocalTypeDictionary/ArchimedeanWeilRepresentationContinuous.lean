@@ -36,19 +36,19 @@ open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
 noncomputable section
 namespace GlobalTheory.ArchCont
 open scoped SchwartzMap
-theorem continuous_of_intertwining_operator (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (l : Type) [Fintype l] [DecidableEq l]
-    (A : ℝ → (l ⊕ l → ℝ) →ₗ[ℝ] (l ⊕ l → ℝ)) (T : ℝ → GlobalTheory.RealWeil.Sch l →ₗ[ℂ] GlobalTheory.RealWeil.Sch l)
+theorem continuous_of_intertwining_operator (hP : FunPr.ThetaLocalInputs) (l : Type) [Fintype l] [DecidableEq l]
+    (A : ℝ → (l ⊕ l → ℝ) →ₗ[ℝ] (l ⊕ l → ℝ)) (T : ℝ → RealWeil.Sch l →ₗ[ℂ] RealWeil.Sch l)
     (hT : ∀ s t f, T (s + t) f = T s (T t f)) (hT0 : ∀ f, T 0 f = f)
-    (hI : ∀ t w (f f₁ : GlobalTheory.RealWeil.Sch l), ⇑f₁ = GlobalTheory.RealWeil.rhoFun w ⇑f →
-      ⇑(T t f₁) = GlobalTheory.RealWeil.rhoFun (A t w) ⇑(T t f))
+    (hI : ∀ t w (f f₁ : RealWeil.Sch l), ⇑f₁ = RealWeil.rhoFun w ⇑f →
+      ⇑(T t f₁) = RealWeil.rhoFun (A t w) ⇑(T t f))
     (hiso : ∀ t f, ∫ x, ‖T t f x‖ ^ 2 = ∫ x, ‖f x‖ ^ 2) (t : ℝ) : Continuous (T t) := by
   obtain ⟨hs, -, -⟩ := GlobalTheory.T.symplectic_and_flow_of_intertwining_unitary l A T hT hT0 hI hiso
   rcases isEmpty_or_nonempty l with hl | hl
-  · obtain ⟨f0, hf0⟩ := GlobalTheory.MetaplecticScalarDeriv.exists_schwartz_one l
+  · obtain ⟨f0, hf0⟩ := MetaplecticScalarDeriv.exists_schwartz_one l
     have hsub : ∀ x : EuclideanSpace ℝ l, x = 0 := fun x => by
       ext i
       exact isEmptyElim i
-    have hdec : ∀ f : GlobalTheory.RealWeil.Sch l, f = f 0 • f0 := by
+    have hdec : ∀ f : RealWeil.Sch l, f = f 0 • f0 := by
       intro f
       ext x
       rw [hsub x, SchwartzMap.smul_apply, hf0, smul_eq_mul, mul_one]
@@ -57,9 +57,9 @@ theorem continuous_of_intertwining_operator (hP : _root_.GlobalTheory.FunPr.Thet
       conv_lhs => rw [hdec f]
       exact map_smul _ _ _
     rw [e]
-    exact (GlobalTheory.MetaplecticScalarDeriv.continuous_eval l 0).smul continuous_const
+    exact (MetaplecticScalarDeriv.continuous_eval l 0).smul continuous_const
   · obtain ⟨G, _, _, _, pr, om, omS, ⟨-, hsurj, -⟩, -, h3, h4, -, -⟩ := hP.realMetaplecticRepresentation l
-    obtain ⟨N, hN⟩ := GlobalTheory.exists_symplecticGroup_of_sympl l (A t) (hs t)
+    obtain ⟨N, hN⟩ := exists_symplecticGroup_of_sympl l (A t) (hs t)
     obtain ⟨g, hg⟩ := hsurj N
     have hmat : ∀ w, A t ((pr g⁻¹ : Matrix (l ⊕ l) (l ⊕ l) ℝ) *ᵥ w) = w := by
       intro w
@@ -67,17 +67,17 @@ theorem continuous_of_intertwining_operator (hP : _root_.GlobalTheory.FunPr.Thet
       have e' : (pr g : Matrix (l ⊕ l) (l ⊕ l) ℝ) * (pr g⁻¹ : Matrix (l ⊕ l) (l ⊕ l) ℝ) = 1 :=
         congrArg (fun x : Matrix.symplecticGroup l ℝ => (x : Matrix (l ⊕ l) (l ⊕ l) ℝ)) e
       rw [← hN, ← hg, Matrix.mulVec_mulVec, e', Matrix.one_mulVec]
-    have hU1 : ∀ (w : l ⊕ l → ℝ) (h h₁ : GlobalTheory.RealWeil.Sch l), ⇑h₁ = GlobalTheory.RealWeil.rhoFun w ⇑h →
-        ⇑((T t ∘ₗ (omS g⁻¹ : GlobalTheory.RealWeil.Sch l →ₗ[ℂ] GlobalTheory.RealWeil.Sch l)) h₁) =
-          GlobalTheory.RealWeil.rhoFun w ⇑((T t ∘ₗ (omS g⁻¹ : GlobalTheory.RealWeil.Sch l →ₗ[ℂ] GlobalTheory.RealWeil.Sch l)) h) := by
+    have hU1 : ∀ (w : l ⊕ l → ℝ) (h h₁ : RealWeil.Sch l), ⇑h₁ = RealWeil.rhoFun w ⇑h →
+        ⇑((T t ∘ₗ (omS g⁻¹ : RealWeil.Sch l →ₗ[ℂ] RealWeil.Sch l)) h₁) =
+          RealWeil.rhoFun w ⇑((T t ∘ₗ (omS g⁻¹ : RealWeil.Sch l →ₗ[ℂ] RealWeil.Sch l)) h) := by
       intro w h h₁ hh
       simp only [LinearMap.comp_apply, ContinuousLinearMap.coe_coe]
-      rw [hI t _ _ _ (GlobalTheory.MetaplecticScalarDeriv.intertwine_fun l _ (om g⁻¹) (omS g⁻¹) (h3 _) (h4 _) w h h₁ hh), hmat]
-    have hU2 : ∀ h : GlobalTheory.RealWeil.Sch l,
-        ∫⁻ x, ‖(T t ∘ₗ (omS g⁻¹ : GlobalTheory.RealWeil.Sch l →ₗ[ℂ] GlobalTheory.RealWeil.Sch l)) h x‖ₑ ^ 2 = ∫⁻ x, ‖h x‖ₑ ^ 2 := by
+      rw [hI t _ _ _ (MetaplecticScalarDeriv.intertwine_fun l _ (om g⁻¹) (omS g⁻¹) (h3 _) (h4 _) w h h₁ hh), hmat]
+    have hU2 : ∀ h : RealWeil.Sch l,
+        ∫⁻ x, ‖(T t ∘ₗ (omS g⁻¹ : RealWeil.Sch l →ₗ[ℂ] RealWeil.Sch l)) h x‖ₑ ^ 2 = ∫⁻ x, ‖h x‖ₑ ^ 2 := by
       intro h
       simp only [LinearMap.comp_apply, ContinuousLinearMap.coe_coe]
-      rw [lintegral_of_integral _ _ (hiso t _), GlobalTheory.MetaplecticScalarDeriv.lintegral_iso l (om g⁻¹) (omS g⁻¹) (h4 _)]
+      rw [lintegral_of_integral _ _ (hiso t _), MetaplecticScalarDeriv.lintegral_iso l (om g⁻¹) (omS g⁻¹) (h4 _)]
     obtain ⟨a, -, ha⟩ := _root_.GlobalTheory.T.real_weil_representation_schur_scalar hP l _ hU1 hU2
     have e : ⇑(T t) = fun f => a • omS g f := by
       funext f
@@ -91,41 +91,41 @@ theorem continuous_of_intertwining_operator (hP : _root_.GlobalTheory.FunPr.Thet
 end GlobalTheory.ArchCont
 namespace GlobalTheory.ArchCont
 open scoped SchwartzMap RealInnerProductSpace
-theorem continuous_schrodinger_model_action (hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) (V : Type) [NormedAddCommGroup V] [NormedSpace ℝ V]
+theorem continuous_schrodinger_model_action (hP : FunPr.ThetaLocalInputs) (V : Type) [NormedAddCommGroup V] [NormedSpace ℝ V]
     [FiniteDimensional ℝ V] [MeasurableSpace V] [BorelSpace V] (μ : MeasureTheory.Measure V) [μ.IsAddHaarMeasure]
-    (P : V → V → ℝ) (hp : GlobalTheory.ArchUniq.IsPairing P)
+    (P : V → V → ℝ) (hp : ArchUniq.IsPairing P)
     (A : ℝ → (V × V) →ₗ[ℝ] (V × V)) (T : ℝ → 𝓢(V, ℂ) →ₗ[ℂ] 𝓢(V, ℂ))
     (hTadd : ∀ s t f, T (s + t) f = T s (T t f)) (hT0 : ∀ f, T 0 f = f)
-    (hTi : ∀ t v (f f₁ : 𝓢(V, ℂ)), ⇑f₁ = GlobalTheory.ArchUniq.schrF P v ⇑f →
-      ⇑(T t f₁) = GlobalTheory.ArchUniq.schrF P (A t v) ⇑(T t f))
+    (hTi : ∀ t v (f f₁ : 𝓢(V, ℂ)), ⇑f₁ = ArchUniq.schrF P v ⇑f →
+      ⇑(T t f₁) = ArchUniq.schrF P (A t v) ⇑(T t f))
     (hTl2 : ∀ t f, ∫ x, ‖T t f x‖ ^ 2 ∂μ = ∫ x, ‖f x‖ ^ 2 ∂μ) (t : ℝ) : Continuous (T t) := by
-  obtain ⟨C, φ, hp', hq⟩ := GlobalTheory.ArchUniq.SchrTransport.coords P hp _ rfl
-  have hS := GlobalTheory.ArchUniq.SchrTransport.schr_coords P C φ hp' hq
-  let toE : 𝓢(V, ℂ) →L[ℂ] GlobalTheory.RealWeil.Sch (Fin (Module.finrank ℝ V)) :=
+  obtain ⟨C, φ, hp', hq⟩ := ArchUniq.SchrTransport.coords P hp _ rfl
+  have hS := ArchUniq.SchrTransport.schr_coords P C φ hp' hq
+  let toE : 𝓢(V, ℂ) →L[ℂ] RealWeil.Sch (Fin (Module.finrank ℝ V)) :=
     SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (F := ℂ) C.symm
-  let toV : GlobalTheory.RealWeil.Sch (Fin (Module.finrank ℝ V)) →L[ℂ] 𝓢(V, ℂ) :=
+  let toV : RealWeil.Sch (Fin (Module.finrank ℝ V)) →L[ℂ] 𝓢(V, ℂ) :=
     SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (F := ℂ) C
   have htoE : ∀ g, ⇑(toE g) = ⇑g ∘ ⇑C.symm := fun g => rfl
   have htoV : ∀ h, ⇑(toV h) = ⇑h ∘ ⇑C := fun h => rfl
   have hVE : ∀ g, toV (toE g) = g := fun g => by ext x; simp [htoE, htoV]
   have hEV : ∀ h, toE (toV h) = h := fun h => by ext x; simp [htoE, htoV]
-  let T' : ℝ → GlobalTheory.RealWeil.Sch (Fin (Module.finrank ℝ V)) →ₗ[ℂ] GlobalTheory.RealWeil.Sch (Fin (Module.finrank ℝ V)) :=
+  let T' : ℝ → RealWeil.Sch (Fin (Module.finrank ℝ V)) →ₗ[ℂ] RealWeil.Sch (Fin (Module.finrank ℝ V)) :=
     fun t => toE.toLinearMap ∘ₗ T t ∘ₗ toV.toLinearMap
   let A' : ℝ → (Fin (Module.finrank ℝ V) ⊕ Fin (Module.finrank ℝ V) → ℝ) →ₗ[ℝ]
       (Fin (Module.finrank ℝ V) ⊕ Fin (Module.finrank ℝ V) → ℝ) :=
     fun t => φ.toLinearMap ∘ₗ A t ∘ₗ φ.symm.toLinearMap
   have hT' : ∀ t h, T' t h = toE (T t (toV h)) := fun t h => rfl
-  obtain ⟨k, hk, hint⟩ := GlobalTheory.ArchUniq.SchrTransport.haar_coords μ C
+  obtain ⟨k, hk, hint⟩ := ArchUniq.SchrTransport.haar_coords μ C
   have c2 : ∀ s t f, T' (s + t) f = T' s (T' t f) := by
     intro s t h
     simp only [hT', hVE, hTadd]
   have c3 : ∀ f, T' 0 f = f := by
     intro h
     simp [hT', hT0, hEV]
-  have c4 : ∀ t w (f f₁ : GlobalTheory.RealWeil.Sch (Fin (Module.finrank ℝ V))), ⇑f₁ = GlobalTheory.RealWeil.rhoFun w ⇑f →
-      ⇑(T' t f₁) = GlobalTheory.RealWeil.rhoFun (A' t w) ⇑(T' t f) := by
+  have c4 : ∀ t w (f f₁ : RealWeil.Sch (Fin (Module.finrank ℝ V))), ⇑f₁ = RealWeil.rhoFun w ⇑f →
+      ⇑(T' t f₁) = RealWeil.rhoFun (A' t w) ⇑(T' t f) := by
     intro t w f f₁ hf
-    have e1 : ⇑(toV f₁) = GlobalTheory.ArchUniq.schrF P (φ.symm w) ⇑(toV f) := by
+    have e1 : ⇑(toV f₁) = ArchUniq.schrF P (φ.symm w) ⇑(toV f) := by
       funext x
       have := congrFun (hS (φ.symm w) ⇑f) x
       simp only [Function.comp_apply, LinearEquiv.apply_symm_apply] at this
@@ -145,7 +145,7 @@ theorem continuous_schrodinger_model_action (hP : _root_.GlobalTheory.FunPr.Thet
     rw [hint, hint] at e
     simp only [htoV, Function.comp_apply, ContinuousLinearEquiv.apply_symm_apply] at e
     exact mul_left_cancel₀ hk.ne' e
-  have hc := _root_.GlobalTheory.ArchCont.continuous_of_intertwining_operator hP (Fin (Module.finrank ℝ V)) A' T' c2 c3 c4 c5 t
+  have hc := ArchCont.continuous_of_intertwining_operator hP (Fin (Module.finrank ℝ V)) A' T' c2 c3 c4 c5 t
   have e : ⇑(T t) = fun f => toV (T' t (toE f)) := by
     funext f
     simp only [hT', hVE]

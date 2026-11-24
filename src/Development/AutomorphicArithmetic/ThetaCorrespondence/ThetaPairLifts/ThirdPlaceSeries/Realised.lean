@@ -50,20 +50,20 @@ variable (p : PtAt ex Csz)
 def RealisedCondition : Prop :=
   ∃ (Rc : _root_.Formalism.L2.RecTAlt ex) (S : _root_.Formalism.L2.SG.SpectralTiesReal.STiesRAlt Rc)
     (B : _root_.Formalism.IndefR.RealTBAlt Rc p.P.toRowSideFamily p.Dcf p.Spf (p.P.zsc p.Del p.h0 Csz) S) (Qp : _root_.Formalism.IndefR.IndefiniteRealisationNormalisation B.Q) (Qr : _root_.Formalism.IndefR.IndefiniteRealisationRecursion B.Q),
-    _root_.Formalism.IndefR.IndefiniteRealisationCompatible Qp Qr ∧ _root_.GlobalTheory.BigTop.PtAt.ofReal_alt p.P p.Del p.h0 p.hDel p.hh0 p.Dcf p.Spf p.gamDvd B Qp Qr = p
+    _root_.Formalism.IndefR.IndefiniteRealisationCompatible Qp Qr ∧ BigTop.PtAt.ofReal_alt p.P p.Del p.h0 p.hDel p.hh0 p.Dcf p.Spf p.gamDvd B Qp Qr = p
 structure CompatibilityConditions : Prop where
   real : p.RealisedCondition
-  core : GlobalTheory.BigOn.CoreTies L ex.errX p.T p.R.toRealDat
+  core : BigOn.CoreTies L ex.errX p.T p.R.toRealDat
   pb : p.T.pb = p.R.C.P.pb
-  types : GlobalTheory.DimPartsCompare.TameTie D p.R.C.W.om
-  series : Nonempty (GlobalTheory.SeriesTie.ExportTie p.nexp p.v₀)
+  types : DimPartsCompare.TameTie D p.R.C.W.om
+  series : Nonempty (SeriesTie.ExportTie p.nexp p.v₀)
   level : p.LevelTie
   data : p.DataTie
   psiVal : ∀ w, D.what₂.muAt w ≠ D.what₂.mu0 → (p.Tp.psi w).ValuesIn 0 D.what₂.embLL
   ray : GlobalTheory.IndefiniteRowSideFullHecke.RationalRayLevels.RayIn D (D.host.g 0 * D.host.g 1 * D.host.pde * D.host.pde') (Formalism.L2.Host.embLL0 D).fieldRange
   roots : ∀ (k : Fin 2) (z : ℂ), z ^ (D.host.g k * (D.host.g k - 1)) = 1 → z ∈ (Formalism.L2.Host.embLL0 D).fieldRange
   rayQ : ∀ t, GlobalTheory.IndefiniteRowSideFullHecke.RayFieldTheta.ContainsRayField (GlobalTheory.IndefiniteRowSideFullHecke.RayFieldTheta.embK D) (GlobalTheory.IndefiniteRowSideFullHecke.RayFieldTheta.tupLevel p.R.toRealDat t)
-  twist : GlobalTheory.EX.DQ.TwAllAt D ex.nch ex.xd
+  twist : EX.DQ.TwAllAt D ex.nch ex.xd
 structure PointConditions' : Prop where
   exAt : p.R.toRealDat.ExAt
   jEvBar : JEvBar p.T p.R.toRealDat p.κ
@@ -96,7 +96,7 @@ include h
 theorem _root_.GlobalTheory.BigTop.PtAt.RealisedCondition.induction {Q : PtAt ex Csz → Prop}
     (hQ : ∀ (Rc : _root_.Formalism.L2.RecTAlt ex) (S : _root_.Formalism.L2.SG.SpectralTiesReal.STiesRAlt Rc)
       (B : _root_.Formalism.IndefR.RealTBAlt Rc p.P.toRowSideFamily p.Dcf p.Spf (p.P.zsc p.Del p.h0 Csz) S) (Qp : _root_.Formalism.IndefR.IndefiniteRealisationNormalisation B.Q) (Qr : _root_.Formalism.IndefR.IndefiniteRealisationRecursion B.Q),
-      _root_.Formalism.IndefR.IndefiniteRealisationCompatible Qp Qr → Q (_root_.GlobalTheory.BigTop.PtAt.ofReal_alt p.P p.Del p.h0 p.hDel p.hh0 p.Dcf p.Spf p.gamDvd B Qp Qr)) : Q p :=
+      _root_.Formalism.IndefR.IndefiniteRealisationCompatible Qp Qr → Q (BigTop.PtAt.ofReal_alt p.P p.Del p.h0 p.hDel p.hh0 p.Dcf p.Spf p.gamDvd B Qp Qr)) : Q p :=
   let ⟨Rc, S, B, Qp, Qr, a, e⟩ := h
   Eq.subst (motive := Q) e (hQ Rc S B Qp Qr a)
 theorem _root_.GlobalTheory.BigTop.PtAt.RealisedCondition.exists_frame : ∃ Rc : _root_.Formalism.L2.RecTAlt ex, p.R.C = Rc.T.n.cf ∧ HEq p.Tp Rc.T.n.tp ∧ p.R.ψ = Rc.T.theta.W.ψ :=
@@ -115,18 +115,18 @@ theorem _root_.GlobalTheory.BigTop.PtAt.RealisedCondition.psiChoice : Formalism.
   intro e'
   exact eq_of_heq e' ▸ this
 end Realised
-theorem CompatibilityConditions.eSer {p : PtAt ex Csz} (h : p.CompatibilityConditions) : GlobalTheory.GLq.ESerTie D := h.types.eSerTie
+theorem CompatibilityConditions.eSer {p : PtAt ex Csz} (h : p.CompatibilityConditions) : GLq.ESerTie D := h.types.eSerTie
 end PtAt
 def EventuallyAtPoints {eps : ℝ} (Fm : FamP eps) (Q : ∀ (x : ℝ) (hx : Fm.x1 < x) (i : Fm.Ix x), Pt Fm x hx i → Prop) : Prop :=
   ∃ x0 : ℝ, ∀ (x : ℝ) (hx : Fm.x1 < x), x0 ≤ x → ∀ (i : Fm.Ix x) (p : Pt Fm x hx i), p.PointConditions' → Q x hx i p
 theorem EventuallyAtPoints.of_forall {eps : ℝ} {Fm : FamP eps} {Q : ∀ (x : ℝ) (hx : Fm.x1 < x) (i : Fm.Ix x), Pt Fm x hx i → Prop}
-    (h : ∀ x hx i p, p.PointConditions' → Q x hx i p) : _root_.GlobalTheory.BigTop.EventuallyAtPoints Fm Q := ⟨0, fun x hx _ => h x hx⟩
+    (h : ∀ x hx i p, p.PointConditions' → Q x hx i p) : BigTop.EventuallyAtPoints Fm Q := ⟨0, fun x hx _ => h x hx⟩
 theorem EventuallyAtPoints.and {eps : ℝ} {Fm : FamP eps} {Q Q' : ∀ (x : ℝ) (hx : Fm.x1 < x) (i : Fm.Ix x), Pt Fm x hx i → Prop}
-    (h : _root_.GlobalTheory.BigTop.EventuallyAtPoints Fm Q) (h' : _root_.GlobalTheory.BigTop.EventuallyAtPoints Fm Q') : _root_.GlobalTheory.BigTop.EventuallyAtPoints Fm fun x hx i p => Q x hx i p ∧ Q' x hx i p :=
+    (h : BigTop.EventuallyAtPoints Fm Q) (h' : BigTop.EventuallyAtPoints Fm Q') : BigTop.EventuallyAtPoints Fm fun x hx i p => Q x hx i p ∧ Q' x hx i p :=
   let ⟨a, h⟩ := h
   let ⟨b, h'⟩ := h'
   ⟨max a b, fun x hx hle i p hp => ⟨h x hx ((le_max_left _ _).trans hle) i p hp, h' x hx ((le_max_right _ _).trans hle) i p hp⟩⟩
-def LambdaLowerBound₂ : Prop := Closed FamHyp fun Fm CH => _root_.GlobalTheory.BigTop.EventuallyAtPoints Fm fun _ _ _ p => ∀ C, (p.S true).L6 (p.N C CH)
+def LambdaLowerBound₂ : Prop := Closed FamHyp fun Fm CH => BigTop.EventuallyAtPoints Fm fun _ _ _ p => ∀ C, (p.S true).L6 (p.N C CH)
 end GlobalTheory.BigTop
 end
 end

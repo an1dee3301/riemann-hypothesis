@@ -29,23 +29,23 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 open GlobalTheory.SquareComm GlobalTheory.SquareAgree
 noncomputable section
 namespace GlobalTheory.StabFinAdelic
-theorem stabilizer_kappa_of_isThetaSubgroup : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (D : D7) (X : HSp D) (a a' : ℕ) (e : Fin X.rank ≃ Fin (a + a'))
-    (Bs : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E) (Γ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig a a')
-    (Xc : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E) (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W)
-    (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W),
-    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs Γ Xc om om' → ∀ (hJ : Γ.W.J = D.host.xi0 • reindex e e X.gramᵀ)
+theorem stabilizer_kappa_of_isThetaSubgroup : FunPr.ThetaLocalInputs → ∀ (D : D7) (X : HSp D) (a a' : ℕ) (e : Fin X.rank ≃ Fin (a + a'))
+    (Bs : IndefiniteRowSideFullHecke.WeilTensorModels.Base D.host.F D.host.E) (Γ : IndefiniteRowSideFullHecke.WeilTensorModels.Geo D.sp.cm.sig a a')
+    (Xc : IndefiniteRowSideFullHecke.WeilTensorModels.Chars D.host.F D.host.E) (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V Γ.W)
+    (om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep D.sp.cm.sig Γ.V' Γ.W),
+    IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs Γ Xc om om' → ∀ (hJ : Γ.W.J = D.host.xi0 • reindex e e X.gramᵀ)
     (N' : Submodule ℂ ((Fin a' × Fin (a + a') → AF D.host.F) → ℂ)),
     IsThetaSubG Γ.M' Bs.ψ Bs.emb om' N' → ∀ g ∈ GfC X, ∀ Φ ∈ N', om' (1, kapX X e hJ g) Φ ∈ N' := by
   classical
   intro hP D X a a' e Bs Γ Xc om om' hT hJ N' hN g hg Φ hΦ
-  have hinf := GlobalTheory.InfKill.smul_mat_kapX_sub_one D X e hJ g hg
+  have hinf := InfKill.smul_mat_kapX_sub_one D X e hJ g hg
   obtain ⟨S₀, hS₀⟩ := _root_.GlobalTheory.T.spherical_vector_fixes_vacua hP _ _ _ Bs _ _ Γ Xc om om' hT
-  have hfix : ∀ Ψ ∈ algD Γ.M' Bs.ψ Bs.emb, ∃ T : Finset (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := D.host.F)), ∀ S : Finset (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := D.host.F)),
-      T ⊆ S → S₀ ⊆ S → ∀ k : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UA D.sp.cm.sig Γ.W.J,
-      (∀ u : AF D.host.F, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.At (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.evI D.host.F) u → u • (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.mat k - 1) = 0) →
-      (∀ w ∈ S, ∀ u : AF D.host.F, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.At (GlobalTheory.AdelicU.evFin D.host.F w) u → u • (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.mat k - 1) = 0) →
-      (∀ w ∉ S, ∀ γ, γ * (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.mat k)ᵀ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.latAtV Γ.V Γ.W w ↔ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.latAtV Γ.V Γ.W w) →
-      (∀ w ∉ S, ∀ γ, γ * (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.mat k)ᵀ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.latAtV Γ.V' Γ.W w ↔ γ ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.latAtV Γ.V' Γ.W w) →
+  have hfix : ∀ Ψ ∈ algD Γ.M' Bs.ψ Bs.emb, ∃ T : Finset (IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := D.host.F)), ∀ S : Finset (IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := D.host.F)),
+      T ⊆ S → S₀ ⊆ S → ∀ k : IndefiniteRowSideFullHecke.WeilTensorModels.UA D.sp.cm.sig Γ.W.J,
+      (∀ u : AF D.host.F, IndefiniteRowSideFullHecke.WeilTensorModels.At (IndefiniteRowSideFullHecke.WeilTensorModels.evI D.host.F) u → u • (IndefiniteRowSideFullHecke.WeilTensorModels.mat k - 1) = 0) →
+      (∀ w ∈ S, ∀ u : AF D.host.F, IndefiniteRowSideFullHecke.WeilTensorModels.At (AdelicU.evFin D.host.F w) u → u • (IndefiniteRowSideFullHecke.WeilTensorModels.mat k - 1) = 0) →
+      (∀ w ∉ S, ∀ γ, γ * (IndefiniteRowSideFullHecke.WeilTensorModels.mat k)ᵀ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.latAtV Γ.V Γ.W w ↔ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.latAtV Γ.V Γ.W w) →
+      (∀ w ∉ S, ∀ γ, γ * (IndefiniteRowSideFullHecke.WeilTensorModels.mat k)ᵀ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.latAtV Γ.V' Γ.W w ↔ γ ∈ IndefiniteRowSideFullHecke.WeilTensorModels.latAtV Γ.V' Γ.W w) →
       om' (1, k) Ψ = Ψ := by
     intro Ψ hΨ
     induction hΨ using Submodule.span_induction with
@@ -69,11 +69,11 @@ theorem stabilizer_kappa_of_isThetaSubgroup : _root_.GlobalTheory.FunPr.ThetaLoc
   obtain ⟨S, l, k, hTS, hl, hprod, hkinf, hkS, hkV, hkV'⟩ := GlobalTheory.T.exists_adelicUnitary_prod_localPoints_mul_latticeStabilizer _ _ _ Bs _ _ Γ hT.geo _ hinf (T ∪ S₀)
   have hk : om' (1, k) Φ = Φ :=
     hTfix S (Finset.union_subset_left hTS) (Finset.union_subset_right hTS) k hkinf hkS hkV hkV'
-  have split' : ∀ (x y : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UA D.sp.cm.sig Γ.W.J) Ψ, om' (1, x * y) Ψ = om' (1, x) (om' (1, y) Ψ) := by
+  have split' : ∀ (x y : IndefiniteRowSideFullHecke.WeilTensorModels.UA D.sp.cm.sig Γ.W.J) Ψ, om' (1, x * y) Ψ = om' (1, x) (om' (1, y) Ψ) := by
     intro x y Ψ
-    rw [show ((1 : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UA D.sp.cm.sig Γ.V'.J), x * y) = (1, x) * (1, y) by simp, map_mul, Module.End.mul_apply]
-  have key : ∀ l' : List (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := D.host.F) × GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UA D.sp.cm.sig Γ.W.J),
-      (∀ x ∈ l', x.2 ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UAt D.sp.cm.sig Γ.W (GlobalTheory.AdelicU.evFin D.host.F x.1)) →
+    rw [show ((1 : IndefiniteRowSideFullHecke.WeilTensorModels.UA D.sp.cm.sig Γ.V'.J), x * y) = (1, x) * (1, y) by simp, map_mul, Module.End.mul_apply]
+  have key : ∀ l' : List (IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := D.host.F) × IndefiniteRowSideFullHecke.WeilTensorModels.UA D.sp.cm.sig Γ.W.J),
+      (∀ x ∈ l', x.2 ∈ IndefiniteRowSideFullHecke.WeilTensorModels.UAt D.sp.cm.sig Γ.W (AdelicU.evFin D.host.F x.1)) →
       ∀ Ψ ∈ N', om' (1, (l'.map Prod.snd).prod) Ψ ∈ N' := by
     intro l'
     induction l' with

@@ -21,18 +21,18 @@ noncomputable section
 namespace GlobalTheory.ThK.LocalOps
 end GlobalTheory.ThK.LocalOps
 namespace GlobalTheory.ThK.LocalOps
-theorem theta_kernel_local_operators_act (_hP : _root_.GlobalTheory.FunPr.ThetaLocalInputs) : GlobalTheory.ThK.ActsEx := by
+theorem theta_kernel_local_operators_act (_hP : FunPr.ThetaLocalInputs) : ActsEx := by
   intro F E _ _ _ _ _ σ B n d X W M χX χW om r s r' s' hP v
-  have hex : ∀ x : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UA σ X.J × GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UA σ W.J, x.1 ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ X (evFin F v) →
-      x.2 ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ W (evFin F v) → ∀ φ ∈ GlobalTheory.WeilM.SB (Fin n × Fin d → Fv F v),
-        ∃ φ₁ ∈ GlobalTheory.WeilM.SB (Fin n × Fin d → Fv F v), GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Acts (evFin F v) (om x) φ φ₁ :=
+  have hex : ∀ x : IndefiniteRowSideFullHecke.WeilTensorModels.UA σ X.J × IndefiniteRowSideFullHecke.WeilTensorModels.UA σ W.J, x.1 ∈ IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ X (evFin F v) →
+      x.2 ∈ IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ W (evFin F v) → ∀ φ ∈ WeilM.SB (Fin n × Fin d → Fv F v),
+        ∃ φ₁ ∈ WeilM.SB (Fin n × Fin d → Fv F v), IndefiniteRowSideFullHecke.WeilTensorModels.Acts (evFin F v) (om x) φ φ₁ :=
     fun x hx1 hx2 φ hφ => acts_exists hP v x hx1 hx2 φ hφ
-  refine ⟨fun g hg h hh φ hφ => ?_, fun u hu φ hφ => ?_, GlobalTheory.T.weilRep_smooth_at_finitePlace B X W M χX χW om r s r' s' hP v hex⟩
+  refine ⟨fun g hg h hh φ hφ => ?_, fun u hu φ hφ => ?_, T.weilRep_smooth_at_finitePlace B X W M χX χW om r s r' s' hP v hex⟩
   · obtain ⟨φ₁, h1, h2⟩ := hex (g, h) hg hh φ hφ
     exact ⟨φ₁, ⟨h1, h2⟩, fun φ₂ hφ₂ => acts_unique v _ hφ hφ₂.2 h2⟩
-  · refine ⟨GlobalTheory.WeilM.schr (GlobalTheory.LatVac.psiAt B.ψ v) (GlobalTheory.LatVac.locCo M.co v u) φ,
-      ⟨GlobalTheory.SchrSB.schr_mem_SB B.ψ hP.base.std.1 v _ φ hφ, GlobalTheory.VacBridge.rho_acts_locCo M.co B.ψ v u hu φ⟩,
-      fun φ₂ hφ₂ => acts_unique v _ hφ hφ₂.2 (GlobalTheory.VacBridge.rho_acts_locCo M.co B.ψ v u hu φ)⟩
+  · refine ⟨WeilM.schr (LatVac.psiAt B.ψ v) (LatVac.locCo M.co v u) φ,
+      ⟨SchrSB.schr_mem_SB B.ψ hP.base.std.1 v _ φ hφ, VacBridge.rho_acts_locCo M.co B.ψ v u hu φ⟩,
+      fun φ₂ hφ₂ => acts_unique v _ hφ hφ₂.2 (VacBridge.rho_acts_locCo M.co B.ψ v u hu φ)⟩
 end GlobalTheory.ThK.LocalOps
 namespace GlobalTheory.ThK.LocalOps
 variable {F : Type} [Field F] [NumberField F] {κ : Type} [Fintype κ]

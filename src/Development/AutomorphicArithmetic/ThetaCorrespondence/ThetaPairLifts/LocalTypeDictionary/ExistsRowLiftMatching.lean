@@ -22,14 +22,14 @@ open IsDedekindDomain NumberField GlobalTheory.ChiGrid GlobalTheory.FunObj Globa
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
 noncomputable section
 namespace GlobalTheory.RowLift
-theorem exists_row_lift_matching : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ {D : D7} (large₂ : SizeData₂ D)
+theorem exists_row_lift_matching : FunPr.ThetaLocalInputs → ∀ {D : D7} (large₂ : SizeData₂ D)
     {Γ : Type} [Group Γ] [Fintype Γ] {Pl0 T : Type} {A : FamIn D.what₂.LL Γ Pl0 T D.R.m}
     {Ks : Type} [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] {R : RealDat D A Ks} {F : Face D A},
     HidaSetting large₂ R F → ∀ (ch : Choice R), ch.IsBase → ∀ (CF : ℝ), ch.AtScale CF large₂.sc.b →
-    ∃ G' : GlobalTheory.Grid.GridPre R, G'.Is ∧ GlobalTheory.RowLift.RowMatchS ch G' := by
+    ∃ G' : Grid.GridPre R, G'.Is ∧ RowMatchS ch G' := by
   intro hP D large₂ Γ _ _ Pl0 T A Ks _ _ _ R F hS ch hb CF hs
   have hsc : ch.sc.cGap = 1 := by rw [hs]
-  obtain ⟨G, hG, hsp, harr⟩ := GlobalTheory.GridJoin.exists_gridPre hP.discreteSeriesUpqExists hP.discreteSeriesCover
+  obtain ⟨G, hG, hsp, harr⟩ := GridJoin.exists_gridPre hP.discreteSeriesUpqExists hP.discreteSeriesCover
     hP.harishChandraModules hS.host hS.size hS.core hsc ch.W hb.weil
   have hfr : ∀ i, i ≤ D.R.m → Formalism.L2.DIV.IsFrame (G.V i 0).β (G.V i 0).Λ := by
     rintro (_ | i) hi
@@ -37,11 +37,11 @@ theorem exists_row_lift_matching : _root_.GlobalTheory.FunPr.ThetaLocalInputs �
       exact h.1
     · obtain ⟨c, h⟩ := (hG.spaces.vert i 0 hi (Nat.zero_le _)).frame
       exact h.1
-  obtain ⟨m00, mV, hm, hν, hfd⟩ := GlobalTheory.ColMeas.measCol_of_choice ch G hG.meas hsp hfr hb.vol
-  refine ⟨GlobalTheory.GridJoin.withMeas G m00 mV G.mP G.mX, ⟨GlobalTheory.GridJoin.isSpaces_withMeas hG.spaces,
-    GlobalTheory.GridJoin.isChars_withMeas hG.chars, GlobalTheory.GridJoin.isArrows_withMeas hG.arrows, hm,
-    GlobalTheory.GridJoin.isData_withMeas hG.data⟩, ⟨fun i hi => (hsp.vert i 0 hi (Nat.zero_le _)).sp, hν, hfd,
-    GlobalTheory.RowKer.kernel_row ch (GlobalTheory.SDFrameLattice.isSelfDualC_of_isSDFrame D _ _ _ _
+  obtain ⟨m00, mV, hm, hν, hfd⟩ := ColMeas.measCol_of_choice ch G hG.meas hsp hfr hb.vol
+  refine ⟨GridJoin.withMeas G m00 mV G.mP G.mX, ⟨GridJoin.isSpaces_withMeas hG.spaces,
+    GridJoin.isChars_withMeas hG.chars, GridJoin.isArrows_withMeas hG.arrows, hm,
+    GridJoin.isData_withMeas hG.data⟩, ⟨fun i hi => (hsp.vert i 0 hi (Nat.zero_le _)).sp, hν, hfd,
+    RowKer.kernel_row ch (SDFrameLattice.isSelfDualC_of_isSDFrame D _ _ _ _
       (hS.core.lev.βY 0 (by have := D.R.two_le_m; omega))) hb.weil G hG ⟨hsp, harr⟩⟩⟩
 end GlobalTheory.RowLift
 end

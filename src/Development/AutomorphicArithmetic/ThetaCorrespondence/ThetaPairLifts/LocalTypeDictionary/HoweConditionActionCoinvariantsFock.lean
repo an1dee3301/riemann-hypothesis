@@ -30,19 +30,19 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 open GlobalTheory.SquareComm
 open NumberField IsDedekindDomain Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun
 namespace GlobalTheory.HoweFockReal
-theorem howe_condition_action_coinvariants_fock : GlobalTheory.Published.HoweDualityReal → _root_.GlobalTheory.FunPr.ThetaLocalInputs →
+theorem howe_condition_action_coinvariants_fock : Published.HoweDualityReal → FunPr.ThetaLocalInputs →
   ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D), IsStdChar D ψ (-1) → IsInfFam θ →
   ∀ (ε : Bool) (M X : HSp D) (A : Fr M) (B : Fr X) (χS χT : (AE D)ˣ →* Circle) (ω : WRep M X) (eS eT : D.what₂.Tau → ℚ),
   IsWeil ψ ε M X χS χT ω → (∀ τ, HasInfExp D χS τ (eS τ) ∧ HasInfExp D χT τ (eT τ)) →
-  GlobalTheory.RealQuot.HoweCond (fun i : GlobalTheory.RealQuot.LieIx X => GlobalTheory.RealQuot.actT ε A B eS i.1.1 i.1.2) (GlobalTheory.RealQuot.coinv ε A B eT) := by
+  RealQuot.HoweCond (fun i : RealQuot.LieIx X => RealQuot.actT ε A B eS i.1.1 i.1.2) (RealQuot.coinv ε A B eT) := by
   intro hH hP D ψ θ hψ hθ ε M X A B χS χT ω eS eT hW hE
   obtain ⟨Xs, Ws, Mo, ψ', χX, χW, om, τ, hcm, hstd, hX, hXd, hWs, hWd, hrX, hrW, hhX, hhW, hwe, hcX, hcW,
-    Φ, hinj, hran, hLT, hKT, hLS, hKS⟩ := _root_.GlobalTheory.T.twist_real_place_correspondence hP D ψ θ hψ hθ ε M X A B χS χT ω eS eT hW hE
+    Φ, hinj, hran, hLT, hKT, hLS, hKS⟩ := T.twist_real_place_correspondence hP D ψ θ hψ hθ ε M X A B χS χT ω eS eT hW hE
   obtain ⟨⟨L, hL⟩, hsum⟩ := hH D.host.F D.host.E D.sp.cm.sig hcm M.rank X.rank Xs Ws Mo ψ' χX χW om hstd hX hXd hWs hWd
     hrX hrW hhX hhW hwe τ hcX hcW
   have key : ∀ N : Submodule ℂ (PolF D X.rank M.rank),
-      GlobalTheory.RealQuot.IsStab (fun i : GlobalTheory.RealQuot.LieIx X => GlobalTheory.RealQuot.actT ε A B eS i.1.1 i.1.2) N →
-      GlobalTheory.RealQuot.coinv ε A B eT ≤ N → GlobalTheory.Published.ThetaSubInf Mo ψ' τ om (N.map Φ) := by
+      RealQuot.IsStab (fun i : RealQuot.LieIx X => RealQuot.actT ε A B eS i.1.1 i.1.2) N →
+      RealQuot.coinv ε A B eT ≤ N → Published.ThetaSubInf Mo ψ' τ om (N.map Φ) := by
     intro N hs hc
     refine ⟨?_, ?_, ?_, ?_, ?_⟩
     · rw [← hran]

@@ -36,15 +36,15 @@ open Classical
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
 namespace GlobalTheory.SqTop.BotNeFormula
 set_option maxHeartbeats 4000000 in
-theorem bottomTheta_ne_zero_of_innerProduct_formula : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
-    (∀ D, GlobalTheory.NormSum.Inp D) → LNe → BotSmall → NormBig → TriEx → BotNe := by
+theorem bottomTheta_ne_zero_of_innerProduct_formula : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching →
+    (∀ D, NormSum.Inp D) → LNe → BotSmall → NormBig → TriEx → BotNe := by
   intro hPr hK hM hI hL hB hN hT
   have hA := _root_.GlobalTheory.T.theta_bottom_formula_large hPr hK hM hI hB
   have hB' := _root_.GlobalTheory.T.theta_bottom_formula_small hPr hK hM hI hB
   have hC := _root_.GlobalTheory.T.rallis_bottom_minor_matching hPr hK hM hI hB
   have hR := _root_.GlobalTheory.T.exists_bottom_basis_change hPr
-  refine GlobalTheory.SqTop.BotConstPf.gBig_imp (GlobalTheory.SqTop.Model.gBig_and (GlobalTheory.SqTop.Model.gBig_and (GlobalTheory.SqTop.Model.gBig_and hL hB)
-    (GlobalTheory.SqTop.Model.gBig_and hN hT)) (GlobalTheory.SqTop.Model.gBig_and hA (GlobalTheory.SqTop.Model.gBig_and hB' (GlobalTheory.SqTop.Model.gBig_and hC hR)))) ?_
+  refine BotConstPf.gBig_imp (Model.gBig_and (Model.gBig_and (Model.gBig_and hL hB)
+    (Model.gBig_and hN hT)) (Model.gBig_and hA (Model.gBig_and hB' (Model.gBig_and hC hR)))) ?_
   intro D T Lc sc G μ₀ C x b hLc ⟨⟨⟨l1, l2⟩, l3, l5⟩, a1, a2, a3, a4⟩
   intro δ t0 Q P P' i j hbot
   have hmod : modT G μ₀ = SqNum.condE G.pl := by simp [modT, l2.2.1]
@@ -61,8 +61,8 @@ theorem bottomTheta_ne_zero_of_innerProduct_formula : _root_.GlobalTheory.FunPr.
     exact hnz s hs.1 (hs.2.trans hh)
   obtain ⟨h, Tt, hne⟩ := exists_coord_ne_of_norm_ne P hP
   refine ⟨⟨h, Tt, hne⟩, ?_⟩
-  obtain ⟨ψ, hψ⟩ := GlobalTheory.Ker.Model.exists_stdChar D
-  obtain ⟨W, hWψ⟩ := GlobalTheory.GridWeil.exists_weil hPr.weilRepresentationUnitaryPair D T Lc μ₀ hLc sc G ψ hψ
+  obtain ⟨ψ, hψ⟩ := Ker.Model.exists_stdChar D
+  obtain ⟨W, hWψ⟩ := GridWeil.exists_weil hPr.weilRepresentationUnitaryPair D T Lc μ₀ hLc sc G ψ hψ
   have hψW : IsStdChar D W.ψ (-1) := hWψ ▸ hψ
   obtain ⟨A, A', WW, X₀, c₀, hX₀, hc₀⟩ := l5 W hψW i j
   obtain ⟨X, ζ, hX, hβ, -, hc⟩ := a4 W hψW i j A A' WW X₀ c₀ hX₀ hc₀
@@ -84,7 +84,7 @@ theorem bottomTheta_ne_zero_of_innerProduct_formula : _root_.GlobalTheory.FunPr.
   apply hne
   have e := HA ea ed h g hg Tt
   rw [HC g Tt] at e
-  have hs : ∑ T', (M Tt T' : ℂ) * X.I' W.ψ W.θ μ₀ (GlobalTheory.BotFormula.minorF ea' ed' T') g = 0 := by
+  have hs : ∑ T', (M Tt T' : ℂ) * X.I' W.ψ W.θ μ₀ (BotFormula.minorF ea' ed' T') g = 0 := by
     refine Finset.sum_eq_zero fun T' _ => ?_
     rw [HB ea' ed' (hd ▸ h) g hg' T', hz, mul_zero, mul_zero]
   rw [hs, mul_zero, mul_zero] at e

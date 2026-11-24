@@ -18,7 +18,7 @@ end Host
 section
 variable {D : D7} {L : SizeData₂ D} {hT : GatTies D} {Gi : MainNotions.G.Inst D L} {Gl : MainNotions.G.LatInst D} {K : MainNotions.G.Consts} {Y : DivX D}
   {cX : ExtraC}
-structure HostDatumWithTies {ex : Extra D L hT Gi Gl K Y cX} (T : _root_.Formalism.L2.TiedDataSAlt ex) where
+structure HostDatumWithTies {ex : Extra D L hT Gi Gl K Y cX} (T : TiedDataSAlt ex) where
   d3b : Host.PlacesOverCommonPrime D.host
   Tu_g : ∀ u i, (D.mem u).A.T ≠ D.host.g i
   Qw_Tu : ∀ w, D.what₂.muAt w ≠ D.what₂.mu0 → ∀ v ∈ ex.nch.Q w, ∀ u, ¬ Host.OverP D.host (D.mem u).A.T v
@@ -31,7 +31,7 @@ structure HostDatumWithTies {ex : Extra D L hT Gi Gl K Y cX} (T : _root_.Formali
   HE_fd : FiniteDimensional ℚ HE
   HE_hilb : Host.IsHilbertCFE (hL := HE_fd) D.host HE
   HE_le : HE ≤ Rows.KsQ D T.host T.n.cf T.what₂.O.pieces
-def HostDatumSelfDual {ex : Extra D L hT Gi Gl K Y cX} (T : _root_.Formalism.L2.TiedDataSAlt ex) : Prop := Nonempty (_root_.Formalism.L2.HostDatumWithTies T)
+def HostDatumSelfDual {ex : Extra D L hT Gi Gl K Y cX} (T : TiedDataSAlt ex) : Prop := Nonempty (L2.HostDatumWithTies T)
 end
 end Formalism.L2
 end

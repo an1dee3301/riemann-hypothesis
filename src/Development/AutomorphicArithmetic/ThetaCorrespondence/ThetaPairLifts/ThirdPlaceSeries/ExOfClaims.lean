@@ -25,7 +25,7 @@ open NumberField IsDedekindDomain GlobalTheory.ChiGrid GlobalTheory.FunObj Globa
 namespace GlobalTheory.BigTop.Fun
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
 set_option maxHeartbeats 1600000 in
-theorem ex_of_claims_alt : _root_.GlobalTheory.BigTop.Fun.SettingAtPoint → (Closed FamHyp fun Fm _ => _root_.GlobalTheory.BigTop.EventuallyAtPoints Fm fun x _ i _ => |(Fm.L x i).logDerivativeAtOne| ≤ (Fm.L x i).sc.x ^ (Fm.L x i).sc.eps) → GlobalTheory.RowClaim.SumOKK → GlobalTheory.RowClaim.SumRatK → GlobalTheory.RowClaim.ConstK → (_root_.GlobalTheory.BigTop.Fun.CharacterAtPoint fun {D} _ _ _ _ _ _ _ _ _ _ _ ch => ∀ i j t, GlobalTheory.RowTest.sqRatio ch i j t ∈ Set.range D.what₂.embLL) → GlobalTheory.NormSum.IntSt → FieldDat → TorEx → DenEx → BotEx → BotSmall → _root_.GlobalTheory.BigTop.Fun.ExistsFunctionIn @Fld @Comparison₂ := by
+theorem ex_of_claims_alt : SettingAtPoint → (Closed FamHyp fun Fm _ => EventuallyAtPoints Fm fun x _ i _ => |(Fm.L x i).logDerivativeAtOne| ≤ (Fm.L x i).sc.x ^ (Fm.L x i).sc.eps) → RowClaim.SumOKK → RowClaim.SumRatK → RowClaim.ConstK → (CharacterAtPoint fun {D} _ _ _ _ _ _ _ _ _ _ _ ch => ∀ i j t, RowTest.sqRatio ch i j t ∈ Set.range D.what₂.embLL) → NormSum.IntSt → FieldDat → TorEx → DenEx → BotEx → BotSmall → ExistsFunctionIn @Fld @Comparison₂ := by
   intro hSet hdl hS hR hC hr hI hFD hT hD hB hBS
   obtain ⟨c1, h1⟩ := hSet.atPt hS
   obtain ⟨c2, h2⟩ := hSet.atPt hR

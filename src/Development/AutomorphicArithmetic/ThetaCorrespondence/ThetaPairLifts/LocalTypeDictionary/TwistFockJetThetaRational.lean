@@ -37,10 +37,10 @@ private theorem mem_globLat_mul {F E : Type} [Field F] [NumberField F] [Field E]
   unfold Formalism.UG.CS.globLat
   simp only [Submodule.mem_mk, AddSubmonoid.mem_mk, AddSubsemigroup.mem_mk, Set.mem_setOf_eq]
   rw [e, _root_.mul_inv_rev, Matrix.mulVec_mulVec, Units.val_mul, Matrix.mul_assoc, Units.inv_mul, Matrix.mul_one]
-private theorem latAt_rat {T : Type} {L : LevCh D T} {sc : Consts} {G : GlobalTheory.ChiGrid.GridData L sc} {W : G.Weil}
+private theorem latAt_rat {T : Type} {L : LevCh D T} {sc : Consts} {G : ChiGrid.GridData L sc} {W : G.Weil}
     (S : GridChoice W Set.univ) (X : Node) (r : FinPt G X) (U : Matrix.unitaryGroup (Fin (G.V X).rank) D.host.E)
     (h : RatCoord (G.V X) (S.N.fr X) r U) (x : FinPt G X) :
-    GlobalTheory.SumSize.latAt S X (r * x) = SDLat.smulLat U.1 (GlobalTheory.SumSize.latAt S X x) := by
+    SumSize.latAt S X (r * x) = SDLat.smulLat U.1 (SumSize.latAt S X x) := by
   obtain ⟨γ, -, h2, h3⟩ := h
   have hg : (finG (G.V X) r).val = ((S.N.fr X).1 * U.1 * ((S.N.fr X)⁻¹ : GL _ _).1).map
       (Formalism.UG.inclE (F := D.host.F) (E := D.host.E) (FiniteAdeleRing (𝓞 D.host.F) D.host.F)) := by
@@ -49,8 +49,8 @@ private theorem latAt_rat {T : Type} {L : LevCh D T} {sc : Consts} {G : GlobalTh
         Algebra.TensorProduct.comm D.host.F (Af D.host.F) D.host.E (x.1 i j)) h2.symm
     rw [e, h3]
     rfl
-  have key : ∀ y, U.1 *ᵥ y ∈ GlobalTheory.SumSize.latAt S X (r * x) ↔ y ∈ GlobalTheory.SumSize.latAt S X x := fun y => by
-    unfold GlobalTheory.SumSize.latAt
+  have key : ∀ y, U.1 *ᵥ y ∈ SumSize.latAt S X (r * x) ↔ y ∈ SumSize.latAt S X x := fun y => by
+    unfold SumSize.latAt
     rw [Submodule.mem_comap, Submodule.mem_comap, map_mul, LinearMap.restrictScalars_apply,
       LinearMap.restrictScalars_apply, Matrix.mulVecLin_apply, Matrix.mulVecLin_apply]
     have e : (S.N.fr X).1 *ᵥ (U.1 *ᵥ y) =
@@ -124,7 +124,7 @@ private theorem norm_det_le {N q : ℕ} [Fact q.Prime] (A : Matrix (Fin N) (Fin 
   have e : algebraMap _ D.host.E (Matrix.of B).det = (s : D.host.E) ^ N * A.det := by
     rw [RingHom.map_det, show (algebraMap _ D.host.E).mapMatrix (Matrix.of B) = (s : D.host.E) • A from
       Matrix.ext hB, Matrix.det_smul, Fintype.card_fin]
-  have h3 := GlobalTheory.Proof.IdempotentLatticeSequence.norm_int_le φ (Matrix.of B).det
+  have h3 := Proof.IdempotentLatticeSequence.norm_int_le φ (Matrix.of B).det
   change ‖φ (algebraMap _ D.host.E _)‖ ≤ 1 at h3
   rwa [e, map_mul, map_pow, map_natCast, norm_mul, norm_pow, norm_natCast_coprime hs, one_pow, one_mul] at h3
 private theorem norm_det_padic {N q : ℕ} [Fact q.Prime] (U : Matrix.unitaryGroup (Fin N) D.host.E)
@@ -150,15 +150,15 @@ open scoped ComplexOrder
 variable {D : D7}
 private theorem detPlus_def {m n : ℕ} {s : Matrix (Fin n) (Fin n) ℂ} (hs : s = 1 ∨ s = -1) :
     ∃ e : ℕ, ∀ (a : Matrix (Fin n) (Fin n) ℂ) (b : Matrix (Fin m) (Fin m) ℂ),
-      GlobalTheory.WeilParts.detPlus s 1 a b = (b.det ^ n * a.det ^ m) ^ e := by
+      WeilParts.detPlus s 1 a b = (b.det ^ n * a.det ^ m) ^ e := by
   rcases hs with rfl | rfl
   · refine ⟨1, fun a b => ?_⟩
-    unfold GlobalTheory.WeilParts.detPlus
+    unfold WeilParts.detPlus
     rw [Matrix.transpose_one, Matrix.one_kronecker_one, sub_self, smul_zero, add_zero, add_mul, one_mul, ← two_smul ℂ,
       smul_smul, Matrix.det_smul, Matrix.det_kronecker]
     simp
   · refine ⟨0, fun a b => ?_⟩
-    unfold GlobalTheory.WeilParts.detPlus
+    unfold WeilParts.detPlus
     have e : Matrix.kroneckerMap (fun x1 x2 : ℂ => x1 * x2) (1 : Matrix (Fin m) (Fin m) ℂ) (-1 : Matrix (Fin n) (Fin n) ℂ)ᵀ = -1 := by
       rw [← Matrix.one_kronecker_one, Matrix.transpose_neg, Matrix.transpose_one]
       ext ⟨i, j⟩ ⟨k, l⟩
@@ -169,12 +169,12 @@ private theorem sq_exp {θ : InfFam D} (hθ : IsInfFam θ) {χ η : (Formalism.L
     (h2 : ResEta D χ n) (hη : ∀ τ, HasInfExp D η τ (1 / 2)) (k : ℕ) :
     ∃ c : D.what₂.Tau → ℤ, ∀ τ, HasInfExp D ((χ * (η ^ k)⁻¹) * (χ * (η ^ k)⁻¹)) τ (c τ) := by
   have key : ∀ τ, ∃ c : ℤ, HasInfExp D ((χ * (η ^ k)⁻¹) * (χ * (η ^ k)⁻¹)) τ c := fun τ => by
-    obtain ⟨a, ha⟩ := GlobalTheory.SplitCharExp.exists_hasInfExp D θ χ n τ hθ h1 h2
-    have hb := GlobalTheory.VacuumCharacter.hasInfExp_twist ha (hη τ) k
+    obtain ⟨a, ha⟩ := SplitCharExp.exists_hasInfExp D θ χ n τ hθ h1 h2
+    have hb := VacuumCharacter.hasInfExp_twist ha (hη τ) k
     obtain ⟨c, hc, -⟩ := id hb
     refine ⟨c, ?_⟩
     rw [hc, two_mul]
-    exact GlobalTheory.Mem.HeckeExp.hasInfExp_mul hb hb
+    exact Mem.HeckeExp.hasInfExp_mul hb hb
   exact ⟨_, fun τ => (key τ).choose_spec⟩
 private theorem NormOne.inv' {F : Type} [NormedField F] {lam : Qbar →+* F} {x : ℂ} (hx : NormOne lam x) : NormOne lam x⁻¹ := by
   obtain ⟨h1, h2⟩ := hx
@@ -199,8 +199,8 @@ private theorem vac_scalar {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D} (hθ
     have := hG.2.2.det_pos.ne'
     rw [Matrix.det_mul] at this
     exact left_ne_zero_of_mul this
-  obtain ⟨x, hx, hxv⟩ := GlobalTheory.VacuumCharacter.exists_root hθ S (fun τ => hdet (hS τ)) g hg
-  obtain ⟨y, hy, hyv⟩ := GlobalTheory.VacuumCharacter.exists_root hθ T (fun τ => hdet (hT τ)) h hh
+  obtain ⟨x, hx, hxv⟩ := VacuumCharacter.exists_root hθ S (fun τ => hdet (hS τ)) g hg
+  obtain ⟨y, hy, hyv⟩ := VacuumCharacter.exists_root hθ T (fun τ => hdet (hT τ)) h hh
   obtain ⟨e, he⟩ := detPlus_def (m := T.rank) hs
   obtain ⟨a, ha⟩ := sq_exp hθ hW.hecT hW.resT e2 T.rank
   obtain ⟨b, hb⟩ := sq_exp hθ hW.hecS hW.resS e2 S.rank
@@ -209,7 +209,7 @@ private theorem vac_scalar {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D} (hθ
     fun F _ lam h1 h2 => ?_⟩
   have inv : ∀ τ, (compAt θ τ (Formalism.L2.Theta.mt S g⁻¹)).det = ((compAt θ τ (Formalism.L2.Theta.mt S g)).det)⁻¹ := fun τ => by
     refine eq_inv_of_mul_eq_one_right ?_
-    rw [GlobalTheory.VacuumCharacter.det_compAt, GlobalTheory.VacuumCharacter.det_compAt, ← map_mul, ← map_mul, ← Matrix.det_mul]
+    rw [VacuumCharacter.det_compAt, VacuumCharacter.det_compAt, ← map_mul, ← map_mul, ← Matrix.det_mul]
     unfold Formalism.L2.Theta.mt
     rw [← Units.val_mul, ← map_mul, mul_inv_cancel, map_one, Units.val_one, Matrix.det_one, map_one, map_one]
   have k1 := hxv _ a ha
@@ -231,7 +231,7 @@ private theorem om_rat {ψ : AddChar (AF D.host.F) ℂ} {S T : HSp D}
     {f : WO S T → ℂ} (hf : IsThetaFunO ψ S T f) (w : Matrix (Fin T.rank) (Fin S.rank) (Formalism.L2.Theta.AE D)) :
     om (γ, γ') f w = f (Formalism.L2.Theta.mt T γ'⁻¹ * w * Formalism.L2.Theta.mt S γ : Matrix _ _ _) := by
   have hrat : ∀ w, om (γ, γ') f (actO S T γ γ' w) = f w := fun w => by
-    have h1 := hW.om_aut γ hγ γ' hγ' _ (GlobalTheory.ThetaClosed.isThetaFunO_heisO_all hW.std hf w)
+    have h1 := hW.om_aut γ hγ γ' hγ' _ (ThetaClosed.isThetaFunO_heisO_all hW.std hf w)
     rw [hW.om_heis _ _ _ _ hf] at h1
     simpa [heisO, symplOH, symplO, hO] using h1
   rw [← hrat]
@@ -274,13 +274,13 @@ private theorem jets_scale {N N' : ℕ} (δ a : ℂ) {Θ : VC D N N' → ℂ} (h
       ((((Real.sqrt (2 * Real.pi * Formalism.L2.Pj.xiR D) : ℝ) : ℂ)⁻¹) ^ k.sum fun _ n => n) *
         Formalism.MainNotions.GL3Theta.applyAt0 D (MvPolynomial.monomial k 1) fun z => a * Θ (δ • z) := by
   have hd : Differentiable ℂ fun z : VC D N N' => Θ (δ • z) := hΘ.comp (differentiable_id.const_smul δ)
-  rw [GlobalTheory.MovedKappa.applyAt0_const_mul D _ hd, GlobalTheory.FockPos.applyAt0_monomial', GlobalTheory.FockPos.applyAt0_monomial',
-    GlobalTheory.FockPos.taylor_comp_smul' D _ hΘ]
-  have hper : ∀ τ : D.what₂.Tau, GlobalTheory.FunObj.period δ τ =
+  rw [MovedKappa.applyAt0_const_mul D _ hd, FockPos.applyAt0_monomial', FockPos.applyAt0_monomial',
+    FockPos.taylor_comp_smul' D _ hΘ]
+  have hper : ∀ τ : D.what₂.Tau, FunObj.period δ τ =
       δ * (((Real.sqrt (2 * Real.pi * Formalism.L2.Pj.xiR D) : ℝ) : ℂ)⁻¹) := by
     intro τ
-    rw [GlobalTheory.FunObj.period, GlobalTheory.AdTh.Fock.norm_embedding_hostFormConstant_eq, div_eq_mul_inv]
-  have hprod : (k.prod fun v n => GlobalTheory.FunObj.period δ v.1 ^ n) =
+    rw [FunObj.period, AdTh.Fock.norm_embedding_hostFormConstant_eq, div_eq_mul_inv]
+  have hprod : (k.prod fun v n => FunObj.period δ v.1 ^ n) =
       (δ * (((Real.sqrt (2 * Real.pi * Formalism.L2.Pj.xiR D) : ℝ) : ℂ)⁻¹)) ^ (k.sum fun _ n => n) := by
     simp only [hper, Finsupp.prod, Finsupp.sum]
     exact Finset.prod_pow_eq_pow_sum _ _ _
@@ -295,11 +295,11 @@ private theorem sum_norm_sq_unitary {m n : ℕ} (y : Matrix (Fin m) (Fin n) ℂ)
     Matrix.mul_assoc, ← Matrix.mul_assoc A, hA, Matrix.one_mul, ← Matrix.mul_assoc, Matrix.trace_mul_comm _ B,
     ← Matrix.mul_assoc, ← Matrix.mul_assoc, hB, Matrix.one_mul]
 private theorem frAt_inv {n : ℕ} (fr : GL (Fin n) D.host.E) (τ : D.what₂.Tau) :
-    (GlobalTheory.FockPos.frAt fr τ)⁻¹ = (fr⁻¹ : GL (Fin n) D.host.E).1.map (tauE D τ) ∧
-    (fr⁻¹ : GL (Fin n) D.host.E).1.map (tauE D τ) * GlobalTheory.FockPos.frAt fr τ = 1 ∧
-    GlobalTheory.FockPos.frAt fr τ * (fr⁻¹ : GL (Fin n) D.host.E).1.map (tauE D τ) = 1 := by
-  have h1 : (fr⁻¹ : GL (Fin n) D.host.E).1.map (tauE D τ) * GlobalTheory.FockPos.frAt fr τ = 1 := by
-    unfold GlobalTheory.FockPos.frAt
+    (FockPos.frAt fr τ)⁻¹ = (fr⁻¹ : GL (Fin n) D.host.E).1.map (tauE D τ) ∧
+    (fr⁻¹ : GL (Fin n) D.host.E).1.map (tauE D τ) * FockPos.frAt fr τ = 1 ∧
+    FockPos.frAt fr τ * (fr⁻¹ : GL (Fin n) D.host.E).1.map (tauE D τ) = 1 := by
+  have h1 : (fr⁻¹ : GL (Fin n) D.host.E).1.map (tauE D τ) * FockPos.frAt fr τ = 1 := by
+    unfold FockPos.frAt
     rw [← Matrix.map_mul, Units.inv_mul, Matrix.map_one _ (map_zero _) (map_one _)]
   exact ⟨Matrix.inv_eq_left_inv h1, h1, mul_eq_one_comm.1 h1⟩
 private theorem jets_subst {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D} {S T : HSp D}
@@ -314,20 +314,20 @@ private theorem jets_subst {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D} {S T
     (hsub : ∀ w : Matrix (Fin T.rank) (Fin S.rank) (Formalism.L2.Theta.AE D), c * f' w = f (MT * w * MS : Matrix _ _ _))
     (cc : Ideal (𝓞 D.host.K)) (δ a : ℂ) {Θ : VC D S.rank T.rank → ℂ} (hΘ : Differentiable ℂ Θ)
     (hj : ∀ k : FVar D T.rank S.rank →₀ ℕ,
-      pureTensorO ψ θ S T (fun _ => 1) (fun _ => 1) (GlobalTheory.FockPos.frAt frS) (GlobalTheory.FockPos.frAt frT) f (MvPolynomial.monomial k 1) 0 =
+      pureTensorO ψ θ S T (fun _ => 1) (fun _ => 1) (FockPos.frAt frS) (FockPos.frAt frT) f (MvPolynomial.monomial k 1) 0 =
         a * ((k.prod fun v n => period δ v.1 ^ n) * Formalism.MainNotions.GL3Theta.applyAt0 D (MvPolynomial.monomial k 1) Θ))
     (k : FVar D T.rank S.rank →₀ ℕ) :
-    pureTensorO ψ θ S T (fun _ => 1) (fun _ => 1) (GlobalTheory.FockPos.frAt frS) (GlobalTheory.FockPos.frAt frT) f' (MvPolynomial.monomial k 1) 0 =
+    pureTensorO ψ θ S T (fun _ => 1) (fun _ => 1) (FockPos.frAt frS) (FockPos.frAt frT) f' (MvPolynomial.monomial k 1) 0 =
       a * ((k.prod fun v n => period δ v.1 ^ n) * Formalism.MainNotions.GL3Theta.applyAt0 D (MvPolynomial.monomial k 1)
         fun z => c⁻¹ * Θ (Formalism.L2.KerInert.tPull D (tor0 D cc δ) U.1 U'.1 z)) := by
   have hθ := hf.2.inf
   obtain ⟨Φ, hΦ, hr⟩ := GlobalTheory.T.fockVacuum_real_restriction_gaussian_entire ψ θ S T frS frT _ _ hS hT f hf
   obtain ⟨Φ', hΦ', hr'⟩ := GlobalTheory.T.fockVacuum_real_restriction_gaussian_entire ψ θ S T frS frT _ _ hS hT f' hf'
   have hs : (((Real.sqrt (2 * Real.pi * Formalism.L2.Pj.xiR D) : ℝ) : ℂ)⁻¹) ≠ 0 := by
-    have hx : 0 < Formalism.L2.Pj.xiR D := norm_pos_iff.2 ((_root_.map_ne_zero _).2 (GlobalTheory.DualPairCompare.embedding_xi_zero_ne_zero D))
+    have hx : 0 < Formalism.L2.Pj.xiR D := norm_pos_iff.2 ((_root_.map_ne_zero _).2 (DualPairCompare.embedding_xi_zero_ne_zero D))
     exact inv_ne_zero (Complex.ofReal_ne_zero.2 (Real.sqrt_pos.2 (mul_pos Real.two_pi_pos hx)).ne')
   have e1 : Φ = fun z => a * Θ (δ • z) := by
-    refine GlobalTheory.EntireJetUniq.eq_of_applyAt0_monomial_eq _ _ hΦ
+    refine EntireJetUniq.eq_of_applyAt0_monomial_eq _ _ hΦ
       ((hΘ.comp (differentiable_id.const_smul δ)).const_mul a) fun k => ?_
     have h1 := GlobalTheory.T.fockMonomial_at_origin_gaussian_entire_orthonormal ψ θ S T frS frT hf.1 hθ hS hT f Φ hΦ hr k
     rw [hj, jets_scale δ a hΘ] at h1
@@ -344,11 +344,11 @@ private theorem jets_subst {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D} {S T
         rw [Matrix.mul_smul, Matrix.smul_mul]⟩)).differentiable
   have e2 : Φ' = fun z => a * (c⁻¹ * Θ (Formalism.L2.KerInert.tPull D (tor0 D cc δ) U.1 U'.1 (δ • z))) := by
     funext z
-    obtain ⟨s1, s2⟩ := realPt_spec hθ fun τ => GlobalTheory.FockPos.frAt frT τ * Matrix.of (z τ) * (GlobalTheory.FockPos.frAt frS τ)⁻¹
-    generalize GlobalTheory.AdForm.realPt θ _ = w at s1 s2
-    have z1 : GlobalTheory.FockPos.zCo θ frS frT w = z := by
+    obtain ⟨s1, s2⟩ := realPt_spec hθ fun τ => FockPos.frAt frT τ * Matrix.of (z τ) * (FockPos.frAt frS τ)⁻¹
+    generalize AdForm.realPt θ _ = w at s1 s2
+    have z1 : FockPos.zCo θ frS frT w = z := by
       funext τ
-      change (GlobalTheory.FockPos.frAt frT τ)⁻¹ * compAt θ τ w * GlobalTheory.FockPos.frAt frS τ = Matrix.of (z τ)
+      change (FockPos.frAt frT τ)⁻¹ * compAt θ τ w * FockPos.frAt frS τ = Matrix.of (z τ)
       rw [s2, (frAt_inv frT τ).1, (frAt_inv frS τ).1, ← Matrix.mul_assoc, ← Matrix.mul_assoc, (frAt_inv frT τ).2.1,
         Matrix.one_mul, Matrix.mul_assoc, (frAt_inv frS τ).2.1, Matrix.mul_one]
     have h0 := hsub w
@@ -357,29 +357,29 @@ private theorem jets_subst {ψ : AddChar (AF D.host.F) ℂ} {θ : InfFam D} {S T
     rw [← hw₁] at h0
     have t1 : w₁.map (finPart D) = 0 := by
       rw [hw₁, Matrix.map_mul, Matrix.map_mul, s1, Matrix.mul_zero, Matrix.zero_mul]
-    have z2 : ∀ τ, GlobalTheory.FockPos.zCo θ frS frT w₁ τ =
+    have z2 : ∀ τ, FockPos.zCo θ frS frT w₁ τ =
         ((U'.1.map (tauE D τ))ᴴ * Matrix.of (z τ) * U.1.map (tauE D τ) : Matrix _ _ ℂ) := fun τ => by
-      change (GlobalTheory.FockPos.frAt frT τ)⁻¹ * compAt θ τ w₁ * GlobalTheory.FockPos.frAt frS τ = _
+      change (FockPos.frAt frT τ)⁻¹ * compAt θ τ w₁ * FockPos.frAt frS τ = _
       have a1 : (star U'.1).map (tauE D τ) = (U'.1.map (tauE D τ))ᴴ := by
-        ext i j; exact GlobalTheory.FockCompare.tauE_star τ _
+        ext i j; exact FockCompare.tauE_star τ _
       rw [hw₁, compAt_mul, compAt_mul, s2, hMT, hMS, compAt_rat hθ, compAt_rat hθ, Matrix.map_mul, Matrix.map_mul, Matrix.map_mul,
         Matrix.map_mul, a1, (frAt_inv frT τ).1, (frAt_inv frS τ).1]
       have b1 := (frAt_inv frT τ).2.1
       have b2 := (frAt_inv frS τ).2.1
-      change _ * (GlobalTheory.FockPos.frAt frT τ * _ * _ * _ * (GlobalTheory.FockPos.frAt frS τ * _ * _)) * _ = _
+      change _ * (FockPos.frAt frT τ * _ * _ * _ * (FockPos.frAt frS τ * _ * _)) * _ = _
       simp only [Matrix.mul_assoc]
-      rw [b2, Matrix.mul_one, ← Matrix.mul_assoc _ (GlobalTheory.FockPos.frAt frS τ), b2, Matrix.one_mul,
-        ← Matrix.mul_assoc _ (GlobalTheory.FockPos.frAt frT τ), b1, Matrix.one_mul,
-        ← Matrix.mul_assoc _ (GlobalTheory.FockPos.frAt frT τ), b1, Matrix.one_mul]
-    have z3 : GlobalTheory.FockPos.zCo θ frS frT w₁ = Formalism.L2.KerInert.tPull D (tor0 D cc δ) U.1 U'.1 z := funext z2
-    have g1 : GlobalTheory.FockPos.gaussO θ frS frT w₁ = GlobalTheory.FockPos.gaussO θ frS frT w := by
-      unfold GlobalTheory.FockPos.gaussO
+      rw [b2, Matrix.mul_one, ← Matrix.mul_assoc _ (FockPos.frAt frS τ), b2, Matrix.one_mul,
+        ← Matrix.mul_assoc _ (FockPos.frAt frT τ), b1, Matrix.one_mul,
+        ← Matrix.mul_assoc _ (FockPos.frAt frT τ), b1, Matrix.one_mul]
+    have z3 : FockPos.zCo θ frS frT w₁ = Formalism.L2.KerInert.tPull D (tor0 D cc δ) U.1 U'.1 z := funext z2
+    have g1 : FockPos.gaussO θ frS frT w₁ = FockPos.gaussO θ frS frT w := by
+      unfold FockPos.gaussO
       rw [z1]
       congr 2
       refine Finset.sum_congr rfl fun τ _ => ?_
       rw [z2]
       exact sum_norm_sq_unitary (Matrix.of (z τ)) (map_unitary τ U) (map_unitary τ U')
-    have g0 : GlobalTheory.FockPos.gaussO θ frS frT w ≠ 0 := Complex.exp_ne_zero _
+    have g0 : FockPos.gaussO θ frS frT w ≠ 0 := Complex.exp_ne_zero _
     rw [hr w₁ t1, hr' w s1, g1, z1, z3, e1] at h0
     beta_reduce at h0
     rw [Formalism.L2.KerInert.PullbackComparison.tPull_smul]
@@ -411,7 +411,7 @@ private theorem arith {N N' : ℕ} (U : Matrix.unitaryGroup (Fin N) D.host.E) (U
       (∀ τ, NormOne lam (tauE D τ U.1.det)) → (∀ τ, NormOne lam (tauE D τ U'.1.det)) → NormOne lam c) :
     Mod1All c ∧ ‖c‖ = 1 ∧ ∀ (M : Submodule (𝓞 D.host.E) (Fin N → D.host.E)) (M' : Submodule (𝓞 D.host.E) (Fin N' → D.host.E))
       (q : ℕ) [Fact q.Prime], EqAt D q M (stdL D N) → EqAt D q M' (stdL D N') →
-        EqAt D q (SDLat.smulLat U.1 M) (stdL D N) → EqAt D q (SDLat.smulLat U'.1 M') (stdL D N') → GlobalTheory.MovedKappaEx.UnitAt q c := by
+        EqAt D q (SDLat.smulLat U.1 M) (stdL D N) → EqAt D q (SDLat.smulLat U'.1 M') (stdL D N') → MovedKappaEx.UnitAt q c := by
   have hc : ∀ σ : Qbar →+* ℂ, NormOne σ c := fun σ =>
     h ℂ σ (fun τ => normOne_emb σ _ _ (norm_det_complex U)) fun τ => normOne_emb σ _ _ (norm_det_complex U')
   refine ⟨⟨(hc (algebraMap Qbar ℂ)).1, fun σ => (hc σ).2⟩, (hc (algebraMap Qbar ℂ)).2, fun M M' q _ a1 a2 a3 a4 lam => ?_⟩
@@ -419,18 +419,18 @@ private theorem arith {N N' : ℕ} (U : Matrix.unitaryGroup (Fin N) D.host.E) (U
     fun τ => normOne_emb lam _ _ (norm_det_padic U' a2 a4)
   rw [lamC, dite_eq_left h3]
   exact h4
-theorem fock_jetTheta_rational : _root_.GlobalTheory.FunPr.ThetaLocalInputs → (∀ D, GlobalTheory.NormSum.Inp D) → ∀ {D : D7} {Γ : Type} [Group Γ] [Fintype Γ] {Pl0 T : Type}
+theorem fock_jetTheta_rational : FunPr.ThetaLocalInputs → (∀ D, NormSum.Inp D) → ∀ {D : D7} {Γ : Type} [Group Γ] [Fintype Γ] {Pl0 T : Type}
     {A : FamIn D.what₂.LL Γ Pl0 T D.R.m} {Ks : Type} [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] {R : RealDat D A Ks}
     (ch : Choice R), ch.Is → ∀ (p : Pair T), DefPair D.R.m p → ∀ (x : FinPt ch.G p.small) (y : FinPt ch.G p.big)
-    (Θ : VC D (ch.G.pS p).rank (ch.G.pT p).rank → ℂ), Differentiable ℂ Θ → GlobalTheory.RatMoveJets.JetTh ch p x y Θ →
+    (Θ : VC D (ch.G.pS p).rank (ch.G.pT p).rank → ℂ), Differentiable ℂ Θ → RatMoveJets.JetTh ch p x y Θ →
     ∀ (r : FinPt ch.G p.small) (r' : FinPt ch.G p.big) (U : Matrix.unitaryGroup (Fin (ch.G.V p.small).rank) D.host.E)
       (U' : Matrix.unitaryGroup (Fin (ch.G.V p.big).rank) D.host.E),
-    GlobalTheory.RatMoveJets.RatCoord _ (ch.S.N.fr p.small) r U → GlobalTheory.RatMoveJets.RatCoord _ (ch.S.N.fr p.big) r' U' →
+    RatMoveJets.RatCoord _ (ch.S.N.fr p.small) r U → RatMoveJets.RatCoord _ (ch.S.N.fr p.big) r' U' →
     ∃ ε : ℂ, Mod1All ε ∧ (∀ (q : ℕ) [Fact q.Prime],
-        EqAt D q (GlobalTheory.SumSize.latAt ch.S.toGridChoice p.small x) (stdL D _) → EqAt D q (GlobalTheory.SumSize.latAt ch.S.toGridChoice p.big y) (stdL D _) →
-        EqAt D q (GlobalTheory.SumSize.latAt ch.S.toGridChoice p.small (r * x)) (stdL D _) → EqAt D q (GlobalTheory.SumSize.latAt ch.S.toGridChoice p.big (r' * y)) (stdL D _) →
-        GlobalTheory.MovedKappaEx.UnitAt q ε) ∧
-      GlobalTheory.RatMoveJets.JetTh ch p (r * x) (r' * y) (fun z => ε * Θ (Formalism.L2.KerInert.tPull D (tor0 D D.host.ccK ch.S.Z.δ) (GlobalTheory.RatMoveJets.srcU p U U').1 (GlobalTheory.RatMoveJets.tgtU p U U').1 z)) := by
+        EqAt D q (SumSize.latAt ch.S.toGridChoice p.small x) (stdL D _) → EqAt D q (SumSize.latAt ch.S.toGridChoice p.big y) (stdL D _) →
+        EqAt D q (SumSize.latAt ch.S.toGridChoice p.small (r * x)) (stdL D _) → EqAt D q (SumSize.latAt ch.S.toGridChoice p.big (r' * y)) (stdL D _) →
+        MovedKappaEx.UnitAt q ε) ∧
+      RatMoveJets.JetTh ch p (r * x) (r' * y) (fun z => ε * Θ (Formalism.L2.KerInert.tPull D (tor0 D D.host.ccK ch.S.Z.δ) (RatMoveJets.srcU p U U').1 (RatMoveJets.tgtU p U U').1 z)) := by
   intro hP hI D Γ _ _ Pl0 T A Ks _ _ _ R ch hch p hp x y Θ hΘ hJ r r' U U' hU hU'
   have hθ := ch.W.θ_is
   have hv := _root_.GlobalTheory.T.twisted_moved_vacuum_integral hP hI ch hch p hp x y
@@ -454,8 +454,8 @@ theorem fock_jetTheta_rational : _root_.GlobalTheory.FunPr.ThetaLocalInputs → 
     have hT := ch.S.N.fr_on (.top (j + 1)) hj1
     have cS := ch.W.cart_is (.top j) (by show j ≤ D.R.m; omega)
     have cT := ch.W.cart_is (.top (j + 1)) hj1
-    have eS := GlobalTheory.FockPos.cart_one _ hS cS
-    have eT := GlobalTheory.FockPos.cart_one _ hT cT
+    have eS := FockPos.cart_one _ hS cS
+    have eT := FockPos.cart_one _ hT cT
     have hW := ch.W.om_is (.top t j) hj1
     change IsVacO _ _ _ _ (ch.W.cart (.top j)) (ch.W.cart (.top (j + 1))) _ _ _ at hv hv'
     change ∀ k, pureTensorO _ _ _ _ (ch.W.cart (.top j)) (ch.W.cart (.top (j + 1))) _ _ _ _ _ = _ at hJ
@@ -474,8 +474,8 @@ theorem fock_jetTheta_rational : _root_.GlobalTheory.FunPr.ThetaLocalInputs → 
     have hT := ch.S.N.fr_on (.grid i D.R.m) ⟨by omega, rfl⟩
     have cS := ch.W.cart_is (.grid (i + 1) D.R.m) ⟨hi, le_rfl⟩
     have cT := ch.W.cart_is (.grid i D.R.m) ⟨by omega, le_rfl⟩
-    have eS := GlobalTheory.FockPos.cart_one _ hS cS
-    have eT := GlobalTheory.FockPos.cart_one _ hT cT
+    have eS := FockPos.cart_one _ hS cS
+    have eT := FockPos.cart_one _ hT cT
     have hW := ch.W.om_is (.chi i D.R.m) ⟨hi, le_rfl⟩
     have hj := fun f => GlobalTheory.T.fockVector_negHermitianSpace_conj_monomial ch.W.ψ ch.W.θ (ch.G.V (.grid (i + 1) D.R.m)) (ch.G.V (.grid i D.R.m))
       (ch.W.cart (.grid (i + 1) D.R.m)) (ch.W.cart (.grid i D.R.m)) (ch.S.N.frC (.grid (i + 1) D.R.m))
