@@ -37,8 +37,18 @@ def hookDen {l : ℕ} (a : Fin l → ℕ) : ℚ :=
 def hookProd {l : ℕ} (a : Fin l → ℕ) : ℚ :=
   (∏ i : Fin l, ((a i + (l - ((i : ℕ) + 1))).factorial : ℚ)) / hookDen a
 
+def HookNorm : Prop :=
+  ∀ (n l : ℕ) (h : l ≤ n) (a : Fin l → ℕ), Antitone a →
+    Formalism.E.fock (delTop h a) (delTop h a) = ((hookProd a : ℚ) : ℂ)
 
 
+open MvPolynomial in
+theorem _root_.GlobalTheory.IndefiniteRowSideFullHecke.CornerMinors.nextPart_le {l : ℕ} {a : Fin l → ℕ} (ha : Antitone a) (i : Fin l) :
+    _root_.GlobalTheory.IndefiniteRowSideFullHecke.CornerMinors.nextPart a i ≤ a i := by
+  unfold _root_.GlobalTheory.IndefiniteRowSideFullHecke.CornerMinors.nextPart
+  split_ifs with h
+  · exact ha (show i ≤ (⟨i + 1, h⟩ : Fin l) from Fin.le_def.mpr (Nat.le_succ _))
+  · exact Nat.zero_le _
 
 open MvPolynomial in
 theorem _root_.GlobalTheory.IndefiniteRowSideFullHecke.CornerMinors.hookDen_pos {l : ℕ} {a : Fin l → ℕ} (ha : Antitone a) :
