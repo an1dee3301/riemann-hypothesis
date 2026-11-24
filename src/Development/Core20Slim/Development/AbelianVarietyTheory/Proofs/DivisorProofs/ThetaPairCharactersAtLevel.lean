@@ -71,6 +71,11 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 namespace GlobalTheory.AdTh.RecPair
 
+theorem coe_eq_of_frame {D : D7} {V : HSp D} {β} {Λ : Submodule (𝓞 D.host.E) (Fin V.rank → D.host.E)}
+    (h : IsSDFrame V β Λ 1) : (Λ : Set (Fin V.rank → D.host.E)) = L0c D V := by
+  obtain ⟨c, -, -, -, h1, h2⟩ := h
+  simp only [one_pow, Nat.cast_one, one_smul] at h1 h2
+  exact Set.ext fun x => ⟨h2 x, h1 x⟩
 
 theorem selfDual_of_coe {D : D7} {V : HSp D} {Λ : Submodule (𝓞 D.host.E) (Fin V.rank → D.host.E)}
     (h : (Λ : Set (Fin V.rank → D.host.E)) = L0c D V) : IsSelfDualC V Λ := by
