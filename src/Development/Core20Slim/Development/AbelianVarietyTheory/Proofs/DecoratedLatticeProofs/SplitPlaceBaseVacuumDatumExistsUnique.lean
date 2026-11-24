@@ -135,7 +135,12 @@ theorem dualPair {ψ : AddChar (AF D.host.F) ℂ} (hψ : IsStdChar D ψ (-1)) {S
     have := (idem_smul_mem hε he' heε' hky).1
     rwa [smul_comm, (mem_half S T).1 hy] at this
 
+theorem heisO_zero_fun (ψ : AddChar (AF D.host.F) ℂ) (S T : HSp D) (u : WO S T) : heisO ψ S T u 0 = 0 := by
+  funext t; simp [heisO]
 
+theorem isLatVac_zero (ψ : AddChar (AF D.host.F) ℂ) (S T : HSp D) (Λ : AddSubgroup (WO S T)) :
+    IsLatVac (heisO ψ S T) Λ 0 :=
+  ⟨fun u _ => heisO_zero_fun ψ S T _, fun _ _ u _ _ => heisO_zero_fun ψ S T u⟩
 
 
 

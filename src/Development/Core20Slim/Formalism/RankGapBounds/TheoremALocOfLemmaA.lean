@@ -19,6 +19,9 @@ def tensSub {k : Type} [CommRing k] {ι : Type} {A : ι → Type} [∀ i, AddCom
   LinearMap.range (PiTensorProduct.map fun i => (B i).subtype)
 
 
+def locSet {T : Type} [CommRing T] {M : Type} [AddCommGroup M] [Module T M]
+    (S : Submonoid T) (N : Set M) : Set (LocalizedModule S M) :=
+  {y | ∃ x ∈ N, ∃ s : S, LocalizedModule.mk x s = y}
 
 
 end Formalism.RankGapBounds.FormsTensorLocalization
