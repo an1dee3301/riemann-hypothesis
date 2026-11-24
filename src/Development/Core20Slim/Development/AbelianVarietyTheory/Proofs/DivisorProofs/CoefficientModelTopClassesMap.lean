@@ -1,0 +1,122 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.EmbLLMem
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.PairIntAt
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.HighestWeightBelow
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.TaylorCoeffConjugateSeriesStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.FoundationProofs.CmThetaNormBoundHypothesesSatisfiedStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.FoundationProofs.LatticeUnitNormSqNonneg
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.IntegralJAndAlgebraicData
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ThetaVacuaConjugatesCmPoints
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FockVacEqJets
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsTwoTorsionCMPointAllConjugates
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.JetOperatorCharacterScaledTableStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.JetOperatorRationalFormConjEqConjTableStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsAlgebraicNumbersExtensionCurveFieldConjLatStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ThetaCombinationJetsAlgebraicConjEqConjSeriesStatement
+public import Development.AbelianVarietyTheory.Definitions.Divisors.BasePlaceNotMemChiGridBadPlaces
+public import Development.AbelianVarietyTheory.Definitions.Divisors.KernelNormConstantSpec
+public import Formalism.LocalRingCardinality.DataCoeff
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.LocalRingCardinality.DataRows
+public import Formalism.LocalRingCardinality.DataSpaces
+public import Formalism.LocalRingCardinality.DataTheta
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
+public import Formalism.LocalToGlobal.Divisibility.CoefMod
+public import Formalism.LocalToGlobal.IndefiniteReal.LinksDefs
+public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
+public import Formalism.LocalToGlobal.KernelLattices.ThDistC
+public import Formalism.SharpRestriction.GlobalSchurBounds.GL3Theta
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.IsDiscriminantTwelfthRootOfIdealLattice
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
+public import Init.Core
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.BigOperators.Finsupp.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Mathlib.Algebra.Field.Subfield.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Nat.Defs
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.Nat
+public import Mathlib.Algebra.GroupWithZero.NeZero
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.MonoidAlgebra.Defs
+public import Mathlib.Algebra.MonoidAlgebra.Module
+public import Mathlib.Algebra.MvPolynomial.Basic
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Finsupp.Basic
+public import Mathlib.Data.Finsupp.Defs
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Set.Defs
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic
+
+@[expose] public section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR Formalism.IndefR.Datum Formalism.IndefR.Links Formalism.L2.DIV
+open IsDedekindDomain NumberField Matrix GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.RowTest GlobalTheory.RowClaim GlobalTheory.TestLat
+open Formalism.MainNotions.TaylorLogMetric Formalism.MainNotions.StandardLatticesGL3 GlobalTheory.SumSize GlobalTheory.KerConjMean
+
+noncomputable section
+
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+namespace GlobalTheory.KerConjTransport
+
+theorem kkMap_top_eq {D : D7} {T : Type} {L : LevCh D T} {sc : Consts} {G : GridData L sc} {W : G.Weil} {U : Set T}
+    {N : Std G U} (Z : Normal W N) (t : T) (j : ℕ) (d : FinDatum G t (.top t j)) (x : FinPt G (Pair.top t j).small)
+    (y : FinPt G (Pair.top t j).big) (Hf : VC D (G.pS (Pair.top t j)).rank (G.pT (Pair.top t j)).rank → ℂ)
+    (hJ : Formalism.L2.Ker.JetInVV ℂ (wt G (Pair.top t j).small) (wt G (Pair.top t j).big) (nuEnd G (.top t j)))
+    (hper : ∀ τ : D.what₂.Tau, period Z.δ τ ≠ 0)
+    (hjet : ∀ mon, jetTab W N.frC (.top t j) (Z.vec d) (x * N.u _) (y * N.u _) mon = Z.c0 (.top t j) * opp (.top t j : Pair T)
+       (((mon.mapDomain (fvar G (.top t j))).prod fun v e => period Z.δ v.1 ^ e) *
+         GL3Theta.applyAt0 D (MvPolynomial.monomial (mon.mapDomain (fvar G (.top t j))) 1) Hf)) :
+    Z.kkMap 1 d x y = Formalism.L2.Ker.jetOp (wt G (Pair.top t j).small) (wt G (Pair.top t j).big)
+      (fun m => GL3Theta.applyAt0 D (MvPolynomial.monomial m 1) Hf) (nuEnd G (.top t j)) := by
+  have e1 : jetTab W N.frC (.top t j) (Z.vec d) (x * N.u _) (y * N.u _) = fun mon => (Z.c0 (.top t j) : ℂ) *
+      ((mon.prod fun v e => period Z.δ v.1 ^ e) * GL3Theta.applyAt0 D (MvPolynomial.monomial mon 1) Hf) := by
+    funext mon
+    rw [hjet mon, show fvar G (Pair.top t j) = id from rfl, Finsupp.mapDomain_id]
+    rfl
+  unfold Normal.kkMap fockComp
+  rw [e1, GlobalTheory.T.jetOperator_characterScaledTable _ _ _ _ _ _ hJ, smul_smul]
+  have hs : Z.scal 1 (Pair.top t j) * ((Z.c0 (Pair.top t j) : ℂ) *
+      ∏ τ, period Z.δ τ ^ ∑ i, (wt G (Pair.top t j).big τ).natW i) = 1 := by
+    unfold Normal.scal GlobalTheory.FunObj.fockDeg
+    simp only [opp, RingHom.id_apply, Pi.one_apply, one_div]
+    rw [mul_mul_mul_comm, ← Finset.prod_mul_distrib]
+    simp only [← mul_pow, inv_mul_cancel₀ (hper _), one_pow, Finset.prod_const_one, mul_one]
+    simp
+  rw [hs, one_smul]
+
+end GlobalTheory.KerConjTransport
+
+end
