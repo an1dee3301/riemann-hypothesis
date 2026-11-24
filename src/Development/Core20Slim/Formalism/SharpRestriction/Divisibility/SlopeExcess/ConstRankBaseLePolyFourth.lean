@@ -135,6 +135,8 @@ theorem x_le_k (h : SizeK L) : L.sc.x ≤ D.R.k := by
   exact this.trans h.1
 
 
+theorem a_nonneg : 0 ≤ L.sc.a := by
+  unfold Scale.a; exact mul_nonneg (sc_x_pos L).le (by linarith [one_le_b L])
 
 
 

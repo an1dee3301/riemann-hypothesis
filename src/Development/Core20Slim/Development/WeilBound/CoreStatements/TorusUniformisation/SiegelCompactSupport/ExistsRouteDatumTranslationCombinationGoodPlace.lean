@@ -1049,6 +1049,10 @@ theorem AE_ext (h : IsCMExt F E σ) (t : E →ₐ[F] Fv F v) {y z : AE F E} (h0 
   rw [sub_smul, sub_smul, this, one_smul, one_smul] at h0
   exact sub_left_injective h0
 
+theorem mat_ext (h : IsCMExt F E σ) (t : E →ₐ[F] Fv F v) {m n : Type} {y z : Matrix m n (AE F E)}
+    (h0 : (1 - ep v) • y = (1 - ep v) • z) (h1 : y.map (piW t) = z.map (piW t))
+    (h2 : y.map (piW (t.comp σ)) = z.map (piW (t.comp σ))) : y = z :=
+  Matrix.ext fun i j => AE_ext h t (congrFun (congrFun h0 i) j) (congrFun (congrFun h1 i) j) (congrFun (congrFun h2 i) j)
 
 def spM (h : IsCMExt F E σ) (t : E →ₐ[F] Fv F v) {m n : Type} (A B : Matrix m n (Fv F v)) : Matrix m n (AE F E) :=
   of fun i j => tensAt E v ((splitAlgEquiv h t).symm (A i j, B i j))

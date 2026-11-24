@@ -1,0 +1,57 @@
+module
+
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.DiscreteSpectrumResidualClassification
+public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.InfClassAt
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.DictAt
+public import Development.AbelianVarietyTheory.Definitions.Divisors.DiscreteSeriesHermitianUnique
+public import Development.AbelianVarietyTheory.Definitions.Foundations.NormSumPairRankZeroOfCurveCoordNorm
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.DictionarySizeBound
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.TwistPlacesOffPrimeQZero
+public import Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.NormSmall
+public import Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.ThetaIntegralsAgree
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.CuspAlongSmoothRows
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.ToricSymbols
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.BernsteinUnitaryProductIrreducible
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.TwistedDictionaryEventuallyLarge
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.ExistsMatchOver
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.MemHalfCosetSelf
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.FormulaAt
+public import Formalism.LocalRingCardinality.DataParams₂
+public import Formalism.LocalRingCardinality.DataRows
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.Divisibility.LiftLat
+public import Formalism.LocalToGlobal.IndefiniteReal.LinksDefs
+public import Init.Core
+public import Init.Data.Zero
+public import Init.Prelude
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.NumberTheory.NumberField.Basic
+
+@[expose] public section
+
+section
+open GlobalTheory.SumSize GlobalTheory.RowClaim
+namespace GlobalTheory.SumSize
+theorem sum_size_dictionary_of_local_bounds (hP : FunPr.ThetaLocalInputs) (hI : ∀ D, NormSum.Inp D) : DictK := by
+  obtain ⟨CF0, h⟩ := _root_.GlobalTheory.T.twisted_dictionary_correspondence hP hI
+  refine ⟨CF0, fun CF hCF => ⟨0, fun ε C _ => ?_⟩⟩
+  obtain ⟨x₀, hx⟩ := h ε CF hCF
+  exact ⟨x₀, fun D large₂ he hx0 Γ _ _ Pl0 T A Ks _ _ _ R F hS ch hIs hAt _ =>
+    hx D large₂ he hx0 Γ Pl0 T A Ks R F hS ch hIs hAt⟩
+end GlobalTheory.SumSize
+end
+
+section
+open GlobalTheory.SumSize GlobalTheory.RowClaim
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.sum_size_dictionary : _root_.GlobalTheory.FunPr.ThetaLocalInputs → (∀ D, GlobalTheory.NormSum.Inp D) → DictK := by
+  first | exact @_root_.GlobalTheory.SumSize.sum_size_dictionary_of_local_bounds | exact _root_.GlobalTheory.SumSize.sum_size_dictionary_of_local_bounds | (intros; apply _root_.GlobalTheory.SumSize.sum_size_dictionary_of_local_bounds <;> assumption)
+end
