@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.GlobalZetaSplit
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdelePoissonUniform
 public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.InfiniteProjInfiniteEmbeddingOfNe
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.HeckeChar
@@ -36,6 +37,8 @@ variable {K : Type*} [Field K] [NumberField K]
 
 open IdeleGroup
 
+def adelicTheta (F : 𝔸[K] → ℂ) (a : IdeleGroup K) : ℂ :=
+  ∑' ξ : K, F (a • algebraMap K 𝔸[K] ξ)
 
 
 
@@ -53,7 +56,13 @@ open IdeleGroup
 
 
 
+def thetaIntegrand (w : InfinitePlace K) (F : 𝔸[K] → ℂ) (χ : HeckeCharacter K)
+    (t : {r : ℝ // 0 < r}) (u : normOneSubgroup K) : ℂ :=
+  adelicTheta F (moduleSection w t * (u : IdeleGroup K)) * (χ.toIdele (u : IdeleGroup K) : ℂ)
 
+def thetaIntegral (w : InfinitePlace K) (F : 𝔸[K] → ℂ) (χ : HeckeCharacter K)
+    (t : {r : ℝ // 0 < r}) : ℂ :=
+  ∫ u in normOneFundamentalDomain K, thetaIntegrand w F χ t u ∂normOneMeasure K
 
 
 
