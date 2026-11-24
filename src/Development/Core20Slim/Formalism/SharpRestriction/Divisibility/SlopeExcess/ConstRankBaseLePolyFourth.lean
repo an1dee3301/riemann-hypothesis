@@ -134,6 +134,7 @@ theorem x_le_k (h : SizeK L) : L.sc.x ≤ D.R.k := by
     unfold szTh; linarith [L.sc.eps_lt]
   exact this.trans h.1
 
+theorem x_le (h : SizeK L) : L.sc.x ≤ szPol L := (x_le_k L h).trans (k_le L)
 
 theorem a_nonneg : 0 ≤ L.sc.a := by
   unfold Scale.a; exact mul_nonneg (sc_x_pos L).le (by linarith [one_le_b L])
@@ -144,6 +145,10 @@ theorem a_nonneg : 0 ≤ L.sc.a := by
 
 variable {L}
 
+theorem n_pos (hN : SizeN L) : 1 ≤ (D.R.n : ℝ) := by
+  have h := lt_of_lt_of_le (Real.rpow_pos_of_pos (sc_x_pos L) _) hN.1
+  have : 0 < D.R.n := by exact_mod_cast h
+  exact_mod_cast this
 
 theorem f_eq : (D.R.f : ℝ) = 2 * D.R.n := by unfold Ranks.f; push_cast; ring
 
@@ -159,16 +164,59 @@ theorem delta1_le : L.sc.delta1 ≤ 1 := by
   exact Real.rpow_le_one_of_one_le_of_nonpos L.sc.one_lt_alt.le (by linarith [L.sc.eps_pos])
 
 
+theorem xth_le : L.sc.x ^ szTh L ≤ L.sc.L := by
+  unfold Scale.L szTh
+  apply Real.rpow_le_rpow_of_exponent_le L.sc.one_lt_alt.le
+  linarith [L.sc.eps_pos]
 
 
 
 
 
 
+theorem q_pos (hQD : SizeQD L) : 1 < (D.host.q : ℝ) := by
+  have h := lt_of_lt_of_le (Real.rpow_pos_of_pos (sc_x_pos L) _) hQD.1
+  by_contra hc; replace hc := not_lt.1 hc
+  have : Real.log (D.host.q : ℝ) ≤ 0 := Real.log_nonpos (Nat.cast_nonneg _) hc
+  linarith
 
+theorem d_pos (hQD : SizeQD L) : 1 < (D.host.d : ℝ) := by
+  have h := lt_of_lt_of_le (Real.rpow_pos_of_pos (sc_x_pos L) _) hQD.2.2.2.1
+  by_contra hc; replace hc := not_lt.1 hc
+  have : Real.log (D.host.d : ℝ) ≤ 0 := Real.log_nonpos (Nat.cast_nonneg _) hc
+  linarith
 
+theorem log_rdE_bounds (hN : SizeN L) (hQD : SizeQD L) :
+    0 ≤ Real.log D.host.rdE ∧ Real.log D.host.rdE ≤ 2 * szPol L := by
+  have hq := q_pos hQD; have hd := d_pos hQD
+  obtain ⟨-, -, hq2, -, hd2, -, hr1, -⟩ := hQD
+  have hn := n_pos hN
+  refine ⟨Real.log_nonneg hr1, ?_⟩
+  have e1 := UpperTheory.Ram.Rd.log_rdE_le D.host
+  have e2 : Real.log (D.R.n : ℝ) ≤ D.R.n := by
+    have := Real.log_le_sub_one_of_pos (show (0:ℝ) < D.R.n by positivity); linarith
+  have ex : L.sc.x ^ (L.sc.eps / 5 + szTh L) ≤ L.sc.L := by
+    unfold Scale.L szTh
+    apply Real.rpow_le_rpow_of_exponent_le L.sc.one_lt_alt.le
+    linarith [L.sc.eps_pos]
+  have := f_le L; have := L_le L; rw [f_eq] at *
+  linarith
 
+theorem La_bounds (hN : SizeN L) (hK : SizeK L) (hQD : SizeQD L) : 0 ≤ L.La ∧ L.La ≤ 4 * szPol L := by
+  obtain ⟨h0, h1⟩ := log_rdE_bounds hN hQD
+  have hr : 1 ≤ D.host.rdE := hQD.2.2.2.2.2.2.1
+  have hb := one_le_b L
+  have hx := L.sc.one_lt_alt
+  unfold SizeData₂.La Scale.a
+  rw [Real.log_mul (by positivity) (by positivity), Real.log_mul (by positivity) (by positivity)]
+  have lb : Real.log L.sc.b = L.sc.L := by unfold Scale.b; exact Real.log_exp _
+  rw [lb]
+  have lx0 : 0 ≤ Real.log L.sc.x := Real.log_nonneg hx.le
+  have lx1 : Real.log L.sc.x ≤ L.sc.x := (Real.log_le_sub_one_of_pos (by linarith)).trans (by linarith)
+  have := x_le L hK; have := L_le L; have := (sc_L_pos L).le
+  constructor <;> linarith
 
+theorem pow_mono_P {a b : ℕ} (h : a ≤ b) : szPol L ^ a ≤ szPol L ^ b := pow_le_pow_right₀ (one_le_szPol L) h
 
 
 theorem nV_one (hK : SizeK L) : 1 ≤ (D.R.nV : ℝ) := by
@@ -210,6 +258,8 @@ theorem nV_one (hK : SizeK L) : 1 ≤ (D.R.nV : ℝ) := by
 
 
 
+theorem poly_pow_mul_b_le_ninth {a : ℕ} (ha : a ≤ 9) : szPol L ^ a * L.sc.b ≤ szPol L ^ 9 * L.sc.b :=
+  mul_le_mul_of_nonneg_right (pow_mono_P ha) (by linarith [one_le_b L])
 
 
 
@@ -268,6 +318,24 @@ theorem _root_.Formalism.MainNotions.DIV.Proofs.szPol_le_rpow (hS : SizesAt L) (
   rw [hX] at hsum
   exact hsum.trans (h8.trans (le_of_eq (by ring_nf)))
 
+theorem _root_.Formalism.MainNotions.DIV.Proofs.bPol_le (hS : SizesAt L) (C : ℝ) (e : ℕ) (hx : max 9 C ≤ L.sc.x) :
+    C * szPol L ^ e * L.sc.b ≤ L.sc.x ^ ((e : ℝ) * (max L.Ct 5 + 3) + 1) * L.sc.b := by
+  have hx0 : 0 < L.sc.x := sc_x_pos L
+  have hx9 : 9 ≤ L.sc.x := (le_max_left _ _).trans hx
+  have hxC : C ≤ L.sc.x := (le_max_right _ _).trans hx
+  have hp := szPol_le_rpow hS hx9
+  have hP := one_le_szPol L
+  have hb := one_le_b L
+  have h1 : szPol L ^ e ≤ L.sc.x ^ ((e : ℝ) * (max L.Ct 5 + 3)) := by
+    calc szPol L ^ e ≤ (L.sc.x ^ (max L.Ct 5 + 3)) ^ e := pow_le_pow_left₀ (by linarith) hp e
+      _ = L.sc.x ^ ((e : ℝ) * (max L.Ct 5 + 3)) := by
+        rw [← Real.rpow_natCast, ← Real.rpow_mul hx0.le, mul_comm]
+  have h2 : C * szPol L ^ e ≤ L.sc.x * szPol L ^ e := mul_le_mul_of_nonneg_right hxC (by positivity)
+  have h3 : L.sc.x * szPol L ^ e ≤ L.sc.x * L.sc.x ^ ((e : ℝ) * (max L.Ct 5 + 3)) :=
+    mul_le_mul_of_nonneg_left h1 hx0.le
+  have h4 : L.sc.x * L.sc.x ^ ((e : ℝ) * (max L.Ct 5 + 3)) = L.sc.x ^ ((e : ℝ) * (max L.Ct 5 + 3) + 1) := by
+    rw [Real.rpow_add hx0, Real.rpow_one, mul_comm]
+  exact mul_le_mul_of_nonneg_right (h2.trans (h3.trans h4.le)) (by linarith)
 
 
 

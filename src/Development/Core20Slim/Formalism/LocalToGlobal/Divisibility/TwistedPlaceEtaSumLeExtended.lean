@@ -49,6 +49,7 @@ open Formalism.BasicNotions Formalism.MainNotions
 
 variable {D : D7} {G : Type} [Group G] [Fintype G] {Pl0 T : Type} {m : ℕ}
 
+def divSize (L : SizeData₂ D) (C : ℝ) : ℝ := C * L.sc.x ^ L.sc.eps * (L.B0 + L.Nc)
 
 variable {I0 Ty : Type}
 

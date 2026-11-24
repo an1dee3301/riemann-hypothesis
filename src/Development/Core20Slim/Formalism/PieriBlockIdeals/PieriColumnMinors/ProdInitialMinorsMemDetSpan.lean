@@ -4,6 +4,7 @@ public import Development.Core20Slim.Formalism.PieriBlockIdeals.StatementLA
 public import Formalism.GradedWeylDivisibility.FinalC
 public import Formalism.GradedWeylDivisibility.FockSpaceTableaux.LDlatLemmas
 public import Mathlib
+public import Development.Core20Slim.Formalism.PieriBlockIdeals.Statement
 public import Development.Core20Slim.Formalism.RankGapBounds.CloudMinFalse
 public import Formalism.GradedWeylDivisibility.DualWeylDominanceOf
 public import Formalism.GradedWeylDivisibility.FinalB

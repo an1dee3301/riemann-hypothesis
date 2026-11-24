@@ -54,6 +54,9 @@ theorem finE_mem_St_iff {V : HSp D} {β : GL (Fin V.rank) (EAf D)} {Λ : Submodu
   have e2 := GlobalTheory.LevSplit.ksph_iff V g
   exact e1.trans ⟨fun h => e2.2 ⟨hg, h⟩, fun h => (e2.1 h).2⟩
 
+theorem finE_mem_St_of_mem_levG {V : HSp D} {β : GL (Fin V.rank) (EAf D)} {Lv : LevDat D.host.E ℂ V.rank}
+    {g : GA D V} (hg : g ∈ levG V β Lv) : Formalism.IndefR.Lev.finE V g ∈ Formalism.L2.DIV.St β :=
+  Formalism.L2.DIV.parLev_St (Formalism.L2.DIV.lev_le_parLev hg.2)
 
 open Filter GlobalTheory.AdelicU
 

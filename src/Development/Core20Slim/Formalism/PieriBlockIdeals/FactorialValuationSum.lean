@@ -1,5 +1,6 @@
 module
 
+public import Development.Core20Slim.Formalism.PieriBlockIdeals.Statement
 public import Development.Core20Slim.Formalism.PieriBlockIdeals.StatementLD
 public import Development.Core20Slim.Formalism.PieriBlockIdeals.BranchingBoundLastGradedOneRow
 public import Init.Data.Cast

@@ -3,6 +3,7 @@ module
 public import Mathlib
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.TailRd
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.PairForm
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.UnitRatio
 public import Formalism.QuotientMetricDivisors.HermitianTwistDivisors.ReductionLemmaFirst
 
 @[expose] public section
