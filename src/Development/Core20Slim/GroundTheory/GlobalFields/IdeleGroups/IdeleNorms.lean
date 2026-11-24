@@ -2,133 +2,6 @@ module
 
 public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.InfiniteProjInfiniteEmbeddingOfNe
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Int.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.BigOperators.Finprod
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Subgroup.Ker
-public import Mathlib.Algebra.Group.Subgroup.Map
-public import Mathlib.Algebra.Group.TypeTags.Basic
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.Group.WithOne.Defs
-public import Mathlib.Algebra.GroupWithZero.Basic
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Units.Basic
-public import Mathlib.Algebra.GroupWithZero.WithZero
-public import Mathlib.Algebra.Notation.Pi.Basic
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Notation.Support
-public import Mathlib.Algebra.Order.AbsoluteValue.Basic
-public import Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset
-public import Mathlib.Algebra.Order.GroupWithZero.Basic
-public import Mathlib.Algebra.Order.GroupWithZero.Canonical
-public import Mathlib.Algebra.Order.Monoid.Defs
-public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
-public import Mathlib.Algebra.Order.Monoid.Unbundled.Defs
-public import Mathlib.Algebra.Order.Monoid.Unbundled.TypeTags
-public import Mathlib.Algebra.Order.Positive.Ring
-public import Mathlib.Algebra.Order.Ring.Defs
-public import Mathlib.Algebra.Order.Ring.Unbundled.Basic
-public import Mathlib.Algebra.Order.Star.Basic
-public import Mathlib.Algebra.Order.Star.Real
-public import Mathlib.Algebra.Quotient
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Int.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.WithAbs
-public import Mathlib.Analysis.Normed.Group.Basic
-public import Mathlib.Analysis.Normed.Group.Continuity
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.Normed.Ring.WithAbs
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.Finite.Defs
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.Real.Star
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Fintype.BigOperators
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Int.Order.Basic
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Finite.Basic
-public import Mathlib.Data.Set.Operations
-public import Mathlib.GroupTheory.Coset.Defs
-public import Mathlib.GroupTheory.QuotientGroup.Defs
-public import Mathlib.Logic.Equiv.Defs
-public import Mathlib.Logic.Function.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.Completion.FinitePlace
-public import Mathlib.NumberTheory.NumberField.Completion.InfinitePlace
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
-public import Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings
-public import Mathlib.NumberTheory.NumberField.ProductFormula
-public import Mathlib.Order.Defs.Lattice
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Filter.Cofinite
-public import Mathlib.Order.Filter.Defs
-public import Mathlib.Order.Lattice
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
-public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-public import Mathlib.RingTheory.Henselian
-public import Mathlib.RingTheory.LocalRing.Defs
-public import Mathlib.RingTheory.RegularLocalRing.Defs
-public import Mathlib.RingTheory.SimpleRing.Basic
-public import Mathlib.RingTheory.SimpleRing.Principal
-public import Mathlib.RingTheory.Valuation.Basic
-public import Mathlib.RingTheory.Valuation.ValuationSubring
-public import Mathlib.Tactic.Linarith.Lemmas
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
-public import Mathlib.Topology.Algebra.Constructions
-public import Mathlib.Topology.Algebra.Group.Quotient
-public import Mathlib.Topology.Algebra.Monoid
-public import Mathlib.Topology.Algebra.Monoid.Defs
-public import Mathlib.Topology.Algebra.Ring.Basic
-public import Mathlib.Topology.Algebra.Ring.Real
-public import Mathlib.Topology.Algebra.Valued.NormedValued
-public import Mathlib.Topology.Algebra.Valued.ValuationTopology
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.Continuous
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.Defs.Induced
-public import Mathlib.Topology.GDelta.MetrizableSpace
-public import Mathlib.Topology.Maps.Basic
-public import Mathlib.Topology.MetricSpace.Basic
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.Metrizable.Uniformity
-public import Mathlib.Topology.Neighborhoods
-public import Mathlib.Topology.Separation.Basic
-public import Mathlib.Topology.Separation.GDelta
-public import Mathlib.Topology.Separation.Regular
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -271,7 +144,43 @@ theorem ideleModule_infiniteEmbedding (w : InfinitePlace K) (z : (w.Completion)�
   · simp [infiniteAdeleSingle_apply, Pi.mulSingle_eq_of_ne hu]
   · simp [infiniteAdeleSingle_apply]
 
+theorem ideleModule_finiteEmbedding (v : HeightOneSpectrum (𝓞 K)) (z : (v.adicCompletion K)ˣ) :
+    (ideleModule K (finiteEmbedding v z) : ℝ) = ‖(z : v.adicCompletion K)‖ := by
+  rw [ideleModule_eq, coe_finiteEmbedding]
+  have h1 : ∏ w : InfinitePlace K,
+      ‖((1 : InfiniteAdeleRing K), finiteAdeleSingle v (z : v.adicCompletion K)).1 w‖ ^ w.mult
+      = 1 :=
+    Finset.prod_eq_one fun w _ ↦ (by rw [norm_one, one_pow] : ‖(1 : w.Completion)‖ ^ w.mult = 1)
+  rw [h1, one_mul]
+  refine (finprod_eq_single _ v fun u hu ↦ ?_).trans ?_
+  · simp [finiteAdeleSingle_apply_of_ne hu]
+  · simp
 
+theorem ideleModule_surjective : Function.Surjective (ideleModule K) := by
+  obtain ⟨w⟩ : Nonempty (InfinitePlace K) := inferInstance
+  rintro ⟨t, ht⟩
+  obtain ⟨z, hz0, hz⟩ : ∃ z : w.Completion, z ≠ 0 ∧ ‖z‖ ^ w.mult = t := by
+    rcases w.isReal_or_isComplex with hw | hw
+    · let e := InfinitePlace.Completion.ringEquivRealOfIsReal hw
+      refine ⟨e.symm t, (map_ne_zero_iff _ e.symm.injective).2 ht.ne', ?_⟩
+      have hn : ‖e.symm t‖ = ‖e (e.symm t)‖ := by
+        rw [InfinitePlace.Completion.ringEquivRealOfIsReal_apply]
+        exact ((InfinitePlace.Completion.isometry_extensionEmbeddingOfIsReal hw).norm_map_of_map_zero
+          (map_zero _) _).symm
+      rw [hn, RingEquiv.apply_symm_apply, Real.norm_of_nonneg ht.le]
+      simp [InfinitePlace.mult, hw]
+    · let e := InfinitePlace.Completion.ringEquivComplexOfIsComplex hw
+      refine ⟨e.symm (Real.sqrt t : ℂ), (map_ne_zero_iff _ e.symm.injective).2
+        (Complex.ofReal_ne_zero.2 (Real.sqrt_ne_zero'.2 ht)), ?_⟩
+      have hn : ‖e.symm (Real.sqrt t : ℂ)‖ = ‖e (e.symm (Real.sqrt t : ℂ))‖ := by
+        rw [InfinitePlace.Completion.ringEquivComplexOfIsComplex_apply]
+        exact ((InfinitePlace.Completion.isometry_extensionEmbedding w).norm_map_of_map_zero
+          (map_zero _) _).symm
+      have hw' : ¬ w.IsReal := InfinitePlace.not_isReal_iff_isComplex.2 hw
+      rw [hn, RingEquiv.apply_symm_apply, Complex.norm_real, Real.norm_of_nonneg (Real.sqrt_nonneg t)]
+      simp [InfinitePlace.mult, hw', Real.sq_sqrt ht.le]
+  refine ⟨infiniteEmbedding w (Units.mk0 z hz0), Subtype.ext ?_⟩
+  rw [ideleModule_infiniteEmbedding, Units.val_mk0, hz]
 
 theorem infiniteModule_diagonal (k : Kˣ) :
     infiniteModule (diagonal K k) = ∏ w : InfinitePlace K, w (k : K) ^ w.mult := by
@@ -328,6 +237,9 @@ theorem ideleModule_mk (x : IdeleGroup K) :
 theorem continuous_ideleModule : Continuous (ideleModule K) :=
   (QuotientGroup.isQuotientMap_mk _).continuous_iff.2 (IdeleGroup.continuous_ideleModule (K := K))
 
+theorem ideleModule_surjective : Function.Surjective (ideleModule K) := fun t ↦
+  let ⟨x, hx⟩ := IdeleGroup.ideleModule_surjective (K := K) t
+  ⟨mk K x, hx⟩
 
 def normOneSubgroup : Subgroup (IdeleClassGroup K) := (ideleModule K).ker
 

@@ -1,49 +1,6 @@
 module
 
 public import Mathlib
-public import Init.Core
-public import Init.Prelude
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Order.AbsoluteValue.Basic
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.WithAbs
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.Countable.Defs
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Data.Fintype.EquivFin
-public import Mathlib.Data.Set.BooleanAlgebra
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Operations
-public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
-public import Mathlib.MeasureTheory.MeasurableSpace.Basic
-public import Mathlib.MeasureTheory.MeasurableSpace.Constructions
-public import Mathlib.MeasureTheory.MeasurableSpace.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.Completion.InfinitePlace
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
-public import Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings
-public import Mathlib.Order.CompleteBooleanAlgebra
-public import Mathlib.Order.CompleteLattice.Defs
-public import Mathlib.Order.Defs.Lattice
-public import Mathlib.Order.Notation
-public import Mathlib.Order.SetNotation
-public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-public import Mathlib.Topology.Bases
-public import Mathlib.Topology.EMetricSpace.Defs
-public import Mathlib.Topology.MetricSpace.Basic
-public import Mathlib.Topology.MetricSpace.Isometry
-public import Mathlib.Topology.MetricSpace.ProperSpace
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Cauchy
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 

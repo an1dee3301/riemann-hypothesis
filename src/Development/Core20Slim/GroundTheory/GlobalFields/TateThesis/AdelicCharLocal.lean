@@ -2,121 +2,7 @@ module
 
 public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdelicChar
-public import Batteries.Classes.RatCast
 public import GroundTheory.GlobalFields.Adele.Approximation
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Int.Basic
-public import Init.Data.Rat.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.AffineMonoid.Basic
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Rat
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Rat
-public import Mathlib.Algebra.Group.AddChar
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Int.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Pi.Lemmas
-public import Mathlib.Algebra.Group.Prod
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Subsemigroup.Defs
-public import Mathlib.Algebra.Group.TypeTags.Basic
-public import Mathlib.Algebra.Group.WithOne.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.WithZero
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Torsion.Free
-public import Mathlib.Algebra.Notation.Pi.Basic
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Order.Archimedean.Real.Basic
-public import Mathlib.Algebra.Order.Floor.Defs
-public import Mathlib.Algebra.Order.GroupWithZero.Canonical
-public import Mathlib.Algebra.Order.Monoid.TypeTags
-public import Mathlib.Algebra.Order.Monoid.Unbundled.TypeTags
-public import Mathlib.Algebra.Order.Ring.Defs
-public import Mathlib.Algebra.Order.Ring.Int
-public import Mathlib.Algebra.Ring.CharZero
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Int.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Ring.Rat
-public import Mathlib.Algebra.Ring.Subring.Basic
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Analysis.Complex.Circle
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Group.Ultra
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Basic.Finite.Defs
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Finset.Empty
-public import Mathlib.Data.Finset.Insert
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Int.Order.Basic
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Prod.Basic
-public import Mathlib.Data.Rat.Cast.CharZero
-public import Mathlib.Data.Rat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Finite.Basic
-public import Mathlib.Data.Set.Operations
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.Completion.FinitePlace
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.Order.BooleanAlgebra.Basic
-public import Mathlib.Order.BooleanAlgebra.Set
-public import Mathlib.Order.Defs.Lattice
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Filter.Basic
-public import Mathlib.Order.Filter.Cofinite
-public import Mathlib.Order.Filter.Defs
-public import Mathlib.Order.Lattice
-public import Mathlib.Order.Notation
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Valuation
-public import Mathlib.RingTheory.DedekindDomain.Different
-public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-public import Mathlib.RingTheory.Ideal.Defs
-public import Mathlib.RingTheory.Trace.Defs
-public import Mathlib.RingTheory.Valuation.Basic
-public import Mathlib.RingTheory.Valuation.ValuationSubring
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Nonarchimedean.Basic
-public import Mathlib.Topology.Algebra.RestrictedProduct.Basic
-public import Mathlib.Topology.Algebra.RestrictedProduct.TopologicalSpace
-public import Mathlib.Topology.Algebra.Valued.NormedValued
-public import Mathlib.Topology.Algebra.Valued.ValuationTopology
-public import Mathlib.Topology.Algebra.Valued.WithVal
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.Constructions.SumProd
-public import Mathlib.Topology.Continuous
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.UniformSpace.Completion
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -203,6 +89,10 @@ def infinitePlaceIncl (w : InfinitePlace K) : w.Completion →+ 𝔸[K] :=
   ((AddMonoidHom.single (fun u : InfinitePlace K => u.Completion) w).prod 0 :
     w.Completion →+ InfiniteAdeleRing K × FiniteAdeleRing (𝓞 K) K)
 
+open Classical in
+theorem infinitePlaceIncl_fst (w : InfinitePlace K) (z : w.Completion) (u : InfinitePlace K) :
+    (infinitePlaceIncl w z).1 u = Pi.single (M := fun u : InfinitePlace K => u.Completion) w z u :=
+  rfl
 
 @[simp] theorem infinitePlaceIncl_snd (w : InfinitePlace K) (z : w.Completion) :
     (infinitePlaceIncl w z).2 = 0 := rfl
@@ -228,17 +118,40 @@ def localAdelicChar (v : HeightOneSpectrum (𝓞 K)) : AddChar (v.adicCompletion
   (adelicChar K).compAddMonoidHom (finitePlaceIncl v)
 
 
+variable (K) in
+def infiniteAdelicChar (w : InfinitePlace K) : AddChar w.Completion Circle :=
+  (adelicChar K).compAddMonoidHom (infinitePlaceIncl w)
 
 theorem localAdelicChar_apply (v : HeightOneSpectrum (𝓞 K)) (y : v.adicCompletion K) :
     localAdelicChar K v y = adelicChar K (finitePlaceIncl v y) := rfl
 
+theorem infiniteAdelicChar_apply' (w : InfinitePlace K) (z : w.Completion) :
+    infiniteAdelicChar K w z = adelicChar K (infinitePlaceIncl w z) := rfl
 
 theorem continuous_localAdelicChar (v : HeightOneSpectrum (𝓞 K)) :
     Continuous (localAdelicChar K v) :=
   (continuous_adelicChar (K := K)).comp (continuous_finitePlaceIncl v)
 
+theorem infiniteAdelicChar_apply (w : InfinitePlace K) (z : w.Completion) :
+    infiniteAdelicChar K w z = 𝐞 (-((w.mult : ℝ) * (extensionEmbedding w z).re)) := by
+  classical
+  rw [infiniteAdelicChar_apply', adelicChar_of_mem_invDifferentAdeles
+    (mem_invDifferentAdeles.mpr (by rw [infinitePlaceIncl_snd]; exact zero_mem _)),
+    infiniteTrace_apply, Finset.sum_eq_single w]
+  · rw [infinitePlaceIncl_fst, Pi.single_eq_same]
+  · intro u _ hu
+    rw [infinitePlaceIncl_fst, Pi.single_eq_of_ne hu, map_zero, Complex.zero_re, mul_zero]
+  · simp
 
+theorem infiniteAdelicChar_apply_of_isReal {w : InfinitePlace K} (hw : IsReal w)
+    (z : w.Completion) : infiniteAdelicChar K w z = 𝐞 (-extensionEmbeddingOfIsReal hw z) := by
+  rw [infiniteAdelicChar_apply, hw.mult_eq_one, ← extensionEmbeddingOfIsReal_apply hw,
+    Complex.ofReal_re, Nat.cast_one, one_mul]
 
+theorem infiniteAdelicChar_apply_of_isComplex {w : InfinitePlace K} (hw : IsComplex w)
+    (z : w.Completion) :
+    infiniteAdelicChar K w z = 𝐞 (-(2 * (extensionEmbedding w z).re)) := by
+  rw [infiniteAdelicChar_apply, hw.mult_eq_two, Nat.cast_ofNat]
 
 theorem addChar_map_finsetSum {ι A : Type*} [AddCommMonoid A] (χ : AddChar A Circle)
     (s : Finset ι) (f : ι → A) : χ (∑ i ∈ s, f i) = ∏ i ∈ s, χ (f i) := by
@@ -248,6 +161,13 @@ theorem addChar_map_finsetSum {ι A : Type*} [AddCommMonoid A] (χ : AddChar A C
   | insert a s ha ih =>
     rw [Finset.sum_insert ha, Finset.prod_insert ha, AddChar.map_add_eq_mul, ih]
 
+theorem adelicChar_infiniteAdeleInl (x : InfiniteAdeleRing K) :
+    adelicChar K (infiniteAdeleInl x) = ∏ w : InfinitePlace K, infiniteAdelicChar K w (x w) := by
+  rw [adelicChar_of_mem_invDifferentAdeles
+    (mem_invDifferentAdeles.mpr (by rw [infiniteAdeleInl_snd]; exact zero_mem _)),
+    infiniteAdeleInl_fst, infiniteTrace_apply, ← Finset.sum_neg_distrib, addChar_map_finsetSum]
+  refine Finset.prod_congr rfl fun w _ => ?_
+  rw [infiniteAdelicChar_apply]
 
 theorem coe_sub_adicCompletion (v : HeightOneSpectrum (𝓞 K)) (a b : K) :
     ((a - b : K) : v.adicCompletion K) = (a : v.adicCompletion K) - (b : v.adicCompletion K) := by
@@ -353,6 +273,51 @@ theorem forall_localAdelicChar_eq_one_iff_le (v : HeightOneSpectrum (𝓞 K))
   ⟨fun h x hx => (forall_localAdelicChar_mul_eq_one_iff v x).mp fun a ha => h _ (hM a ha x hx),
     fun h _ hx => localAdelicChar_eq_one_of_mem (h hx)⟩
 
+theorem adelicChar_eq_prod (x : 𝔸[K]) :
+    adelicChar K x = (∏ w : InfinitePlace K, infiniteAdelicChar K w (x.1 w)) *
+      ∏ᶠ v, localAdelicChar K v (x.2 v) := by
+  classical
+  have hS := Filter.eventually_cofinite.mp x.2.2
+  set S := hS.toFinset
+  have hmemS : ∀ u, u ∉ S → x.2 u ∈ u.adicCompletionIntegers K := fun u hu => by
+    have h := hu
+    simp only [S, Set.Finite.mem_toFinset, Set.mem_ofPred_eq, not_not] at h
+    exact h
+  obtain ⟨f, hfdef⟩ : ∃ f : FiniteAdeleRing (𝓞 K) K,
+      f = ∑ v ∈ S, finiteAdeleSingleAdd v (x.2 v) := ⟨_, rfl⟩
+  have hrest : x.2 - f ∈ finiteInvDifferent K := by
+    intro u
+    have hsum : f u = ∑ v ∈ S, finiteAdeleSingleAdd v (x.2 v) u := hfdef ▸
+      map_sum (RestrictedProduct.evalAddMonoidHom
+        (fun u : HeightOneSpectrum (𝓞 K) => u.adicCompletion K) u) _ S
+    show x.2 u - f u ∈ localInvDifferent u
+    rw [hsum]
+    by_cases hu : u ∈ S
+    · rw [Finset.sum_eq_single_of_mem u hu (fun v _ hv => finiteAdeleSingleAdd_apply_of_ne
+        (Ne.symm hv) _), finiteAdeleSingleAdd_apply_self, sub_self]
+      exact zero_mem _
+    · rw [Finset.sum_eq_zero (fun v hv => finiteAdeleSingleAdd_apply_of_ne
+        (by rintro rfl; exact hu hv) _), sub_zero]
+      exact mem_localInvDifferent_of_mem (hmemS u hu)
+  have hf : finiteAdeleInr f + finiteAdeleInr (x.2 - f) = finiteAdeleInr (K := K) x.2 := by
+    rw [← map_add (f := _), add_sub_cancel]
+  have hx : x = infiniteAdeleInl x.1 + finiteAdeleInr f + finiteAdeleInr (x.2 - f) := by
+    rw [add_assoc, hf, infiniteAdeleInl_add_finiteAdeleInr]
+  have h1 : adelicChar K (finiteAdeleInr (x.2 - f)) = 1 := by
+    rw [adelicChar_of_mem_invDifferentAdeles
+      (mem_invDifferentAdeles.mpr (by rw [finiteAdeleInr_snd]; exact hrest)),
+      finiteAdeleInr_fst, map_zero, neg_zero, AddChar.map_zero_eq_one]
+  have h2 : adelicChar K (finiteAdeleInr f) = ∏ v ∈ S, localAdelicChar K v (x.2 v) := by
+    set_option synthInstance.maxHeartbeats 100000 in
+      rw [hfdef, map_sum, addChar_map_finsetSum]
+    rfl
+  have h3 : ∏ᶠ v, localAdelicChar K v (x.2 v) = ∏ v ∈ S, localAdelicChar K v (x.2 v) := by
+    refine finprod_eq_prod_of_mulSupport_subset _ fun v hv => ?_
+    by_contra hvS
+    exact hv (localAdelicChar_eq_one_of_mem (mem_localInvDifferent_of_mem (hmemS v hvS)))
+  conv_lhs => rw [hx]
+  rw [AddChar.map_add_eq_mul, AddChar.map_add_eq_mul, h1, mul_one, h2, h3,
+    adelicChar_infiniteAdeleInl]
 
 end
 

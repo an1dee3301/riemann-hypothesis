@@ -3,195 +3,6 @@ module
 public import Mathlib
 public import GroundTheory.GlobalFields.Adele.Approximation
 public import Development.Core20Slim.Development.AutomorphicArithmetic.IntegralCasts.CapelliIdentities.InfiniteTraceAlgebraMap
-public import Batteries.Classes.RatCast
-public import Batteries.Logic
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Cast
-public import Init.Data.Int.Basic
-public import Init.Data.Int.Lemmas
-public import Init.Data.List.Basic
-public import Init.Data.Nat.Basic
-public import Init.Data.Rat.Basic
-public import Init.Data.Zero
-public import Init.Omega.Coeffs
-public import Init.Omega.Constraint
-public import Init.Omega.Int
-public import Init.Omega.LinearCombo
-public import Init.Prelude
-public import Init.PropLemmas
-public import Init.SimpLemmas
-public import Mathlib.Algebra.AffineMonoid.Basic
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Rat
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.CharZero.Defs
-public import Mathlib.Algebra.EuclideanDomain.Int
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Rat
-public import Mathlib.Algebra.Group.AddChar
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Int.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Basic
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Subgroup.Lattice
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Subsemigroup.Defs
-public import Mathlib.Algebra.Group.TypeTags.Basic
-public import Mathlib.Algebra.Group.WithOne.Defs
-public import Mathlib.Algebra.GroupWithZero.Basic
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Hom
-public import Mathlib.Algebra.GroupWithZero.NeZero
-public import Mathlib.Algebra.GroupWithZero.NonZeroDivisors
-public import Mathlib.Algebra.GroupWithZero.Units.Basic
-public import Mathlib.Algebra.GroupWithZero.WithZero
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.NatInt
-public import Mathlib.Algebra.Module.StablyFree.Basic
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Torsion.Free
-public import Mathlib.Algebra.NeZero
-public import Mathlib.Algebra.NoZeroSMulDivisors.Basic
-public import Mathlib.Algebra.NoZeroSMulDivisors.Defs
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Order.AbsoluteValue.Basic
-public import Mathlib.Algebra.Order.Archimedean.Real.Basic
-public import Mathlib.Algebra.Order.Floor.Defs
-public import Mathlib.Algebra.Order.GroupWithZero.Basic
-public import Mathlib.Algebra.Order.GroupWithZero.Canonical
-public import Mathlib.Algebra.Order.Monoid.TypeTags
-public import Mathlib.Algebra.Order.Monoid.Unbundled.TypeTags
-public import Mathlib.Algebra.Order.Ring.Defs
-public import Mathlib.Algebra.Order.Ring.Int
-public import Mathlib.Algebra.Ring.Basic
-public import Mathlib.Algebra.Ring.CharZero
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Equiv
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Int.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Ring.Rat
-public import Mathlib.Algebra.Ring.Subring.Basic
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Circle
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.WithAbs
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.Normed.Ring.WithAbs
-public import Mathlib.Analysis.SpecialFunctions.Complex.Circle
-public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Int.Cast.Basic
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Int.Cast.Lemmas
-public import Mathlib.Data.Int.Order.Basic
-public import Mathlib.Data.Nat.Basic
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Nat.Init
-public import Mathlib.Data.Rat.Cast.CharZero
-public import Mathlib.Data.Rat.Cast.Defs
-public import Mathlib.Data.Rat.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.FieldTheory.Perfect
-public import Mathlib.FieldTheory.Separable
-public import Mathlib.LinearAlgebra.Basis.VectorSpace
-public import Mathlib.LinearAlgebra.BilinearMap
-public import Mathlib.LinearAlgebra.Dimension.Finite
-public import Mathlib.LinearAlgebra.Dimension.Finrank
-public import Mathlib.LinearAlgebra.FreeModule.PID
-public import Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.Completion.InfinitePlace
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
-public import Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings
-public import Mathlib.Order.Basic
-public import Mathlib.Order.Defs.Lattice
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Filter.Basic
-public import Mathlib.Order.Filter.Cofinite
-public import Mathlib.Order.Filter.Defs
-public import Mathlib.Order.Lattice
-public import Mathlib.Order.Notation
-public import Mathlib.RingTheory.Algebraic.Integral
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Valuation
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.DedekindDomain.Different
-public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Basic
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-public import Mathlib.RingTheory.Flat.Basic
-public import Mathlib.RingTheory.Flat.FaithfullyFlat.Algebra
-public import Mathlib.RingTheory.Flat.FaithfullyFlat.Basic
-public import Mathlib.RingTheory.Flat.TorsionFree
-public import Mathlib.RingTheory.FractionalIdeal.Basic
-public import Mathlib.RingTheory.FractionalIdeal.Inverse
-public import Mathlib.RingTheory.FractionalIdeal.Operations
-public import Mathlib.RingTheory.Henselian
-public import Mathlib.RingTheory.Ideal.Defs
-public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-public import Mathlib.RingTheory.LocalRing.Defs
-public import Mathlib.RingTheory.Localization.FractionRing
-public import Mathlib.RingTheory.PrincipalIdealDomain
-public import Mathlib.RingTheory.RegularLocalRing.Defs
-public import Mathlib.RingTheory.SimpleRing.Basic
-public import Mathlib.RingTheory.SimpleRing.Principal
-public import Mathlib.RingTheory.Trace.Defs
-public import Mathlib.RingTheory.Valuation.Basic
-public import Mathlib.RingTheory.Valuation.ValuationSubring
-public import Mathlib.Tactic.Abel
-public import Mathlib.Tactic.CancelDenoms.Core
-public import Mathlib.Tactic.FieldSimp.Lemmas
-public import Mathlib.Tactic.Linarith.Lemmas
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Eq
-public import Mathlib.Tactic.NormNum.Ineq
-public import Mathlib.Tactic.NormNum.Inv
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Positivity.Core
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Monoid
-public import Mathlib.Topology.Algebra.Monoid.Defs
-public import Mathlib.Topology.Algebra.OpenSubgroup
-public import Mathlib.Topology.Algebra.RestrictedProduct.Basic
-public import Mathlib.Topology.Algebra.Ring.Basic
-public import Mathlib.Topology.Algebra.Ring.Real
-public import Mathlib.Topology.Algebra.Valued.ValuationTopology
-public import Mathlib.Topology.Algebra.Valued.WithVal
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.Constructions.SumProd
-public import Mathlib.Topology.Continuous
-public import Mathlib.Topology.ContinuousMap.Defs
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.EMetricSpace.Defs
-public import Mathlib.Topology.MetricSpace.Basic
-public import Mathlib.Topology.MetricSpace.Isometry
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.Neighborhoods
-public import Mathlib.Topology.UniformSpace.Completion
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -316,6 +127,11 @@ theorem mul_mem_localInvDifferent {v : HeightOneSpectrum (𝓞 K)} {a x : v.adic
     rw [mul_assoc]
     exact mul_mem ha (hx y hy)
 
+theorem isOpen_localInvDifferent (v : HeightOneSpectrum (𝓞 K)) :
+    IsOpen (localInvDifferent v : Set (v.adicCompletion K)) :=
+  AddSubgroup.isOpen_of_mem_nhds _ (g := 0) (Filter.mem_of_superset
+    ((Valued.isOpen_valuationSubring (v.adicCompletion K)).mem_nhds (zero_mem _))
+    fun _ hx => mem_localInvDifferent_of_mem hx)
 
 theorem coe_mem_localInvDifferent_iff (v : HeightOneSpectrum (𝓞 K)) (k : K) :
     (k : v.adicCompletion K) ∈ localInvDifferent v ↔
@@ -349,6 +165,9 @@ def finiteInvDifferent : AddSubgroup (FiniteAdeleRing (𝓞 K) K) where
   add_mem' ha hb v := add_mem (ha v) (hb v)
   neg_mem' ha v := neg_mem (ha v)
 
+theorem mem_finiteInvDifferent {a : FiniteAdeleRing (𝓞 K) K} :
+    a ∈ finiteInvDifferent K ↔ ∀ v : HeightOneSpectrum (𝓞 K), a v ∈ localInvDifferent v :=
+  Iff.rfl
 
 theorem mem_finiteInvDifferent_of_mem_integralFiniteAdeles {a : FiniteAdeleRing (𝓞 K) K}
     (ha : a ∈ integralFiniteAdeles (𝓞 K) K) : a ∈ finiteInvDifferent K :=

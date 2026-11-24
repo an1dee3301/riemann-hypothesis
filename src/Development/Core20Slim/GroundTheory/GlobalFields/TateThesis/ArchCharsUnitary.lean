@@ -3,41 +3,6 @@ module
 public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.ArchChars
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.ArchCharsUnits
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Group.AddChar
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Order.Positive.Ring
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Circle
-public import Mathlib.Analysis.Complex.Exponential
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.UnitBall
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.SpecialFunctions.Pow.Complex
-public import Mathlib.Analysis.SpecialFunctions.Pow.Real
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.ExistsUnique
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Topology.Algebra.Constructions
-public import Mathlib.Topology.Algebra.ContinuousMonoidHom
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Induced
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -59,6 +24,19 @@ theorem existsUnique_mul_I_of_re_eq_zero {P : ℂ → Prop} (h : ∃! s, P s)
   have := congrArg Complex.im (hu _ hτ)
   simpa using this
 
+theorem existsUnique_prod_mul_I_of_re_eq_zero {α : Type*} {P : α × ℂ → Prop}
+    (h : ∃! p, P p) (hre : ∀ p, P p → p.2.re = 0) :
+    ∃! q : α × ℝ, P (q.1, (q.2 : ℂ) * I) := by
+  obtain ⟨p, hp, hu⟩ := h
+  have hp' : p = (p.1, (p.2.im : ℂ) * I) := by
+    refine Prod.ext rfl ?_
+    apply Complex.ext <;> simp [hre p hp]
+  refine ⟨(p.1, p.2.im), by show P (p.1, (p.2.im : ℂ) * I); rw [← hp']; exact hp,
+    fun q hq => ?_⟩
+  have := hu _ hq
+  refine Prod.ext ?_ ?_
+  · simpa using congrArg Prod.fst this
+  · simpa using congrArg (fun r : α × ℂ => r.2.im) this
 
 theorem existsUnique_cpow_of_pos_circle (χ : {x : ℝ // 0 < x} →ₜ* Circle) :
     ∃! τ : ℝ, ∀ x : {x : ℝ // 0 < x}, (χ x : ℂ) = ((x : ℝ) : ℂ) ^ ((τ : ℂ) * I) := by
@@ -69,7 +47,32 @@ theorem existsUnique_cpow_of_pos_circle (χ : {x : ℝ // 0 < x} →ₜ* Circle)
     hs ⟨Real.exp 1, Real.exp_pos 1⟩
   rw [← h, Circle.norm_coe]
 
+theorem existsUnique_realUnits_circle (χ : ℝˣ →ₜ* Circle) :
+    ∃! p : Fin 2 × ℝ, ∀ x : ℝˣ,
+      (χ x : ℂ) = (Real.sign (x : ℝ) : ℂ) ^ (p.1 : ℕ) * ((|(x : ℝ)| : ℝ) : ℂ) ^ ((p.2 : ℂ) * I) := by
+  apply existsUnique_prod_mul_I_of_re_eq_zero (P := fun p : Fin 2 × ℂ => ∀ x : ℝˣ,
+      (χ x : ℂ) = (Real.sign (x : ℝ) : ℂ) ^ (p.1 : ℕ) * ((|(x : ℝ)| : ℝ) : ℂ) ^ p.2)
+    (existsUnique_realUnits (circleToUnits.comp χ))
+  intro p hp
+  apply re_eq_zero_of_norm_exp_one_cpow
+  have h := hp (Units.mk0 (Real.exp 1) (Real.exp_pos 1).ne')
+  simp only [Units.val_mk0, Real.sign_of_pos (Real.exp_pos 1), abs_of_pos (Real.exp_pos 1),
+    Complex.ofReal_one, one_pow, one_mul] at h
+  rw [← h, Circle.norm_coe]
 
+theorem existsUnique_complexUnits_circle (χ : ℂˣ →ₜ* Circle) :
+    ∃! p : ℤ × ℝ, ∀ z : ℂˣ,
+      (χ z : ℂ) = ((z : ℂ) / (‖(z : ℂ)‖ : ℂ)) ^ p.1 * ((‖(z : ℂ)‖ : ℝ) : ℂ) ^ ((p.2 : ℂ) * I) := by
+  apply existsUnique_prod_mul_I_of_re_eq_zero (P := fun p : ℤ × ℂ => ∀ z : ℂˣ,
+      (χ z : ℂ) = ((z : ℂ) / (‖(z : ℂ)‖ : ℂ)) ^ p.1 * ((‖(z : ℂ)‖ : ℝ) : ℂ) ^ p.2)
+    (existsUnique_complexUnits (circleToUnits.comp χ))
+  intro p hp
+  apply re_eq_zero_of_norm_exp_one_cpow
+  have hne : ((Real.exp 1 : ℝ) : ℂ) ≠ 0 := by exact_mod_cast (Real.exp_pos 1).ne'
+  have h := hp (Units.mk0 _ hne)
+  rw [Units.val_mk0, Complex.norm_real, Real.norm_eq_abs, abs_of_pos (Real.exp_pos 1),
+    div_self hne, one_zpow, one_mul] at h
+  rw [← h, Circle.norm_coe]
 
 theorem existsUnique_addChar_real_units (χ : AddChar ℝ ℂˣ) (hχ : Continuous χ) :
     ∃! s : ℂ, ∀ t : ℝ, (χ t : ℂ) = Complex.exp (s * t) :=
