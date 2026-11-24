@@ -227,6 +227,9 @@ theorem hasBasis_nhds_zero_tAf :
     HasBasis (@nhds (AEf I) (tAf I) 0) (fun _ => True) fun k => (bas I k : Set (AEf I)) :=
   (ringSubgroupsBasis_bas I).hasBasis_nhds_zero
 
+theorem hasBasis_nhds_tAf (a : AEf I) :
+    HasBasis (@nhds (AEf I) (tAf I) a) (fun _ => True) fun k => {b | b - a ∈ bas I k} :=
+  (ringSubgroupsBasis_bas I).hasBasis_nhds a
 
 theorem isTopologicalRing_tAf : @IsTopologicalRing (AEf I) (tAf I) _ :=
   RingFilterBasis.isTopologicalRing _
