@@ -68,6 +68,10 @@ def topologicalAbelianizationMap (f : G →* H) (hf : Continuous f) :
     TopologicalAbelianization G →* TopologicalAbelianization H :=
   QuotientGroup.map _ _ f (topologicalClosure_commutator_le_comap f hf)
 
+theorem continuous_topologicalAbelianizationMap (f : G →* H) (hf : Continuous f) :
+    Continuous (topologicalAbelianizationMap f hf) := by
+  rw [(QuotientGroup.isQuotientMap_mk _).continuous_iff]
+  exact (QuotientGroup.isQuotientMap_mk _).continuous.comp hf
 
 end TopologicalAbelianization
 

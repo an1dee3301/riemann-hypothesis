@@ -277,8 +277,80 @@ theorem eq_reciprocityLimit {a : fixedModule A (K : Subgroup G)}
   refine ext_abelianizationRestrict fun L hL _ => D.reciprocity_injective hax hL ?_
   rw [h L hL, D.reciprocity_abelianizationRestrict_reciprocityLimit hax hL]
 
+theorem ker_reciprocityLimit :
+    (D.reciprocityLimit hax K).ker =
+      ⨅ L : {L : OpenSubgroup G // IsAbelianExtension K L}, normGroup A K L.1 := by
+  ext a
+  rw [MonoidHom.mem_ker, eq_one_iff_forall_abelianizationRestrict, Subgroup.mem_iInf]
+  refine ⟨fun h L => ?_, fun h L hL _ => ?_⟩
+  · have := L.2.normal
+    have h' := congrArg (D.reciprocity L.2.le hax) (h L.1 L.2)
+    rw [D.reciprocity_abelianizationRestrict_reciprocityLimit hax L.2, map_one,
+      QuotientGroup.eq_one_iff] at h'
+    exact h'
+  · apply D.reciprocity_injective hax hL
+    rw [D.reciprocity_abelianizationRestrict_reciprocityLimit hax hL, map_one,
+      QuotientGroup.eq_one_iff]
+    exact h ⟨L, hL⟩
 
+theorem ker_reciprocityLimit_eq_iInf :
+    (D.reciprocityLimit hax K).ker = ⨅ L : {L : OpenSubgroup G // L ≤ K}, normGroup A K L.1 := by
+  rw [ker_reciprocityLimit]
+  refine le_antisymm (le_iInf fun L => ?_) (le_iInf fun L => iInf_le_of_le ⟨L.1, L.2.le⟩ le_rfl)
+  rw [← D.normGroup_maxAbelian hax L.2]
+  exact iInf_le_of_le ⟨maxAbelian L.2, isAbelianExtension_maxAbelian L.2⟩ le_rfl
 
+theorem denseRange_reciprocityLimit : DenseRange (D.reciprocityLimit hax K) := by
+  rw [DenseRange, dense_iff_inter_open]
+  rintro U hU ⟨σ, hσ⟩
+  obtain ⟨g, rfl⟩ := QuotientGroup.mk_surjective σ
+  set C := (commutator (K : Subgroup G)).topologicalClosure
+  set V : Set (K : Subgroup G) := (fun y => ((g * y : (K : Subgroup G)) :
+    TopologicalAbelianization (K : Subgroup G))) ⁻¹' U with hV
+  have hVo : IsOpen V :=
+    hU.preimage (QuotientGroup.continuous_mk.comp (continuous_const.mul continuous_id))
+  have hV1 : (1 : (K : Subgroup G)) ∈ V := by
+    simp only [hV, Set.mem_preimage, mul_one]
+    exact hσ
+  obtain ⟨N, hN⟩ := ProfiniteGrp.exist_openNormalSubgroup_sub_open_nhds_of_one hVo hV1
+
+  let M : OpenSubgroup G :=
+    { toSubgroup := ((N : Subgroup (K : Subgroup G)) ⊔ C).map (K : Subgroup G).subtype
+      isOpen' := by
+        have ho : IsOpen (((N : Subgroup (K : Subgroup G)) ⊔ C : Subgroup (K : Subgroup G)) :
+            Set (K : Subgroup G)) :=
+          Subgroup.isOpen_mono (H₁ := (N : Subgroup (K : Subgroup G)))
+            (H₂ := (N : Subgroup (K : Subgroup G)) ⊔ C) le_sup_left N.isOpen'
+        have h := K.isOpen.isOpenMap_subtype_val _ ho
+        rw [← Subgroup.coe_subtype, ← Subgroup.coe_map] at h
+        exact h }
+  have hMmem : ∀ x : (K : Subgroup G), (x : G) ∈ (M : Subgroup G) ↔ x ∈ (N : Subgroup (K : Subgroup G)) ⊔ C :=
+    fun x => Subgroup.mem_map_iff_mem Subtype.val_injective
+  have hM : IsAbelianExtension K M :=
+    ⟨fun _ ⟨y, _, hy⟩ => hy ▸ y.2, fun y hy =>
+      (hMmem y).2 (Subgroup.mem_sup_right (Subgroup.le_topologicalClosure _ hy))⟩
+  have := hM.normal
+  obtain ⟨a, ha⟩ := QuotientGroup.mk_surjective
+    (D.reciprocity hM.le hax (g : (K : Subgroup G) ⧸ (M : Subgroup G).subgroupOf K))
+  refine ⟨D.reciprocityLimit hax K a, ?_, a, rfl⟩
+  obtain ⟨h, hh⟩ := QuotientGroup.mk_surjective (D.reciprocityLimit hax K a)
+  have e := D.reciprocity_abelianizationRestrict_reciprocityLimit hax hM a
+  rw [← hh, abelianizationRestrict_mk, ha, (D.reciprocity_injective hax hM).eq_iff, eq_comm,
+    QuotientGroup.eq] at e
+
+  have e' : g⁻¹ * h ∈ (N : Subgroup (K : Subgroup G)) ⊔ C := (hMmem _).1 e
+  obtain ⟨n, hn, c, hc, hnc⟩ := Subgroup.mem_sup_of_normal_left.1 e'
+  have hnV : n ∈ V := hN hn
+  rw [← hh]
+  have hgh : h = g * n * c := by
+    rw [mul_assoc, hnc, mul_inv_cancel_left]
+  have hmk : ((h : (K : Subgroup G)) : TopologicalAbelianization (K : Subgroup G)) =
+      ((g * n : (K : Subgroup G)) : TopologicalAbelianization (K : Subgroup G)) := by
+    have hc' : (g * n * c)⁻¹ * (g * n) = c⁻¹ := by group
+    rw [QuotientGroup.eq, hgh, hc']
+    exact C.inv_mem hc
+  rw [hmk]
+  exact hnV
 
 end Limit
 

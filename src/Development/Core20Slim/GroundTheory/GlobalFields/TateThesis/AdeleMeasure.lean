@@ -239,6 +239,9 @@ theorem finiteAdeleMeasure_integralFiniteAdeles :
 def measurableEquivMixedSpace : InfiniteAdeleRing K ≃ᵐ mixedSpace K :=
   (homeomorphMixedSpace K).toMeasurableEquiv
 
+theorem measurableEquivMixedSpace_apply (x : InfiniteAdeleRing K) :
+    measurableEquivMixedSpace K x = homeomorphMixedSpace K x :=
+  rfl
 
 def addEquivMixedSpace : InfiniteAdeleRing K ≃+ mixedSpace K where
   __ := (homeomorphMixedSpace K).toEquiv

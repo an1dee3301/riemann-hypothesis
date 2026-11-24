@@ -81,10 +81,25 @@ theorem isAbelianExtension_self (K : OpenSubgroup G) : IsAbelianExtension K K :=
 
 variable [IsTopologicalGroup G]
 
+def maxAbelian (hLK : L ≤ K) : OpenSubgroup G where
+  toSubgroup :=
+    ((L : Subgroup G).subgroupOf K ⊔ commutator (K : Subgroup G)).map (K : Subgroup G).subtype
+  isOpen' := Subgroup.isOpen_mono (H₁ := (L : Subgroup G))
+    (fun x hx => ⟨⟨x, hLK hx⟩, Subgroup.mem_sup_left (Subgroup.mem_subgroupOf.2 hx), rfl⟩) L.isOpen
 
+theorem mem_maxAbelian (hLK : L ≤ K) (x : (K : Subgroup G)) :
+    (x : G) ∈ (maxAbelian hLK : Subgroup G) ↔
+      x ∈ (L : Subgroup G).subgroupOf K ⊔ commutator (K : Subgroup G) :=
+  Subgroup.mem_map_iff_mem Subtype.val_injective
 
+theorem maxAbelian_le (hLK : L ≤ K) : maxAbelian hLK ≤ K :=
+  fun _ ⟨x, _, hx⟩ => hx ▸ x.2
 
+theorem le_maxAbelian (hLK : L ≤ K) : L ≤ maxAbelian hLK :=
+  fun x hx => ⟨⟨x, hLK hx⟩, Subgroup.mem_sup_left (Subgroup.mem_subgroupOf.2 hx), rfl⟩
 
+theorem isAbelianExtension_maxAbelian (hLK : L ≤ K) : IsAbelianExtension K (maxAbelian hLK) :=
+  ⟨maxAbelian_le hLK, fun x hx => (mem_maxAbelian hLK x).2 (Subgroup.mem_sup_right hx)⟩
 
 end Abelian
 
@@ -104,6 +119,11 @@ theorem normGroup_mono {K L H : OpenSubgroup G} (hLH : L ≤ H) (hHK : H ≤ K) 
 
 end NormGroup
 
+theorem exists_openSubgroup_normal_le {G : Type*} [Group G] [TopologicalSpace G]
+    [IsTopologicalGroup G] [CompactSpace G] [TotallyDisconnectedSpace G] (L : OpenSubgroup G) :
+    ∃ N : OpenSubgroup G, N ≤ L ∧ (N : Subgroup G).Normal := by
+  obtain ⟨U, hU⟩ := ProfiniteGrp.exist_openNormalSubgroup_sub_open_nhds_of_one L.isOpen L.one_mem
+  exact ⟨U.toOpenSubgroup, fun x hx => hU hx, U.isNormal'⟩
 
 namespace ClassFieldData
 
@@ -170,6 +190,37 @@ variable {K L : OpenSubgroup G}
 
 include D hax
 
+theorem normGroup_maxAbelian (hLK : L ≤ K) :
+    normGroup A K (maxAbelian hLK) = normGroup A K L := by
+  refine le_antisymm ?_ (normGroup_mono (le_maxAbelian hLK) (maxAbelian_le hLK))
+  obtain ⟨N, hNL, hN⟩ := exists_openSubgroup_normal_le L
+  have hNK : N ≤ K := hNL.trans hLK
+  have hM := isAbelianExtension_maxAbelian hLK
+  have := hM.normal
+  have := hN
+  rintro a ⟨m, rfl⟩
+  obtain ⟨x, hx⟩ := D.exists_reciprocity_mk_eq hax hNK
+    (norm A (K : Subgroup G) (maxAbelian hLK : Subgroup G) m)
+  have hxM : (x : G) ∈ (maxAbelian hLK : Subgroup G) :=
+    (D.mem_normGroup_iff_of_reciprocity hax hM
+      (D.reciprocity_mk_of_le hax hNK hM.le (hNL.trans (le_maxAbelian hLK)) x _ hx)).1 ⟨m, rfl⟩
+  obtain ⟨y, hy, z, hz, rfl⟩ := Subgroup.mem_sup_of_normal_right.1 ((mem_maxAbelian hLK x).1 hxM)
+
+  have hz1 : D.reciprocity hNK hax (z : (K : Subgroup G) ⧸ (N : Subgroup G).subgroupOf K) = 1 :=
+    MonoidHom.mem_ker.1
+      (Abelianization.commutator_subset_ker ((D.reciprocity hNK hax).comp (QuotientGroup.mk' _)) hz)
+
+  obtain ⟨b, hb⟩ := QuotientGroup.mk_surjective (D.reciprocity hNL hax
+    ((⟨y, hy⟩ : (L : Subgroup G)) : (L : Subgroup G) ⧸ (N : Subgroup G).subgroupOf L))
+  have e := D.reciprocity_galRestrict hax hNK hNL hLK le_rfl
+    ((⟨y, hy⟩ : (L : Subgroup G)) : (L : Subgroup G) ⧸ (N : Subgroup G).subgroupOf L)
+  rw [galRestrict_mk, ← hb, normTateZero_mk] at e
+  have e' : D.reciprocity hNK hax (y : (K : Subgroup G) ⧸ (N : Subgroup G).subgroupOf K) =
+      (norm A (K : Subgroup G) (L : Subgroup G) b : tateZero A (K : Subgroup G) (N : Subgroup G)) := e
+  rw [QuotientGroup.mk_mul, map_mul, hz1, mul_one, e'] at hx
+  obtain ⟨c, hc⟩ := QuotientGroup.eq.1 hx
+  refine ⟨b * norm A (L : Subgroup G) (N : Subgroup G) c, ?_⟩
+  rw [map_mul, norm_norm hNL hLK, hc, mul_inv_cancel_left]
 
 end Limitation
 
