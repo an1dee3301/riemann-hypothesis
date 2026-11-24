@@ -1,7 +1,10 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.FrameTopAlt
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.HzUnit
 public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.CosInj
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.UnitRatio
 public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.SelfDualImageAdelicPointWittCoreStatement
 public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MemHomLatticeCompletionIffSupportedMaps
 public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.SelfDualSplitComponentIsLatticeStabilizerEq

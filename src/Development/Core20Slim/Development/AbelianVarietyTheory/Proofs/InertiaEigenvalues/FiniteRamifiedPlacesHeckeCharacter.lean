@@ -2,6 +2,7 @@ module
 
 public import Development.Core20Slim.Development.AbelianVarietyTheory.BlockTheory.NonGaloisCusps.CentralInvolutionRing
 public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.ConjTupRefl
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Divisors.GenReads
 public import Formalism.SharpRestriction.Divisibility.GeneratorPowers.ThExprUniqOfChartIndep2
 public import Batteries.Logic
 public import Init.Classical

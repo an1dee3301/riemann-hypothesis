@@ -41,6 +41,9 @@ def HookNorm : Prop :=
   ∀ (n l : ℕ) (h : l ≤ n) (a : Fin l → ℕ), Antitone a →
     Formalism.E.fock (delTop h a) (delTop h a) = ((hookProd a : ℚ) : ℂ)
 
+def HookNormBottom : Prop :=
+  ∀ (n l : ℕ) (h : l ≤ n) (a : Fin l → ℕ), Antitone a →
+    Formalism.E.fock (delBottom h a) (delBottom h a) = ((hookProd a : ℚ) : ℂ)
 
 open MvPolynomial in
 theorem _root_.GlobalTheory.IndefiniteRowSideFullHecke.CornerMinors.nextPart_le {l : ℕ} {a : Fin l → ℕ} (ha : Antitone a) (i : Fin l) :

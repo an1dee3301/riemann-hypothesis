@@ -824,6 +824,34 @@ theorem hookNorm : HookNorm := by
   exact fock_del (v := fun r c => (Fin.castLE h r, c))
     (fun r c s e hh => ⟨Fin.castLE_injective _ (Prod.mk.inj hh).1, (Prod.mk.inj hh).2⟩) a ha
 
+theorem hookNormBottom : HookNormBottom := by
+  intro n l h a ha
+  have hf := fock_del (v := fun r c => ((Fin.castLE h r).rev, c))
+    (fun r c s e hh => ⟨Fin.castLE_injective _ (Fin.rev_injective (Prod.mk.inj hh).1),
+      (Prod.mk.inj hh).2⟩) a ha
+  have e : ∀ i : Fin l, bottomMinor h i =
+      ((Equiv.Perm.sign (Fin.revPerm : Equiv.Perm (Fin (i + 1))) : ℤ) : MvPolynomial (Fin n × Fin l) ℂ) *
+        minor (fun r c => ((Fin.castLE h r).rev, c)) i := by
+    intro i
+    unfold minor bottomMinor
+    rw [← det_permute]
+    congr 1
+    refine Matrix.ext fun r c => ?_
+    simp only [of_apply, submatrix_apply, id]
+    refine congrArg X (Prod.ext (Fin.ext ?_) rfl)
+    have := r.2
+    have := i.2
+    simp only [Fin.val_rev, Fin.val_castLE, Fin.revPerm_apply]
+    omega
+  have e2 : delBottom h a = (((∏ i : Fin l, Equiv.Perm.sign
+      (Fin.revPerm : Equiv.Perm (Fin (i + 1))) ^ (a i - nextPart a i) : ℤˣ) : ℤ) :
+        MvPolynomial (Fin n × Fin l) ℂ) * del (fun r c => ((Fin.castLE h r).rev, c)) a := by
+    unfold delBottom del
+    simp only [e, mul_pow, Finset.prod_mul_distrib]
+    simp
+  rw [e2, fock_int_left, fock_int_right, hf, ← mul_assoc, ← Int.cast_mul, ← Units.val_mul,
+    Int.units_mul_self]
+  simp
 
 end Partition
 
