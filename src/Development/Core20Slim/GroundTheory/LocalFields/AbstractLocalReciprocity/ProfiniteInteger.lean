@@ -1,55 +1,6 @@
 module
 
 public import Mathlib
-public import Init.Core
-public import Init.Data.Cast
-public import Init.Data.Int.Basic
-public import Init.Data.Nat.Div.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.CharP.Defs
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Pi
-public import Mathlib.Algebra.Ring.Subring.Basic
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Basic.Countable.Defs
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Fintype.EquivFin
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Int.Cast.Lemmas
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.PNat.Defs
-public import Mathlib.Data.PNat.Notation
-public import Mathlib.Data.Set.CoeSort
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.ZMod.Basic
-public import Mathlib.Data.ZMod.Defs
-public import Mathlib.Order.SetNotation
-public import Mathlib.Topology.Basic
-public import Mathlib.Topology.Compactness.Compact
-public import Mathlib.Topology.Connected.Separation
-public import Mathlib.Topology.Connected.TotallyDisconnected
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.Continuous
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.Defs.Induced
-public import Mathlib.Topology.GDelta.MetrizableSpace
-public import Mathlib.Topology.Instances.ZMod
-public import Mathlib.Topology.Metrizable.Basic
-public import Mathlib.Topology.NoetherianSpace
-public import Mathlib.Topology.Order
-public import Mathlib.Topology.Separation.CompletelyRegular
-public import Mathlib.Topology.Separation.Hausdorff
 
 @[expose] public section
 

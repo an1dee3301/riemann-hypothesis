@@ -1,33 +1,6 @@
 module
 
 public import Mathlib
-public import Init.Core
-public import Init.Data.Function
-public import Init.Prelude
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Pointwise.Set.Basic
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Subgroup.Lattice
-public import Mathlib.Algebra.Group.Subgroup.Map
-public import Mathlib.Algebra.Group.Subgroup.Pointwise
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Quotient
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Quot
-public import Mathlib.Data.Set.Defs
-public import Mathlib.GroupTheory.Coset.Defs
-public import Mathlib.GroupTheory.Index
-public import Mathlib.Logic.Equiv.Defs
-public import Mathlib.Order.ConditionallyCompleteLattice.Basic
-public import Mathlib.Order.ConditionallyCompleteLattice.Defs
-public import Mathlib.Order.Defs.Lattice
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.SetTheory.Cardinal.Finite
 
 @[expose] public section
 

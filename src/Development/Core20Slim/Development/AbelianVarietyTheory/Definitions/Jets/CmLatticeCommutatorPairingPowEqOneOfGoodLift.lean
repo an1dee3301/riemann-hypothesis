@@ -2,18 +2,6 @@ module
 
 public import Mathlib
 public import Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.ExistsVariableChangeEqLatticeCurve
-public import Init.Core
-public import Init.Data.Cast
-public import Init.Data.Int.Basic
-public import Init.Data.Nat.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Analysis.Real.Sqrt
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Nat.Init
 
 @[expose] public section
 
