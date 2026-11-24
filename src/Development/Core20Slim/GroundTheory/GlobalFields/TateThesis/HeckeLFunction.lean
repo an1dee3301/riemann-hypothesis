@@ -4,26 +4,6 @@ public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.HeckeChar
 public import Development.Core20Slim.Development.AutomorphicArithmetic.IntegralCasts.CapelliIdentities.SummableAbsNormRpowInv
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.Conductor
-public import Init.Data.Cast
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Operations
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.GroupWithZero.Hom
-public import Mathlib.Algebra.GroupWithZero.Nat
-public import Mathlib.Algebra.Order.Kleene
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Analysis.SpecialFunctions.Pow.Real
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.RingTheory.Ideal.Defs
-public import Mathlib.RingTheory.Ideal.Norm.AbsNorm
-public import Mathlib.Topology.Algebra.InfiniteSum.Defs
-public import Mathlib.Topology.Algebra.InfiniteSum.SummationFilter
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 

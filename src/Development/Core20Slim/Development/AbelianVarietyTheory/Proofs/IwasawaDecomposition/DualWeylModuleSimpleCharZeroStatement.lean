@@ -5,24 +5,6 @@ public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.Iwa
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.IncludeLInjective
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExponentAndTwistData
 public import Formalism.LocalRingCardinality.DataCoeff
-public import Init.Prelude
-public import Mathlib.Algebra.CharZero.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Nat
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Lattice
-public import Mathlib.Algebra.MonoidAlgebra.Defs
-public import Mathlib.Algebra.MvPolynomial.Basic
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finsupp.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Notation
-public import Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic
 
 @[expose] public section
 
