@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.TraceLatticePoisson
 public import Batteries.Classes.RatCast
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.LatticePoisson
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.LatticePoissonBasic

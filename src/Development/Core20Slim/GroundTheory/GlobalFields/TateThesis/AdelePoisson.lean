@@ -2,6 +2,7 @@ module
 
 public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.SchwartzBruhat
+public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.TraceLatticePoisson
 public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.ClassGroup
 public import GroundTheory.GlobalFields.Adele.Approximation
 public import Development.Core20Slim.GroundTheory.GlobalFields.Adele.IntegersLattice
@@ -230,7 +231,45 @@ theorem coe_idealLatticeEquiv (J : (FractionalIdeal (𝓞 K)⁰ K)ˣ)
     ((idealLatticeEquiv J y : idealLattice K J) : mixedSpace K) = mixedEmbedding K (y : K) :=
   rfl
 
+theorem summable_norm_iff_and_tsum_eq_of_coset (J : (FractionalIdeal (𝓞 K)⁰ K)ˣ) (c : K)
+    (g : mixedSpace K → ℂ) (f : K → ℂ)
+    (hf : ∀ ξ, f ξ = if ξ - c ∈ (J : FractionalIdeal (𝓞 K)⁰ K) then g (mixedEmbedding K ξ) else 0) :
+    (Summable (fun ξ ↦ ‖f ξ‖) ↔
+      Summable (fun α : idealLattice K J ↦ ‖g (α + mixedEmbedding K c)‖)) ∧
+      ∑' ξ, f ξ = ∑' α : idealLattice K J, g (α + mixedEmbedding K c) := by
+  set e := idealLatticeEquiv J
+  let h : idealLattice K J → K := fun α ↦ c + ((e.symm α : _) : K)
+  have hinj : Function.Injective h := fun α β hαβ ↦
+    e.symm.injective (Subtype.ext (add_left_cancel hαβ))
+  have hsupp : ∀ ξ ∉ Set.range h, f ξ = 0 := by
+    intro ξ hξ
+    rw [hf, if_neg]
+    intro hm
+    refine hξ ⟨e ⟨ξ - c, hm⟩, ?_⟩
+    simp only [h, Equiv.symm_apply_apply]
+    abel
+  have hfh : ∀ α, f (h α) = g (α + mixedEmbedding K c) := by
+    intro α
+    have hm : h α - c ∈ (J : FractionalIdeal (𝓞 K)⁰ K) := by
+      simp only [h, add_sub_cancel_left]
+      exact (e.symm α).2
+    rw [hf, if_pos hm]
+    congr 1
+    have he := coe_idealLatticeEquiv J (e.symm α)
+    rw [Equiv.apply_symm_apply] at he
+    simp only [h, map_add (f := _)]
+    rw [← he, add_comm]
+  refine ⟨?_, ?_⟩
+  · rw [← hinj.summable_iff (f := fun ξ ↦ ‖f ξ‖) (fun ξ hξ ↦ by simp [hsupp ξ hξ])]
+    simp only [Function.comp_def, hfh]
+  · rw [← hinj.tsum_eq (fun ξ hξ ↦ by_contra fun hn ↦ hξ (hsupp ξ hn))]
+    simp only [hfh]
 
+theorem schwartzBruhatTensor_algebraMap (φ : 𝓢(mixedSpace K, ℂ)) (g : 𝔸ᶠ[K] → ℂ) (ξ : K) :
+    schwartzBruhatTensor φ g (algebraMap K 𝔸[K] ξ) =
+      φ (mixedEmbedding K ξ) * g (algebraMap K 𝔸ᶠ[K] ξ) := by
+  simp only [schwartzBruhatTensor, adeleRing_algebraMap_fst, adeleRing_algebraMap_snd,
+    homeomorphMixedSpace_algebraMap]
 
 theorem algebraMap_sub_mem_idealFiniteAdeles_iff {I : (FractionalIdeal (𝓞 K)⁰ K)ˣ} {b : 𝔸ᶠ[K]}
     {ξ₀ : K} (hξ₀ : b - algebraMap K 𝔸ᶠ[K] ξ₀ ∈ idealFiniteAdeles I) (ξ : K) :
@@ -240,15 +279,146 @@ theorem algebraMap_sub_mem_idealFiniteAdeles_iff {I : (FractionalIdeal (𝓞 K)�
       (algebraMap K 𝔸ᶠ[K] ξ - b) + (b - algebraMap K 𝔸ᶠ[K] ξ₀) := by abel
   rw [this, AddSubgroup.add_mem_cancel_right _ hξ₀]
 
+theorem poisson_schwartzBruhatTensor_cosetIndicator (φ : 𝓢(mixedSpace K, ℂ))
+    (I : (FractionalIdeal (𝓞 K)⁰ K)ˣ) (b : 𝔸ᶠ[K]) :
+    Summable (fun ξ : K ↦ ‖schwartzBruhatTensor φ (cosetIndicator I b) (algebraMap K 𝔸[K] ξ)‖) ∧
+      Summable (fun ξ : K ↦
+        ‖adelicFourier K (schwartzBruhatTensor φ (cosetIndicator I b)) (algebraMap K 𝔸[K] ξ)‖) ∧
+      ∑' ξ : K, schwartzBruhatTensor φ (cosetIndicator I b) (algebraMap K 𝔸[K] ξ) =
+        ∑' ξ : K,
+          adelicFourier K (schwartzBruhatTensor φ (cosetIndicator I b)) (algebraMap K 𝔸[K] ξ) := by
+  obtain ⟨ξ₀, hξ₀⟩ := exists_sub_mem_idealFiniteAdeles I b
+  set a := mixedEmbedding K ξ₀
+  set μ : ℂ := ((finiteAdeleMeasure K (idealFiniteAdeles I)).toReal : ℂ)
+
+  have hL := summable_norm_iff_and_tsum_eq_of_coset I ξ₀ φ
+    (fun ξ ↦ schwartzBruhatTensor φ (cosetIndicator I b) (algebraMap K 𝔸[K] ξ)) fun ξ ↦ by
+      rw [schwartzBruhatTensor_algebraMap, cosetIndicator_apply]
+      by_cases hξ : ξ - ξ₀ ∈ (I : FractionalIdeal (𝓞 K)⁰ K)
+      · rw [if_pos ((algebraMap_sub_mem_idealFiniteAdeles_iff hξ₀ ξ).mpr hξ), if_pos hξ, mul_one]
+      · rw [if_neg (fun h ↦ hξ ((algebraMap_sub_mem_idealFiniteAdeles_iff hξ₀ ξ).mp h)),
+          if_neg hξ, mul_zero]
+
+  have hR := summable_norm_iff_and_tsum_eq_of_coset (traceDualIdeal K I) 0
+    (fun x ↦ μ * (mixedFourier K φ x * 𝐞 (mixedTraceForm K x a)))
+    (fun η ↦ adelicFourier K (schwartzBruhatTensor φ (cosetIndicator I b)) (algebraMap K 𝔸[K] η))
+    fun η ↦ by
+      rw [adelicFourier_schwartzBruhatTensor, schwartzBruhatTensor_algebraMap,
+        finiteFourier_cosetIndicator, mixedFourierSchwartz_apply, sub_zero]
+      by_cases hη : η ∈ (traceDualIdeal K I : FractionalIdeal (𝓞 K)⁰ K)
+      · have hη' : algebraMap K 𝔸ᶠ[K] η ∈ idealFiniteAdeles (traceDualIdeal K I) :=
+          (algebraMap_mem_idealFiniteAdeles_iff _ η).mpr hη
+        rw [if_pos hη, Set.indicator_of_mem (SetLike.mem_coe.mpr hη'), Pi.one_apply, mul_one]
+        have hb : b * algebraMap K 𝔸ᶠ[K] η = algebraMap K 𝔸ᶠ[K] ξ₀ * algebraMap K 𝔸ᶠ[K] η +
+            (b - algebraMap K 𝔸ᶠ[K] ξ₀) * algebraMap K 𝔸ᶠ[K] η := by ring
+        rw [hb, AddChar.map_add_eq_mul,
+          (forall_finiteAdelicChar_mul_eq_one_iff I _).mpr hη' _ hξ₀, mul_one,
+          finiteAdelicChar_algebraMap_mul, mixedTraceForm_comm K a]
+        ring
+      · have hη' : algebraMap K 𝔸ᶠ[K] η ∉ idealFiniteAdeles (traceDualIdeal K I) :=
+          fun h ↦ hη ((algebraMap_mem_idealFiniteAdeles_iff _ η).mp h)
+        rw [if_neg hη, Set.indicator_of_notMem (by simpa using hη'), mul_zero, mul_zero, mul_zero]
+  simp only [map_zero, add_zero] at hR
+  refine ⟨hL.1.mpr (idealLattice_summable_norm K I φ a), hR.1.mpr ?_, ?_⟩
+  · simpa only [norm_mul] using (traceDualIdeal_summable_norm K I φ a).mul_left ‖μ‖
+  · rw [hL.2, hR.2, idealLattice_poisson_summation, tsum_mul_left, Complex.real_smul]
+    congr 1
+    simp only [μ, finiteAdeleMeasure_idealFiniteAdeles_toReal, mul_inv]
+    push_cast
+    rw [Int.norm_eq_abs]
+
+theorem schwartzBruhatTensor_sum (φ : 𝓢(mixedSpace K, ℂ)) {ι : Type*} (s : Finset ι)
+    (c : ι → ℂ) (g : ι → 𝔸ᶠ[K] → ℂ) :
+    schwartzBruhatTensor φ (∑ i ∈ s, c i • g i) = ∑ i ∈ s, c i • schwartzBruhatTensor φ (g i) := by
+  funext x
+  simp only [schwartzBruhatTensor, Finset.sum_apply, Pi.smul_apply, smul_eq_mul, Finset.mul_sum]
+  exact Finset.sum_congr rfl fun i _ ↦ by ring
+
+theorem schwartzBruhat_le_span_cosetIndicator :
+    schwartzBruhat K ≤ Submodule.span ℂ {F | ∃ (φ : 𝓢(mixedSpace K, ℂ))
+      (I : (FractionalIdeal (𝓞 K)⁰ K)ˣ) (b : 𝔸ᶠ[K]), F = schwartzBruhatTensor φ (cosetIndicator I b)} := by
+  refine Submodule.span_le.mpr ?_
+  rintro _ ⟨φ, g, hg, rfl⟩
+  obtain ⟨I, s, hs⟩ := exists_eq_sum_cosetIndicator hg
+  rw [hs, schwartzBruhatTensor_sum]
+  exact Submodule.sum_mem _ fun b _ ↦ Submodule.smul_mem _ _ (Submodule.subset_span ⟨φ, I, b, rfl⟩)
+
+theorem poisson_of_mem_span {F : 𝔸[K] → ℂ} (hF : F ∈ Submodule.span ℂ {F | ∃ (φ : 𝓢(mixedSpace K, ℂ))
+      (I : (FractionalIdeal (𝓞 K)⁰ K)ˣ) (b : 𝔸ᶠ[K]), F = schwartzBruhatTensor φ (cosetIndicator I b)}) :
+    Summable (fun ξ : K ↦ ‖F (algebraMap K 𝔸[K] ξ)‖) ∧
+      Summable (fun ξ : K ↦ ‖adelicFourier K F (algebraMap K 𝔸[K] ξ)‖) ∧
+      ∑' ξ : K, F (algebraMap K 𝔸[K] ξ) = ∑' ξ : K, adelicFourier K F (algebraMap K 𝔸[K] ξ) := by
+  have hsub : Submodule.span ℂ {F | ∃ (φ : 𝓢(mixedSpace K, ℂ))
+      (I : (FractionalIdeal (𝓞 K)⁰ K)ˣ) (b : 𝔸ᶠ[K]), F = schwartzBruhatTensor φ (cosetIndicator I b)} ≤
+      schwartzBruhat K := by
+    refine Submodule.span_le.mpr ?_
+    rintro _ ⟨φ, I, b, rfl⟩
+    exact schwartzBruhatTensor_mem φ (cosetIndicator_mem_finiteSchwartzBruhat I b)
+  induction hF using Submodule.span_induction with
+  | mem G hG =>
+    obtain ⟨φ, I, b, rfl⟩ := hG
+    exact poisson_schwartzBruhatTensor_cosetIndicator φ I b
+  | zero => simp [adelicFourier_zero]
+  | add G H hG hH ihG ihH =>
+    rw [adelicFourier_add (integrable_of_mem_schwartzBruhat (hsub hG))
+      (integrable_of_mem_schwartzBruhat (hsub hH))]
+    refine ⟨(ihG.1.add ihH.1).of_nonneg_of_le (fun _ ↦ norm_nonneg _) fun ξ ↦ norm_add_le _ _,
+      (ihG.2.1.add ihH.2.1).of_nonneg_of_le (fun _ ↦ norm_nonneg _) fun ξ ↦ norm_add_le _ _, ?_⟩
+    simp only [Pi.add_apply]
+    rw [ihG.1.of_norm.tsum_add ihH.1.of_norm, ihG.2.1.of_norm.tsum_add ihH.2.1.of_norm, ihG.2.2,
+      ihH.2.2]
+  | smul c G hG ih =>
+    rw [adelicFourier_smul]
+    simp only [Pi.smul_apply, smul_eq_mul, norm_mul]
+    exact ⟨ih.1.mul_left _, ih.2.1.mul_left _, by rw [tsum_mul_left, tsum_mul_left, ih.2.2]⟩
+
+theorem summable_norm_algebraMap_of_mem_schwartzBruhat {F : 𝔸[K] → ℂ} (hF : F ∈ schwartzBruhat K) :
+    Summable fun ξ : K ↦ ‖F (algebraMap K 𝔸[K] ξ)‖ :=
+  (poisson_of_mem_span (schwartzBruhat_le_span_cosetIndicator hF)).1
 
 
+def mixedMulLeft (u : (mixedSpace K)ˣ) : mixedSpace K ≃L[ℝ] mixedSpace K :=
+  LinearEquiv.toContinuousLinearEquiv
+    { toFun := fun x ↦ (u : mixedSpace K) * x
+      invFun := fun x ↦ ((u⁻¹ : (mixedSpace K)ˣ) : mixedSpace K) * x
+      map_add' := mul_add _
+      map_smul' := fun r x ↦ mul_smul_comm r _ x
+      left_inv := fun x ↦ Units.inv_mul_cancel_left u x
+      right_inv := fun x ↦ Units.mul_inv_cancel_left u x }
 
+theorem mixedMulLeft_apply (u : (mixedSpace K)ˣ) (x : mixedSpace K) :
+    mixedMulLeft u x = (u : mixedSpace K) * x :=
+  rfl
 
+theorem comp_smul_mem_schwartzBruhat (a : IdeleGroup K) {F : 𝔸[K] → ℂ}
+    (hF : F ∈ schwartzBruhat K) : (fun x ↦ F (a • x)) ∈ schwartzBruhat K := by
+  induction hF using Submodule.span_induction with
+  | mem G hG =>
+    obtain ⟨φ, g, hg, rfl⟩ := hG
+    set u : (mixedSpace K)ˣ := Units.map
+      (InfiniteAdeleRing.ringEquiv_mixedSpace K).toRingHom.toMonoidHom (IdeleGroup.toInfinite K a)
+    set c : (𝔸ᶠ[K])ˣ := IdeleGroup.toFinite K a
+    have hg' : (fun y ↦ g ((c : 𝔸ᶠ[K]) * y)) ∈ finiteSchwartzBruhat K :=
+      ⟨hg.1.comp_continuous (continuous_const_mul _), hg.2.comp_homeomorph (Homeomorph.smul c)⟩
+    convert schwartzBruhatTensor_mem
+      (SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (mixedMulLeft u) φ) hg' using 1
+    funext x
+    simp only [schwartzBruhatTensor, SchwartzMap.compCLMOfContinuousLinearEquiv_apply,
+      Function.comp_apply, mixedMulLeft_apply]
+    have h1 : (a • x).1 =
+        ((IdeleGroup.toInfinite K a : (InfiniteAdeleRing K)ˣ) : InfiniteAdeleRing K) * x.1 := rfl
+    have h2 : (a • x).2 = (c : 𝔸ᶠ[K]) * x.2 := rfl
+    have h3 : (u : mixedSpace K) = homeomorphMixedSpace K
+        ((IdeleGroup.toInfinite K a : (InfiniteAdeleRing K)ˣ) : InfiniteAdeleRing K) := rfl
+    rw [h1, h2, homeomorphMixedSpace_mul, h3]
+  | zero => exact zero_mem _
+  | add G H _ _ hG hH => exact add_mem hG hH
+  | smul r G _ hG => exact Submodule.smul_mem _ r hG
 
-
-
-
-
+theorem summable_norm_smul_algebraMap (a : IdeleGroup K) {F : 𝔸[K] → ℂ}
+    (hF : F ∈ schwartzBruhat K) : Summable fun ξ : K ↦ ‖F (a • algebraMap K 𝔸[K] ξ)‖ :=
+  summable_norm_algebraMap_of_mem_schwartzBruhat (F := fun x ↦ F (a • x))
+    (comp_smul_mem_schwartzBruhat a hF)
 
 
 

@@ -20,6 +20,11 @@ open GlobalTheory.IndefiniteRowSideFullHecke.SkewGramHalfModule (ofAdj starAdj)
 
 variable {D : D7}
 
+theorem cA_mem_idAt {P : Pl D → Prop} {a : AE D} (h : a ∈ idAt D P) : cA D a ∈ idAt D P := by
+  obtain ⟨ε, -, hc, -, hε, -⟩ := (localComponents D P).1
+  rw [hε] at h ⊢
+  conv_rhs => rw [← h]
+  rw [map_mul, hc]
 
 
 
