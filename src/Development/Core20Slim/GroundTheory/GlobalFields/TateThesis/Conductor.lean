@@ -107,6 +107,9 @@ def finiteUnitsSingle (v : HeightOneSpectrum (𝓞 K)) :
     (v.adicCompletion K)ˣ →* (FiniteAdeleRing (𝓞 K) K)ˣ :=
   Units.map (finiteAdeleSingle v)
 
+theorem continuous_finiteUnitsSingle (v : HeightOneSpectrum (𝓞 K)) :
+    Continuous (finiteUnitsSingle (K := K) v) :=
+  Units.continuous_map (continuous_finiteAdeleSingle v)
 
 @[simp]
 theorem finiteComponent_finiteUnitsSingle (v : HeightOneSpectrum (𝓞 K))
@@ -114,6 +117,10 @@ theorem finiteComponent_finiteUnitsSingle (v : HeightOneSpectrum (𝓞 K))
   ext
   simp [finiteUnitsSingle]
 
+theorem finiteComponent_finiteUnitsSingle_of_ne {v w : HeightOneSpectrum (𝓞 K)} (h : w ≠ v)
+    (x : (v.adicCompletion K)ˣ) : finiteComponent w (finiteUnitsSingle v x) = 1 := by
+  ext
+  simp [finiteUnitsSingle, finiteAdeleSingle_apply_of_ne h]
 
 def finiteLevel (n : HeightOneSpectrum (𝓞 K) → ℕ) : Subgroup (FiniteAdeleRing (𝓞 K) K)ˣ :=
   ⨅ v, (unitsLevel v (n v)).comap (finiteComponent v)
@@ -130,6 +137,15 @@ theorem finiteLevel_le_finiteLevel_zero (n : HeightOneSpectrum (𝓞 K) → ℕ)
     finiteLevel n ≤ finiteLevel 0 :=
   finiteLevel_antitone fun v ↦ Nat.zero_le (n v)
 
+theorem finiteUnitsSingle_mem_finiteLevel {n : HeightOneSpectrum (𝓞 K) → ℕ}
+    {v : HeightOneSpectrum (𝓞 K)} {x : (v.adicCompletion K)ˣ} (hx : x ∈ unitsLevel v (n v)) :
+    finiteUnitsSingle v x ∈ finiteLevel n := by
+  refine mem_finiteLevel.2 fun w ↦ ?_
+  by_cases h : w = v
+  · subst h
+    simpa using hx
+  · rw [finiteComponent_finiteUnitsSingle_of_ne h]
+    exact one_mem _
 
 theorem finiteUnitsEquiv_apply_eq (x : (FiniteAdeleRing (𝓞 K) K)ˣ) (v : HeightOneSpectrum (𝓞 K)) :
     finiteUnitsEquiv K x v = finiteComponent v x :=
@@ -227,8 +243,54 @@ theorem exists_finiteLevel_le_ker_circle (χ : (FiniteAdeleRing (𝓞 K) K)ˣ �
       (∀ v ∈ S, 1 ≤ n v) ∧ (∀ v ∉ S, n v = 0) ∧ finiteLevel n ≤ χ.ker :=
   exists_finiteLevel_le_ker Circle.noSmallSubgroups χ hχ
 
+def conductorExponentAt (χ : (FiniteAdeleRing (𝓞 K) K)ˣ →* H) (v : HeightOneSpectrum (𝓞 K)) : ℕ :=
+  conductorExponent v (χ.comp (finiteUnitsSingle v))
 
+theorem finiteLevel_le_ker_iff (hH : NoSmallSubgroups H) (χ : (FiniteAdeleRing (𝓞 K) K)ˣ →* H)
+    (hχ : Continuous χ) (n : HeightOneSpectrum (𝓞 K) → ℕ) :
+    finiteLevel n ≤ χ.ker ↔ ∀ v, conductorExponentAt χ v ≤ n v := by
+  have hloc : ∀ v, Continuous (χ.comp (finiteUnitsSingle v)) := fun v ↦
+    hχ.comp (continuous_finiteUnitsSingle v)
+  constructor
+  · intro h v
+    rw [conductorExponentAt, ← unitsLevel_le_ker_iff v hH _ (hloc v)]
+    intro x hx
+    exact h (finiteUnitsSingle_mem_finiteLevel hx)
+  · intro h x hx
+    classical
+    obtain ⟨S, n₀, -, h0, hker⟩ := exists_finiteLevel_le_ker hH χ hχ
+    set p := ∏ v ∈ S, finiteUnitsSingle v (finiteComponent v x) with hp
+    have hcomp : ∀ w, finiteComponent w p = if w ∈ S then finiteComponent w x else 1 := by
+      intro w
+      rw [hp, map_prod]
+      split_ifs with hw
+      · rw [Finset.prod_eq_single_of_mem w hw fun v _ hv ↦
+          finiteComponent_finiteUnitsSingle_of_ne (Ne.symm hv) _,
+          finiteComponent_finiteUnitsSingle]
+      · exact Finset.prod_eq_one fun v hv ↦
+          finiteComponent_finiteUnitsSingle_of_ne (fun h ↦ hw (by rw [h]; exact hv)) _
+    have hy : x * p⁻¹ ∈ finiteLevel n₀ := by
+      refine mem_finiteLevel.2 fun w ↦ ?_
+      rw [map_mul, map_inv, hcomp]
+      split_ifs with hw
+      · rw [mul_inv_cancel]
+        exact one_mem _
+      · rw [inv_one, mul_one, h0 w hw]
+        exact unitsLevel_antitone w (Nat.zero_le _) (mem_finiteLevel.1 hx w)
+    have hpk : p ∈ χ.ker := Subgroup.prod_mem _ fun v _ ↦
+      (unitsLevel_le_ker_iff v hH _ (hloc v)).2 (h v) (mem_finiteLevel.1 hx v)
+    have hxp : x = x * p⁻¹ * p := by rw [inv_mul_cancel_right]
+    rw [hxp]
+    exact mul_mem (hker hy) hpk
 
+theorem finite_support_conductorExponentAt (hH : NoSmallSubgroups H)
+    (χ : (FiniteAdeleRing (𝓞 K) K)ˣ →* H) (hχ : Continuous χ) :
+    (support (conductorExponentAt χ)).Finite := by
+  obtain ⟨S, n, -, h0, hker⟩ := exists_finiteLevel_le_ker hH χ hχ
+  have h := (finiteLevel_le_ker_iff hH χ hχ n).1 hker
+  refine S.finite_toSet.subset fun v hv ↦ ?_
+  by_contra hvS
+  exact hv (Nat.eq_zero_of_le_zero ((h v).trans (h0 v hvS).le))
 
 
 end Character

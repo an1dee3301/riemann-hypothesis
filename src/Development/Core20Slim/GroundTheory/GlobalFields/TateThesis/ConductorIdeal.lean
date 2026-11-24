@@ -145,7 +145,6 @@ namespace IdeleGroup
 variable {K : Type*} [Field K] [NumberField K] {H : Type*} [Group H] [TopologicalSpace H]
 
 
-omit [TopologicalSpace H] in
 
 def idealLevel (𝔪 : Ideal (𝓞 K)) : Subgroup (FiniteAdeleRing (𝓞 K) K)ˣ :=
   finiteLevel fun v ↦ multiplicity v.asIdeal 𝔪
@@ -172,6 +171,12 @@ theorem toInfinite_ofFinite (x : (FiniteAdeleRing (𝓞 K) K)ˣ) : toInfinite K 
   change ((prodEquiv K) ((ContinuousMulEquiv.symm (prodEquiv K)) (1, x))).1 = 1
   rw [ContinuousMulEquiv.apply_symm_apply]
 
+theorem mem_standardOpenSubgroup_iff_toFinite_mem (x : IdeleGroup K) :
+    x ∈ standardOpenSubgroup K ↔ toFinite K x ∈ finiteLevel 0 := by
+  rw [mem_standardOpenSubgroup, mem_finiteLevel]
+  refine forall_congr' fun v ↦ ?_
+  rw [Pi.zero_apply, unitsLevel_zero, Submonoid.mem_units_iff]
+  rfl
 
 
 end IdeleGroup

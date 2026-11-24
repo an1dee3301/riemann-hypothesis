@@ -237,9 +237,24 @@ section Character
 
 variable {H : Type*} [Group H] [TopologicalSpace H]
 
+theorem exists_unitsLevel_le_ker (hH : NoSmallSubgroups H) (χ : (v.adicCompletion K)ˣ →* H)
+    (hχ : Continuous χ) : ∃ n : ℕ, 1 ≤ n ∧ unitsLevel v n ≤ χ.ker := by
+  obtain ⟨L, ⟨n, hn, rfl⟩, hL⟩ := exists_le_ker_of_noSmallSubgroups
+    (P := fun L ↦ ∃ n : ℕ, 1 ≤ n ∧ L = unitsLevel v n)
+    (fun W hW ↦ by
+      obtain ⟨n, hn, h⟩ := exists_unitsLevel_subset v hW
+      exact ⟨_, ⟨n, hn, rfl⟩, h⟩) hH χ hχ
+  exact ⟨n, hn, hL⟩
 
 
+def conductorExponent (χ : (v.adicCompletion K)ˣ →* H) : ℕ :=
+  sInf {n : ℕ | unitsLevel v n ≤ χ.ker}
 
+theorem unitsLevel_le_ker_iff (hH : NoSmallSubgroups H) (χ : (v.adicCompletion K)ˣ →* H)
+    (hχ : Continuous χ) {n : ℕ} : unitsLevel v n ≤ χ.ker ↔ conductorExponent v χ ≤ n := by
+  have hne : {n : ℕ | unitsLevel v n ≤ χ.ker}.Nonempty :=
+    (exists_unitsLevel_le_ker v hH χ hχ).imp fun _ h ↦ h.2
+  refine ⟨fun h ↦ Nat.sInf_le h, fun h ↦ (unitsLevel_antitone v h).trans (Nat.sInf_mem hne)⟩
 
 
 end Character

@@ -289,13 +289,32 @@ theorem mixedTraceForm_eq_inner (x y : mixedSpace K) :
 
 variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℂ E]
 
+def mixedFourier (f : mixedSpace K → E) : mixedSpace K → E :=
+  VectorFourier.fourierIntegral 𝐞 (selfDualMeasure K) (mixedTraceForm K) f
 
 
+theorem mixedFourier_apply (f : mixedSpace K → E) (y : mixedSpace K) :
+    mixedFourier K f y = ∫ x, 𝐞 (-mixedTraceForm K x y) • f x ∂selfDualMeasure K := rfl
 
 
+theorem mixedFourier_eq (f : mixedSpace K → E) (y : mixedSpace K) :
+    mixedFourier K f y = 𝓕 (f ∘ (mixedToEuclidean K).symm) (mixedToEuclideanConj K y) := by
+  rw [mixedFourier_apply, Real.fourier_eq, ← (measurePreserving_mixedToEuclidean K).integral_comp
+    (mixedToEuclidean K).toHomeomorph.measurableEmbedding]
+  refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+  simp [mixedTraceForm_eq_inner]
 
 
+def mixedFourierSchwartz : 𝓢(mixedSpace K, E) →L[ℂ] 𝓢(mixedSpace K, E) :=
+  (SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (mixedToEuclideanConj K)).comp
+    ((SchwartzMap.fourierTransformCLM ℂ).comp
+      (SchwartzMap.compCLMOfContinuousLinearEquiv ℂ (mixedToEuclidean K).symm))
 
+theorem mixedFourierSchwartz_apply (f : 𝓢(mixedSpace K, E)) :
+    ⇑(mixedFourierSchwartz K f) = mixedFourier K f := by
+  funext y
+  rw [mixedFourier_eq]
+  rfl
 
 variable [CompleteSpace E]
 
