@@ -1,0 +1,22 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.EqZeroOfCayleyTwoIZpowEqOneForall
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsFockMap
+public import Init.Data.Int.Basic
+public import Init.Data.Nat.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Nat.Init
+
+@[expose] public section
+
+open scoped Matrix
+open Formalism.BasicNotions.TH
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.eq_zero_of_cayley_two_I_zpow_eq_one_forall : ∀ m : ℤ, (∀ x : ℝ, ((1 + 2 * Complex.I * x) / (1 - 2 * Complex.I * x)) ^ m = 1) → m = 0 := by
+  first | exact @GlobalTheory.zpow_cayley_two_eq_one_forall | exact GlobalTheory.zpow_cayley_two_eq_one_forall | (intros; apply GlobalTheory.zpow_cayley_two_eq_one_forall <;> assumption)
