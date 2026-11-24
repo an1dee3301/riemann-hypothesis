@@ -240,7 +240,6 @@ theorem smul_mkE (r a b : R) : algebraMap R (R ⊗[F] E) r * mkE (F := F) δ R a
   rw [← Algebra.smul_def]
   simp only [mkE, smul_add, TensorProduct.smul_tmul', smul_eq_mul]
 
-include hδ in
 
 
 theorem incl_eq_mkE (α β : F) :

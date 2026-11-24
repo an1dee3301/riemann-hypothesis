@@ -2,6 +2,7 @@ module
 
 public import Mathlib
 public import Development.AbelianVarietyTheory.Definitions.Divisors.CTSmallCone
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsHaarOfIsCompact
 public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Init.Core

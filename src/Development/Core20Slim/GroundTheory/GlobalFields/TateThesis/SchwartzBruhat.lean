@@ -113,7 +113,6 @@ theorem schwartzBruhatTensor_mem (φ : 𝓢(mixedSpace K, ℂ)) {g : 𝔸ᶠ[K] 
 
 
 
-variable (K) in
 
 
 

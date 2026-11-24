@@ -67,10 +67,27 @@ end Lattices
 section Chain
 variable {n n' : Type} [Fintype n] [DecidableEq n] [Fintype n'] [DecidableEq n'] {c : ℕ}
 
+def aux (k : Type) [Field k] (n : Type) [DecidableEq n] {c : ℕ} (i : Fin c) : n ⊕ Fin c → k :=
+  Pi.single (Sum.inr i) 1
 
+def inX (k : Type) [Field k] [ValuativeRel k] (n : Type) (c : ℕ) : (n → k) →ₗ[𝒪[k]] (n ⊕ Fin c → k) where
+  toFun v := Sum.elim v 0
+  map_add' v w := by ext (r | r) <;> simp
+  map_smul' a v := by ext (r | r) <;> simp
 
+def chainLat (ϖ : 𝒪[k]) (c : ℕ) (L : Submodule 𝒪[k] (n → k)) : Submodule 𝒪[k] (n ⊕ Fin c → k) :=
+  L.map (inX k n c) ⊔
+    Submodule.span 𝒪[k] (Set.range fun i : Fin c => (ϖ : k) ^ (i.val + 1) • aux k n i)
 
+def Yle (k : Type) [Field k] [ValuativeRel k] (n : Type) (c i : ℕ) : Submodule 𝒪[k] (n ⊕ Fin c → k) where
+  carrier := {v | ∀ l : Fin c, i < l.val + 1 → v (Sum.inr l) = 0}
+  add_mem' hv hw l hl := by simp [hv l hl, hw l hl]
+  zero_mem' l _ := rfl
+  smul_mem' a v hv l hl := by simp [hv l hl]
 
+def pt (x₀ : Matrix n n' k) (y : Fin c → (n ⊕ Fin c → k)) : Matrix (n ⊕ Fin c) (n' ⊕ Fin (c + 1)) k :=
+  basePt c x₀ + Matrix.of fun r s =>
+    Sum.elim (fun _ => 0) (fun j : Fin (c + 1) => Fin.cases 0 (fun i => y i r) j) s
 
 
 variable [MeasurableSpace k] [BorelSpace k]

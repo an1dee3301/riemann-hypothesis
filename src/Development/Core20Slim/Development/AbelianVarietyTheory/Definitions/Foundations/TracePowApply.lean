@@ -177,8 +177,6 @@ theorem _root_.GlobalTheory.Mem.GelfCheck.rowE_eq_rowDiv (R : Type) [CommRing R]
 section
 variable {A : Type} [Ring A] {N : ℕ} {E : Matrix (Fin N) (Fin N) A}
 
-open MvPolynomial in
-variable {A : Type} [Ring A] {N : ℕ} {E : Matrix (Fin N) (Fin N) A} in
 
 end
 

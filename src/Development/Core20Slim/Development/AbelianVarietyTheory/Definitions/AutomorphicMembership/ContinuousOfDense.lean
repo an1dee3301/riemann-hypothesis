@@ -222,7 +222,6 @@ omit [DecidableEq σ] in
     diag c hc x α = c α * x α := rfl
 
 
-omit [DecidableEq σ] in
 
 
 theorem continuous_of_dense {G H : Type*} [TopologicalSpace G] [NormedAddCommGroup H] [NormedSpace ℂ H]
