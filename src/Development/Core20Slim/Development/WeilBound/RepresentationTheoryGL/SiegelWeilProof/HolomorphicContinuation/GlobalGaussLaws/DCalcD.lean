@@ -1,0 +1,189 @@
+module
+
+public import Development.Core20Slim.Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.HolomorphicContinuation.GlobalGaussLaws.DCalcC
+public import Development.Core20Slim.Development.AutomorphicArithmetic.IntegralCasts.CapelliIdentities.SchwartzBilinear.PowMulExpLeHalfExp
+public import Development.Core20Slim.Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.HolomorphicContinuation.GlobalGaussLaws.DCalcA
+public import Development.Core20Slim.Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.HolomorphicContinuation.NullSec
+public import Init.Core
+public import Init.Data.Int.Basic
+public import Init.Data.Nat.Basic
+public import Init.Data.NeZero
+public import Init.Data.Order.Lemmas
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.BigOperators.Ring.Finset
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Finsupp
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Nat.Defs
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.Nat
+public import Mathlib.Algebra.MonoidAlgebra.Defs
+public import Mathlib.Algebra.MvPolynomial.Basic
+public import Mathlib.Algebra.MvPolynomial.Eval
+public import Mathlib.Algebra.Notation.Defs
+public import Mathlib.Algebra.Order.Archimedean.Real.Basic
+public import Mathlib.Algebra.Order.BigOperators.Group.Finset
+public import Mathlib.Algebra.Order.Floor.Defs
+public import Mathlib.Algebra.Order.Group.Defs
+public import Mathlib.Algebra.Order.GroupWithZero.Basic
+public import Mathlib.Algebra.Order.GroupWithZero.Defs
+public import Mathlib.Algebra.Order.Monoid.Defs
+public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
+public import Mathlib.Algebra.Order.Monoid.Unbundled.ExistsOfLE
+public import Mathlib.Algebra.Order.Ring.Basic
+public import Mathlib.Algebra.Order.Ring.Defs
+public import Mathlib.Algebra.Order.Ring.Unbundled.Basic
+public import Mathlib.Algebra.Order.Star.Basic
+public import Mathlib.Algebra.Order.Star.Real
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Nat
+public import Mathlib.Algebra.Ring.Parity
+public import Mathlib.Algebra.Star.Basic
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.Analysis.Complex.Exponential
+public import Mathlib.Analysis.Complex.Norm
+public import Mathlib.Analysis.Complex.Trigonometric
+public import Mathlib.Analysis.InnerProductSpace.Basic
+public import Mathlib.Analysis.InnerProductSpace.Defs
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Group.Basic
+public import Mathlib.Analysis.Normed.Group.Continuity
+public import Mathlib.Analysis.Normed.Group.Defs
+public import Mathlib.Analysis.Normed.Group.Uniform
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.RCLike.Basic
+public import Mathlib.Analysis.SpecialFunctions.Gaussian.FourierTransform
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.Real.Star
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Finsupp.Defs
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Nat.Basic
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Nat.Init
+public import Mathlib.LinearAlgebra.Complex.FiniteDimensional
+public import Mathlib.MeasureTheory.Constructions.BorelSpace.Complex
+public import Mathlib.MeasureTheory.Constructions.Pi
+public import Mathlib.MeasureTheory.Function.L1Space.Integrable
+public import Mathlib.MeasureTheory.Group.Measure
+public import Mathlib.MeasureTheory.Integral.Pi
+public import Mathlib.MeasureTheory.Measure.Haar.OfBasis
+public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
+public import Mathlib.MeasureTheory.OuterMeasure.AE
+public import Mathlib.Order.Basic
+public import Mathlib.Order.Defs.Lattice
+public import Mathlib.Order.Defs.LinearOrder
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.Order.Filter.Basic
+public import Mathlib.Order.Lattice
+public import Mathlib.Order.RelClasses
+public import Mathlib.Tactic.Linarith.Lemmas
+public import Mathlib.Tactic.NormNum.Basic
+public import Mathlib.Tactic.NormNum.Ineq
+public import Mathlib.Tactic.NormNum.Result
+public import Mathlib.Tactic.Ring.Basic
+public import Mathlib.Tactic.Ring.Common
+public import Mathlib.Topology.Algebra.Group.Basic
+public import Mathlib.Topology.Bases
+public import Mathlib.Topology.Compactness.LocallyCompact
+public import Mathlib.Topology.MetricSpace.ProperSpace
+public import Mathlib.Topology.MetricSpace.Pseudo.Defs
+public import Mathlib.Topology.UniformSpace.Defs
+
+@[expose] public section
+
+noncomputable section
+
+open MeasureTheory Filter Topology MvPolynomial
+
+namespace PositivityTheory.Rg.Sw.Glob
+
+namespace DCalcDH
+
+open DCalcH DCalcBH
+
+variable {m n : ℕ}
+
+def sqN (v : Fin m → Fin n → ℂ) : ℝ := ∑ a, ∑ j, ‖v a j‖ ^ 2
+
+theorem sqN_nonneg (v : Fin m → Fin n → ℂ) : 0 ≤ sqN v := by
+  unfold sqN; positivity
+
+theorem norm_le_one_add_sq (v : Fin m → Fin n → ℂ) (a : Fin m) (j : Fin n) : ‖v a j‖ ≤ 1 + sqN v := by
+  have h1 : ‖v a j‖ ^ 2 ≤ sqN v := by
+    unfold sqN
+    have ha : ‖v a j‖ ^ 2 ≤ ∑ j', ‖v a j'‖ ^ 2 :=
+      Finset.single_le_sum (f := fun j' => ‖v a j'‖ ^ 2) (fun _ _ => by positivity) (Finset.mem_univ j)
+    exact ha.trans (Finset.single_le_sum (f := fun a' => ∑ j', ‖v a' j'‖ ^ 2) (fun _ _ => by positivity)
+      (Finset.mem_univ a))
+  nlinarith [norm_nonneg (v a j), sq_nonneg (‖v a j‖ - 1)]
+
+theorem norm_crd (v : Fin m → Fin n → ℂ) (k : Fin m × Fin n × Bool) : ‖crd v k‖ = ‖v k.1 k.2.1‖ := by
+  unfold crd; split_ifs <;> simp
+
+theorem evX_growth (Q : PX m n) : ∃ C N, 0 ≤ C ∧ ∀ v, ‖evX Q v‖ ≤ C * (1 + sqN v) ^ N := by
+  induction Q using MvPolynomial.induction_on with
+  | C a => exact ⟨‖a‖, 0, norm_nonneg _, fun v => by simp [evX_eq]⟩
+  | add p q hp hq =>
+    obtain ⟨C1, N1, hC1, h1⟩ := hp
+    obtain ⟨C2, N2, hC2, h2⟩ := hq
+    refine ⟨C1 + C2, max N1 N2, by positivity, fun v => ?_⟩
+    have hs : 1 ≤ 1 + sqN v := by linarith [sqN_nonneg v]
+    have e1 := pow_le_pow_right₀ hs (le_max_left N1 N2)
+    have e2 := pow_le_pow_right₀ hs (le_max_right N1 N2)
+    calc ‖evX (p + q) v‖ ≤ ‖evX p v‖ + ‖evX q v‖ := by rw [evX_eq, map_add (f := _)]; exact norm_add_le _ _
+      _ ≤ C1 * (1 + sqN v) ^ N1 + C2 * (1 + sqN v) ^ N2 := add_le_add (h1 v) (h2 v)
+      _ ≤ C1 * (1 + sqN v) ^ max N1 N2 + C2 * (1 + sqN v) ^ max N1 N2 :=
+          add_le_add (mul_le_mul_of_nonneg_left e1 hC1) (mul_le_mul_of_nonneg_left e2 hC2)
+      _ = (C1 + C2) * (1 + sqN v) ^ max N1 N2 := by ring
+  | mul_X p k hp =>
+    obtain ⟨C, N, hC, h⟩ := hp
+    refine ⟨C, N + 1, hC, fun v => ?_⟩
+    have hk : ‖crd v k‖ ≤ 1 + sqN v := by rw [norm_crd]; exact norm_le_one_add_sq v _ _
+    calc ‖evX (p * X k) v‖ = ‖evX p v‖ * ‖crd v k‖ := by rw [evX_eq, map_mul, eval_X, norm_mul]; rfl
+      _ ≤ C * (1 + sqN v) ^ N * (1 + sqN v) :=
+          mul_le_mul (h v) hk (norm_nonneg _) (mul_nonneg hC (pow_nonneg (by linarith [sqN_nonneg v]) _))
+      _ = C * (1 + sqN v) ^ (N + 1) := by ring
+
+theorem poly_exp (N : ℕ) (a : ℝ) (ha : 0 < a) :
+    ∃ C, 0 ≤ C ∧ ∀ x : ℝ, 0 ≤ x → (1 + x) ^ N * Real.exp (-(a * x)) ≤ C * Real.exp (-(a / 2 * x)) :=
+  _root_.UpperTheory.Reformulated.B.P6.r23b.PositivityTheory.Rg.Sw.Glob.DCalcDH.poly_exp N a ha
+
+theorem integrable_gauss_C (a : ℝ) (ha : 0 < a) : Integrable (fun z : ℂ => Real.exp (-(a * ‖z‖ ^ 2))) := by
+  have h := GaussianFourier.integrable_cexp_neg_mul_sq_norm_add (V := ℂ) (b := (a : ℂ)) (by simpa using ha) 0 0
+  refine h.norm.congr (Eventually.of_forall fun z => ?_)
+  simp only [zero_mul, add_zero, Complex.norm_exp]
+  congr 1
+  simp [Complex.mul_re, ← Complex.ofReal_pow]
+
+theorem integrable_gauss (a : ℝ) (ha : 0 < a) : Integrable (fun u : Fin m → Fin n → ℂ => Real.exp (-(a * sqN u))) := by
+  have hinner : Integrable (fun w : Fin n → ℂ => ∏ j, Real.exp (-(a * ‖w j‖ ^ 2))) :=
+    Integrable.fintype_prod (ι := Fin n) (E := ℂ) (μ := fun _ => (volume : Measure ℂ))
+      (f := fun _ z => Real.exp (-(a * ‖z‖ ^ 2))) fun _ => integrable_gauss_C a ha
+  have houter : Integrable (fun u : Fin m → Fin n → ℂ => ∏ i, ∏ j, Real.exp (-(a * ‖u i j‖ ^ 2))) :=
+    Integrable.fintype_prod (ι := Fin m) (E := Fin n → ℂ) (μ := fun _ => (volume : Measure (Fin n → ℂ)))
+      (f := fun _ w => ∏ j, Real.exp (-(a * ‖w j‖ ^ 2))) fun _ => hinner
+  refine houter.congr (Eventually.of_forall fun u => ?_)
+  simp only [sqN]
+  rw [Finset.mul_sum, ← Finset.sum_neg_distrib, Real.exp_sum]
+  refine Finset.prod_congr rfl fun i _ => ?_
+  rw [Finset.mul_sum, ← Finset.sum_neg_distrib, Real.exp_sum]
+
+end DCalcDH
+
+end PositivityTheory.Rg.Sw.Glob

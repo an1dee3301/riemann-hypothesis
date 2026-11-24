@@ -1,0 +1,38 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.TrMMemFramesEIff
+public import Init.Data.Fin.Basic
+public import Init.Data.Nat.Basic
+public import Init.Data.NeZero
+public import Init.Data.Zero
+public import Init.Prelude
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Data.Fin.Tuple.Basic
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.Logic.Equiv.Defs
+
+@[expose] public section
+
+noncomputable section
+
+namespace GlobalTheory.CompanionTheory.WeilSiegel.Free
+
+def hypOne {K : Type} [Zero K] [One K] {M : ℕ} (A : Matrix (Fin M) (Fin M) K) :
+    Matrix (Fin (M + 2)) (Fin (M + 2)) K :=
+  Matrix.of (Fin.cons (Fin.cons 0 (Fin.cons 1 fun _ => 0))
+    (Fin.cons (Fin.cons 1 (Fin.cons 0 fun _ => 0)) fun i => Fin.cons 0 (Fin.cons 0 (A i))))
+
+section Entries
+
+variable {K : Type} [Zero K] [One K] {M : ℕ} (A : Matrix (Fin M) (Fin M) K)
+
+theorem hypOne_one_one : hypOne A 1 1 = 0 := rfl
+theorem hypOne_zero_rest (j : Fin M) : hypOne A 0 j.succ.succ = 0 := rfl
+theorem hypOne_one_rest (j : Fin M) : hypOne A 1 j.succ.succ = 0 := rfl
+theorem hypOne_rest_rest (i j : Fin M) : hypOne A i.succ.succ j.succ.succ = A i j := rfl
+
+end Entries
+
+end GlobalTheory.CompanionTheory.WeilSiegel.Free

@@ -1,0 +1,23 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.UnramifiedQuotientCard
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ResAlgSplitTwo
+public import Development.Core20Slim.Development.WeilBound.CoreStatements.AutomorphicKernels.UnitarySchrodingerModel.LocalDefs
+public import Init.Data.Int.Basic
+public import Init.Prelude
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Nat.Defs
+public import Mathlib.Algebra.Quotient
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.RingTheory.Ideal.Defs
+public import Mathlib.RingTheory.Ideal.Quotient.Defs
+public import Mathlib.SetTheory.Cardinal.Finite
+
+@[expose] public section
+
+open PositivityTheory.PfSWUS.Loc GlobalTheory.CompanionTheory.UnrDens
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.unramified_quotient_card : ∀ (R : Type) [CommRing R] (σ : R →+* R) (ϖ : R) (q : ℕ) (ε : ℤ), IsUnrQuad R σ ϖ q ε → ∀ k : ℕ, Nat.card (R ⧸ lev ϖ k) = q ^ (2 * k) := by
+  first | exact @GlobalTheory.CompanionTheory.UnrDens.card_quot_lev | exact GlobalTheory.CompanionTheory.UnrDens.card_quot_lev | (intros; apply GlobalTheory.CompanionTheory.UnrDens.card_quot_lev <;> assumption)

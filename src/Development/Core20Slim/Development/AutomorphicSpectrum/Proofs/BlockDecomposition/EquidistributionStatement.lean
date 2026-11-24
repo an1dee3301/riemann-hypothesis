@@ -1,0 +1,12 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Equidistribution
+public import Development.Core20Slim.Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.BinaryMassMeans.MeanVal
+
+@[expose] public section
+
+open PositivityTheory.Rg.Mass
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.equidistribution : Equi := by
+  first | exact @GlobalTheory.CompanionTheory.Equi.equi | exact GlobalTheory.CompanionTheory.Equi.equi | (intros; apply GlobalTheory.CompanionTheory.Equi.equi <;> assumption)

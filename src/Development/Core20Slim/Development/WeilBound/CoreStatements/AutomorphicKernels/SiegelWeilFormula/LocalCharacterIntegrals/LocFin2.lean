@@ -1,0 +1,18 @@
+module
+
+public import Development.Core20Slim.Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.LocalCharacterIntegrals.LocFin2OfX
+public import Development.Core20Slim.Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.LocalCharacterIntegrals.SetIntegralCharEqZero
+public import Development.Core20Slim.Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.LocalCharacterIntegrals.ExistsLatticeNormGePow
+public import Development.Core20Slim.Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.LocalCharacterIntegrals.PsiVTrPairAddLeft
+public import Development.Core20Slim.Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.WhitGenLowOf
+public import Development.Core20Slim.Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.WhitGenOf
+
+@[expose] public section
+
+namespace PositivityTheory.SiegelWeilFormula.SwLocFin
+
+theorem locFinX : PositivityTheory.SiegelWeilFormula.Gen.LocFinX := locFinX_of shellP convP dualP
+
+theorem locFin2 : PositivityTheory.SiegelWeilFormula.Gen.LocFin2 := locFin2_of_X locFinX
+
+end PositivityTheory.SiegelWeilFormula.SwLocFin
