@@ -1,0 +1,239 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.GroundTheory.AutomorphicForms.HermitianSpaces
+public import Development.Core20Slim.GroundTheory.AutomorphicForms.QuadraticConj
+public import Init.Core
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Algebra.NonUnitalHom
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Equiv.Defs
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Submonoid.Operations
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.Group.Units.Hom
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.Hom
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Equiv.Basic
+public import Mathlib.Algebra.Module.Equiv.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Ring.CompTypeclasses
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Equiv
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Basic
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.GroupTheory.GroupAction.Hom
+public import Mathlib.LinearAlgebra.Basis.Defs
+public import Mathlib.LinearAlgebra.Dimension.StrongRankCondition
+public import Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
+public import Mathlib.LinearAlgebra.InvariantBasisNumber
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.Logic.Equiv.Defs
+public import Mathlib.RingTheory.Henselian
+public import Mathlib.RingTheory.LocalRing.Defs
+public import Mathlib.RingTheory.RegularLocalRing.Defs
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.SimpleRing.Principal
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.RingTheory.TensorProduct.Maps
+
+@[expose] public section
+
+namespace GroundTheory.Automorphic
+
+open Module Matrix TensorProduct
+
+section Transport
+
+variable {ι : Type*} [Fintype ι] [DecidableEq ι] {A B : Type*} [CommRing A] [CommRing B]
+
+
+omit [DecidableEq ι] in
+theorem map_unitaryExpr (φ : A →+* B) {sA : A →+* A} {sB : B →+* B}
+    (hs : ∀ x, φ (sA x) = sB (φ x)) (H M : Matrix ι ι A) :
+    ((M.map sA)ᵀ * H * M).map φ = ((M.map φ).map sB)ᵀ * H.map φ * M.map φ := by
+  have hc : (φ : A → B) ∘ sA = sB ∘ φ := funext hs
+  rw [Matrix.map_mul, Matrix.map_mul, Matrix.transpose_map, Matrix.map_map, Matrix.map_map, hc]
+
+theorem map_mem_unitaryGroupMatrix (φ : A →+* B) {sA : A →+* A} {sB : B →+* B}
+    (hs : ∀ x, φ (sA x) = sB (φ x)) {HA : Matrix ι ι A} {HB : Matrix ι ι B}
+    (hH : HA.map φ = HB) {g : GL ι A} (hg : g ∈ unitaryGroupMatrix sA HA) :
+    Matrix.GeneralLinearGroup.map φ g ∈ unitaryGroupMatrix sB HB := by
+  rw [mem_unitaryGroupMatrix] at *
+  have := congrArg (fun M => M.map φ) hg
+  rw [map_unitaryExpr φ hs, hH] at this
+  exact this
+
+noncomputable def unitaryGroupMatrixCongr (e : A ≃+* B) {sA : A →+* A} {sB : B →+* B}
+    (hs : ∀ x, e (sA x) = sB (e x)) {HA : Matrix ι ι A} {HB : Matrix ι ι B}
+    (hH : HA.map e = HB) : unitaryGroupMatrix sA HA ≃* unitaryGroupMatrix sB HB where
+  toFun g := ⟨Matrix.GeneralLinearGroup.map (e : A →+* B) g,
+    map_mem_unitaryGroupMatrix (e : A →+* B) hs hH g.2⟩
+  invFun g := ⟨Matrix.GeneralLinearGroup.map (e.symm : B →+* A) g,
+    map_mem_unitaryGroupMatrix (e.symm : B →+* A)
+      (fun x => by
+        apply e.injective
+        simp only [RingHom.coe_coe, RingEquiv.apply_symm_apply]
+        rw [hs, RingEquiv.apply_symm_apply])
+      (by rw [← hH, Matrix.map_map]; ext i j; simp) g.2⟩
+  left_inv g := by
+    apply Subtype.ext; apply Units.ext
+    ext i j
+    simp [Matrix.GeneralLinearGroup.map]
+  right_inv g := by
+    apply Subtype.ext; apply Units.ext
+    ext i j
+    simp [Matrix.GeneralLinearGroup.map]
+  map_mul' a b := by
+    apply Subtype.ext
+    simp
+
+end Transport
+
+variable (F E : Type*) [Field F] [CommRing E] [Algebra F E] [Algebra.IsQuadraticExtension F E]
+
+section BaseChange
+
+variable (R S T : Type*) [CommRing R] [Algebra F R] [CommRing S] [Algebra F S]
+  [CommRing T] [Algebra F T]
+
+noncomputable def conjBase : R ⊗[F] E →+* R ⊗[F] E :=
+  (Algebra.TensorProduct.map (AlgHom.id R R) (conj F E).toAlgHom).toRingHom
+
+variable {F E R S T}
+
+@[simp]
+theorem conjBase_tmul (r : R) (e : E) : conjBase F E R (r ⊗ₜ e) = r ⊗ₜ conj F E e := rfl
+
+
+variable (E) in
+noncomputable def tensorMap (f : R →ₐ[F] S) : R ⊗[F] E →ₐ[F] S ⊗[F] E :=
+  Algebra.TensorProduct.map f (AlgHom.id F E)
+
+omit [Algebra.IsQuadraticExtension F E] in
+@[simp]
+theorem tensorMap_tmul (f : R →ₐ[F] S) (r : R) (e : E) :
+    tensorMap E f (r ⊗ₜ e) = f r ⊗ₜ e := rfl
+
+theorem tensorMap_conjBase (f : R →ₐ[F] S) (z : R ⊗[F] E) :
+    tensorMap E f (conjBase F E R z) = conjBase F E S (tensorMap E f z) := by
+  induction z using TensorProduct.inductionOn with
+  | tmul r e => rw [conjBase_tmul, tensorMap_tmul, tensorMap_tmul, conjBase_tmul]
+  | add x y hx hy => simp only [map_add (f := _), hx, hy]
+
+omit [Algebra.IsQuadraticExtension F E] in
+theorem tensorMap_includeRight (f : R →ₐ[F] S) (e : E) :
+    tensorMap E f (Algebra.TensorProduct.includeRight e) =
+      (Algebra.TensorProduct.includeRight e : S ⊗[F] E) := by
+  simp [Algebra.TensorProduct.includeRight_apply]
+
+
+
+end BaseChange
+
+variable {ι : Type*} [Fintype ι] [DecidableEq ι] (H : Matrix ι ι E)
+
+section Points
+
+variable (R S T : Type*) [CommRing R] [Algebra F R] [CommRing S] [Algebra F S]
+  [CommRing T] [Algebra F T]
+
+noncomputable def unitaryPoints : Subgroup (GL ι (R ⊗[F] E)) :=
+  unitaryGroupMatrix (conjBase F E R)
+    (H.map (Algebra.TensorProduct.includeRight : E →ₐ[F] R ⊗[F] E))
+
+variable {F E H R S T}
+
+omit [Algebra.IsQuadraticExtension F E] [Fintype ι] [DecidableEq ι] in
+theorem map_includeRight_tensorMap (f : R →ₐ[F] S) :
+    (H.map (Algebra.TensorProduct.includeRight : E →ₐ[F] R ⊗[F] E)).map
+      ((tensorMap E f : R ⊗[F] E →ₐ[F] S ⊗[F] E) : R ⊗[F] E →+* S ⊗[F] E) =
+      H.map (Algebra.TensorProduct.includeRight : E →ₐ[F] S ⊗[F] E) := by
+  rw [Matrix.map_map]
+  congr 1
+  funext e
+  exact tensorMap_includeRight f e
+
+
+variable (F E H) in
+noncomputable def unitaryMap (f : R →ₐ[F] S) : unitaryPoints F E H R →* unitaryPoints F E H S :=
+  ((Matrix.GeneralLinearGroup.map
+      ((tensorMap E f : R ⊗[F] E →ₐ[F] S ⊗[F] E) : R ⊗[F] E →+* S ⊗[F] E)).comp
+    (unitaryPoints F E H R).subtype).codRestrict _ fun g =>
+    map_mem_unitaryGroupMatrix _ (tensorMap_conjBase f) (map_includeRight_tensorMap f) g.2
+
+end Points
+
+section Functor
+
+open CategoryTheory
+
+universe u
+
+variable (F E : Type u) [Field F] [CommRing E] [Algebra F E] [Algebra.IsQuadraticExtension F E]
+  {ι : Type u} [Fintype ι] [DecidableEq ι]
+
+end Functor
+
+section Rational
+
+variable {F E H}
+
+theorem lid_conjBase (z : F ⊗[F] E) :
+    Algebra.TensorProduct.lid F E (conjBase F E F z) = conj F E (Algebra.TensorProduct.lid F E z) := by
+  induction z using TensorProduct.inductionOn with
+  | tmul r e =>
+    simp only [conjBase_tmul, Algebra.TensorProduct.lid_tmul, map_smul]
+  | add x y hx hy => simp only [map_add (f := _), hx, hy]
+
+omit [Algebra.IsQuadraticExtension F E] [Fintype ι] [DecidableEq ι] in
+theorem map_includeRight_lid :
+    (H.map (Algebra.TensorProduct.includeRight : E →ₐ[F] F ⊗[F] E)).map
+      ((Algebra.TensorProduct.lid F E : F ⊗[F] E ≃ₐ[F] E) : F ⊗[F] E ≃+* E) = H := by
+  rw [Matrix.map_map]
+  conv_rhs => rw [← Matrix.map_id H]
+  congr 1
+  funext e
+  simp [Algebra.TensorProduct.includeRight_apply]
+
+
+variable (F E H) in
+noncomputable def unitaryPointsRationalEquiv :
+    unitaryPoints F E H F ≃* unitaryGroupMatrix (conjHom F E) H :=
+  unitaryGroupMatrixCongr ((Algebra.TensorProduct.lid F E).toRingEquiv)
+    (fun z => lid_conjBase z) map_includeRight_lid
+
+variable {V : Type*} [AddCommGroup V] [Module E V]
+
+
+variable (F E) in
+noncomputable def unitaryPointsRationalEquivHermitian (h : HermitianForm F E V)
+    (v : Basis ι E V) : unitaryPoints F E (gram h.toSesq v) F ≃* h.unitaryGroup :=
+  (unitaryPointsRationalEquiv F E (gram h.toSesq v)).trans (unitaryGroupEquivMatrix h v).symm
+
+end Rational
+
+end GroundTheory.Automorphic

@@ -1,0 +1,82 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.GroundTheory.HeightsAndTheta.Heights.FiniteCovolume.StatementsAdelicSplit
+public import Development.Core20Slim.GroundTheory.AutomorphicForms.AdelicUnitaryGroups
+public import Development.Core20Slim.GroundTheory.AutomorphicForms.AdelicUnitaryGroups.Topology
+public import Development.Core20Slim.GroundTheory.AutomorphicForms.HermitianSpaces
+public import Development.Core20Slim.GroundTheory.AutomorphicForms.UnitaryGroupScheme
+public import Development.Core20Slim.GroundTheory.HeightsAndTheta.Heights.FiniteCovolume.Objects
+public import Init.Core
+public import Init.Prelude
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Subgroup.Actions
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Subgroup
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Equiv.Basic
+public import Mathlib.Algebra.Module.Equiv.Defs
+public import Mathlib.Algebra.Notation.Prod
+public import Mathlib.Algebra.Ring.CompTypeclasses
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.LinearAlgebra.Basis.Defs
+public import Mathlib.LinearAlgebra.Dimension.StrongRankCondition
+public import Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
+public import Mathlib.LinearAlgebra.InvariantBasisNumber
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
+public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+public import Mathlib.RingTheory.Henselian
+public import Mathlib.RingTheory.LocalRing.Defs
+public import Mathlib.RingTheory.RegularLocalRing.Defs
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.SimpleRing.Principal
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.Topology.Algebra.ContinuousMonoidHom
+public import Mathlib.Topology.Constructions.SumProd
+public import Mathlib.Topology.Defs.Basic
+public import Mathlib.Topology.Defs.Filter
+
+@[expose] public section
+
+namespace GroundTheory.Heights₂.Heights.FiniteCovolume
+
+open NumberField GroundTheory.Automorphic Module Matrix Topology MeasureTheory IsDedekindDomain
+open scoped Pointwise ComplexOrder ENNReal NumberField.AdeleRing
+
+noncomputable section
+
+variable {F E : Type*} [Field F] [Field E] [NumberField F] [NumberField E] [Algebra F E]
+  [Algebra.IsQuadraticExtension F E] [IsTotallyReal F] [_root_.NumberField.IsTotallyComplex E]
+variable {W : Type*} [AddCommGroup W] [Module E W] {ι : Type*} [Fintype ι] [DecidableEq ι]
+
+def AdelicLatticeDictionary.Statement (h : HermitianForm F E W) (v : Basis ι E W) : Prop :=
+  ∃ (K : Subgroup (unitaryPoints F E (gram h.toSesq v) (FiniteAdeleRing (𝓞 F) F))) (D : ℕ)
+    (L : unitaryPoints F E (gram h.toSesq v) (FiniteAdeleRing (𝓞 F) F) → AddSubgroup W),
+    IsCompact (K : Set (unitaryPoints F E (gram h.toSesq v) (FiniteAdeleRing (𝓞 F) F))) ∧
+    IsOpen (K : Set (unitaryPoints F E (gram h.toSesq v) (FiniteAdeleRing (𝓞 F) F))) ∧
+    (∀ g, IsDIntegral h D (L g)) ∧
+    (∀ (γ : h.unitaryGroup) g, L ((adeleSplit h v (hermitianDiagonal h v γ)).2 * g) = γ • L g) ∧
+    ∀ g g', L g = L g' ↔ g⁻¹ * g' ∈ K
+
+end
+
+end GroundTheory.Heights₂.Heights.FiniteCovolume

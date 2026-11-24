@@ -1090,6 +1090,8 @@ theorem offP_eq {κ : Type} (w : (κ → AF F) × (κ → AF F)) : offP v w = (1
 theorem evalEmbedding_smul {κ : Type} (a : AF F) (w : (κ → AF F) × (κ → AF F)) : evP v (a • w) = evFin F v a • evP v w :=
   Prod.ext (funext fun _ => map_mul (evFin F v) _ _) (funext fun _ => map_mul (evFin F v) _ _)
 
+theorem evalPoints_add {κ : Type} (w w' : (κ → AF F) × (κ → AF F)) : evP v (w + w') = evP v w + evP v w' :=
+  Prod.ext (funext fun _ => map_add (evFin F v) _ _) (funext fun _ => map_add (evFin F v) _ _)
 
 end PartB
 
