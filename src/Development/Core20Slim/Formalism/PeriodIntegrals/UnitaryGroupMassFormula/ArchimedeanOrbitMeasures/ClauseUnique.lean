@@ -18,8 +18,16 @@ open MeasureTheory Formalism.BasicNotions Formalism.L2.SG.HidaSetting Formalism.
   Formalism.L2.SG.TypedSets Formalism.L2.SG.Pf.NcReal
 open scoped TensorProduct
 
+def aVal {D : D7} (X : HidaSetting D) (u' : D.what₂.Word) : ℝ :=
+  Formalism.MainNotions.S.AutInst.gaugeU X.B.I * Formalism.MainNotions.S.UnitaryVolumeMass.volU D.R.k ^ Fintype.card (NumberField.InfinitePlace X.B.I.F) *
+    Tw u' ^ (-((D.R.k * Fintype.card (NumberField.InfinitePlace X.B.I.F) : ℕ) : ℤ)) / (X.muH u' Set.univ).toReal
 
 
+def AinfValue : Prop :=
+  ∀ {D : D7} (X : HidaSetting D) (hb : Formalism.L2.SG.AdBridge.AdBridgeIso X.B.I) (FdN FdN' : Set X.B.I.Ginf) (u u' : D.what₂.Word)
+    (ψ : AddChar (Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes.AF X.B.I.F) ℂ),
+    Formalism.L2.SG.TypedSets.HypX X hb FdN FdN' u u' → Formalism.L2.SG.MassDataConc.MeasCompatψ X ψ → Formalism.L2.SG.LocVol.IsStdChar ψ →
+    (∀ v, Formalism.MainNotions.S.Gauge.GaugeDens (X.B.I.ε v)) → ∀ hT, AinfClause X ψ u' hT (aVal X u')
 
 
 

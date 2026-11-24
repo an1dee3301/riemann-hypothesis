@@ -118,11 +118,29 @@ theorem isCompact_Ov (v : HeightOneSpectrum (𝓞 F)) :
 def Ohat (F : Type) [Field F] [NumberField F] : Set (FiniteAdeleRing (𝓞 F) F) :=
   {a | ∀ v, a v ∈ v.adicCompletionIntegers F}
 
+theorem isOpen_Ohat : IsOpen (Ohat F) :=
+  RestrictedProduct.isOpen_forall_mem (R := fun v : HeightOneSpectrum (𝓞 F) => v.adicCompletion F)
+    (A := fun v => (v.adicCompletionIntegers F : Set (v.adicCompletion F)))
+    (fun _ ↦ Valued.isOpen_valuationSubring _)
 
 instance compactSpace_Ov' (v : HeightOneSpectrum (𝓞 F)) :
     CompactSpace ((v.adicCompletionIntegers F : Set (v.adicCompletion F))) :=
   isCompact_iff_compactSpace.mp (isCompact_Ov v)
 
+theorem isCompact_Ohat : IsCompact (Ohat F) := by
+  have hc : Continuous (RestrictedProduct.structureMap (fun v : HeightOneSpectrum (𝓞 F) => v.adicCompletion F)
+      (fun v => (v.adicCompletionIntegers F : Set (v.adicCompletion F))) Filter.cofinite) :=
+    RestrictedProduct.isEmbedding_structureMap.continuous
+  have : Ohat F = Set.range (RestrictedProduct.structureMap (fun v : HeightOneSpectrum (𝓞 F) => v.adicCompletion F)
+      (fun v => (v.adicCompletionIntegers F : Set (v.adicCompletion F))) Filter.cofinite) := by
+    ext a
+    constructor
+    · intro ha
+      exact ⟨fun v => ⟨a v, ha v⟩, rfl⟩
+    · rintro ⟨x, rfl⟩ v
+      exact (x v).2
+  rw [this]
+  exact isCompact_range hc
 
 end PI.IwaMeasEx.Wau
 
@@ -159,6 +177,10 @@ open scoped TensorProduct
 
 variable {F : Type} [Field F] [NumberField F]
 
+theorem ohat_zero : (0 : FiniteAdeleRing (𝓞 F) F) ∈ Ohat F :=
+  fun v => by
+    show (0 : v.adicCompletion F) ∈ _
+    exact zero_mem _
 
 section Coord
 

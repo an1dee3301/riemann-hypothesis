@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.SphericalEisensteinSeriesOnGroup
 public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.EisensteinIsotropicLine
 public import Development.AbelianVarietyTheory.Definitions.Foundations.AnalyticOnNhdTsumNpow
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ContinuousOneP

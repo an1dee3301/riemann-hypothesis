@@ -165,6 +165,10 @@ def ThetaCoef : Prop :=
   ∀ nb lam 𝓖, CoefData (D := D) (n := n) nb lam 𝓖 → ∀ (β : HermE D n), β.1.det ≠ 0 → ∀ g : G D n,
     fc ψ lam 𝓖 nb (thetaInt ω ν Φ) β g = IfrB V ν (fun x => (ω g Φ).1 x) β
 
+def FourierZero : Prop :=
+  ∀ (D : D7) (n : ℕ) (ψ : AddChar (AF D.host.F) ℂ), IsCharAF D.host.F ψ →
+  ∀ nb lam 𝓖, CoefData (D := D) (n := n) nb lam 𝓖 → ∀ f : G D n → ℂ, Continuous f → LeftInv (GF D n) f →
+    (∀ β g, fc ψ lam 𝓖 nb f β g = 0) → f = 0
 
 def CoefDataExists : Prop :=
   ∀ (D : D7) (n : ℕ), ∃ nb lam 𝓖, CoefData (D := D) (n := n) nb lam 𝓖

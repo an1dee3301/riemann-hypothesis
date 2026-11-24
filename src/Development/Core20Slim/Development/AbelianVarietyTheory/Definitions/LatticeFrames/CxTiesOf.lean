@@ -54,6 +54,12 @@ variable {ex : Extra D L hT Gi Gl Kc Yd cX}
 
 abbrev cxW (W : RealPack ex) := W.Q.Rl.toCx3 W.Q.F
 
+def LevHyp (W : RealPack ex) : Prop :=
+  (∃ s, W.P.A3.fam3.Ok3 s) ∧ (cxW W).RatZ ∧
+    ∃ gE : Representation ℂ W.P.Gp (cxW W).EE, GUnit3 (cxW W) gE ∧ GEquiv3 W.P.A3 (cxW W) gE ∧
+      PrincipalLevelBijectivity W.P.A3 (cxW W) (P1 := W.P.Ps) (ψ1 := W.P.ψs) (Dc := W.Dcf) (Sp := W.Spf) (Zsc := W.Zscf) ∧
+      LevType3 W.P.A3 (cxW W) (P1 := W.P.Ps) (ψ1 := W.P.ψs) (Dc := W.Dcf) (Sp := W.Spf) (Zsc := W.Zscf) gE false W.P.P0 W.P.ψ0 ∧
+      LevType3 W.P.A3 (cxW W) (P1 := W.P.Ps) (ψ1 := W.P.ψs) (Dc := W.Dcf) (Sp := W.Spf) (Zsc := W.Zscf) gE true W.P.Ps W.P.ψs
 
 end GlobalTheory.MiS
 

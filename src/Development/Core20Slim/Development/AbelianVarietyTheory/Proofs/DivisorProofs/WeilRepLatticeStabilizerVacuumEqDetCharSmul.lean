@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Divisors.PerCEmb
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Divisors.MarkAd
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.EvalVCutIdemOfNotMem
 public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.ExistsUnitaryAdelicCharOfHeckeChar

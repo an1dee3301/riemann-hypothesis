@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.SphericalEisensteinSeriesOnGroup
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.HalfData
 public import Formalism.LocalRingCardinality.DataHost
 public import Formalism.LocalRingCardinality.DataRows
@@ -32,6 +33,7 @@ namespace GlobalTheory.RegSch
 
 variable {D : D7}
 
+def ConjBy {G : Type} [Group G] (q : G) (K K' : Subgroup G) : Prop := ∀ k, k ∈ K ↔ q⁻¹ * k * q ∈ K'
 
 def wordDer (θ : InfFam D) (V : HSp D) (τ : D.what₂.Tau) (w : List (Matrix (Fin V.rank) (Fin V.rank) ℂ)) (f : GA D V → ℂ) :
     GA D V → ℂ := w.foldr (fun Z g => RderC θ V τ Z g) f

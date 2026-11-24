@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Divisors.PerCEmb
 public import Formalism.LocalToGlobal.IndefiniteReal.ThPinsR
 public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.StdCharFinitePartRationalEqExpTrace
 public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.EqZeroOfLintegralEqZero
