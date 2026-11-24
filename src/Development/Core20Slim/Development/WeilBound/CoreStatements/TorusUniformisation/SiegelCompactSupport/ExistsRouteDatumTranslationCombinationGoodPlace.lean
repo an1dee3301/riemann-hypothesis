@@ -1135,6 +1135,8 @@ theorem cont_at : Continuous (atPlace (F := F) v) := continuous_const.prodMk (co
 
 
 
+def sub {n d : ℕ} {k : Type} [Field k] (γ : GL (Fin n) k) : Module.End ℂ (Matrix (Fin n) (Fin d) k → ℂ) :=
+  LinearMap.funLeft ℂ ℂ fun Y => γ.1 * Y
 
 
 

@@ -22,8 +22,17 @@ def HasMat (h : GA D D.sp.X')
     (y : GL (Fin (D.R.N D.R.m - 1)) (D.host.E ⊗[D.host.F] FiniteAdeleRing (𝓞 D.host.F) D.host.F)) : Prop :=
   h ∈ GfC D.sp.X' ∧ ∀ i j, (Formalism.UG.bc (Lev.swapAE D) (finHom D.sp.X' h)).1 i j = y.1 (finCongr (rankP D) i) (finCongr (rankP D) j)
 
+def TopLev (K : ClsPTied u) (J : Set (GA D D.sp.X')) (χ : GA D D.sp.X' → ℂ) : Prop :=
+  (∀ h, h ∈ J ↔ ∃ κ : K.lev.U, HasMat h κ.1) ∧ ∀ h (κ : K.lev.U), HasMat h κ.1 → χ h = star ((K.lev.chi κ : ℂˣ) : ℂ)
 
 
+open Classical in
+structure IsJ (u : D.what₂.Word) {S : D.what₂.Tau → SPar} (M : DSModel D.sp.X' S) (j : SmT M →ₗ[ℂ] (FrP D → ℂ)) : Prop where
+  inj : Function.Injective j
+  range : LinearMap.range j = ValC (gramC (gramP D) (embT D)) (sgT u)
+  eqv : ∀ τ, ∀ g ∈ Formalism.QuantumDeterminants.UH (gramAt D D.sp.X' τ), ∀ (v : M.Vec) (w : M.sm τ), (w : M.H τ) = M.rep τ g (v τ) →
+    ∀ y y' : FrP D, IsTr (Function.update (fun _ => 1) τ (g.reindex (finCongr (rankP D)) (finCongr (rankP D)))) y' y →
+      j (PiTensorProduct.tprod ℂ (Function.update v τ w)) y = j (PiTensorProduct.tprod ℂ v) y'
 
 
 end GlobalTheory.Core.Rk.Top

@@ -1,0 +1,167 @@
+module
+
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.IntegrandSZero
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.WeilRepresentationUnitaryPair
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.SkewGramHalfModule
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MixedModelFormulasWittSourceProofStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MixSDblDecZero
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.DoublingSiegelEqLeviMulUnipotentStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.DoublingSiegelLeviDetHomLeviMulUnipotentStatement
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.SphericalZero
+public import Development.AbelianVarietyTheory.Definitions.Foundations.IsIwasawaOfIsCompact
+public import Development.AbelianVarietyTheory.Definitions.Foundations.T2SpaceAdeleRing
+public import Development.AbelianVarietyTheory.Definitions.Foundations.T2SpaceTensorProductFiniteExtension
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.CovolOneIntegralAdd
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.WittDecompProjAnisotropicAnisotropicEmbedding
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.WittDecompSymplInclIsotropicInclAnisotropic
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.WeilActionLeviOriginEqCharScalar
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.LocalRingCardinality.DataSpaces
+public import Formalism.LocalRingCardinality.DataTheta
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
+public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
+public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedWeil
+public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
+public import Init.Core
+public import Init.Data.Cast
+public import Init.Data.Int.Basic
+public import Init.Data.Nat.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Mathlib.Algebra.Field.Subfield.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Action.Pi
+public import Mathlib.Algebra.Group.AddChar
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Hom.Basic
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Basic
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.LinearMap.End
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Notation.Prod
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Nat
+public import Mathlib.Algebra.Ring.Subring.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.Analysis.Complex.Circle
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Field.UnitBall
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.SpecialFunctions.Pow.Complex
+public import Mathlib.Analysis.SpecialFunctions.Pow.Real
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.NNReal.Defs
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Nat.Init
+public import Mathlib.Data.Set.Defs
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.Tactic.NormNum.Basic
+public import Mathlib.Tactic.NormNum.Inv
+public import Mathlib.Tactic.NormNum.Result
+public import Mathlib.Tactic.Ring.Basic
+public import Mathlib.Tactic.Ring.Common
+
+@[expose] public section
+
+open scoped ComplexConjugate Matrix NNReal
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.L2.Theta Formalism.L2.Pj Formalism.IndefR.Datum MeasureTheory IsDedekindDomain NumberField
+open GlobalTheory.AutomorphicL2Unitary GlobalTheory.Cusp GlobalTheory.AdelicU GlobalTheory.Doubling GlobalTheory.Cont
+open GlobalTheory.IndefiniteRowSideFullHecke.SphericalVolumeLift (FinPl RealMat Lat IsFockVec IsSphOff HidaSetting volQ)
+open GlobalTheory.IndefiniteRowSideFullHecke.SphericalZero (ip delta swSec sZero IsKFinVec ThetaClause SectionClause CoefClause)
+open GlobalTheory.Mem.Th (CptF)
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+open GlobalTheory.Core.Rk.IP
+
+noncomputable section
+
+open GlobalTheory.MixModel GlobalTheory.Core.Rk.SWLaw
+namespace GlobalTheory.Core.Rk.SWLaw
+variable {D : D7}
+
+theorem scalar_eq (A B : HSp D) (χB : (AE D)ˣ →* Circle) (a : GL (Fin A.rank) (AE D)) :
+    (((χB (Matrix.GeneralLinearGroup.det a))⁻¹ : Circle) : ℂ) * ((GlobalTheory.IndefiniteRowSideFullHecke.SkewGramHalfModule.halfMod B.rank a : ℝ) : ℂ) =
+      ((χB⁻¹ (Matrix.GeneralLinearGroup.det a) : Circle) : ℂ) *
+        npow (absA D (Matrix.GeneralLinearGroup.det a)) (sZero A B + (A.rank : ℂ) / 2) := by
+  rw [MonoidHom.inv_apply, GlobalTheory.IndefiniteRowSideFullHecke.SkewGramHalfModule.halfMod, npow, sZero, Complex.ofReal_cpow (NNReal.coe_nonneg _)]
+  congr 2
+  push_cast
+  ring
+
+theorem siegel_decomp (A : HSp D) (p : siegel A) :
+    ∃ (a : GL (Fin A.rank) (AE D)) (c : skewA D A.rank), (p : GA D (dblSp A)) = (dblDec A).levi a * (dblDec A).nC c :=
+  GlobalTheory.T.doublingSiegel_eq_levi_mul_unipotent D A p
+
+theorem aP_decomp (A : HSp D) (p : siegel A) (a : GL (Fin A.rank) (AE D)) (c : skewA D A.rank)
+    (h : (p : GA D (dblSp A)) = (dblDec A).levi a * (dblDec A).nC c) : aP A p = Matrix.GeneralLinearGroup.det a :=
+  GlobalTheory.T.doublingSiegelLeviDetHom_levi_mul_unipotent D A p a c h
+
+theorem zero_datum (ψ : AddChar (AF D.host.F) ℂ) (A B : HSp D) (χB : (AE D)ˣ →* Circle)
+    (omh : WRep (dblSp A) B) (hW : IsWeilDatumO ψ (dblSp A) B 1 χB omh) (hP : GlobalTheory.Published.WeilRepresentationUnitaryPair) :
+    ∃ om₀ : GA D (zeroSp D) × GA D B →* Module.End ℂ (WO (zeroSp D) B → ℂ), IsWeilDatumO ψ (zeroSp D) B 1 χB om₀ := by
+  refine hP D ψ (zeroSp D) B 1 χB hW.std hW.hecS hW.hecT ?_ hW.resT
+  exact ⟨hW.resS.1, fun η _ a => by rw [show (zeroSp D).rank = 0 from rfl, pow_zero]; rfl⟩
+
+theorem swSec_law : GlobalTheory.Published.WeilRepresentationUnitaryPair → ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ) (A B : HSp D) (χB : (AE D)ˣ →* Circle) (omh : WRep (dblSp A) B), IsWeilDatumO ψ (dblSp A) B 1 χB omh → ∀ (ν : Measure (WO A B)) (𝓕 : Set (WO A B)), IsCovolOne (ratL B A) ν 𝓕 → ∀ φ, IsThetaFunO ψ (dblSp A) B φ → ∀ (p : siegel A) (g : GA D (dblSp A)), swSec A B omh ν 𝓕 φ (p * g) = (χB⁻¹ (aP A p) : Circle) * npow (absA D (aP A p)) (sZero A B + (A.rank : ℂ) / 2) * swSec A B omh ν 𝓕 φ g := by
+  intro hP D ψ A B χB omh hW ν 𝓕 hν φ hφ p g
+  obtain ⟨om₀, h₀⟩ := zero_datum ψ A B χB omh hW hP
+  obtain ⟨a, c, hp⟩ := siegel_decomp A p
+  have haP := aP_decomp A p a c hp
+  have hν' : IsCovolOne (ratMx D B.rank A.rank) ν 𝓕 := hν
+  have hF := hW.om_pres (g, 1) φ hφ
+  set F := omh (g, 1) φ with hFdef
+  have hF' := hW.om_pres ((dblDec A).nC c, 1) F hF
+  have hM := GlobalTheory.T.mixedModelFormulasWittSource_proof D ψ (dblSp A) (zeroSp D) B A.rank (dblDec A) 1 χB omh om₀ hW h₀ ν 𝓕 hν'
+  have h1 := (hM _ hF').levi a 0
+  have h2 := (hM F hF).centre c 0
+  change (dblDec A).mixS B ψ ν 𝓕 (omh ((dblDec A).levi a, 1) (omh ((dblDec A).nC c, 1) F)) 0 =
+    ((((χB (Matrix.GeneralLinearGroup.det a))⁻¹ : Circle) : ℂ) * (GlobalTheory.IndefiniteRowSideFullHecke.SkewGramHalfModule.halfMod B.rank a : ℂ)) •
+      (dblDec A).mixS B ψ ν 𝓕 (omh ((dblDec A).nC c, 1) F) (0 * a.1) at h1
+  change (dblDec A).mixS B ψ ν 𝓕 (omh ((dblDec A).nC c, 1) F) 0 =
+    ψ (symplOH (dblSp A) B ((dblDec A).extX B 0) ((dblDec A).extY B (0 * c.1))) •
+      (dblDec A).mixS B ψ ν 𝓕 F 0 at h2
+  unfold GlobalTheory.IndefiniteRowSideFullHecke.SphericalZero.swSec
+  have e1 : omh (↑p * g, 1) φ = omh ((dblDec A).levi a, 1) (omh ((dblDec A).nC c, 1) F) := by
+    rw [hp, hFdef, ← Module.End.mul_apply, ← Module.End.mul_apply, ← map_mul, ← map_mul]
+    simp [Prod.mk_mul_mk, mul_assoc]
+  rw [e1, ← mixS_dblDec_zero A B ψ ν 𝓕 _ 0, ← mixS_dblDec_zero A B ψ ν 𝓕 F 0, congrFun h1 0, Matrix.zero_mul, Pi.smul_apply, congrFun h2 0, map_zero, symplOH_zero_left, AddChar.map_zero_eq_one, one_smul, haP, smul_eq_mul]
+  rw [scalar_eq A B χB a]
+
+end GlobalTheory.Core.Rk.SWLaw
+
+end

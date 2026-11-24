@@ -139,9 +139,17 @@ theorem x_le (h : SizeK L) : L.sc.x ≤ szPol L := (x_le_k L h).trans (k_le L)
 theorem a_nonneg : 0 ≤ L.sc.a := by
   unfold Scale.a; exact mul_nonneg (sc_x_pos L).le (by linarith [one_le_b L])
 
+theorem a_le (h : SizeK L) : L.sc.a ≤ szPol L * L.sc.b := by
+  unfold Scale.a; exact mul_le_mul_of_nonneg_right (x_le L h) (by linarith [one_le_b L])
 
+theorem one_le_X' : 1 ≤ L.sc.X' := by
+  unfold Scale.X'; exact Real.one_le_exp (Real.rpow_pos_of_pos (sc_x_pos L) _).le
 
+theorem b'_nonneg : 0 ≤ L.sc.b' := by
+  unfold Scale.b'; exact div_nonneg (a_nonneg L) (by linarith [one_le_X' L])
 
+theorem b'_le_a : L.sc.b' ≤ L.sc.a := by
+  unfold Scale.b'; exact div_le_self (a_nonneg L) (one_le_X' L)
 
 variable {L}
 
@@ -154,10 +162,25 @@ theorem f_eq : (D.R.f : ℝ) = 2 * D.R.n := by unfold Ranks.f; push_cast; ring
 
 theorem k_one (hK : SizeK L) : 1 ≤ (D.R.k : ℝ) := by linarith [x_le_k L hK, L.sc.one_lt_alt]
 
+theorem w''_nonneg : 0 ≤ L.sc.w'' D.R.n := by
+  unfold Scale.w''; exact div_nonneg (b'_nonneg L) (mul_nonneg (sc_x_pos L).le (Nat.cast_nonneg _))
+
+theorem w''_le (hN : SizeN L) : L.sc.w'' D.R.n ≤ L.sc.b' := by
+  unfold Scale.w''
+  apply div_le_self (b'_nonneg L)
+  have := n_pos hN; have := L.sc.one_lt_alt; nlinarith
 
 
 
-
+theorem eta_le (hN : SizeN L) (hK : SizeK L) (hEta : SizeEta L) : L.etaSz ≤ L.sc.b := by
+  refine hEta.2.1.trans (div_le_self (by linarith [one_le_b L]) ?_)
+  have ht : (1:ℝ) ≤ D.R.t := L.t_win.1
+  have hf : (1:ℝ) ≤ D.R.f := by rw [f_eq]; linarith [n_pos hN]
+  have hk := k_one hK
+  have h1 : (1:ℝ) ≤ (D.R.t : ℝ) ^ 3 := one_le_pow₀ ht
+  have h2 : (1:ℝ) ≤ (D.R.k : ℝ) ^ 3 := one_le_pow₀ hk
+  calc (1:ℝ) = 1 * 1 * 1 := by ring
+    _ ≤ (D.R.t : ℝ) ^ 3 * D.R.f * (D.R.k : ℝ) ^ 3 := by gcongr
 
 theorem delta1_le : L.sc.delta1 ≤ 1 := by
   unfold Scale.delta1
@@ -169,9 +192,46 @@ theorem xth_le : L.sc.x ^ szTh L ≤ L.sc.L := by
   apply Real.rpow_le_rpow_of_exponent_le L.sc.one_lt_alt.le
   linarith [L.sc.eps_pos]
 
+theorem LaG_le (hLa : SizeLa L) : L.LaG ≤ L.sc.L ^ 2 := by
+  refine hLa.2.trans ?_
+  rw [Real.rpow_add (sc_x_pos L), sq]
+  exact mul_le_mul_of_nonneg_left xth_le (Real.rpow_pos_of_pos (sc_x_pos L) _).le
 
+theorem LaG_pos (hLa : SizeLa L) : 0 < L.LaG := lt_of_lt_of_le (Real.rpow_pos_of_pos (sc_x_pos L) _) hLa.1
 
+theorem bT_nonneg (t : D.host.TT) : 0 ≤ (L.bT t : ℝ) := (b'_nonneg L).trans (L.bT_ge t)
 
+theorem bT_le (hK : SizeK L) (hLa : SizeLa L) (hBot : SizeBot L) (t : D.host.TT) :
+    (L.bT t : ℝ) ≤ 2 * szPol L ^ 5 * L.sc.b := by
+  have hP := one_le_szPol L
+  have hb := one_le_b L
+  have hk := k_one hK
+  have hNs : szNst L ≤ szPol L := by
+    unfold szNst; refine le_trans ?_ (f_le L); rw [f_eq]
+    have := delta1_le (L := L); have h0 : (0:ℝ) ≤ D.R.n := Nat.cast_nonneg _
+    nlinarith
+  have hNs0 : 0 ≤ szNst L := by
+    unfold szNst; have : 0 ≤ L.sc.delta1 := (Real.rpow_pos_of_pos (sc_x_pos L) _).le
+    positivity
+  have hxe : L.sc.x ^ L.sc.eps ≤ szPol L := L_le L
+  have hxe0 : 0 ≤ L.sc.x ^ L.sc.eps := (sc_L_pos L).le
+  have hG : L.LaG ≤ szPol L ^ 2 := (LaG_le hLa).trans (pow_le_pow_left₀ (sc_L_pos L).le (L_le L) 2)
+  have hG0 := (LaG_pos hLa).le
+  have hb' : L.sc.b' ≤ szPol L * L.sc.b := (b'_le_a L).trans (a_le L hK)
+  have hb'0 := b'_nonneg L
+  have e1 : szNst L * L.sc.x ^ L.sc.eps * L.LaG * L.sc.b' ≤ szPol L * szPol L * szPol L ^ 2 * (szPol L * L.sc.b) := by
+    apply mul_le_mul _ hb' hb'0 (by positivity)
+    apply mul_le_mul _ hG hG0 (by positivity)
+    exact mul_le_mul hNs hxe hxe0 (by positivity)
+  have e2 : szNst L * L.sc.x ^ L.sc.eps * L.LaG * L.sc.b' / D.R.k ≤ szNst L * L.sc.x ^ L.sc.eps * L.LaG * L.sc.b' :=
+    div_le_self (by positivity) hk
+  have := hBot t
+  have h5 : szPol L * L.sc.b ≤ szPol L ^ 5 * L.sc.b := by
+    apply mul_le_mul_of_nonneg_right _ (by linarith)
+    calc szPol L = szPol L ^ 1 := (pow_one _).symm
+      _ ≤ szPol L ^ 5 := pow_le_pow_right₀ hP (by norm_num)
+  have h6 : szPol L * szPol L * szPol L ^ 2 * (szPol L * L.sc.b) = szPol L ^ 5 * L.sc.b := by ring
+  linarith
 
 
 theorem q_pos (hQD : SizeQD L) : 1 < (D.host.q : ℝ) := by
@@ -218,6 +278,9 @@ theorem La_bounds (hN : SizeN L) (hK : SizeK L) (hQD : SizeQD L) : 0 ≤ L.La �
 
 theorem pow_mono_P {a b : ℕ} (h : a ≤ b) : szPol L ^ a ≤ szPol L ^ b := pow_le_pow_right₀ (one_le_szPol L) h
 
+theorem P_le_pow {b : ℕ} (h : 1 ≤ b) : szPol L ≤ szPol L ^ b := by
+  calc szPol L = szPol L ^ 1 := (pow_one _).symm
+    _ ≤ szPol L ^ b := pow_mono_P h
 
 theorem nV_one (hK : SizeK L) : 1 ≤ (D.R.nV : ℝ) := by
   have h := congrArg (fun q : ℚ => (q : ℝ)) (Formalism.BasicNotions.DV.nV_cast D.R)
@@ -230,6 +293,50 @@ theorem nV_one (hK : SizeK L) : 1 ≤ (D.R.nV : ℝ) := by
 
 
 
+theorem wj_eq (τ : D.what₂.Tau) (q : Fin D.R.m) : wj D (q.1 + 1) τ = (((D.hc τ).e q : ℚ) : ℝ) := by
+  unfold wj; simp
+
+theorem top_or (τ : D.what₂.Tau) :
+    (∃ t : D.host.TT, (D.eTau τ : D.R.GG) = D.R.tau1 t) ∨
+      (D.eTau τ : D.R.GG) ∉ D.host.topPlaces := by
+  by_cases h : (D.eTau τ : D.R.GG) ∈ D.host.topPlaces
+  · left
+    obtain ⟨a, ha, he⟩ := Finset.mem_image.1 h
+    exact ⟨⟨a, ha⟩, he.symm⟩
+  · exact Or.inr h
+
+theorem Pb_le (k : ℕ) (hk : 1 ≤ k) : szPol L * L.sc.b ≤ szPol L ^ k * L.sc.b :=
+  mul_le_mul_of_nonneg_right (P_le_pow hk) (by linarith [one_le_b L])
+
+theorem b_le_poly_fifth_mul_b : L.sc.b ≤ szPol L ^ 5 * L.sc.b := by
+  have : (1:ℝ) ≤ szPol L ^ 5 := one_le_pow₀ (one_le_szPol L)
+  have := one_le_b L; nlinarith
+
+theorem e_bounds (hN : SizeN L) (hK : SizeK L) (hLa : SizeLa L) (hBot : SizeBot L) (hEta : SizeEta L)
+    (τ : D.what₂.Tau) (q : Fin D.R.m) :
+    0 ≤ (((D.hc τ).e q : ℚ) : ℝ) ∧ (((D.hc τ).e q : ℚ) : ℝ) ≤ 4 * szPol L ^ 5 * L.sc.b := by
+  rw [← wj_eq]
+  have hb := one_le_b L
+  have he := eta_le hN hK hEta
+  have he0 := L.etaSz_pos.le
+  have h5 := b_le_poly_fifth_mul_b (L := L)
+  have hPb := Pb_le (L := L) 5 (by norm_num)
+  rcases top_or τ with ⟨t, ht⟩ | hnt
+  · obtain ⟨w1, w2⟩ := L.win_top (q.1 + 1) (by omega) (by omega) τ t ht
+    have hbt := bT_le hK hLa hBot t
+    have hbt0 := bT_nonneg (L := L) t
+    have hx : L.sc.b' / L.sc.x ≤ L.sc.b' := div_le_self (b'_nonneg L) L.sc.one_lt_alt.le
+    have hx0 : 0 ≤ L.sc.b' / L.sc.x := div_nonneg (b'_nonneg L) (sc_x_pos L).le
+    have hb' : L.sc.b' ≤ szPol L * L.sc.b := (b'_le_a L).trans (a_le L hK)
+    constructor <;> linarith
+  · by_cases hth : (D.eTau τ : D.R.GG) ∈ D.host.thickPlaces
+    · obtain ⟨w1, w2⟩ := L.win_thick (q.1 + 1) (by omega) (by omega) τ hth
+      constructor <;> linarith
+    · have hthin : D.host.IsThin (D.eTau τ : D.R.GG) := ⟨(D.eTau τ).2, hnt, hth⟩
+      obtain ⟨w1, w2⟩ := L.win_thin (q.1 + 1) (by omega) (by omega) τ hthin
+      have h1 := w''_nonneg (L := L)
+      have h2 : L.sc.w'' D.R.n ≤ szPol L * L.sc.b := (w''_le hN).trans ((b'_le_a L).trans (a_le L hK))
+      constructor <;> linarith
 
 
 
@@ -252,10 +359,8 @@ theorem nV_one (hK : SizeK L) : 1 ≤ (D.R.nV : ℝ) := by
 
 
 
-
-
-
-
+theorem card_Tau : ((Finset.univ : Finset D.what₂.Tau).card : ℝ) ≤ szPol L := by
+  rw [Finset.card_univ, D.what₂.card_Tau]; exact f_le L
 
 
 theorem poly_pow_mul_b_le_ninth {a : ℕ} (ha : a ≤ 9) : szPol L ^ a * L.sc.b ≤ szPol L ^ 9 * L.sc.b :=

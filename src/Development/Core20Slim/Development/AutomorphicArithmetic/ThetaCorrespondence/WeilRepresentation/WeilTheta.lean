@@ -1,0 +1,18 @@
+module
+
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.WeilThetaConvergenceOfSiegelSet
+public import Development.Core20Slim.Development.WeilBound.ThetaLifts.Reductions.SiegelOfCore
+public import Development.Core20Slim.Development.WeilBound.CoreStatements.AbelianHeightsDuality.PublishedTheoremStatements.SiegelSetUnitaryHolds
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.IsSmoothModerateOfIsAutFunSm
+public import Development.Core20Slim.Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.WeilThetaConvergence
+
+@[expose] public section
+
+namespace UpperTheory.Lit
+
+theorem siegelSetUnitary_of_core : GlobalTheory.Published.SiegelSetUnitary := PositivityTheory.ThKR.siegel_of_core PositivityTheory.Prw.siegelCore_holds
+
+theorem weilThetaConvergence : GlobalTheory.Published.WeilThetaConvergence :=
+  GlobalTheory.WeilThetaConv.weilThetaConvergence_of_siegelSet siegelSetUnitary_of_core
+
+end UpperTheory.Lit

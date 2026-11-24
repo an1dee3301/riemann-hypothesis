@@ -52,6 +52,7 @@ attribute [instance] RealPack.fKs RealPack.nKs RealPack.aKs
 variable {ex : Extra D L hT Gi Gl Kc Yd cX}
 
 
+abbrev cxW (W : RealPack ex) := W.Q.Rl.toCx3 W.Q.F
 
 
 end GlobalTheory.MiS
