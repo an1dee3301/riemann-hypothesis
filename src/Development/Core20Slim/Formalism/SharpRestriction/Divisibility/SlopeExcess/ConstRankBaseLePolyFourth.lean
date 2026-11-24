@@ -95,6 +95,9 @@ theorem one_le_szPol : 1 ≤ szPol L := by
   have : (0:ℝ) ≤ (D.R.f:ℝ) + D.R.k + D.R.m + D.R.t + (D.R.N D.R.m : ℝ) := by positivity
   linarith
 
+theorem f_le : (D.R.f : ℝ) ≤ szPol L := by
+  unfold szPol; have := (sc_L_pos L).le; have : (0:ℝ) ≤ D.R.k + D.R.m + D.R.t + (D.R.N D.R.m : ℝ) := by positivity
+  linarith
 
 
 theorem nV_le : (D.R.nV : ℝ) ≤ szPol L := by

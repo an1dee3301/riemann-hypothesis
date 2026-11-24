@@ -1,0 +1,51 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.IsItWOfGlobIt
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.HarishChandraModulesOn
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.AdmissibleDiscreteSeriesOfHasParam
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.RealPlaceStdParamIsParam
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.LineMatrixKroneckerLeftFactorEqZeroOfIsPC
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.AbsSubOfDisjoint
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.HighestWeightTensor
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.SymmetrisationInjective
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.DoublingIntegralJointHarmonicPosStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.FockSpaceContainsDiscreteSeriesTensorStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.LowestTypePositiveAndDecays
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.PolarCoordinatesUnitaryPQDoubleCoverStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.TprodNeZeroOfNe
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ChainParIffStepGap
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.FockVectorsOverVacuumIsometryOfSkeletonDatumStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ThetaVacuumCharactersAtRealPlacesStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ThetaModelsEqCoverDiscreteSeriesStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ChosenSeries
+public import Formalism.LocalRingCardinality.DataTheta
+public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
+public import Formalism.SharpRestriction.Divisibility.SchurIrreducible
+public import Init.Core
+public import Init.Data.Rat.Basic
+public import Init.Prelude
+
+@[expose] public section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.SchurIrreducible GlobalTheory.Published GlobalTheory.Chain.RealIt
+
+namespace GlobalTheory.Chain.ItPairObj
+
+theorem exists_record (hD : DiscreteSeriesCover) (hH : HarishChandraModules) :
+    ∃ X : ProvA, ChosenSeries X ∧ ArchimedeanRallisFirst X ∧ ArchimedeanRallisSecond X := by
+  obtain ⟨X, hX⟩ := GlobalTheory.exists_provA_of_forall_exists_hasParam (GlobalTheory.CoverDS.exists_hasParam hD)
+  have a1 : admH1 X := GlobalTheory.FockDeg.degrees_and_adjoints X
+  have a2 : admH2 X := GlobalTheory.JointHarm.fock_polynomials X
+  have a3 : DiscreteSeriesBlattner X := GlobalTheory.CoverDS.admissibleDiscreteSeries_of_hasParam hD X hX
+  have a5 : admQ5 X := hH.admQ5_of_harishChandraModules X
+  have a6 : CoverHaarIntegration X := GlobalTheory.T.polarCoordinates_unitaryPQ_doubleCover X
+  have a7 : admQ7 := GlobalTheory.TensorHW.highestWeight_tensor
+  have a8 : admQ8 := GlobalTheory.InducedPBW.pbw_induced
+  have a4 : DiscreteSeriesPositivity X := GlobalTheory.SphJet.lowest_type_positive_and_decays X a3 a5 a7 a8
+  have h1 := GlobalTheory.T.doublingIntegral_jointHarmonic_pos X a1 a2 a3 a4 a5 a6 a7 a8
+  exact ⟨X, hX, h1, GlobalTheory.T.fockSpace_contains_discreteSeriesTensor X a1 a2 a3 a4 a5 a6 a7 a8 h1⟩
+
+
+
+end GlobalTheory.Chain.ItPairObj

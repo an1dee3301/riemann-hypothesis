@@ -1,6 +1,7 @@
 module
 
 public import Development.Core20Slim.Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProofs.UnitTraceSumBounds.CubeOfTwoIdentities
+public import Development.Core20Slim.Formalism.SharpRestriction.GlobalSchurBounds.StatementTranslationInvariantSeventh
 public import Development.Core20Slim.Formalism.PeriodIntegrals.OrbitalBoundsConclusion.CubeRelationOfParallelogram
 public import Mathlib
 public import Development.Core20Slim.Formalism.PeriodIntegrals.FglGram

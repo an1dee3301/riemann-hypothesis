@@ -1,0 +1,187 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.SiegelWeilUnitarySchrodinger
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.HeckeFormNSOfHeckeForm
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.ModerateGrowthSchwartz
+public import Development.AbelianVarietyTheory.Definitions.Foundations.EventuallyNormFinLeOne
+public import Development.AbelianVarietyTheory.Definitions.Foundations.HermitianSpaceBaseLatticeEqFrameLattice
+public import Development.AbelianVarietyTheory.Definitions.Foundations.T2SpaceAdeleRing
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.CovolOneIntegralAdd
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.WittDecompProjAnisotropicAnisotropicEmbedding
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MixSDblDecZero
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.LocalRingCardinality.DataRows
+public import Formalism.LocalRingCardinality.DataSpaces
+public import Formalism.LocalRingCardinality.DataTheta
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
+public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
+public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedWeil
+public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
+public import Init.Classical
+public import Init.Core
+public import Init.Data.Nat.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Mathlib.Algebra.Field.Subfield.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Action.Pi
+public import Mathlib.Algebra.Group.AddChar
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Equiv.Defs
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.LinearMap.End
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Notation.Defs
+public import Mathlib.Algebra.Notation.Pi.Basic
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Order.AbsoluteValue.Basic
+public import Mathlib.Algebra.Order.Group.Unbundled.Abs
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Subring.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Algebra.Star.Basic
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Calculus.Deriv.Basic
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.Analysis.Complex.Norm
+public import Mathlib.Analysis.InnerProductSpace.Basic
+public import Mathlib.Analysis.InnerProductSpace.Defs
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Field.WithAbs
+public import Mathlib.Analysis.Normed.Group.Defs
+public import Mathlib.Analysis.Normed.Module.Basic
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.Normed.Ring.WithAbs
+public import Mathlib.Analysis.RCLike.Basic
+public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.NNReal.Defs
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.ColumnRowPartitioned
+public import Mathlib.Data.Matrix.Diagonal
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Nat.Init
+public import Mathlib.Data.Set.Defs
+public import Mathlib.LinearAlgebra.Matrix.ConjTranspose
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.Matrix.Trace
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.Logic.Equiv.Defs
+public import Mathlib.Logic.Equiv.Fin.Basic
+public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.NumberTheory.NumberField.Completion.InfinitePlace
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
+public import Mathlib.RingTheory.DedekindDomain.Basic
+public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.Topology.Algebra.UniformMulAction
+public import Mathlib.Topology.MetricSpace.Pseudo.Defs
+public import Mathlib.Topology.UniformSpace.Defs
+
+@[expose] public section
+
+noncomputable section
+
+open scoped Matrix NNReal ComplexConjugate TensorProduct
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.L2.Theta Formalism.L2.Pj Formalism.IndefR.Datum MeasureTheory IsDedekindDomain NumberField
+open GlobalTheory.AutomorphicL2Unitary GlobalTheory.AdelicU GlobalTheory.Doubling GlobalTheory.Cont GlobalTheory.MixModel GlobalTheory.Core.Rk.SWLaw GlobalTheory.Core.Rk.SW
+open GlobalTheory.IndefiniteRowSideFullHecke.ModerateGrowthSchwartz (schwartzA)
+
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+namespace GlobalTheory.StdUnn
+
+variable {D : D7}
+
+def IsSkew (μ : D.host.E) : Prop := μ ≠ 0 ∧ star μ = -μ
+
+def Tm (A : HSp D) (μ : D.host.E) : Matrix (Fin (A.rank + A.rank)) (Fin (A.rank + A.rank)) D.host.E :=
+  (Matrix.fromCols (dblDec A).e (μ • (dblDec A).e')).submatrix id finSumFinEquiv.symm
+
+def IsChart (A : HSp D) (μ : D.host.E) (κ : GA D (dblSp A) ≃* G D A.rank) : Prop :=
+  ∀ g, (rat (Tm A μ) : Mx D (A.rank + A.rank) (A.rank + A.rank)) * mat (κ g) = mt (dblSp A) g * rat (Tm A μ)
+
+def IntA (z : AE D) : Prop := ∀ v, compFin D.host.F D.host.E v z ∈ intLoc D.host.F D.host.E v
+
+def IntGL {n : ℕ} (M : GL (Fin n) (AE D)) : Prop := (∀ i j, IntA (M.1 i j)) ∧ ∀ i j, IntA ((M⁻¹).1 i j)
+
+def ScalData (μ : D.host.E) (u ε : (AE D)ˣ) : Prop :=
+  (ε : AE D) * u * cA D u = incA D μ ∧ IntA (ε : AE D) ∧ IntA ((ε⁻¹ : (AE D)ˣ) : AE D) ∧
+    ∀ w, compInf D.host.F D.host.E w (ε * cA D ε) = 4
+
+def HalfData (t : AE D) : Prop := t + cA D t = 1 ∧ IntA t ∧ ∀ w, compInf D.host.F D.host.E w (2 * t) = 1
+
+def IsConj (A : HSp D) (a : GL (Fin A.rank) (AE D)) (κ : GA D (dblSp A) ≃* G D A.rank) (p : siegel A) : Prop :=
+  ∀ k : GA D (dblSp A), k ∈ Khat A a ↔ κ ((p : GA D (dblSp A))⁻¹ * k * p) ∈ K D A.rank
+
+def hgtStd (A : HSp D) (a : GL (Fin A.rank) (AE D)) (κ : GA D (dblSp A) ≃* G D A.rank) (p : siegel A) :
+    G D A.rank → ℝ≥0 := fun g => hgt A a (κ.symm g * (p : GA D (dblSp A))⁻¹) * absA D (aP A p)
+
+def IsTransport (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D) (A B : HSp D) (ν : Measure (WO A B)) (𝓨 : Set (WO A B))
+    (omh : GA D (dblSp A) × GA D B →* Module.End ℂ (WO (dblSp A) B → ℂ)) (κ : GA D (dblSp A) ≃* G D A.rank)
+    (ω : G D A.rank →* Module.End ℂ (schwartzA θ B.rank A.rank)) : Prop :=
+  ∀ g f, IsThetaFunO ψ (dblSp A) B f → ∀ Φ : schwartzA θ B.rank A.rank, Φ.1 = sch ψ A B ν 𝓨 f →
+    (ω (κ g) Φ).1 = sch ψ A B ν 𝓨 (omh (g, 1) f)
+
+def shift (ψ : AddChar (AF D.host.F) ℂ) (l : D.host.F) : AddChar (AF D.host.F) ℂ :=
+  ψ.mulShift (algebraMap D.host.F (AF D.host.F) l)
+
+def stdInv (n : ℕ) (μ : D.host.E) (τ : D.what₂.Tau) : Matrix (Fin (n + n)) (Fin (n + n)) ℂ :=
+  (tauE D τ μ / (‖tauE D τ μ‖ : ℂ)) • blk4 0 1 (-1) 0
+
+def IsStdInv (A : HSp D) (μ : D.host.E)
+    (s : D.what₂.Tau → Matrix (Fin (A.rank + A.rank)) (Fin (A.rank + A.rank)) ℂ) : Prop :=
+  ∀ τ, s τ * (Tm A μ).map (tauE D τ) = (Tm A μ).map (tauE D τ) * stdInv A.rank μ τ
+
+variable (V : HSp D) {n : ℕ} (l : D.what₂.Tau → ℝ) (s : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ)
+
+def linF (τ : D.what₂.Tau) (X z : Matrix (Fin V.rank) (Fin n) ℂ) : ℂ :=
+  ((4 * Real.pi * |l τ| * (Matrix.trace (Xᴴ * (gramAt D V τ * s τ) * z)).re : ℝ) : ℂ)
+
+def annS (θ : InfFam D) (τ : D.what₂.Tau) (X : Matrix (Fin V.rank) (Fin n) ℂ) (φ : Mx D V.rank n → ℂ) :
+    Mx D V.rank n → ℂ :=
+  fun x => deriv (fun t : ℝ => φ (x + lineAt θ τ X t)) 0 + linF V l s τ X (compAt θ τ x) * φ x
+
+
+open Classical in
+def annC (τ : D.what₂.Tau) (X : Matrix (Fin V.rank) (Fin n) ℂ) (f : (D.what₂.Tau → Fin V.rank → Fin n → ℂ) → ℂ) :
+    (D.what₂.Tau → Fin V.rank → Fin n → ℂ) → ℂ :=
+  fun z => deriv (fun t : ℝ => f (z + t • (Pi.single τ (fun i j => X i j) : D.what₂.Tau → Fin V.rank → Fin n → ℂ))) 0 + linF V l s τ X (Matrix.of (z τ)) * f z
+
+end GlobalTheory.StdUnn
+
+end

@@ -1,6 +1,7 @@
 module
 
 public import Development.Core20Slim.Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProofs.UnitTraceSumBounds.CubeOfTwoIdentities
+public import Development.Core20Slim.Formalism.SharpRestriction.GlobalSchurBounds.StatementTranslationInvariantSeventh
 public import Development.Core20Slim.Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProofs.UnitTraceSumBounds.TestVectorMemSchwartzBruhat
 public import Formalism.LocalRingCardinality.DataHost
 public import Formalism.LocalRingCardinality.Params

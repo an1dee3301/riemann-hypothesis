@@ -300,7 +300,50 @@ theorem diagonal_apply (γ : GL (Fin n) K) (a b : Fin n) :
 def rationalGL : Subgroup (AdelicGL K n) :=
   (diagonal K n).range
 
+theorem exists_isOpen_inter_eq_zero :
+    ∃ V : Set 𝔸[K], IsOpen V ∧ (0 : 𝔸[K]) ∈ V ∧ ∀ k : K, algebraMap K 𝔸[K] k ∈ V → k = 0 := by
+  have := GroundTheory.Global.discreteTopology_principalSubgroup K
+  obtain ⟨V, hVo, hV⟩ := isOpen_induced_iff.1
+    (isOpen_discrete ({0} : Set (NumberField.AdeleRing.principalSubgroup (𝓞 K) K)))
+  refine ⟨V, hVo, ?_, fun k hk => ?_⟩
+  · have : (0 : NumberField.AdeleRing.principalSubgroup (𝓞 K) K) ∈ Subtype.val ⁻¹' V := by
+      rw [hV]; rfl
+    exact this
+  · have : (⟨algebraMap K 𝔸[K] k, ⟨k, rfl⟩⟩ : NumberField.AdeleRing.principalSubgroup (𝓞 K) K) ∈
+        Subtype.val ⁻¹' V := hk
+    rw [hV, Set.mem_singleton_iff, Subtype.ext_iff] at this
+    exact NumberField.AdeleRing.algebraMap_injective (𝓞 K) K (this.trans (map_zero _).symm)
 
+theorem discreteTopology_rationalGL : DiscreteTopology (rationalGL K n) := by
+  obtain ⟨V, hVo, hV0, hV⟩ := exists_isOpen_inter_eq_zero K
+  let W : Set (AdelicGL K n) :=
+    ⋂ a, ⋂ b, (fun g : AdelicGL K n => (g : AdelicMatrix K n) a b - (1 : AdelicMatrix K n) a b) ⁻¹' V
+  have hWo : IsOpen W := isOpen_iInter_of_finite fun a => isOpen_iInter_of_finite fun b =>
+    hVo.preimage
+      ((Continuous.matrix_elem (Units.continuous_val (M := AdelicMatrix K n)) a b).sub
+        continuous_const)
+  refine discreteTopology_of_isOpen_singleton_one (isOpen_induced_iff.2 ⟨W, hWo, ?_⟩)
+  ext ⟨g, γ, rfl⟩
+  simp only [W, Set.mem_preimage, Set.mem_iInter, Set.mem_singleton_iff]
+  constructor
+  · intro h
+    have hγ : γ = 1 := by
+      have hsub : ((diagonal K n γ : AdelicGL K n) : AdelicMatrix K n) - 1 =
+          (algebraMap K 𝔸[K]).mapMatrix ((γ : Matrix (Fin n) (Fin n) K) - 1) := by
+        rw [map_sub, map_one]
+        rfl
+      refine Units.ext <| Matrix.ext fun a b => ?_
+      have h1 := h a b
+      rw [← Matrix.sub_apply, hsub] at h1
+      have h2 := hV _ h1
+      rw [Matrix.sub_apply, sub_eq_zero] at h2
+      exact h2
+    subst hγ
+    exact Subtype.ext (map_one _)
+  · intro h a b
+    have : (diagonal K n γ : AdelicGL K n) = 1 := congrArg Subtype.val h
+    rw [this, Units.val_one, sub_self]
+    exact hV0
 
 
 end AdelicGLn

@@ -63,6 +63,14 @@ abbrev HeckeCharacter : Type _ := IdeleClassGroup K →ₜ* Circle
 
 variable {K}
 
+def idealsPrimeTo (𝔪 : Ideal (𝓞 K)) : Subgroup (FractionalIdeal (𝓞 K)⁰ K)ˣ where
+  carrier := {I | ∀ v : HeightOneSpectrum (𝓞 K), v.asIdeal ∣ 𝔪 →
+    count K v (I : FractionalIdeal (𝓞 K)⁰ K) = 0}
+  one_mem' := fun v _ ↦ by rw [Units.val_one, count_one]
+  mul_mem' {I J} hI hJ v hv := by
+    rw [Units.val_mul, count_mul K v I.ne_zero J.ne_zero, hI v hv, hJ v hv, add_zero]
+  inv_mem' {I} hI v hv := by
+    rw [Units.val_inv_eq_inv_val, count_inv, hI v hv, neg_zero]
 
 
 namespace IdeleGroup

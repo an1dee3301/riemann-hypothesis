@@ -1,0 +1,161 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.IntegrandSZero
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MixSDblDecZero
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.ModerateGrowthSchwartz
+public import Development.AbelianVarietyTheory.Definitions.Foundations.T2SpaceAdeleRing
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.CovolOneIntegralAdd
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.WittDecompProjAnisotropicAnisotropicEmbedding
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.WittDecompSymplInclIsotropicInclAnisotropic
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.LocalRingCardinality.DataSpaces
+public import Formalism.LocalRingCardinality.DataTheta
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
+public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
+public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedWeil
+public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
+public import Init.Core
+public import Init.Data.Int.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Mathlib.Algebra.Field.Subfield.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.AddChar
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Subring.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Set.Defs
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.Trace
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.RingTheory.DedekindDomain.Basic
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.TensorProduct.Basic
+
+@[expose] public section
+
+noncomputable section
+
+namespace GlobalTheory.Core.Rk.SW
+
+open scoped ComplexConjugate Matrix NNReal ENNReal
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.L2.Theta Formalism.L2.Pj Formalism.IndefR.Datum MeasureTheory IsDedekindDomain NumberField
+open GlobalTheory.AutomorphicL2Unitary GlobalTheory.Cusp GlobalTheory.AdelicU GlobalTheory.Doubling GlobalTheory.Cont GlobalTheory.MixModel
+open GlobalTheory.IndefiniteRowSideFullHecke.SphericalVolumeLift (FinPl RealMat Lat IsFockVec IsSphOff HidaSetting volQ)
+open GlobalTheory.IndefiniteRowSideFullHecke.SphericalZero (ip delta swSec sZero IsKFinVec ThetaClause SectionClause CoefClause)
+open GlobalTheory.Mem.Th (CptF)
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+open GlobalTheory.Core.Rk.IP GlobalTheory.Core.Rk.SWLaw
+
+variable {D : D7}
+
+def sch (ψ : AddChar (AF D.host.F) ℂ) (A B : HSp D) (ν : Measure (WO A B)) (𝓨 : Set (WO A B))
+    (f : WO (dblSp A) B → ℂ) : Mx D B.rank A.rank → ℂ := fun x => (dblDec A).mixS B ψ ν 𝓨 f x 0
+
+def gramOf (B : HSp D) {n : ℕ} (x : Mx D B.rank n) : Mx D n n := adj x ⬝ (gA B ⬝ x)
+
+def chr (ψ : AddChar (AF D.host.F) ℂ) {n : ℕ} (T : Mx D n n) (c : skewA D n) : ℂ :=
+  ψ (-(trHalf D (Matrix.trace (T ⬝ c.1 : Mx D n n))))
+
+section Group
+
+variable (A : HSp D)
+
+def lowC (g : GA D (dblSp A)) : Mx D A.rank A.rank := (dblDec A).pY ⬝ (mt (dblSp A) g ⬝ (dblDec A).jX)
+
+def IsWeyl (w : GA D (dblSp A)) : Prop :=
+  w ∈ GQ (dblSp A) ∧ ((dblDec A).pY ⬝ (mt (dblSp A) w ⬝ (dblDec A).jY) : Mx D A.rank A.rank) = 0
+
+variable (ψ : AddChar (AF D.host.F) ℂ) (κ : Measure (skewA D A.rank))
+
+
+variable {A} in
+def fam {N : ℕ} (c : Fin N → ℂ) (x : Fin N → GA D (dblSp A)) (Φ : GA D (dblSp A) → ℂ) : GA D (dblSp A) → ℂ :=
+  fun g => ∑ i, c i * Φ (g * x i)
+
+end Group
+
+def ModelLaws (D : D7) : Prop :=
+  ∀ (ψ : AddChar (AF D.host.F) ℂ) (A B : HSp D) (χB : (AE D)ˣ →* Circle) (omh : WRep (dblSp A) B),
+    IsWeilDatumO ψ (dblSp A) B 1 χB omh → ∀ (ν : Measure (WO A B)) (𝓨 : Set (WO A B)), IsCovolOne (ratL B A) ν 𝓨 →
+  ∀ f, IsThetaFunO ψ (dblSp A) B f →
+    (∀ h x, sch ψ A B ν 𝓨 (omh (1, h) f) x = sch ψ A B ν 𝓨 f (mt B h⁻¹ ⬝ x)) ∧
+    (∀ (m : GL (Fin A.rank) (AE D)) x, sch ψ A B ν 𝓨 (omh ((dblDec A).levi m, 1) f) x =
+      ((χB⁻¹ (Matrix.GeneralLinearGroup.det m) : Circle) : ℂ) *
+        npow (absA D (Matrix.GeneralLinearGroup.det m)) ((B.rank : ℂ) / 2) * sch ψ A B ν 𝓨 f (x ⬝ m.1)) ∧
+    (∀ c x, sch ψ A B ν 𝓨 (omh ((dblDec A).nC c, 1) f) x = chr ψ (gramOf B x) c * sch ψ A B ν 𝓨 f x) ∧
+    HasSum (fun ξ : Matrix (Fin B.rank) (Fin A.rank) D.host.E => sch ψ A B ν 𝓨 f (rat ξ)) (f 0) ∧
+    swSec A B omh ν 𝓨 f 1 = sch ψ A B ν 𝓨 f 0 ∧
+    Integrable (sch ψ A B ν 𝓨 f) ν ∧ ∀ w, IsWeyl A w → swSec A B omh ν 𝓨 f w = ∫ x, sch ψ A B ν 𝓨 f x ∂ν
+
+def SchSchwartz (D : D7) : Prop :=
+  ∀ (ψ : AddChar (AF D.host.F) ℂ), IsStdChar D ψ (-1) → ∀ θ : InfFam D, IsInfFam θ → ∀ (A B : HSp D)
+    (ν : Measure (WO A B)) (𝓨 : Set (WO A B)), IsCovolOne (ratL B A) ν 𝓨 →
+    (∀ f, IsThetaFunO ψ (dblSp A) B f → sch ψ A B ν 𝓨 f ∈ GlobalTheory.IndefiniteRowSideFullHecke.ModerateGrowthSchwartz.schwartzA θ B.rank A.rank) ∧
+    (∀ φ ∈ GlobalTheory.IndefiniteRowSideFullHecke.ModerateGrowthSchwartz.schwartzA θ B.rank A.rank, ∃ f, IsThetaFunO ψ (dblSp A) B f ∧ sch ψ A B ν 𝓨 f = φ) ∧
+    ∀ f f', IsThetaFunO ψ (dblSp A) B f → IsThetaFunO ψ (dblSp A) B f' → sch ψ A B ν 𝓨 f = sch ψ A B ν 𝓨 f' → f = f'
+
+def NSAt (par : LFun.Fam D.host.E) (χ : (AE D)ˣ →* Circle) (t : ℕ) (q : FinPl D) : Prop :=
+  ∀ w : HeightOneSpectrum (𝓞 D.host.E), w.under (𝓞 D.host.F) = q → ∀ β ∈ par w,
+    ∀ k ∈ ({(t : ℤ) - 1, 1 - (t : ℤ), (t : ℤ) + 1, -((t : ℤ) + 1)} : Set ℤ),
+      (β : ℂ) * ((LFun.val (F := D.host.F) χ w : ℂˣ) : ℂ)⁻¹ ≠ LFun.npow w ((k : ℂ) / 2)
+
+def IsEigAvg (A : HSp D) (L : Lat A) (q : FinPl D) {N : ℕ} (c : Fin N → ℂ) (y : Fin N → Gv A q) (u : GA D A → ℂ)
+    (e : ℂ) : Prop :=
+  ∀ μ : Measure (Gv A q), μ.IsHaarMeasure → μ (stabLoc D.sp.cm.sig A.gram L q) = 1 → ∀ g,
+    ∑ i, c i * ∫ k in stabLoc D.sp.cm.sig A.gram L q, u (g * emb D.sp.cm.sig A.gram q (k * (y i)⁻¹)) ∂μ = e * u g
+
+def HeckeFormNS (D : D7) : Prop :=
+  ∀ (ψ : AddChar (AF D.host.F) ℂ) (θ : InfFam D) (A B : HSp D) (χA χB : (AE D)ˣ →* Circle) (sA : RealMat A)
+    (sB : RealMat B) (t : ℕ) (cA : CptF A) (a : GL (Fin A.rank) (AE D)) (om : WRep A B) (ν : Measure (WO A B))
+    (𝓕 : Set (WO A B)), Pair ψ θ A B χA χB sA sB t cA a om ν 𝓕 → 2 ≤ t → (wittIndex B = 0 ∨ wittIndex B < t) →
+  ∀ (LA : Lat A) (LB : Lat B) (Sf : Finset (FinPl D)) (Φ₁ Φ₂ : WO A B → ℂ),
+    IsFockVec ψ θ A B sA sB Φ₁ → IsFockVec ψ θ A B sA sB Φ₂ → Unram ψ A B χB LA LB Sf Φ₁ Φ₂ →
+  ∀ (m : Measure (GA D A)) (mH : Measure (GA D B)), m.IsHaarMeasure → mH.IsHaarMeasure →
+  ∀ u₁ ∈ A0 θ A cA, ∀ u₂ ∈ A0 θ A cA, ∀ par : LFun.Fam D.host.E,
+    LFun.IsParamFun D.sp.cm.sig A.gram LA (Sf : Set (FinPl D)) u₁ par → SphFun A LA Sf u₂ →
+    (∃ q ∉ Sf, Formalism.MainNotions.SchurIrreducible.IsSplit (E := D.host.E) q ∧ NSAt par χB t q) →
+    (∃ s₁ : ℝ, s₁ < (t : ℝ) / 2 ∧ IntegrableOn (integrand om m ν 𝓕 LA a Φ₁ Φ₂ u₁ u₂ s₁) (openOff A LA Sf) m) →
+    UpConv om m mH Φ₁ u₁ ∧ UpConv om m mH Φ₂ u₂ ∧
+    IntegrableOn (fun g => wcoef om ν 𝓕 Φ₁ Φ₂ g * rcoef m u₁ u₂ g) (openOff A LA Sf) m ∧
+    ∀ l, HolValueAt (fun s => LFun.LSD D Sf par χB (s + 1 / 2)) ((t : ℂ) / 2) l →
+      petersson B mH (up om m Φ₁ u₁) (up om m Φ₂ u₂) =
+        volQ B mH * (l / LFun.dSfun D.host.E (Sf : Set (FinPl D)) A.rank B.rank ((t : ℂ) / 2)) *
+          ∫ g in openOff A LA Sf, wcoef om ν 𝓕 Φ₁ Φ₂ g * rcoef m u₁ u₂ g ∂m
+
+theorem heckeFormNS_of_heckeForm (h : HeckeForm D) : HeckeFormNS D :=
+  fun ψ θ A B χA χB sA sB t cA a om ν 𝓕 hP _ hW LA LB Sf Φ₁ Φ₂ h₁ h₂ hU m mH hm hH u₁ hu₁ u₂ hu₂ par hp hs _ hc =>
+    h ψ θ A B χA χB sA sB t cA a om ν 𝓕 hP hW LA LB Sf Φ₁ Φ₂ h₁ h₂ hU m mH hm hH u₁ hu₁ u₂ hu₂ par hp hs hc
+
+end GlobalTheory.Core.Rk.SW
+
+end
