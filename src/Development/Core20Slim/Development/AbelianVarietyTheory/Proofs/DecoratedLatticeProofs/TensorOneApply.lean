@@ -17,8 +17,22 @@ variable {D : D7} {k : Type} [Field k] [ValuativeRel k] [TopologicalSpace k] [Is
 namespace Place
 
 
+def tensorAt (FS : Frame k S.rank Y') (FT : Frame k T.rank Y) (Φ : WO S T → ℂ) (Ψ : Matrix Y Y' k → ℂ) : WO S T → ℂ :=
+  fun t => Φ (t - p.up FS FT (p.down FS FT t)) * Ψ (p.down FS FT t)
 
+def tensorL (FS : Frame k S.rank Y') (FT : Frame k T.rank Y) (Φ : WO S T → ℂ) :
+    SB (Matrix Y Y' k) →ₗ[ℂ] (WO S T → ℂ) where
+  toFun Ψ := p.tensorAt FS FT Φ Ψ.1
+  map_add' Ψ Ψ' := by
+    funext t
+    simp only [tensorAt, Submodule.coe_add, Pi.add_apply, mul_add]
+  map_smul' c Ψ := by
+    funext t
+    simp only [tensorAt, Submodule.coe_smul, Pi.smul_apply, smul_eq_mul, RingHom.id_apply]
+    ring
 
+theorem tensorL_apply (FS : Frame k S.rank Y') (FT : Frame k T.rank Y) (Φ : WO S T → ℂ) (Ψ : SB (Matrix Y Y' k)) :
+    p.tensorL FS FT Φ Ψ = p.tensorAt FS FT Φ Ψ.1 := rfl
 
 
 
