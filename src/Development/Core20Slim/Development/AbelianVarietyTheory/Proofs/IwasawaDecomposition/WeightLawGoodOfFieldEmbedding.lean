@@ -13,30 +13,6 @@ public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.Iwa
 public import Formalism.LocalRingCardinality.DataCoeff
 public import Formalism.LocalToGlobal.Divisibility.CoefMod
 public import Formalism.LocalToGlobal.Divisibility.CoefModLemmas
-public import Init.Prelude
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Nat
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Lattice.Full
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.MonoidAlgebra.Defs
-public import Mathlib.Algebra.MonoidAlgebra.Module
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finsupp.Defs
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic
 
 @[expose] public section
 

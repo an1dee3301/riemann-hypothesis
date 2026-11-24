@@ -1,7 +1,6 @@
 module
 
 public import Development.Core20Slim.Formalism.PieriBlockIdeals.StatementLD
-public import Init.Prelude
 
 @[expose] public section
 
