@@ -1087,6 +1087,8 @@ variable {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algeb
 theorem offP_eq {κ : Type} (w : (κ → AF F) × (κ → AF F)) : offP v w = (1 - ep v) • w :=
   Prod.ext (funext fun _ => off_eq _) (funext fun _ => off_eq _)
 
+theorem evalEmbedding_smul {κ : Type} (a : AF F) (w : (κ → AF F) × (κ → AF F)) : evP v (a • w) = evFin F v a • evP v w :=
+  Prod.ext (funext fun _ => map_mul (evFin F v) _ _) (funext fun _ => map_mul (evFin F v) _ _)
 
 
 end PartB

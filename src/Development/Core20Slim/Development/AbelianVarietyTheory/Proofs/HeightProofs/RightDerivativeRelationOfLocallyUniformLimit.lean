@@ -253,6 +253,7 @@ variable {n : ℕ} {ε : Fin n → Bool}
 noncomputable def mkU (g : Mx n) (hg : g ∈ UJset ε) : UJ ε :=
   ⟨(isUnit_of_UJ hg).unit, show inUJ ε _ from hg⟩
 
+theorem umat_mkU (g : Mx n) (hg : g ∈ UJset ε) : umat (mkU g hg) = g := rfl
 
 theorem umat_emb (ε : Fin n → Bool) : Topology.IsClosedEmbedding (fun g : UJ ε => umat g) := (isClosedEmbeddingMatrix n ε).1
 

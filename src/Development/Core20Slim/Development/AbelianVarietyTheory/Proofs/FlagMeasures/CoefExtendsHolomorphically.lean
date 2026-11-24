@@ -50,6 +50,7 @@ variable {n : ℕ} {ε : Fin n → Bool}
 
 
 
+lemma toMK_mul (g k : KG ε) : toMK (g * k) = toMK g * toMK k := rfl
 
 
 
