@@ -1,0 +1,80 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.CompanionTheory.SpectralGeometry.LocalGlobalProofs.AdelicAnalysis.GaussQ
+public import Development.Core20Slim.CompanionTheory.SpectralGeometry.LocalGlobalProofs.AdelicAnalysis.UnitaryGroupFiniteVolumeStatement
+public import Development.Core20Slim.CompanionTheory.SpectralGeometry.LocalGlobalProofs.AdelicAnalysis.ArithmeticUnitaryGroupDiscreteStatement
+public import Development.Core20Slim.CompanionTheory.SpectralGeometry.LocalGlobalProofs.AdelicAnalysis.AdelicUnitaryGroupLocallyCompactStatement
+public import Development.Core20Slim.CompanionTheory.SpectralGeometry.LocalGlobalProofs.AdelicAnalysis.FiniteCovolumeUnimodular
+public import Development.Core20Slim.CompanionTheory.SpectralGeometry.LocalGlobalProofs.AdelicAnalysis.AdelesLocallyCompactSecondCountable
+public import CompanionTheory.SpectralGeometry.CountingDefinitions.AdelicEulerProducts.IsEulerProd
+public import Formalism.UnipotentAdelicQuotients.SWXSDefs
+public import Init.Core
+public import Init.Data.Zero
+public import Init.Prelude
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Basic.Countable.Defs
+public import Mathlib.Basic.ENNReal.Basic
+public import Mathlib.Basic.ENNReal.Inv
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Set.Defs
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
+public import Mathlib.MeasureTheory.Group.Defs
+public import Mathlib.MeasureTheory.Group.Measure
+public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
+public import Mathlib.MeasureTheory.Measure.Module
+public import Mathlib.MeasureTheory.Measure.Restrict
+public import Mathlib.MeasureTheory.Measure.Typeclasses.Probability
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.Order.Basic
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.Order.Filter.Defs
+public import Mathlib.Order.Notation
+public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.Topology.Algebra.Group.Defs
+public import Mathlib.Topology.Bases
+public import Mathlib.Topology.Constructions
+public import Mathlib.Topology.Constructions.SumProd
+public import Mathlib.Topology.Defs.Basic
+public import Mathlib.Topology.Defs.Filter
+public import Mathlib.Topology.Separation.Hausdorff
+
+@[expose] public section
+
+noncomputable section
+namespace GlobalTheory.CompanionTheory.SW.BB
+
+open HeckeCharacterZeroLocus.SiegelWeilU GlobalTheory.CompanionTheory.SW GlobalTheory.CompanionTheory.SW.BB NumberField IsDedekindDomain MeasureTheory Topology
+open scoped TensorProduct ENNReal NNReal Matrix
+
+theorem isProbabilityMeasure_prH : ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E), IsCMExt F E σ → ∀ (M : ℕ) (J : Matrix (Fin M) (Fin M) E), IsHermND σ J → ∀ (μ : Measure (HA (AF F) σ J)) (𝓕 : Set (HA (AF F) σ J)), IsHaarH F E σ M J μ → IsFDH F E σ M J μ 𝓕 → IsProbabilityMeasure (prH μ 𝓕) := by
+  intro F E _ _ _ _ _ σ hσ M J hJ μ 𝓕 hμ h𝓕
+  have hfin : μ 𝓕 < ⊤ := ((GlobalTheory.T.unitary_group_finite_volume F E σ hσ M J hJ).2 μ hμ).2 𝓕 h𝓕
+  obtain ⟨hlc, hsc, ht2⟩ := (GlobalTheory.CompanionTheory.AdeleTop.adele_top F).1
+  obtain ⟨htg, hlcH, hscH, ht2H, hbor, -⟩ := GlobalTheory.T.adelic_unitary_group_locally_compact F E σ hσ M J hJ (AF F)
+  have hcount : Countable (HFinIn (AF F) σ J) := (GlobalTheory.T.arithmetic_unitary_group_discrete F E σ hσ M J hJ).1
+  have hne : μ 𝓕 ≠ 0 :=
+    (@GlobalTheory.CompanionTheory.SW.LatticeUnimod.unimodular_of_isFundamentalDomain (HA (AF F) σ J) _ _ htg ht2H hlcH hscH _ hbor
+      (HFinIn (AF F) σ J) hcount μ hμ 𝓕 h𝓕 hfin).1
+  refine ⟨?_⟩
+  simp only [prH, Measure.smul_apply, Measure.restrict_apply_univ, smul_eq_mul]
+  exact ENNReal.inv_mul_cancel hne hfin.ne
+
+end GlobalTheory.CompanionTheory.SW.BB

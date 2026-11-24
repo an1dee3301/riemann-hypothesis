@@ -162,6 +162,7 @@ open Formalism.UG (cT)
 
 variable {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E}
 
+theorem realAd_snd (t : ℝ) : (realAd F t).2 = 0 := rfl
 
 theorem realAd_inf [IsTotallyReal F] (w : InfinitePlace F) (t : ℝ) :
     InfinitePlace.Completion.extensionEmbedding w ((realAd F t).1 w) = t := by

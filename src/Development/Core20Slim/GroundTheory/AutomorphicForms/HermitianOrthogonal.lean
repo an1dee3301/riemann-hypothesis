@@ -95,6 +95,8 @@ variable {F E : Type*} [Field F] [Field E] [Algebra F E] [Algebra.IsQuadraticExt
 instance finiteDimensional_of_isQuadraticExtension : FiniteDimensional F E :=
   Module.finite_of_finrank_eq_succ (Algebra.IsQuadraticExtension.finrank_eq_two F E)
 
+theorem conjHom_apply (x : E) : conjHom F E x = conj F E x :=
+  rfl
 
 theorem exists_not_mem_range : ∃ ζ : E, ζ ∉ Set.range (algebraMap F E) := by
   by_contra H
