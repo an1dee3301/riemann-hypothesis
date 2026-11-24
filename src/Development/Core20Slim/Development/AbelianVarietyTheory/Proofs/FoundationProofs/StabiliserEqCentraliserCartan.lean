@@ -126,6 +126,13 @@ theorem diagonal_sign_mul_self (ε : Fin n → Bool) :
   funext i
   split_ifs <;> simp
 
+theorem diagonal_sign_conjTranspose (ε : Fin n → Bool) :
+    (Matrix.diagonal fun i => if ε i then (1 : ℂ) else -1)ᴴ = Matrix.diagonal fun i => if ε i then 1 else -1 := by
+  rw [Matrix.diagonal_conjTranspose]
+  congr 1
+  funext i
+  change star (if ε i then (1 : ℂ) else -1) = _
+  split_ifs <;> simp
 
 theorem mul_conjTranspose_mul_eq (hbc : b * c = 1) (h : bᴴ * G * b = d) : b * bᴴ * G = b * d * c := by
   rw [← h]
@@ -195,6 +202,35 @@ theorem unitary_iff_commute (hbc : b * c = 1) (h : bᴴ * G * b = d) (hd : d * d
     calc uᴴ * u = uᴴ * (u * d) * d := by rw [mul_assoc, mul_assoc, hd, mul_one]
       _ = 1 := by rw [h3, ← mul_assoc, hud, hd]
 
+theorem exists_frame_of_isCartanInv {s : Matrix (Fin n) (Fin n) ℂ} (hs : IsCartanInv G s) :
+    ∃ (b : GL (Fin n) ℂ) (ε : Fin n → Bool),
+      b.1ᴴ * G * b.1 = Matrix.diagonal (fun i => if ε i then 1 else -1) ∧ b.1 * b.1ᴴ * G = s := by
+  obtain ⟨p, q, B, B', h1, h2, h3, h4⟩ := GlobalTheory.exists_basis_adapted_to_cartan_involution n G s hs.1 hs.2.1 hs.2.2
+  have hc : Fintype.card (Fin n) = Fintype.card (Fin p ⊕ Fin q) := by
+    have := Matrix.trace_mul_comm B B'
+    rw [h1, h2, Matrix.trace_one, Matrix.trace_one] at this
+    exact_mod_cast this
+  let e := Fintype.equivOfCardEq hc
+  have k1 : B.submatrix id e * B'.submatrix e id = 1 := by
+    rw [Matrix.submatrix_mul_equiv, h1, Matrix.submatrix_id_id]
+  have k3 : (B.submatrix id e)ᴴ * G * B.submatrix id e = (Bᴴ * G * B).submatrix e e := by
+    ext i j
+    simp [Matrix.mul_apply]
+  refine ⟨⟨_, _, k1, mul_eq_one_comm.1 k1⟩, fun i => (e i).isLeft, ?_, ?_⟩
+  · change (B.submatrix id e)ᴴ * G * B.submatrix id e = _
+    rw [k3, h3, ← Matrix.diagonal_one, ← Matrix.diagonal_one, Matrix.diagonal_neg, Matrix.fromBlocks_diagonal,
+      Matrix.submatrix_diagonal_equiv]
+    congr 1
+    funext i
+    have : ∀ x : Fin p ⊕ Fin q, Sum.elim (fun _ => (1 : ℂ)) (fun _ => -1) x = if x.isLeft then 1 else -1 := by
+      rintro (j | j) <;> simp
+    exact this _
+  · change B.submatrix id e * (B.submatrix id e)ᴴ * G = s
+    rw [Matrix.conjTranspose_submatrix, Matrix.submatrix_mul_equiv, Matrix.submatrix_id_id]
+    calc B * Bᴴ * G = B * Bᴴ * G * (B * B') := by rw [h1, mul_one]
+      _ = B * (Bᴴ * G * B) * B' := by simp only [Matrix.mul_assoc]
+      _ = s * B * B' := by rw [h3, h4]; rfl
+      _ = s := by rw [Matrix.mul_assoc, h1, mul_one]
 
 end Complex
 
@@ -280,6 +316,10 @@ theorem isMaj_iff (hθ : IsInfFam θ) : IsMaj V a ↔ ∀ τ, ∃ ε : Fin V.ran
   rw [compAt_eq_map hθ]
   exact frame_local_iff (isCMExt_host D) (embOverOf D τ) V.gram _ ε
 
+theorem IsMaj.isCartanInv (h : IsMaj V a) (hθ : IsInfFam θ) (τ : D.what₂.Tau) :
+    IsCartanInv (gramAt D V τ) (frameInv θ V a τ) := by
+  obtain ⟨ε, hε⟩ := (isMaj_iff hθ).1 h τ
+  exact isCartanInv_of_frame (compAt_mul_inv τ a) hε (diagonal_sign_mul_self ε) (diagonal_sign_conjTranspose ε)
 
 theorem infMat_isometry (hθ : IsInfFam θ) (τ : D.what₂.Tau) (g : GA D V) :
     (infMat D.sp.cm.sig V.gram (θ τ) g)ᴴ * gramAt D V τ * infMat D.sp.cm.sig V.gram (θ τ) g = gramAt D V τ := by
@@ -295,7 +335,31 @@ theorem IsMaj.mem_stabArch_iff (h : IsMaj V a) (hθ : IsInfFam θ) (τ : D.what�
   rw [compAt_eq_map hθ, compAt_eq_map hθ, eq_infProj hθ (embOverOf D τ) rfl]
   exact mem_stabArch_iff_unitary (isCMExt_host D) (embOverOf D τ) V.gram a g
 
+theorem IsMaj.mem_Kmax_iff (h : IsMaj V a) (hθ : IsInfFam θ) (g : GA D V) : g ∈ Kmax V a ↔
+    g ∈ levelOpen D.sp.cm.sig V.gram (frameLat V) ∧
+      ∀ τ, Commute (infMat D.sp.cm.sig V.gram (θ τ) g) (frameInv θ V a τ) := by
+  refine (mem_levelAll (σ := D.sp.cm.sig) (J := V.gram) (L := frameLat V) (a := a) (g := g)).trans ?_
+  refine and_congr (mem_levelOpen (σ := D.sp.cm.sig) (J := V.gram) (L := frameLat V) (g := g)).symm ?_
+  exact (placeOf_bijective D).2.forall.trans (forall_congr' fun τ => h.mem_stabArch_iff hθ τ g)
 
+theorem exists_isMaj_frameInv_eq (hθ : IsInfFam θ) {s : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ}
+    (hs : ∀ τ, IsCartanInv (gramAt D V τ) (s τ)) :
+    ∃ a, IsMaj V a ∧ IsLatticeFrame (frameLat V) a ∧ ∀ τ, frameInv θ V a τ = s τ := by
+  choose b ε h1 h2 using fun τ => exists_frame_of_isCartanInv (hs τ)
+  let e := fun τ => RingEquiv.ofBijective _ (infEmb_bijective (isCMExt_host D) (embOverOf D τ))
+  let p := Equiv.ofBijective _ (placeOf_bijective D)
+  let P := fun w : InfinitePlace D.host.F => GL (Fin V.rank) (w.Completion ⊗[D.host.F] D.host.E)
+  let c : ∀ τ, P (p τ) := fun τ => bc (e τ).symm.toRingHom (b τ)
+  obtain ⟨a, ha, hw⟩ := Frames.exists_isLatticeFrame_of_arch (frameLat V) (Equiv.piCongrLeft P p c)
+  have hb : ∀ τ, compAt θ τ a.1 = (b τ).1 := fun τ => by
+    have := hw (p τ)
+    rw [Equiv.piCongrLeft_apply_apply] at this
+    rw [compAt_eq_map hθ]
+    refine (congrArg (fun x : P (p τ) => x.1.map (infEmb (embOverOf D τ))) this).trans ?_
+    exact Matrix.ext fun i j => (e τ).apply_symm_apply _
+  refine ⟨a, (isMaj_iff hθ).2 fun τ => ⟨ε τ, ?_⟩, ha, fun τ => ?_⟩
+  · rw [hb, h1]
+  · rw [frameInv, hb, h2]
 
 theorem gramAt_dblSp (V : HSp D) (τ : D.what₂.Tau) :
     gramAt D (dblSp V) τ = blkMat finSumFinEquiv (gramAt D V τ) (-gramAt D V τ) :=

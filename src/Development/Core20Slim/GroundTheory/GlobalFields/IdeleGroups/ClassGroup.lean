@@ -363,6 +363,10 @@ theorem ker_toClassGroup :
       rw [← ker_toFractionalIdeal, MonoidHom.mem_ker] at hx
       rw [MonoidHom.mem_ker, toClassGroup_apply, hx, map_one]
 
+def quotientEquivClassGroup :
+    IdeleGroup K ⧸ ((diagonal K).range ⊔ standardOpenSubgroup K) ≃* ClassGroup (𝓞 K) :=
+  (QuotientGroup.quotientMulEquivOfEq ker_toClassGroup.symm).trans
+    (QuotientGroup.quotientKerEquivOfSurjective _ toClassGroup_surjective)
 
 end IdeleGroup
 
@@ -402,6 +406,10 @@ theorem ker_toClassGroup :
 instance : ((standardOpenSubgroup K).map (mk K)).Normal :=
   ⟨fun n hn g ↦ by rwa [mul_comm g n, mul_inv_cancel_right]⟩
 
+def quotientEquivClassGroup :
+    IdeleClassGroup K ⧸ (standardOpenSubgroup K).map (mk K) ≃* ClassGroup (𝓞 K) :=
+  (QuotientGroup.quotientMulEquivOfEq (ker_toClassGroup (K := K)).symm).trans
+    (QuotientGroup.quotientKerEquivOfSurjective _ toClassGroup_surjective)
 
 end IdeleClassGroup
 

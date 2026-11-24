@@ -322,7 +322,105 @@ theorem logSeries_mul {x y : K} (hx : x ∈ valBall (K := K) 1) (hy : y ∈ valB
   simp only [zero_mul, add_zero] at hlim
   exact tendsto_nhds_unique (hc.congr key) hlim
 
+omit [CharP 𝓀[K] p] [CharZero K] in
+theorem sub_one_le_of_lt {a : ℤ} (ha : (absRamificationIndex (K := K) : ℤ) < (p - 1 : ℤ) * a) {b : ℤ}
+    (hab : a ≤ b) : (absRamificationIndex (K := K) : ℤ) < (p - 1 : ℤ) * b := by
+  have hp2 : (2 : ℤ) ≤ p := by exact_mod_cast hp.out.two_le
+  nlinarith
 
+theorem eq_zero_of_logSeries_eq_zero {r : ℤ} (hr : (absRamificationIndex (K := K) : ℤ) < (p - 1 : ℤ) * r)
+    {x : K} (hx : x ∈ valBall (K := K) r) (h : logSeries x = 0) : x = 0 := by
+  by_contra hx0
+  let a := ord x
+  let e := absRamificationIndex (K := K)
+  have hv : normalizedValuation K x = WithZero.exp (-a) := normalizedValuation_eq_exp_ord hx0
+  change normalizedValuation K x ≤ WithZero.exp (-r) at hx
+  rw [hv, WithZero.exp_le_exp, neg_le_neg_iff] at hx
+  have ha : (e : ℤ) < (p - 1 : ℤ) * a := sub_one_le_of_lt p hr hx
+  have hp2 : (2 : ℤ) ≤ p := by exact_mod_cast hp.out.two_le
+  have ha1 : 1 ≤ a := by
+    by_contra! hneg
+    have he0 : (0 : ℤ) ≤ e := by positivity
+    nlinarith [mul_nonpos_of_nonneg_of_nonpos (by omega : (0 : ℤ) ≤ p - 1)
+      (by omega : a ≤ 0)]
+  have hpv := normalizedValuation_eq_exp_ord (Nat.cast_ne_zero.mpr hp.out.ne_zero : (p : K) ≠ 0)
+  have hlt : normalizedValuation K (p : K) < 1 := by
+    rw [← map_one (normalizedValuation K), normalizedValuation_lt_iff, map_one]
+    exact CharZero.valuation_p_lt_one K p
+  rw [hpv, ← WithZero.exp_zero, WithZero.exp_lt_exp] at hlt
+  have he : (e : ℤ) = ord (p : K) := by
+    dsimp only [e]
+    rw [absRamificationIndex, ringChar.eq 𝓀[K] p, Int.toNat_of_nonneg (by omega)]
+  let term (k : ℕ) : K := (-1) ^ k * x ^ (k + 1) / ((k + 1 : ℕ) : K)
+  have hterm (k : ℕ) :
+      normalizedValuation K (term k) =
+        WithZero.exp (-((↑(k + 1) : ℤ) * a - e * padicValNat p (k + 1))) := by
+    have hcast : normalizedValuation K ((k + 1 : ℕ) : K) =
+        WithZero.exp (-(e * padicValNat p (k + 1) : ℤ)) := by
+      conv_lhs => rw [← Nat.divMaxPow_mul_pow_padicValNat p (k + 1)]
+      rw [Nat.cast_mul, map_mul, Nat.cast_pow, map_pow,
+        normalizedValuation_natCast_of_not_dvd p
+          (Nat.not_dvd_divMaxPow hp.out.one_lt (Nat.succ_ne_zero k)),
+        one_mul, hpv, ← he, ← WithZero.exp_nsmul]
+      simp [mul_comm]
+    dsimp only [term]
+    rw [map_div₀, hcast, map_mul, map_pow, Valuation.map_neg, map_one, one_pow, one_mul,
+      map_pow, hv, ← WithZero.exp_nsmul, ← WithZero.exp_sub]
+    congr 1
+    rw [nsmul_eq_mul]
+    ring
+  have hs : Summable term := by
+    apply summable_of_tendsto_zero
+    rw [(IsValuativeTopology.hasBasis_nhds_zero K).tendsto_right_iff]
+    intro γ _
+    obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible 𝒪[K]
+    obtain ⟨N, -, hN⟩ := exists_pow_lt hϖ γ.ne_zero
+    rw [eventually_atTop]
+    refine ⟨4 * N + 32 * e ^ 2, fun k hk ↦ lt_of_le_of_lt ?_ hN⟩
+    rw [← map_pow, ← normalizedValuation_le_iff, hterm, map_pow, normalizedValuation_uniformizer hϖ,
+      ← WithZero.exp_nsmul, WithZero.exp_le_exp, nsmul_eq_mul, mul_neg, mul_one]
+    have hk' : 4 * (N : ℤ).toNat + 32 * e ^ 2 ≤ k := by simpa using hk
+    have horder := logTerm_order_ge (K := K) p hk'
+    push_cast
+    nlinarith [mul_le_mul_of_nonneg_left ha1 (by positivity : (0 : ℤ) ≤ k + 1)]
+  have hclosed : IsClosed (valBall (K := K) (a + 1) : Set K) := by
+    obtain ⟨y, hy⟩ := exists_normalizedValuation_eq (K := K) (-(a + 1))
+    have hset : (valBall (K := K) (a + 1) : Set K) = {z | valuation K z ≤ valuation K y} := by
+      ext z
+      change normalizedValuation K z ≤ WithZero.exp (-(a + 1)) ↔ valuation K z ≤ valuation K y
+      rw [← hy, normalizedValuation_le_iff]
+    rw [hset]
+    exact (IsNonarchimedeanLocalField.isCompact_closedBall K _).isClosed
+  have htail : (∑' k, term (k + 1)) ∈ valBall (K := K) (a + 1) := by
+    have hsum := (summable_nat_add_iff 1).mpr hs
+    refine hclosed.mem_of_tendsto hsum.hasSum.tendsto_sum_nat
+      (Eventually.of_forall fun s ↦ AddSubgroup.sum_mem _ fun k _ ↦ ?_)
+    change normalizedValuation K (term (k + 1)) ≤ WithZero.exp (-(a + 1))
+    rw [hterm, WithZero.exp_le_exp, neg_le_neg_iff]
+    let v := padicValNat p (k + 1 + 1)
+    have hvnat : ((p - 1) * v : ℕ) < k + 1 + 1 :=
+      sub_one_mul_padicValNat_lt p (Nat.succ_ne_zero (k + 1))
+    have hvcast : (((p - 1) * v : ℕ) : ℤ) ≤ k + 1 := by exact_mod_cast (by omega : _ ≤ k + 1)
+    push_cast [Nat.cast_sub hp.out.one_le] at hvcast
+    change a + 1 ≤ (↑(k + 1 + 1) : ℤ) * a - e * v
+    push_cast
+    rcases Nat.eq_zero_or_pos v with hv0 | hvpos
+    · simp only [hv0, Nat.cast_zero, mul_zero, sub_zero]
+      nlinarith [mul_le_mul_of_nonneg_left ha1 (by positivity : (0 : ℤ) ≤ k + 1)]
+    · have hv1 : (1 : ℤ) ≤ v := by exact_mod_cast hvpos
+      have hv0 : (0 : ℤ) ≤ v := by positivity
+      nlinarith [mul_le_mul_of_nonneg_left hvcast (by omega : 0 ≤ a),
+        mul_le_mul_of_nonneg_right (by omega : (e : ℤ) + 1 ≤ (p - 1 : ℤ) * a) hv0]
+  change (∑' k, term k) = 0 at h
+  rw [hs.tsum_eq_zero_add] at h
+  have hterm0 : term 0 = x := by simp [term]
+  rw [hterm0] at h
+  have htail_eq : (∑' k, term (k + 1)) = -x := eq_neg_iff_add_eq_zero.mpr (by simpa [add_comm] using h)
+  rw [htail_eq] at htail
+  have hxa : x ∈ valBall (K := K) (a + 1) := by simpa using neg_mem htail
+  change normalizedValuation K x ≤ WithZero.exp (-(a + 1)) at hxa
+  rw [hv, WithZero.exp_le_exp] at hxa
+  omega
 
 end Hom
 
@@ -341,6 +439,9 @@ noncomputable def padicLog : Additive (unitFiltrationUnits K 1) →+ K where
 
 variable {K}
 
+theorem padicLog_apply (u : Additive (unitFiltrationUnits K 1)) :
+    padicLog K u = logSeries ((((Additive.toMul u : unitFiltrationUnits K 1) : Kˣ) : K) - 1) :=
+  rfl
 
 end PadicLog
 
@@ -348,6 +449,73 @@ section PadicLogProps
 
 variable [CharZero K]
 
+theorem continuous_padicLog : Continuous (padicLog K) := by
+  refine continuous_of_continuousAt_zero (padicLog K) ?_
+  rw [ContinuousAt, map_zero, (IsValuativeTopology.hasBasis_nhds_zero K).tendsto_right_iff]
+  intro γ _
+  obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible 𝒪[K]
+  obtain ⟨N, -, hN⟩ := exists_pow_lt hϖ γ.ne_zero
+  let p := ringChar 𝓀[K]
+  have hp : p.Prime := Fact.out
+  let e := absRamificationIndex (K := K)
+  let r := N + e + 1
+  have hpow (n : ℕ) : normalizedValuation K ((ϖ : K) ^ n) = WithZero.exp (-(n : ℤ)) := by
+    rw [map_pow, normalizedValuation_uniformizer hϖ, ← WithZero.exp_nsmul, nsmul_eq_mul,
+      mul_neg, mul_one]
+  have hcont : Continuous fun u : Additive (unitFiltrationUnits K 1) ↦
+      ((Additive.toMul u : unitFiltrationUnits K 1) : Kˣ).val :=
+    Units.continuous_val.comp (continuous_subtype_val.comp continuous_toMul)
+  have hopen := (isOpen_setOf_valuation_sub_le (a := (1 : K))
+    (pow_ne_zero r (valuation_uniformizer_ne_zero hϖ))).preimage hcont
+  filter_upwards [hopen.mem_nhds (by simp)] with u hu
+  let x : K := ((Additive.toMul u : unitFiltrationUnits K 1) : Kˣ).val - 1
+  change valuation K x ≤ valuation K (ϖ : K) ^ r at hu
+  rw [← map_pow, ← normalizedValuation_le_iff, hpow] at hu
+  refine lt_of_le_of_lt ?_ hN
+  change valuation K (logSeries x) ≤ valuation K (ϖ : K) ^ N
+  have hclosed : IsClosed {y : K | valuation K y ≤ valuation K (ϖ : K) ^ N} :=
+    (IsNonarchimedeanLocalField.isCompact_closedBall K _).isClosed
+  let term (k : ℕ) : K := (-1) ^ k * x ^ (k + 1) / ((k + 1 : ℕ) : K)
+  change valuation K (∑' k, term k) ≤ valuation K (ϖ : K) ^ N
+  by_cases hs : Summable term
+  · refine hclosed.mem_of_tendsto hs.hasSum.tendsto_sum_nat (Eventually.of_forall fun s ↦ ?_)
+    have hsum (y : K) :
+        y ∈ valBall (K := K) (N : ℤ) ↔ valuation K y ≤ valuation K (ϖ : K) ^ N := by
+      change normalizedValuation K y ≤ WithZero.exp (-(N : ℤ)) ↔ _
+      rw [← map_pow, ← normalizedValuation_le_iff, hpow]
+    refine (hsum _).mp (AddSubgroup.sum_mem _ fun k _ ↦ ?_)
+    have hpv := normalizedValuation_eq_exp_ord (Nat.cast_ne_zero.mpr hp.ne_zero : (p : K) ≠ 0)
+    have hlt : normalizedValuation K (p : K) < 1 := by
+      rw [← map_one (normalizedValuation K), normalizedValuation_lt_iff, map_one]
+      exact CharZero.valuation_p_lt_one K p
+    rw [hpv, ← WithZero.exp_zero, WithZero.exp_lt_exp] at hlt
+    have he : (e : ℤ) = ord (p : K) := by
+      change (↑(ord (p : K)).toNat : ℤ) = ord (p : K)
+      exact Int.toNat_of_nonneg (by omega)
+    have hcast : normalizedValuation K ((k + 1 : ℕ) : K) =
+        WithZero.exp (-(e * padicValNat p (k + 1) : ℤ)) := by
+      conv_lhs => rw [← Nat.divMaxPow_mul_pow_padicValNat p (k + 1)]
+      rw [Nat.cast_mul, map_mul, Nat.cast_pow, map_pow,
+        normalizedValuation_natCast_of_not_dvd p
+          (Nat.not_dvd_divMaxPow hp.one_lt (Nat.succ_ne_zero k)),
+        one_mul, hpv, ← he, ← WithZero.exp_nsmul]
+      simp [mul_comm]
+    change normalizedValuation K (term k) ≤ WithZero.exp (-(N : ℤ))
+    dsimp only [term]
+    rw [map_div₀, hcast, map_mul, map_pow, Valuation.map_neg, map_one, one_pow, one_mul,
+      map_pow]
+    refine (div_le_div_of_nonneg_right (pow_le_pow_left' hu _) zero_le).trans ?_
+    rw [← WithZero.exp_nsmul, ← WithZero.exp_sub, WithZero.exp_le_exp, nsmul_eq_mul]
+    have hk : (padicValNat p (k + 1) : ℤ) ≤ (k + 1 : ℕ) := by
+      exact_mod_cast padicValNat_le_self' p (Nat.succ_ne_zero k)
+    have hle := mul_le_mul_of_nonneg_left hk (by positivity : (0 : ℤ) ≤ e)
+    have hN' := mul_le_mul_of_nonneg_left (by omega : (1 : ℤ) ≤ (k + 1 : ℕ))
+      (by positivity : (0 : ℤ) ≤ N)
+    dsimp [r]
+    push_cast at *
+    nlinarith
+  · rw [tsum_eq_zero_of_not_summable hs, map_zero]
+    exact zero_le
 
 end PadicLogProps
 

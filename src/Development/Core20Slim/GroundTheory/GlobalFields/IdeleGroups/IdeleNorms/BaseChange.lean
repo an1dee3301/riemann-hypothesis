@@ -247,6 +247,8 @@ theorem coe_ideleEmbedding (x : IdeleGroup K) :
     ((ideleEmbedding K L x : IdeleGroup L) : 𝔸[L]) = adeleMap K L x :=
   rfl
 
+theorem ideleEmbedding_injective : Function.Injective (ideleEmbedding K L) := fun _ _ h ↦
+  Units.ext (adeleMap_injective (congrArg Units.val h))
 
 theorem ideleEmbedding_diagonal (k : Kˣ) :
     ideleEmbedding K L (IdeleGroup.diagonal K k) =

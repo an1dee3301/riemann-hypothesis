@@ -176,7 +176,20 @@ theorem IsUnramifiedSubextension.isGalois {E : IntermediateField K Ksep}
   have := finiteExtensionStructure_valuativeExtension K E
   exact isGalois_of_unramified K E hE.ramificationIndex_eq_one
 
+theorem IsUnramifiedSubextension.isCyclic {E : IntermediateField K Ksep}
+    (hE : IsUnramifiedSubextension E) : IsCyclic (E ≃ₐ[K] E) := by
+  have := hE.1
+  let := (finiteExtensionStructure K E).rel
+  let := (finiteExtensionStructure K E).top
+  have := finiteExtensionStructure_isNonarchimedeanLocalField K E
+  have := finiteExtensionStructure_valuativeExtension K E
+  exact isCyclic_of_unramified K E hE.ramificationIndex_eq_one
 
+theorem IsUnramifiedSubextension.card_algEquiv {E : IntermediateField K Ksep}
+    (hE : IsUnramifiedSubextension E) : Nat.card (E ≃ₐ[K] E) = Module.finrank K E := by
+  have := hE.1
+  have := hE.isGalois
+  exact IsGalois.card_aut_eq_finrank K E
 
 theorem exists_isPrimitiveRoot_card_pow_sub_one [IsSepClosed Ksep] {n : ℕ} (hn : n ≠ 0) :
     ∃ ζ : Ksep, IsPrimitiveRoot ζ (Nat.card 𝓀[K] ^ n - 1) := by
@@ -233,6 +246,15 @@ theorem existsUnique_isUnramifiedSubextension [IsSepClosed Ksep] {n : ℕ} (hn :
   exact ⟨K⟮ζ⟯, isUnramifiedSubextension_adjoin hn hζ,
     fun E ⟨hE, hEn⟩ ↦ hE.eq_adjoin hEn hn hζ⟩
 
+theorem isUnramifiedSubextension_adjoin_spec {n : ℕ} (hn : n ≠ 0) {ζ : Ksep}
+    (hζ : IsPrimitiveRoot ζ (Nat.card 𝓀[K] ^ n - 1)) :
+    IsUnramifiedSubextension K⟮ζ⟯ ∧ Module.finrank K K⟮ζ⟯ = n ∧ IsGalois K K⟮ζ⟯ ∧
+      IsCyclic (K⟮ζ⟯ ≃ₐ[K] K⟮ζ⟯) ∧ Nat.card (K⟮ζ⟯ ≃ₐ[K] K⟮ζ⟯) = n ∧
+      ∀ E : IntermediateField K Ksep, IsUnramifiedSubextension E → Module.finrank K E = n →
+        E = K⟮ζ⟯ := by
+  obtain ⟨hE, hEn⟩ := isUnramifiedSubextension_adjoin hn hζ
+  exact ⟨hE, hEn, hE.isGalois, hE.isCyclic, hE.card_algEquiv.trans hEn,
+    fun E hE' hE'n ↦ hE'.eq_adjoin hE'n hn hζ⟩
 
 variable {E : IntermediateField K Ksep} (hE : IsUnramifiedSubextension E)
   [ValuativeRel E] [TopologicalSpace E] [IsNonarchimedeanLocalField E] [ValuativeExtension K E]

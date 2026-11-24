@@ -169,6 +169,16 @@ theorem mem_unitsLevel {n : ℕ} {x : (v.adicCompletion K)ˣ} :
   Iff.rfl
 
 
+variable {v} in
+theorem mem_unitsLevel_of_one_le {n : ℕ} (hn : 1 ≤ n) {x : (v.adicCompletion K)ˣ} :
+    x ∈ unitsLevel v n ↔ Valued.v ((x : v.adicCompletion K) - 1) ≤ exp (-(n : ℤ)) := by
+  refine ⟨And.right, fun h ↦ ⟨?_, h⟩⟩
+  have hlt : Valued.v ((x : v.adicCompletion K) - 1) < Valued.v (1 : v.adicCompletion K) := by
+    rw [map_one]
+    refine h.trans_lt ?_
+    rw [← exp_zero, exp_lt_exp]
+    omega
+  simpa using Valuation.map_eq_of_sub_lt _ hlt
 
 theorem unitsLevel_zero :
     unitsLevel (K := K) v 0 = (Submonoid.ofClass (v.adicCompletionIntegers K)).units := by
@@ -246,6 +256,10 @@ theorem exists_unitsLevel_le_ker (hH : NoSmallSubgroups H) (χ : (v.adicCompleti
       exact ⟨_, ⟨n, hn, rfl⟩, h⟩) hH χ hχ
   exact ⟨n, hn, hL⟩
 
+theorem isOpen_ker_of_continuous (hH : NoSmallSubgroups H) (χ : (v.adicCompletion K)ˣ →* H)
+    (hχ : Continuous χ) : IsOpen (χ.ker : Set (v.adicCompletion K)ˣ) := by
+  obtain ⟨n, -, hn⟩ := exists_unitsLevel_le_ker v hH χ hχ
+  exact Subgroup.isOpen_mono hn (isOpen_unitsLevel v n)
 
 def conductorExponent (χ : (v.adicCompletion K)ˣ →* H) : ℕ :=
   sInf {n : ℕ | unitsLevel v n ≤ χ.ker}

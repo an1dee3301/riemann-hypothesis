@@ -210,6 +210,11 @@ theorem adeleRetraction_adeleMap (a : 𝔸[K]) : adeleRetraction K L (adeleMap K
     rw [AlgEquiv.symm_apply_eq, adeleTensorEquiv_tmul, map_one, one_mul]
   rw [adeleRetraction, this, traceRetraction_one_tmul]
 
+theorem continuous_adeleRetraction : Continuous (adeleRetraction K L) := by
+  let := moduleTopology 𝔸[K] (L ⊗[K] 𝔸[K])
+  have : IsModuleTopology 𝔸[K] (L ⊗[K] 𝔸[K]) := ⟨rfl⟩
+  exact (IsModuleTopology.continuous_of_linearMap (traceRetraction K L)).comp
+    (adeleTensorHomeomorph K L).symm.continuous
 
 theorem adeleMap_injective : Function.Injective (adeleMap K L) :=
   Function.LeftInverse.injective (g := adeleRetraction K L) adeleRetraction_adeleMap

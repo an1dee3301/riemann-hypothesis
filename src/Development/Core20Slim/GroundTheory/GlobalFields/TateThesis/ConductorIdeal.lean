@@ -137,6 +137,26 @@ theorem finprod_asIdeal_pow_dvd_iff {a : HeightOneSpectrum R → ℕ} (ha : (sup
     rw [hsplit, finprod_mul_distrib hfa hmb]
     exact dvd_mul_right _ _
 
+theorem asIdeal_dvd_finprod_iff {a : HeightOneSpectrum R → ℕ} (ha : (support a).Finite)
+    (v : HeightOneSpectrum R) :
+    v.asIdeal ∣ ∏ᶠ w : HeightOneSpectrum R, w.asIdeal ^ a w ↔ 1 ≤ a v := by
+  have hfa : HasFiniteMulSupport fun v : HeightOneSpectrum R ↦ v.asIdeal ^ a v := by
+    rw [HasFiniteMulSupport, mulSupport_asIdeal_pow]
+    exact ha
+  constructor
+  · intro h
+    classical
+    rw [finprod_eq_prod_of_mulSupport_subset _ (s := ha.toFinset)
+      (by rw [mulSupport_asIdeal_pow, ha.coe_toFinset])] at h
+    obtain ⟨w, hw, hvw⟩ := ((HeightOneSpectrum.prime v).dvd_finsetProd_iff _).1 h
+    have hvw' := (HeightOneSpectrum.prime v).dvd_of_dvd_pow hvw
+    have heq : v = w := HeightOneSpectrum.ext (associated_iff_eq.1
+      ((HeightOneSpectrum.prime v).associated_of_dvd (HeightOneSpectrum.prime w) hvw'))
+    subst heq
+    rw [Set.Finite.mem_toFinset, mem_support] at hw
+    omega
+  · intro h
+    exact (dvd_pow_self _ (by omega)).trans (finprod_mem_dvd v hfa)
 
 end Ideals
 
@@ -144,13 +164,34 @@ namespace IdeleGroup
 
 variable {K : Type*} [Field K] [NumberField K] {H : Type*} [Group H] [TopologicalSpace H]
 
+def conductor (χ : (FiniteAdeleRing (𝓞 K) K)ˣ →* H) : Ideal (𝓞 K) :=
+  ∏ᶠ v : HeightOneSpectrum (𝓞 K), v.asIdeal ^ conductorExponentAt χ v
 
+omit [TopologicalSpace H] in
+theorem conductor_ne_bot (χ : (FiniteAdeleRing (𝓞 K) K)ˣ →* H) : conductor χ ≠ ⊥ :=
+  finprod_asIdeal_pow_ne_bot _
 
 def idealLevel (𝔪 : Ideal (𝓞 K)) : Subgroup (FiniteAdeleRing (𝓞 K) K)ˣ :=
   finiteLevel fun v ↦ multiplicity v.asIdeal 𝔪
 
+theorem idealLevel_le_ker_iff (hH : NoSmallSubgroups H) (χ : (FiniteAdeleRing (𝓞 K) K)ˣ →* H)
+    (hχ : Continuous χ) {𝔪 : Ideal (𝓞 K)} (h𝔪 : 𝔪 ≠ ⊥) :
+    idealLevel 𝔪 ≤ χ.ker ↔ conductor χ ∣ 𝔪 := by
+  rw [idealLevel, finiteLevel_le_ker_iff hH χ hχ, conductor,
+    finprod_asIdeal_pow_dvd_iff (finite_support_conductorExponentAt hH χ hχ) h𝔪]
 
+theorem dvd_conductor_iff (hH : NoSmallSubgroups H) (χ : (FiniteAdeleRing (𝓞 K) K)ˣ →* H)
+    (hχ : Continuous χ) (v : HeightOneSpectrum (𝓞 K)) :
+    v.asIdeal ∣ conductor χ ↔ 1 ≤ conductorExponentAt χ v :=
+  asIdeal_dvd_finprod_iff (finite_support_conductorExponentAt hH χ hχ) v
 
+theorem not_dvd_conductor_iff (hH : NoSmallSubgroups H) (χ : (FiniteAdeleRing (𝓞 K) K)ˣ →* H)
+    (hχ : Continuous χ) (v : HeightOneSpectrum (𝓞 K)) :
+    ¬ v.asIdeal ∣ conductor χ ↔
+      (Submonoid.ofClass (v.adicCompletionIntegers K)).units ≤
+        (χ.comp (finiteUnitsSingle v)).ker := by
+  rw [dvd_conductor_iff hH χ hχ, ← conductorExponentAt_eq_zero_iff hH χ hχ,
+    Nat.one_le_iff_ne_zero, not_not]
 
 def ofFinite : (FiniteAdeleRing (𝓞 K) K)ˣ →* IdeleGroup K :=
   (ContinuousMulEquiv.symm (prodEquiv K)).toMulEquiv.toMonoidHom.comp (MonoidHom.inr _ _)
@@ -178,6 +219,11 @@ theorem mem_standardOpenSubgroup_iff_toFinite_mem (x : IdeleGroup K) :
   rw [Pi.zero_apply, unitsLevel_zero, Submonoid.mem_units_iff]
   rfl
 
+theorem map_idealLevel_le_ker_iff (hH : NoSmallSubgroups H) (χ : IdeleGroup K →* H)
+    (hχ : Continuous χ) {𝔪 : Ideal (𝓞 K)} (h𝔪 : 𝔪 ≠ ⊥) :
+    (idealLevel 𝔪).map ofFinite ≤ χ.ker ↔ conductor (χ.comp ofFinite) ∣ 𝔪 := by
+  rw [Subgroup.map_le_iff_le_comap, MonoidHom.comap_ker]
+  exact idealLevel_le_ker_iff hH _ (hχ.comp continuous_ofFinite) h𝔪
 
 end IdeleGroup
 

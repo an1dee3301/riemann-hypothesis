@@ -3,6 +3,7 @@ module
 public import Mathlib
 public import Formalism.LocalToGlobal.IndefiniteReal.OneMapT
 public import Formalism.LocalToGlobal.IndefiniteReal.FWExist
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Divisors.PerCEmb
 public import Development.AbelianVarietyTheory.Definitions.Divisors.IsUnitaryOnTheta
 
 @[expose] public section

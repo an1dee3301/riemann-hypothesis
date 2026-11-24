@@ -176,6 +176,12 @@ theorem valued_algebraMap_adicCompletion' [w.asIdeal.LiesOver v.asIdeal]
     Ideal.ramificationIdx'_eq_ramificationIdx v.asIdeal w.asIdeal v.ne_bot] using
     (valuation_liesOver L v w k).symm
 
+theorem valued_algebraMap_adicCompletion [w.asIdeal.LiesOver v.asIdeal]
+    (x : v.adicCompletion K) :
+    Valued.v (algebraMap (v.adicCompletion K) (w.adicCompletion L) x) =
+      Valued.v x ^ w.asIdeal.ramificationIdx (𝓞 K) := by
+  rw [valued_algebraMap_adicCompletion',
+    Ideal.ramificationIdx'_eq_ramificationIdx v.asIdeal w.asIdeal v.ne_bot]
 
 instance valuativeExtension_adicCompletion [w.asIdeal.LiesOver v.asIdeal] :
     ValuativeExtension (v.adicCompletion K) (w.adicCompletion L) where
@@ -187,6 +193,8 @@ instance valuativeExtension_adicCompletion [w.asIdeal.LiesOver v.asIdeal] :
       valued_algebraMap_adicCompletion', valued_algebraMap_adicCompletion']
     exact pow_le_pow_iff_left₀ zero_le zero_le he
 
+theorem finite_adicCompletion : Module.Finite (v.adicCompletion K) (w.adicCompletion L) :=
+  inferInstance
 
 end Extension
 

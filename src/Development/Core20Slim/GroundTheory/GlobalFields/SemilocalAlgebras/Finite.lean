@@ -235,6 +235,10 @@ def tensorEquiv' : L ⊗[K] v.adicCompletion K ≃ₐ[L] CompletionsOver L v :=
       algebraMap L (CompletionsOver L v) x * algebraMap (v.adicCompletion K) _ a :=
   tensorMap'_tmul L v x a
 
+theorem tensorEquiv'_tmul_mul (a : v.adicCompletion K) (y : L ⊗[K] v.adicCompletion K) :
+    tensorEquiv' L v ((1 ⊗ₜ a) * y) =
+      algebraMap (v.adicCompletion K) (CompletionsOver L v) a * tensorEquiv' L v y := by
+  rw [map_mul, tensorEquiv'_tmul, map_one, one_mul]
 
 
 open scoped Valued in

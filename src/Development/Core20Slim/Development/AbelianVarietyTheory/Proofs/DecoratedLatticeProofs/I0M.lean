@@ -30,10 +30,25 @@ def eM (X : HidaSetting D) (h : X.B.I = Formalism.L2.SG.InstExistsPf.instOf D) (
     Matrix (Fin (D.sp.Y 0).rank) (Fin D.R.rS) D.host.E :=
   fun k a => scl t lam a * cY X h (X.eX a) k
 
+def e'M (X : HidaSetting D) (h : X.B.I = Formalism.L2.SG.InstExistsPf.instOf D) (t lam : D.host.E) :
+    Matrix (Fin (D.sp.Y 0).rank) (Fin D.R.rS) D.host.E :=
+  fun k a => (star (scl t lam a))⁻¹ * cY X h (X.fY a) k
 
+def qM (X : HidaSetting D) (h : X.B.I = Formalism.L2.SG.InstExistsPf.instOf D) (wt : (VS D).V ≃ₗ[D.host.E] (VS D).V) :
+    Matrix (Fin (D.sp.Y 0).rank) (Fin (D.sp.X 0).rank) D.host.E :=
+  fun k j => X.ιE (X.crd (Formalism.L2.SG.ColDict.qFr wt (Fin.cast (Formalism.L2.Forms.rankN D 0 (Nat.zero_le _)) j))
+    (Fin.cast (rank_eq X h) k))
 
+def zM (X : HidaSetting D) (h : X.B.I = Formalism.L2.SG.InstExistsPf.instOf D) (u : D.what₂.Word) (t : D.host.E) (L : HSp D) :
+    Matrix (Fin (D.sp.Y 0).rank) (Fin L.rank) D.host.E :=
+  fun k _ => t * cY X h (X.zu u) k
 
+def i0M (X : HidaSetting D) (h : X.B.I = Formalism.L2.SG.InstExistsPf.instOf D) (u : D.what₂.Word)
+    (wt : (VS D).V ≃ₗ[D.host.E] (VS D).V) (t : D.host.E) {V₀ L : HSp D} (o : OrthDec V₀ (D.sp.X 0) L) :
+    Matrix (Fin (D.sp.Y 0).rank) (Fin V₀.rank) D.host.E :=
+  qM X h wt * o.qA + zM X h u t L * o.qB
 
+def zeta (L : HSp D) : Fin L.rank → D.host.E := fun _ => 1
 
 end GlobalTheory.Core.SBesEx
 

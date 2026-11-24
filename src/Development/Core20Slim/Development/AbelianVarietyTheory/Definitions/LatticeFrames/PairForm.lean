@@ -44,6 +44,14 @@ variable {W}
 
 variable (W)
 
+structure BotHyp : Prop where
+  hyp : HypAt W
+  pins : RealPins W.Q
+  see : SeeEx W.Q
+  used : ∀ t : W.P.T, Formalism.IndefR.RecTie.Used0 D (W.P.I.tup t)
+  idE : GlobalTheory.Core.Mi.IdE W.S.X
+  gap : GlobalTheory.Count.GapGe W.S.X.B (100 * (D.R.r : ℝ) ^ 4)
+  fin : Formalism.L2.SG.PackageTie2.FinX W.S.Y
 
 end GlobalTheory.MiTop
 

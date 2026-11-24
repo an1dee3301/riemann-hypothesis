@@ -1,7 +1,11 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.FrameTopAlt
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.HzUnit
 public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.CosInj
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.UnitRatio
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.TailRd
 public import Formalism.LocalToGlobal.IndefiniteReal.RealRec
 public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.AdelicPointComponentsAtPlacesLatticesVacua
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsWeilRepresentationVacuumCosetVectorsGrid

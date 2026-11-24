@@ -256,6 +256,12 @@ theorem finiteTensorEquiv_symm_apply (y : FiniteAdeleRing (𝓞 L) L) :
   rw [AlgEquiv.symm_apply_eq]
   exact (finiteTensorMap_sum_finiteCoord b y).symm
 
+theorem finiteTensorEquiv_tmul_apply (l : L) (a : FiniteAdeleRing (𝓞 K) K)
+    (w : HeightOneSpectrum (𝓞 L)) :
+    finiteTensorEquiv K L (l ⊗ₜ a) w =
+      tensorEquiv' L (below K w) (l ⊗ₜ a (below K w)) ⟨w, liesOver_below w⟩ := by
+  rw [finiteTensorEquiv_tmul, tensorEquiv'_tmul]
+  rfl
 
 end AdeleBaseChange
 

@@ -238,7 +238,67 @@ theorem pure_X_mul (hadd : ∀ f f', P f → P f' → P (f + f')) (hsm : ∀ (a 
   | add p q hp hq =>
     rw [mul_add, map_add (f := _), map_add (f := _), hp, hq, Aadd _ _ _ (pure_mem hadd hsm hA hf _) (pure_mem hadd hsm hA hf _)]
 
+theorem eq_zero_of_pderiv_stable {K : MvPolynomial ι ℂ → Prop} (hd : ∀ Q i, K Q → K (MvPolynomial.pderiv i Q))
+    (hc : ∀ a, K (MvPolynomial.C a) → a = 0) (Q : MvPolynomial ι ℂ) (hQ : K Q) : Q = 0 := by
+  have key : ∀ n : ℕ, ∀ Q : MvPolynomial ι ℂ, K Q → (∀ m : ι →₀ ℕ, n ≤ m.degree → Q.coeff m = 0) → Q = 0 := by
+    intro n
+    induction n with
+    | zero => exact fun Q _ h => MvPolynomial.ext _ _ fun m => h m (Nat.zero_le _)
+    | succ n ih =>
+      intro Q hQ h
+      have h1 : ∀ i, MvPolynomial.pderiv i Q = 0 := fun i => ih _ (hd Q i hQ) fun m hm => by
+        rw [MvPolynomial.coeff_pderiv, h _ (by rw [map_add (f := _), Finsupp.degree_single]; omega), zero_mul]
+      have h2 : Q = MvPolynomial.C (Q.coeff 0) := by
+        refine MvPolynomial.ext _ _ fun m => ?_
+        rw [MvPolynomial.coeff_C]
+        split_ifs with hm
+        · rw [hm]
+        · obtain ⟨i, hi⟩ := Finsupp.ne_iff.1 (Ne.symm hm)
+          have hle : Finsupp.single i 1 ≤ m := by
+            rw [Finsupp.single_le_iff]; exact Nat.one_le_iff_ne_zero.2 hi
+          have h3 := MvPolynomial.coeff_pderiv (i := i) Q (m - Finsupp.single i 1)
+          rw [h1, tsub_add_cancel_of_le hle, MvPolynomial.coeff_zero] at h3
+          exact (mul_eq_zero.1 h3.symm).resolve_right (Nat.cast_add_one_ne_zero _)
+      rw [h2] at hQ ⊢
+      rw [hc _ hQ, map_zero]
+  refine key (Q.totalDegree + 1) Q hQ fun m hm => ?_
+  refine MvPolynomial.coeff_eq_zero_of_totalDegree_lt ?_
+  exact hm
 
+theorem pure_injective {B : ι → (X → ℂ) → (X → ℂ)} {c : ι → ℂ}
+    (hadd : ∀ f f', P f → P f' → P (f + f')) (hsm : ∀ (a : ℂ) f, P f → P (a • f))
+    (hA : ∀ i f, P f → P (A i f)) (hB : ∀ i f, P f → P (B i f)) (hc : ∀ i j f, P f → A i (A j f) = A j (A i f))
+    (Aadd : ∀ i f f', P f → P f' → A i (f + f') = A i f + A i f')
+    (Asm : ∀ i (a : ℂ) f, P f → A i (a • f) = a • A i f)
+    (Badd : ∀ i f f', P f → P f' → B i (f + f') = B i f + B i f')
+    (Bsm : ∀ i (a : ℂ) f, P f → B i (a • f) = a • B i f)
+    (hBA : ∀ i j f, P f → B i (A j f) = A j (B i f) + (if i = j then c i else 0) • f) (hc0 : ∀ i, c i ≠ 0)
+    {f : X → ℂ} (hf : P f) (f0 : f ≠ 0) (hv : ∀ i, B i f = 0) : Function.Injective (pureTensorL A f) := by
+  have hC : ∀ a, pureTensorL A f (MvPolynomial.C a) = a • f := fun a => by
+    rw [← mul_one (MvPolynomial.C a), MvPolynomial.C_mul', map_smul, pure_one]
+  have hm := pure_mem hadd hsm hA hf
+  have hX := pure_X_mul hadd hsm hA hc Aadd Asm hf
+  have key : ∀ i Q, B i (pureTensorL A f Q) = c i • pureTensorL A f (MvPolynomial.pderiv i Q) := by
+    intro i Q
+    induction Q using MvPolynomial.induction_on with
+    | C a => rw [hC, Bsm _ _ _ hf, hv, MvPolynomial.pderiv_C, map_zero, smul_zero, smul_zero]
+    | add p q hp hq => rw [map_add (f := _), Badd _ _ _ (hm _) (hm _), hp, hq, map_add (f := _), map_add (f := _), smul_add]
+    | mul_X p j hp =>
+      rw [mul_comm, hX, hBA _ _ _ (hm _), hp, Asm _ _ _ (hm _), MvPolynomial.pderiv_mul, map_add (f := _), hX,
+        MvPolynomial.pderiv_X, add_comm, smul_add]
+      congr 1
+      by_cases h : i = j
+      · subst h; simp
+      · simp [h, Pi.single_apply, Ne.symm h]
+  set_option backward.isDefEq.respectTransparency.instanceSearchTypes false in rw [injective_iff_map_eq_zero]
+  refine eq_zero_of_pderiv_stable (K := fun Q => pureTensorL A f Q = 0) (fun Q i h => ?_) fun a h => ?_
+  · have h1 := key i Q
+    have h2 := Bsm i 0 f hf
+    rw [zero_smul, zero_smul] at h2
+    rw [h, h2] at h1
+    exact (smul_eq_zero.1 h1.symm).resolve_left (hc0 i)
+  · rw [hC] at h
+    exact (smul_eq_zero.1 h).resolve_right f0
 
 end Generic
 

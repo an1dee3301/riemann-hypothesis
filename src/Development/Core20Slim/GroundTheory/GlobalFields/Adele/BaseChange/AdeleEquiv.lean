@@ -65,6 +65,10 @@ def adeleMap : 𝔸[K] →+* 𝔸[L] :=
   RingHom.prodMap (GroundTheory.Global.InfinitePlace.infiniteAdeleRingMap (K := K) (L := L))
     (finiteAdeleMap K L)
 
+theorem adeleMap_apply (x : 𝔸[K]) :
+    adeleMap K L x =
+      (GroundTheory.Global.InfinitePlace.infiniteAdeleRingMap x.1, finiteAdeleMap K L x.2) :=
+  rfl
 
 theorem continuous_adeleMap : Continuous (adeleMap K L) :=
   GroundTheory.Global.InfinitePlace.continuous_infiniteAdeleRingMap.prodMap continuous_finiteAdeleMap
@@ -85,6 +89,10 @@ theorem adeleTensorEquiv_tmul (l : L) (a : 𝔸[K]) :
   Prod.ext (GroundTheory.Global.InfinitePlace.tensorInfiniteAdeleRingEquiv_tmul' l a.1)
     (finiteTensorEquiv_tmul l a.2)
 
+theorem adeleTensorEquiv_tmul_snd (l : L) (a : 𝔸[K]) (w : HeightOneSpectrum (𝓞 L)) :
+    (adeleTensorEquiv K L (l ⊗ₜ a)).2 w =
+      SemiLocal.tensorEquiv' L (below K w) (l ⊗ₜ a.2 (below K w)) ⟨w, liesOver_below w⟩ :=
+  finiteTensorEquiv_tmul_apply l a.2 w
 
 variable {ι : Type*} [Fintype ι] [DecidableEq ι] (b : Basis ι K L)
 
