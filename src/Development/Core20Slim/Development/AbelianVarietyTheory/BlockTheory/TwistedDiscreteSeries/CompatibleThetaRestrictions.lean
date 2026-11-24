@@ -89,6 +89,8 @@ def IsAutCharU (V : HSp D) (ξ : GA D V →* Circle) : Prop := Continuous ξ ∧
 def detPow {t : ℕ} (a : GL (Fin t) (AE D)) (n : ℕ) : ℝ :=
   (GlobalTheory.Doubling.absE D.host.F D.host.E (Matrix.GeneralLinearGroup.det a) : ℝ) ^ ((n : ℝ) / 2)
 
+def ratMx (D : D7) (m n : ℕ) : AddSubgroup (Mx D m n) :=
+  ((incA D).toAddMonoidHom.mapMatrix (m := Fin m) (n := Fin n)).range
 
 section Target
 

@@ -322,7 +322,6 @@ theorem continuous_decompositionAlgEquiv (σ : MulAction.stabilizer Gal(L/K) w.a
   continuous_adicCompletionRingHomOf σ.1 (smul_asIdeal_of_mem_stabilizer w σ)
 
 
-omit [w.asIdeal.LiesOver v.asIdeal] in
 
 
 omit [w.asIdeal.LiesOver v.asIdeal] in

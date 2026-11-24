@@ -138,7 +138,6 @@ theorem mem_normGroup_iff_mem_range_normUnits (L : IntermediateField K Ω) [Fini
     rwa [← baseUnitsEquiv.injective hba]
 
 
-omit [ValuativeRel K] [TopologicalSpace K] [IsNonarchimedeanLocalField K] in
 
 variable (L : IntermediateField K Ω) [FiniteDimensional K L]
 

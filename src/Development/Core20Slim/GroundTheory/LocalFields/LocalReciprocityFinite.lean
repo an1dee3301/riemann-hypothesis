@@ -228,7 +228,6 @@ theorem valuation_top_localClassFieldData
   rfl
 
 
-variable (K Ω) in
 
 variable (L : IntermediateField K Ω) [FiniteDimensional K L] [IsGalois K L]
 

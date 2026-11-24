@@ -228,7 +228,6 @@ def localAdelicChar (v : HeightOneSpectrum (𝓞 K)) : AddChar (v.adicCompletion
   (adelicChar K).compAddMonoidHom (finitePlaceIncl v)
 
 
-variable (K) in
 
 theorem localAdelicChar_apply (v : HeightOneSpectrum (𝓞 K)) (y : v.adicCompletion K) :
     localAdelicChar K v y = adelicChar K (finitePlaceIncl v y) := rfl

@@ -169,7 +169,6 @@ theorem mem_unitsLevel {n : ℕ} {x : (v.adicCompletion K)ˣ} :
   Iff.rfl
 
 
-variable {v} in
 
 theorem unitsLevel_zero :
     unitsLevel (K := K) v 0 = (Submonoid.ofClass (v.adicCompletionIntegers K)).units := by

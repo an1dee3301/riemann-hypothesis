@@ -101,6 +101,9 @@ theorem f_le : (D.R.f : ℝ) ≤ szPol L := by
 theorem k_le : (D.R.k : ℝ) ≤ szPol L := by
   unfold szPol; have := (sc_L_pos L).le; have : (0:ℝ) ≤ D.R.f + D.R.m + D.R.t + (D.R.N D.R.m : ℝ) := by positivity
   linarith
+theorem m_le : (D.R.m : ℝ) ≤ szPol L := by
+  unfold szPol; have := (sc_L_pos L).le; have : (0:ℝ) ≤ D.R.f + D.R.k + D.R.t + (D.R.N D.R.m : ℝ) := by positivity
+  linarith
 
 
 theorem nV_le : (D.R.nV : ℝ) ≤ szPol L := by
