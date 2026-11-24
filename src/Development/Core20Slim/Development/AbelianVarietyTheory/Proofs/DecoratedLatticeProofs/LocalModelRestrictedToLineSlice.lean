@@ -1,0 +1,392 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.IsCombAt
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.PlacesToAdeles
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.AllPositions
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ThetaFunctionProductsSlicesOrthogonalDecompositi
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ProdFnMemSB
+public import Development.AbelianVarietyTheory.Definitions.Foundations.MatrixMeasurableSpace
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.ExistsUnitarySupportedAtPlaceOfMulEqIdem
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.IsThetaFam
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.ContinuousResTSymm
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.CovolOneIntegralAdd
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.WittSmallGroupEmbeddingMemPointwiseStabilizerIso
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.LocalRingCardinality.DataSpaces
+public import Formalism.LocalRingCardinality.DataTheta
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
+public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
+public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedWeil
+public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
+public import Init.Core
+public import Init.Data.Cast
+public import Init.Data.Fin.Lemmas
+public import Init.Data.Int.Basic
+public import Init.Data.Int.Lemmas
+public import Init.Data.Int.Order
+public import Init.Data.Nat.Basic
+public import Init.Data.Zero
+public import Init.Omega.Coeffs
+public import Init.Omega.Constraint
+public import Init.Omega.Int
+public import Init.Omega.LinearCombo
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.BigOperators.Ring.Finset
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Mathlib.Algebra.Field.Subfield.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Action.Pi
+public import Mathlib.Algebra.Group.AddChar
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Equiv.Defs
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Nat.Defs
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Subgroup.Map
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.Hom
+public import Mathlib.Algebra.GroupWithZero.NeZero
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Equiv.Basic
+public import Mathlib.Algebra.Module.Equiv.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.NatInt
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.NeZero
+public import Mathlib.Algebra.Notation.Prod
+public import Mathlib.Algebra.Ring.CompTypeclasses
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Nat
+public import Mathlib.Algebra.Ring.Subring.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Calculus.ContDiff.Defs
+public import Mathlib.Analysis.Complex.Norm
+public import Mathlib.Analysis.InnerProductSpace.Basic
+public import Mathlib.Analysis.InnerProductSpace.Defs
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Group.Constructions
+public import Mathlib.Analysis.Normed.Group.Defs
+public import Mathlib.Analysis.Normed.Group.Real
+public import Mathlib.Analysis.Normed.Module.Basic
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.RCLike.Basic
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Basic.Unique
+public import Mathlib.Data.ENat.Defs
+public import Mathlib.Data.Finset.BooleanAlgebra
+public import Mathlib.Data.Finset.Card
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Finset.Insert
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Card
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Fintype.Sum
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.ColumnRowPartitioned
+public import Mathlib.Data.Matrix.Diagonal
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Prod.Basic
+public import Mathlib.GroupTheory.GroupAction.Hom
+public import Mathlib.LinearAlgebra.DFinsupp
+public import Mathlib.LinearAlgebra.Dimension.Constructions
+public import Mathlib.LinearAlgebra.Dimension.Finrank
+public import Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+public import Mathlib.LinearAlgebra.Matrix.ToLin
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.Logic.Equiv.Defs
+public import Mathlib.NumberTheory.LocalField.Basic
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
+public import Mathlib.Order.Notation
+public import Mathlib.Order.TypeTags
+public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+public import Mathlib.RingTheory.Henselian
+public import Mathlib.RingTheory.LocalRing.Defs
+public import Mathlib.RingTheory.RegularLocalRing.Defs
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.SimpleRing.Principal
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.RingTheory.Trace.Defs
+public import Mathlib.RingTheory.Valuation.ValuativeRel.Basic
+public import Mathlib.Tactic.NormNum.Basic
+public import Mathlib.Tactic.NormNum.Result
+public import Mathlib.Tactic.Ring.Basic
+public import Mathlib.Tactic.Ring.Common
+public import Mathlib.Topology.Constructions
+public import Mathlib.Topology.Constructions.SumProd
+public import Mathlib.Topology.Continuous
+public import Mathlib.Topology.Defs.Basic
+public import Mathlib.Topology.Homeomorph.Defs
+public import Mathlib.Topology.Instances.Matrix
+public import Mathlib.Topology.MetricSpace.Pseudo.Defs
+public import Mathlib.Topology.UniformSpace.Defs
+
+@[expose] public section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR.Datum MeasureTheory Matrix ValuativeRel GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.Unf GlobalTheory.SplitWeil GlobalTheory.RootEx GlobalTheory.SeeSaw GlobalTheory.LocMod
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+noncomputable section
+
+namespace GlobalTheory.SliceLine
+
+open GlobalTheory.MixModel.OrthDec GlobalTheory.LocFlat.CFac
+
+variable {D : D7} {k : Type} [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] (p : Place D k)
+
+theorem ι_mul (x : k) (b : AE D) : p.ι x * b = p.ι (x * p.π b) := by
+  have h : p.ι (x * p.π b) = p.e * (p.ι x * b) := by
+    calc p.ι (x * p.π b) = p.ι (p.π (p.ι x) * p.π b) := by rw [p.π_ι]
+      _ = p.ι (p.π (p.ι x * b)) := by rw [p.π.map_mul]
+      _ = p.e * (p.ι x * b) := p.ι_π _
+  rw [h, ← mul_assoc, GlobalTheory.LocMod.Witness.e_ι]
+
+theorem map_ι_mul {a b c : Type} [Fintype b] (M : Matrix a b k) (N : Matrix b c (AE D)) :
+    M.map p.ι * N = (M * N.map p.π).map p.ι := by
+  ext i j
+  set_option synthInstance.maxHeartbeats 100000 in
+    simp only [Matrix.mul_apply, Matrix.map_apply, map_sum, ι_mul]
+
+
+omit [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] in
+theorem frame_card {N : ℕ} {Y : Type} [Fintype Y] [DecidableEq Y] (F : Frame k N Y) : Fintype.card Y = N := by
+  have e : (Y → k) ≃ₗ[k] (Fin N → k) := LinearEquiv.ofLinearMap (Matrix.toLin' F.β) (Matrix.toLin' F.γ)
+    (by rw [← Matrix.toLin'_mul, F.βγ, Matrix.toLin'_one]) (by rw [← Matrix.toLin'_mul, F.γβ, Matrix.toLin'_one])
+  simpa using e.finrank_eq
+
+def splitCols (n n' : Type) : Matrix n (n' ⊕ Unit) k ≃ₜ Matrix n n' k × Matrix n Unit k where
+  toFun x := (x.toCols₁, x.toCols₂)
+  invFun q := fromCols q.1 q.2
+  left_inv x := fromCols_toCols x
+  right_inv q := by simp
+  continuous_toFun := by
+    refine Continuous.prodMk ?_ ?_
+    · exact continuous_matrix fun i j => continuous_id.matrix_elem i (Sum.inl j)
+    · exact continuous_matrix fun i j => continuous_id.matrix_elem i (Sum.inr j)
+  continuous_invFun := by
+    refine continuous_matrix fun i j => ?_
+    cases j with
+    | inl a => exact continuous_fst.matrix_elem i a
+    | inr u => exact continuous_snd.matrix_elem i u
+
+variable {n n' : Type} [Fintype n] [DecidableEq n] [Fintype n'] [DecidableEq n']
+
+def box (Ξ : SB (Matrix n n' k)) : SB (Matrix n Unit k) →ₗ[ℂ] SB (Matrix n (n' ⊕ Unit) k) where
+  toFun c := comapH (splitCols n n') (prodSB Ξ c)
+  map_add' c c' := Subtype.ext (funext fun x => by simp [splitCols, mul_add])
+  map_smul' a c := Subtype.ext (funext fun x => by simp [splitCols]; ring)
+
+theorem box_apply (Ξ : SB (Matrix n n' k)) (c : SB (Matrix n Unit k)) (x : Matrix n (n' ⊕ Unit) k) :
+    (box Ξ c).1 x = Ξ.1 x.toCols₁ * c.1 x.toCols₂ := rfl
+
+end GlobalTheory.SliceLine
+
+namespace GlobalTheory.SliceLine
+
+open GlobalTheory.MixModel.OrthDec GlobalTheory.LocFlat.CFac
+
+variable {D : D7} {k : Type} [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] (p : Place D k)
+
+theorem heis_slice {S A L T : HSp D} (d : OrthDec S A L) (ψ : AddChar (AF D.host.F) ℂ) (f : WO S T → ℂ)
+    (u : WO A T) (w v : WO L T) :
+    heisO ψ S T ((d.resS T).symm (0, v)) f ((d.resS T).symm (u, w)) =
+      heisO ψ L T v (fun w => f ((d.resS T).symm (u, w))) w := by
+  simp only [heisO]
+  rw [d.symplOH_resS, AddEquiv.apply_symm_apply, AddEquiv.apply_symm_apply, GlobalTheory.MixModel.symplOH_zero_right, zero_add,
+    ← map_add, Prod.mk_add_mk, add_zero]
+
+theorem symplO_zero_right' (S T : HSp D) (x : WO S T) : symplO S T x 0 = 0 := by
+  simp [symplO, hO]
+
+theorem isHalf_slice {S A L T : HSp D} (d : OrthDec S A L) {a : AE D} {y : WO L T} (hy : IsHalf a y) :
+    IsHalf a ((d.resS T).symm (0, y)) := by
+  intro i j
+  rw [resS_symm_apply, Matrix.zero_mul, zero_add, Matrix.mul_apply, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun l _ => ?_
+  rw [← mul_assoc, hy i l]
+
+variable {ρ : ℕ} {B : BesLev D ρ} {s : k} {n n' : Type} [Fintype n] [DecidableEq n] [Fintype n'] [DecidableEq n']
+  {FA : Frame k B.A.rank n'} {F₀ : Frame k B.V₀.rank (n' ⊕ Unit)} {FL : Frame k B.L.rank Unit}
+
+theorem beta_eq (h : p.IsCoreFrame B s FA F₀) (hL : ∀ r, FL.β r () = s * p.pr (B.ζ r)) :
+    F₀.β = fromCols (B.o.iA.map (p.π.comp (incA D)) * FA.β) (B.o.iB.map (p.π.comp (incA D)) * FL.β) := by
+  ext r (a | u)
+  · exact h.1 r a
+  · cases u
+    rw [h.2 r, fromCols_apply_inr, Matrix.mul_apply]
+    set_option synthInstance.maxHeartbeats 100000 in
+      simp only [vecB, Matrix.mulVec, dotProduct, Place.pr, map_sum, map_mul, Matrix.map_apply, hL, RingHom.comp_apply,
+      Finset.mul_sum]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    ring
+
+end GlobalTheory.SliceLine
+
+namespace GlobalTheory.SliceLine
+
+open GlobalTheory.MixModel.OrthDec GlobalTheory.LocFlat.CFac
+
+variable {D : D7} {k : Type} [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] (p : Place D k)
+variable {ρ : ℕ} {B : BesLev D ρ} {s : k} {n n' : Type} [Fintype n] [DecidableEq n] [Fintype n'] [DecidableEq n']
+  {FA : Frame k B.A.rank n'} {F₀ : Frame k B.V₀.rank (n' ⊕ Unit)} {FL : Frame k B.L.rank Unit}
+
+theorem rat_map_π {a b : ℕ} (M : Matrix (Fin a) (Fin b) D.host.E) : (rat M).map p.π = M.map (p.π.comp (incA D)) := rfl
+
+theorem up_fromCols (h : p.IsCoreFrame B s FA F₀) (hL : ∀ r, FL.β r () = s * p.pr (B.ζ r)) {S : HSp D}
+    (FS : Frame k S.rank n) (x : Matrix n Unit k) :
+    p.up F₀ FS (fromCols 0 x) = (B.o.resS S).symm (0, p.up FL FS x) := by
+  have k1 : x * FL.γ * B.o.qB.map (p.π.comp (incA D)) * F₀.β = fromCols (0 : Matrix n n' k) x := by
+    rw [beta_eq p h hL, Matrix.mul_fromCols]
+    simp only [Matrix.mul_assoc]
+    rw [← Matrix.mul_assoc (B.o.qB.map _) (B.o.iA.map _), ← Matrix.map_mul, B.o.qB_iA,
+      ← Matrix.mul_assoc (B.o.qB.map _) (B.o.iB.map _), ← Matrix.map_mul, B.o.qB_iB]
+    simp [FL.γβ]
+  have k2 : fromCols (0 : Matrix n n' k) x * F₀.γ = x * FL.γ * B.o.qB.map (p.π.comp (incA D)) := by
+    rw [← k1, Matrix.mul_assoc (x * FL.γ * B.o.qB.map (p.π.comp (incA D))) F₀.β F₀.γ, F₀.βγ, Matrix.mul_one]
+  rw [resS_symm_apply, Matrix.zero_mul, zero_add]
+  unfold Place.up
+  rw [pB, map_ι_mul, rat_map_π]
+  congr 1
+  rw [Matrix.mul_assoc FS.β (fromCols 0 x) F₀.γ, k2]
+  simp only [Matrix.mul_assoc]
+
+theorem resS_up_snd (h : p.IsCoreFrame B s FA F₀) (hL : ∀ r, FL.β r () = s * p.pr (B.ζ r)) {S : HSp D}
+    (FS : Frame k S.rank n) (t : Matrix n (n' ⊕ Unit) k) :
+    (B.o.resS S (p.up F₀ FS t)).2 = p.up FL FS t.toCols₂ := by
+  have k1 : t * F₀.γ * B.o.iB.map (p.π.comp (incA D)) * FL.β = t.toCols₂ := by
+    calc t * F₀.γ * B.o.iB.map (p.π.comp (incA D)) * FL.β
+        = ((t * F₀.γ) * fromCols (B.o.iA.map (p.π.comp (incA D)) * FA.β)
+            (B.o.iB.map (p.π.comp (incA D)) * FL.β)).toCols₂ := by
+          rw [Matrix.mul_fromCols, toCols₂_fromCols, Matrix.mul_assoc (t * F₀.γ)]
+      _ = ((t * F₀.γ) * F₀.β).toCols₂ := by rw [← beta_eq p h hL]
+      _ = t.toCols₂ := by rw [Matrix.mul_assoc, F₀.γβ, Matrix.mul_one]
+  have k2 : t * F₀.γ * B.o.iB.map (p.π.comp (incA D)) = t.toCols₂ * FL.γ := by
+    rw [← k1, Matrix.mul_assoc (t * F₀.γ * B.o.iB.map (p.π.comp (incA D))) FL.β FL.γ, FL.βγ, Matrix.mul_one]
+  rw [resS_apply]
+  dsimp only
+  unfold Place.up
+  rw [jB, map_ι_mul, rat_map_π]
+  simp only [Matrix.mul_assoc] at k2 ⊢
+  rw [k2]
+
+end GlobalTheory.SliceLine
+
+namespace GlobalTheory.SliceLine
+
+open GlobalTheory.MixModel.OrthDec GlobalTheory.LocFlat.CFac
+
+theorem toCols_add {k n n' : Type} [Field k] (t : Matrix n (n' ⊕ Unit) k) (x : Matrix n Unit k) :
+    (t + fromCols (0 : Matrix n n' k) x).toCols₁ = t.toCols₁ ∧ (t + fromCols (0 : Matrix n n' k) x).toCols₂ = t.toCols₂ + x :=
+  ⟨by ext i j; simp, by ext i j; simp⟩
+
+theorem slice_line : ∀ (D : D7) (k : Type) [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] (p : Place D k) (ψ : AddChar (AF D.host.F) ℂ) (ρ : ℕ) (B : BesLev D ρ) (S : HSp D) (s : k) (n n' : Type) [Fintype n] [DecidableEq n] [Fintype n'] [DecidableEq n'] (FA : Frame k B.A.rank n') (F₀ : Frame k B.V₀.rank (n' ⊕ Unit)) (FS : Frame k S.rank n), p.IsCoreFrame B s FA F₀ → ∀ T₀, p.IsModel ψ F₀ FS T₀ → ∃ FL : Frame k B.L.rank Unit, (∀ r, FL.β r () = s * p.pr (B.ζ r)) ∧ ∀ (Ξ : SB (Matrix n n' k)) (u₀ : WO B.A S), ∃ T', p.IsModel ψ FL FS T' ∧ ∀ (c : SB (Matrix n Unit k)) (Ψ : SB (Matrix n (n' ⊕ Unit) k)), (∀ x, Ψ.1 x = Ξ.1 x.toCols₁ * c.1 (Matrix.of fun r _ => x r (Sum.inr ()))) → ∀ w, T' c w = T₀ Ψ ((B.o.resS S).symm (u₀, w)) := by
+  intro D k _ _ _ _ p ψ ρ B S s n n' _ _ _ _ FA F₀ FS h T₀ hT
+  have hA := frame_card FA
+  have h0 := frame_card F₀
+  have hr := B.o.rank_add
+  rw [Fintype.card_sum, Fintype.card_unit] at h0
+  have hL1 : B.L.rank = 1 := by omega
+  have hsub : ∀ r r' : Fin B.L.rank, r = r' := fun r r' => Fin.ext (by have := r.isLt; have := r'.isLt; omega)
+  have hv : ∀ r, s * p.pr (B.ζ r) ≠ 0 := by
+    intro r₀ h₀
+    have hz : ∀ r, s * p.pr (B.ζ r) = 0 := fun r => by rw [hsub r r₀]; exact h₀
+    have hcol : ∀ r, F₀.β r (Sum.inr ()) = 0 := by
+      intro r
+      rw [h.2 r]
+      set_option synthInstance.maxHeartbeats 100000 in
+        simp only [vecB, Matrix.mulVec, dotProduct, Place.pr, map_sum, map_mul, Finset.mul_sum]
+      refine Finset.sum_eq_zero fun j _ => ?_
+      have := hz j
+      simp only [Place.pr] at this
+      rw [mul_left_comm, this, mul_zero]
+    have := congrFun (congrFun F₀.γβ (Sum.inr ())) (Sum.inr ())
+    simp [Matrix.mul_apply, hcol] at this
+  obtain ⟨FL, hFL⟩ : ∃ FL : Frame k B.L.rank Unit, ∀ r, FL.β r () = s * p.pr (B.ζ r) := by
+    refine ⟨⟨Matrix.of fun r _ => s * p.pr (B.ζ r), Matrix.of fun _ r => (s * p.pr (B.ζ r))⁻¹, ?_, ?_⟩, fun r => rfl⟩
+    · ext r r'
+      obtain rfl := hsub r r'
+      simp [Matrix.mul_apply]
+      rw [← _root_.mul_inv_rev]
+      exact mul_inv_cancel₀ (hv r)
+    · ext u u'
+      simp [Matrix.mul_apply]
+      rw [Finset.sum_congr rfl (g := fun _ => (1 : k)) fun j _ => by rw [← _root_.mul_inv_rev]; exact inv_mul_cancel₀ (hv j)]
+      simp [hL1]
+  refine ⟨FL, hFL, fun Ξ u₀ => ?_⟩
+  let T' : SB (Matrix n Unit k) →ₗ[ℂ] (WO B.L S → ℂ) :=
+    (LinearMap.funLeft ℂ ℂ (fun w : WO B.L S => (B.o.resS S).symm (u₀, w))).comp (T₀.comp (box Ξ))
+  have hT' : ∀ c w, T' c w = T₀ (box Ξ c) ((B.o.resS S).symm (u₀, w)) := fun _ _ => rfl
+  refine ⟨T', ⟨fun Φ => ?_, fun x Φ Φ' hΦ => ?_, fun y hy Φ Φ' hΦ => ?_⟩, fun c Ψ hΨ w => ?_⟩
+  · let f := T₀ (box Ξ Φ)
+    have hf : IsThetaFunO ψ B.V₀ S f := hT.theta (box Ξ Φ)
+    let e := (B.o.resS S).symm
+    let incl : WO B.L S →+ WO B.V₀ S := sandwich (1 : Mx D S.rank S.rank) B.o.pB
+    have he (v : WO B.L S) : incl v = e (0, v) := by
+      rw [sandwich_apply, Matrix.one_mul, resS_symm_apply, Matrix.zero_mul, zero_add]
+    have hadd (w v : WO B.L S) : e (u₀, w + v) = e (u₀, w) + incl v := by
+      rw [he, ← map_add e, Prod.mk_add_mk, add_zero]
+    have hslice : IsThetaFunO ψ B.L S (fun w => f (e (u₀, w))) := by
+      refine ⟨?_, ?_, hf.cont.comp ((B.o.continuous_resS_symm S).comp
+        (continuous_const.prodMk continuous_id)), ?_⟩
+      · intro γ w
+        have hrat : e (0, ratW S B.L γ) = ratW S B.V₀ (γ * B.o.qB) := by
+          rw [resS_symm_apply, Matrix.zero_mul, zero_add, ratW_eq, ratW_eq, rat_mul]; rfl
+        rw [add_comm (ratW S B.L γ) w, hadd, he, add_comm (e (u₀, w)), hrat, hf.quasi,
+          ← hrat, B.o.symplOH_resS, AddEquiv.apply_symm_apply, AddEquiv.apply_symm_apply,
+          GlobalTheory.MixModel.symplOH_zero_left, zero_add]
+      · obtain ⟨U, hU, hlevel⟩ := hf.level
+        refine ⟨U.comap incl, hU.preimage (continuous_sandwich _ _), fun v hv hzero => ?_⟩
+        funext w
+        have h := congrFun (hlevel (incl v) hv (map_sandwich _ _ _ hzero)) (e (u₀, w))
+        rw [he, heis_slice] at h
+        exact h
+      · intro m L hL hzero w
+        simp only [hadd]
+        exact hf.smooth m (incl.comp L) ((continuous_sandwich _ _).comp hL)
+          (fun t => map_sandwich _ _ _ (hzero t)) _
+    exact hslice
+  · have e := hT.trans (fromCols 0 x) (box Ξ Φ) (box Ξ Φ') (fun t => by
+      rw [box_apply, box_apply, hΦ, (toCols_add t x).1, (toCols_add t x).2])
+    funext w
+    rw [hT', e, up_fromCols p h hFL, heis_slice]
+    rfl
+  · have e := hT.modul ((B.o.resS S).symm (0, y)) (isHalf_slice B.o hy) (box Ξ Φ) (box Ξ Φ') (fun t => by
+      simp only [box_apply, hΦ, B.o.symplO_resS, AddEquiv.apply_symm_apply, resS_up_snd p h hFL, symplO_zero_right',
+        zero_add]
+      ring)
+    funext w
+    rw [hT', e, heis_slice]
+    rfl
+  · have e : Ψ = box Ξ c := Subtype.ext (funext fun x => by rw [hΨ, box_apply]; rfl)
+    rw [hT', e]
+
+end GlobalTheory.SliceLine

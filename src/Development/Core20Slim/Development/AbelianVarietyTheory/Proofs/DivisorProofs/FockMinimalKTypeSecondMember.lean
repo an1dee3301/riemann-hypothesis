@@ -1,0 +1,172 @@
+module
+
+public import Mathlib
+public import Formalism.SharpRestriction.Divisibility.SchurIrreducible
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Foundations.IsFockIPOfFockData
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.MinFirstStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FockDualPairSwapSymmetryStatement
+public import Batteries.Classes.RatCast
+public import Formalism.LocalRingCardinality.DataTheta
+public import Init.Core
+public import Init.Data.Prod
+public import Init.Data.Rat.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Finsupp
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Nat.Defs
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.Nat
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Equiv.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.LinearMap.End
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Module.Submodule.Ker
+public import Mathlib.Algebra.Module.Submodule.Lattice
+public import Mathlib.Algebra.Module.Submodule.Map
+public import Mathlib.Algebra.MonoidAlgebra.Basic
+public import Mathlib.Algebra.MonoidAlgebra.Defs
+public import Mathlib.Algebra.MvPolynomial.Basic
+public import Mathlib.Algebra.MvPolynomial.Rename
+public import Mathlib.Algebra.Ring.CompTypeclasses
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finsupp.Defs
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Set.Defs
+public import Mathlib.GroupTheory.GroupAction.Hom
+public import Mathlib.LinearAlgebra.DFinsupp
+public import Mathlib.LinearAlgebra.FiniteDimensional.Defs
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Map
+public import Mathlib.Logic.Equiv.Prod
+public import Mathlib.Order.Bounds.Defs
+public import Mathlib.Order.SetNotation
+public import Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic
+
+@[expose] public section
+
+open Formalism.BasicNotions.TH Formalism.MainNotions.SchurIrreducible GlobalTheory.FockAlg MvPolynomial
+
+namespace GlobalTheory.FockAlg.MinSecond
+
+section Transport
+
+variable {p q : ℕ} {V W : Type} [AddCommGroup V] [Module ℂ V] [AddCommGroup W] [Module ℂ W]
+
+theorem isHW_equiv (e : V ≃ₗ[ℂ] W) (a : Mat p q →ₗ[ℂ] Module.End ℂ V)
+    (b : Mat p q →ₗ[ℂ] Module.End ℂ W) (h : ∀ Z v, e (a Z v) = b Z (e v))
+    (μ : Ix p q → ℚ) (v : V) (hv : IsHW a μ v) : IsHW b μ (e v) := by
+  obtain ⟨h0, h1⟩ := hv
+  refine ⟨fun h' => h0 (e.map_eq_zero_iff.mp h'), ?_⟩
+  simp only [hwSub, wtSub, Submodule.mem_inf, Submodule.mem_iInf, LinearMap.mem_ker,
+    LinearMap.sub_apply, LinearMap.smul_apply, LinearMap.id_apply] at h1 ⊢
+  refine ⟨fun i => ?_, fun i j hij => ?_⟩
+  · rw [← h, ← map_smul, ← map_sub, h1.1 i, map_zero]
+  · rw [← h, h1.2 i j hij, map_zero]
+
+theorem symm_equivariant (e : V ≃ₗ[ℂ] W) (a : Mat p q →ₗ[ℂ] Module.End ℂ V)
+    (b : Mat p q →ₗ[ℂ] Module.End ℂ W) (h : ∀ Z v, e (a Z v) = b Z (e v)) (Z : Mat p q) (w : W) :
+    e.symm (b Z w) = a Z (e.symm w) := by
+  apply e.injective
+  rw [h, e.apply_symm_apply, e.apply_symm_apply]
+
+theorem ofType_equiv (e : V ≃ₗ[ℂ] W) (a : Mat p q →ₗ[ℂ] Module.End ℂ V)
+    (b : Mat p q →ₗ[ℂ] Module.End ℂ W) (h : ∀ Z v, e (a Z v) = b Z (e v))
+    (μ : Ix p q → ℚ) (v : V) (hv : OfType a μ v) : OfType b μ (e v) := by
+  obtain ⟨U, hf, hvU, hst, hw⟩ := hv
+  refine ⟨U.map (e : V →ₗ[ℂ] W), inferInstance, ⟨v, hvU, rfl⟩, ?_, ?_⟩
+  · rintro X hX _ ⟨u, hu, rfl⟩
+    exact ⟨a X u, hst X hX u hu, h X u⟩
+  · rintro ν _ ⟨u, hu, rfl⟩ hν
+    refine hw ν u hu ?_
+    have := isHW_equiv e.symm b a (symm_equivariant e a b h) ν _ hν
+    simpa using this
+
+theorem genSub_map (e : V →ₗ[ℂ] W) (a : Mat p q →ₗ[ℂ] Module.End ℂ V)
+    (b : Mat p q →ₗ[ℂ] Module.End ℂ W) (h : ∀ Z v, e (a Z v) = b Z (e v))
+    (S : Set V) (T : Set W) (hST : ∀ v ∈ S, e v ∈ T) (v : V) (hv : v ∈ genSub a S) :
+    e v ∈ genSub b T := by
+  simp only [genSub, Submodule.mem_sInf, Set.mem_ofPred_eq] at hv ⊢
+  intro N hN
+  refine hv (N.comap e) ⟨fun x hx => hN.1 (hST x hx), fun Z y hy => ?_⟩
+  rw [Submodule.mem_comap, h]
+  exact hN.2 Z _ hy
+
+end Transport
+
+noncomputable def swapPol (p q r s : ℕ) : Pol p q r s ≃ₗ[ℂ] Pol r s p q :=
+  (renameEquiv ℂ (Equiv.prodComm (Ix p q) (Ix r s))).toLinearEquiv
+
+end GlobalTheory.FockAlg.MinSecond
+
+
+open GlobalTheory.FockAlg.MinSecond in
+theorem GlobalTheory.FockAlg.min_second : ∀ (p q r s : ℕ) (M1 : GKMod p q) (M2 : GKMod r s) (f : Pol p q r s →ₗ[ℂ] TensorProduct ℂ M1.V M2.V), IrrGK M2 → AdmGK M2 → Intw M1 M2 f → f ≠ 0 → ∀ (μ' : Ix r s → ℚ), (∃ v, IsHW M2.act μ' v) → (∀ ν w, IsHW M2.act ν w → degW (cPair p q) μ' ≤ degW (cPair p q) ν) → (∃ (μ : Ix p q → ℚ) (P : Pol p q r s), P ∈ jointHarm p q r s ∧ IsHW (fockAct1 p q r s) μ P ∧ IsHW (fockAct2 p q r s) μ' P ∧ f P ≠ 0) ∧ ∀ P, OfType (fockAct2 p q r s) μ' P → f P ∈ Submodule.map f (genSub (fockAct1 p q r s) {Q | Q ∈ jointHarm p q r s ∧ OfType (fockAct2 p q r s) μ' Q}) := by
+  intro p q r s M1 M2 f hirr hadm hf hf0 μ' hμ hmin
+  obtain ⟨s1, s2, s3⟩ := GlobalTheory.T.fock_dualPair_swap_symmetry r s p q
+  set e := swapPol r s p q with he
+  have h1 : ∀ Z v, e (fockAct1 r s p q Z v) = fockAct2 p q r s Z (e v) := s1
+  have h2 : ∀ Z v, e (fockAct2 r s p q Z v) = fockAct1 p q r s Z (e v) := s2
+  have hJ : ∀ P, P ∈ jointHarm r s p q → e P ∈ jointHarm p q r s := fun P hP =>
+    ⟨(s3 P).1.mp hP.2, (s3 P).2.mp hP.1⟩
+  set c := TensorProduct.comm ℂ M1.V M2.V with hc
+  let g : Pol r s p q →ₗ[ℂ] TensorProduct ℂ M2.V M1.V :=
+    (c : _ →ₗ[ℂ] _) ∘ₗ f ∘ₗ (e : _ →ₗ[ℂ] _)
+  have hg : ∀ P, g P = c (f (e P)) := fun _ => rfl
+  have hcm : ∀ (A : Module.End ℂ M1.V) (B : Module.End ℂ M2.V) x,
+      c (TensorProduct.map A B x) = TensorProduct.map B A (c x) := by
+    intro A B x
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul x y => simp [hc]
+    | add x y hx hy => simp only [map_add (f := _), hx, hy]
+  have hgI : Intw M2 M1 g := by
+    refine ⟨fun X => LinearMap.ext fun P => ?_, fun X => LinearMap.ext fun P => ?_⟩
+    · have := LinearMap.congr_fun (hf.2 X) (e P)
+      simp only [LinearMap.comp_apply] at this ⊢
+      rw [hg, hg, h1, this, hcm]
+    · have := LinearMap.congr_fun (hf.1 X) (e P)
+      simp only [LinearMap.comp_apply] at this ⊢
+      rw [hg, hg, h2, this, hcm]
+  have hg0 : g ≠ 0 := by
+    intro h
+    apply hf0
+    refine LinearMap.ext fun P => ?_
+    have := LinearMap.congr_fun h (e.symm P)
+    rw [hg, e.apply_symm_apply, LinearMap.zero_apply] at this
+    exact c.map_eq_zero_iff.mp this
+  obtain ⟨⟨μ, P, hP, hP1, hP2, hP0⟩, hB⟩ := GlobalTheory.T.exists_jointHarm_highestWeight_and_map_mem_genSub r s p q M2 M1 g hirr hadm hgI hg0 μ' hμ hmin
+  refine ⟨⟨μ, e P, hJ P hP, isHW_equiv e _ _ h2 _ _ hP2, isHW_equiv e _ _ h1 _ _ hP1, ?_⟩, ?_⟩
+  · intro h
+    apply hP0
+    rw [hg, h, map_zero]
+  · intro R hR
+    obtain ⟨Q, hQ, hQe⟩ := hB (e.symm R)
+      (ofType_equiv e.symm _ _ (symm_equivariant e _ _ h1) _ _ hR)
+    refine ⟨e Q, ?_, ?_⟩
+    · exact genSub_map e.toLinearMap (fockAct2 r s p q) (fockAct1 p q r s) h2
+        {Q | Q ∈ jointHarm r s p q ∧ OfType (fockAct1 r s p q) μ' Q}
+        {Q | Q ∈ jointHarm p q r s ∧ OfType (fockAct2 p q r s) μ' Q}
+        (fun v hv => ⟨hJ v hv.1, ofType_equiv e _ _ h1 _ _ hv.2⟩) Q hQ
+    · rw [hg, hg, e.apply_symm_apply] at hQe
+      exact c.injective hQe

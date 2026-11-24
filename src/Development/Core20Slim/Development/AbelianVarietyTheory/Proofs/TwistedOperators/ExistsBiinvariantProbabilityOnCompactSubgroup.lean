@@ -1,0 +1,87 @@
+module
+
+public import Mathlib
+public import Formalism.SharpRestriction.Divisibility.SchurIrreducible
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ContinuousExptPY
+public import Init.Core
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Torsor.Defs
+public import Mathlib.Basic.ENNReal.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Set.Basic
+public import Mathlib.Data.Set.CoeSort
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Data.Set.Operations
+public import Mathlib.Data.Subtype
+public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
+public import Mathlib.MeasureTheory.Group.Arithmetic
+public import Mathlib.MeasureTheory.Group.Measure
+public import Mathlib.MeasureTheory.MeasurableSpace.Constructions
+public import Mathlib.MeasureTheory.MeasurableSpace.Defs
+public import Mathlib.MeasureTheory.Measure.Haar.Basic
+public import Mathlib.MeasureTheory.Measure.Haar.Unique
+public import Mathlib.MeasureTheory.Measure.Map
+public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
+public import Mathlib.MeasureTheory.Measure.Typeclasses.Probability
+public import Mathlib.MeasureTheory.OuterMeasure.Basic
+public import Mathlib.Order.Notation
+public import Mathlib.Topology.Algebra.Group.Defs
+public import Mathlib.Topology.Algebra.Group.Subgroup
+public import Mathlib.Topology.Algebra.Monoid.Defs
+public import Mathlib.Topology.Bases
+public import Mathlib.Topology.Compactness.Compact
+public import Mathlib.Topology.Compactness.LocallyCompact
+public import Mathlib.Topology.Defs.Basic
+public import Mathlib.Topology.Defs.Filter
+public import Mathlib.Topology.Defs.Induced
+public import Mathlib.Topology.Separation.Basic
+public import Mathlib.Topology.Separation.Hausdorff
+public import Mathlib.Topology.Sets.Compacts
+
+@[expose] public section
+
+open Formalism.BasicNotions.TH Formalism.MainNotions.SchurIrreducible GlobalTheory.PolarU Matrix MeasureTheory
+
+namespace GlobalTheory
+
+theorem exists_biinvariant_probability_on_compact_subgroup :
+    ∀ (G : Type) [Group G] [TopologicalSpace G] [IsTopologicalGroup G] [T2Space G] [SecondCountableTopology G] [MeasurableSpace G] [BorelSpace G] (K : Subgroup G), IsCompact (K : Set G) → ∃ mK : Measure G, IsProbabilityMeasure mK ∧ mK (K : Set G)ᶜ = 0 ∧ (∀ k ∈ K, Measure.map (fun x => k * x) mK = mK) ∧ ∀ k ∈ K, Measure.map (fun x => x * k) mK = mK := by
+  intro G _ _ _ _ _ _ _ K hK
+  have : CompactSpace K := isCompact_iff_compactSpace.mp hK
+  have : BorelSpace K := Subtype.borelSpace (fun x => x ∈ (K : Set G))
+  let μ : Measure K := Measure.haarMeasure ⊤
+  have : IsProbabilityMeasure μ := ⟨by
+    have := Measure.haarMeasure_self (G := K) (K₀ := ⊤)
+    simpa using this⟩
+  have : μ.IsHaarMeasure := Measure.isHaarMeasure_haarMeasure _
+  have hv : Measurable (Subtype.val : K → G) := measurable_subtype_coe
+  have hKm : MeasurableSet (K : Set G) := hK.isClosed.measurableSet
+  refine ⟨μ.map Subtype.val, inferInstance, ?_, ?_, ?_⟩
+  · rw [Measure.map_apply hv hKm.compl]
+    have : (Subtype.val : K → G) ⁻¹' (K : Set G)ᶜ = ∅ := by
+      ext x; simp
+    rw [this]; simp
+  · intro k hk
+    rw [Measure.map_map (measurable_const_mul k) hv]
+    have h1 : μ.map (fun x : K => (⟨k, hk⟩ : K) * x) = μ := map_mul_left_eq_self μ _
+    conv_rhs => rw [← h1]
+    rw [Measure.map_map hv (measurable_const_mul _)]
+    rfl
+  · intro k hk
+    rw [Measure.map_map (measurable_mul_const k) hv]
+    have h1 : μ.map (fun x : K => x * (⟨k, hk⟩ : K)) = μ := by
+      have : (μ.map (fun x : K => x * (⟨k, hk⟩ : K))).IsHaarMeasure :=
+        Measure.isHaarMeasure_map_mul_right μ _
+      exact Measure.isHaarMeasure_eq_of_isProbabilityMeasure _ _
+    conv_rhs => rw [← h1]
+    rw [Measure.map_map hv (measurable_mul_const _)]
+    rfl
+
+end GlobalTheory

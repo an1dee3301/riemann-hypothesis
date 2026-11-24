@@ -1,0 +1,322 @@
+module
+
+public import Mathlib
+public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
+public import Development.AbelianVarietyTheory.Definitions.Foundations.T2SpaceAdeleRing
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsIsLatticeFrameIsMajorantFrame
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsArchEquivEq
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsBasisAdaptedToCartanInvolution
+public import Batteries.Logic
+public import Development.AbelianVarietyTheory.Definitions.Foundations.EventuallyNormFinLeOne
+public import Development.AbelianVarietyTheory.Definitions.Foundations.ExistsGLSubmatrix
+public import Development.AbelianVarietyTheory.Definitions.Foundations.HermitianSpaceBaseLatticeEqFrameLattice
+public import Development.AbelianVarietyTheory.Definitions.Foundations.MemSiegelOfIffRightAct
+public import Development.AbelianVarietyTheory.Definitions.Foundations.OfInfProjInfMulOfFinProjFin
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.LocalRingCardinality.DataRows
+public import Formalism.LocalRingCardinality.DataSpaces
+public import Formalism.LocalRingCardinality.DataTheta
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
+public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
+public import Formalism.SatakeDualWeyl.Statement
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Formalism.SharpRestriction.GlobalSchurBounds.StandardLattice
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
+public import Init.Core
+public import Init.Data.Function
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.PropLemmas
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Algebra.NonUnitalHom
+public import Mathlib.Algebra.Algebra.Rat
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Mathlib.Algebra.Field.Subfield.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Equiv.Defs
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.Hom
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Order.AbsoluteValue.Basic
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Subring.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Algebra.Star.Basic
+public import Mathlib.Analysis.CStarAlgebra.Basic
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.Analysis.Complex.Order
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Field.WithAbs
+public import Mathlib.Analysis.Normed.Ring.WithAbs
+public import Mathlib.Analysis.RCLike.Basic
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Block
+public import Mathlib.Data.Matrix.Diagonal
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.NNRat.Defs
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Rat.Init
+public import Mathlib.GroupTheory.GroupAction.Hom
+public import Mathlib.LinearAlgebra.Matrix.ConjTranspose
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.Matrix.InvariantBasisNumber
+public import Mathlib.LinearAlgebra.Matrix.PosDef
+public import Mathlib.LinearAlgebra.TensorProduct.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.Logic.Equiv.Defs
+public import Mathlib.Logic.Equiv.Fin.Basic
+public import Mathlib.Logic.Function.Basic
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.NumberTheory.NumberField.Completion.InfinitePlace
+public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings
+public import Mathlib.RingTheory.DedekindDomain.Basic
+public import Mathlib.RingTheory.FiniteType
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.RingTheory.TensorProduct.Maps
+
+@[expose] public section
+
+noncomputable section
+
+namespace GlobalTheory.Doubling
+
+open scoped TensorProduct Matrix ComplexOrder
+open NumberField Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.UG GlobalTheory.AdelicU Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.L2.Theta
+open Formalism.IndefR.Datum (IsCartanInv InfFam compAt)
+open Formalism.MainNotions.StandardLattice (infMat)
+
+section Complex
+
+variable {n : ℕ} {G b c d : Matrix (Fin n) (Fin n) ℂ}
+
+theorem diagonal_sign_mul_self (ε : Fin n → Bool) :
+    (Matrix.diagonal fun i => if ε i then (1 : ℂ) else -1) * (Matrix.diagonal fun i => if ε i then 1 else -1) = 1 := by
+  rw [Matrix.diagonal_mul_diagonal, ← Matrix.diagonal_one]
+  congr 1
+  funext i
+  split_ifs <;> simp
+
+
+theorem mul_conjTranspose_mul_eq (hbc : b * c = 1) (h : bᴴ * G * b = d) : b * bᴴ * G = b * d * c := by
+  rw [← h]
+  calc b * bᴴ * G = b * bᴴ * G * (b * c) := by rw [hbc, mul_one]
+    _ = _ := by simp only [mul_assoc]
+
+theorem isCartanInv_of_frame (hbc : b * c = 1) (h : bᴴ * G * b = d) (hd : d * d = 1) (hd' : dᴴ = d) :
+    IsCartanInv G (b * bᴴ * G) := by
+  have hcb : c * b = 1 := mul_eq_one_comm.1 hbc
+  have h1 : bᴴ * cᴴ = 1 := by rw [← Matrix.conjTranspose_mul, hcb, Matrix.conjTranspose_one]
+  have h2 : cᴴ * bᴴ = 1 := mul_eq_one_comm.1 h1
+  have hG : G = cᴴ * d * c := by
+    rw [← h]
+    calc G = (cᴴ * bᴴ) * G * (b * c) := by rw [h2, hbc, one_mul, mul_one]
+      _ = _ := by simp only [mul_assoc]
+  have hs : G * (b * d * c) = cᴴ * 1 * c := by
+    rw [hG]
+    calc cᴴ * d * c * (b * d * c) = cᴴ * (d * (c * b) * d) * c := by simp only [mul_assoc]
+      _ = _ := by rw [hcb, mul_one, hd]
+  rw [mul_conjTranspose_mul_eq hbc h]
+  refine ⟨?_, ?_, ?_⟩
+  · calc b * d * c * (b * d * c) = b * (d * (c * b) * d) * c := by simp only [mul_assoc]
+      _ = 1 := by rw [hcb, mul_one, hd, mul_one, hbc]
+  · rw [mul_assoc _ G, hs, Matrix.conjTranspose_mul, Matrix.conjTranspose_mul, hd', hG]
+    calc cᴴ * (d * bᴴ) * (cᴴ * 1 * c) = cᴴ * d * (bᴴ * cᴴ) * c := by simp only [mul_assoc, one_mul]
+      _ = _ := by rw [h1, mul_one]
+  · rw [hs]
+    exact Matrix.PosDef.one.conjTranspose_mul_mul_same
+      (Matrix.mulVec_injective_of_isUnit (IsUnit.of_mul_eq_one _ hcb))
+
+theorem unitary_iff_commute (hbc : b * c = 1) (h : bᴴ * G * b = d) (hd : d * d = 1)
+    {g : Matrix (Fin n) (Fin n) ℂ} (hg : gᴴ * G * g = G) :
+    (c * g * b)ᴴ * (c * g * b) = 1 ↔ Commute g (b * bᴴ * G) := by
+  have hcb : c * b = 1 := mul_eq_one_comm.1 hbc
+  have h1 : bᴴ * cᴴ = 1 := by rw [← Matrix.conjTranspose_mul, hcb, Matrix.conjTranspose_one]
+  have h2 : cᴴ * bᴴ = 1 := mul_eq_one_comm.1 h1
+  set u := c * g * b with hu
+  have hud : uᴴ * d * u = d := by
+    rw [hu, ← h, Matrix.conjTranspose_mul, Matrix.conjTranspose_mul]
+    calc bᴴ * (gᴴ * cᴴ) * (bᴴ * G * b) * (c * g * b) = bᴴ * (gᴴ * (cᴴ * bᴴ) * G * (b * c) * g) * b := by
+          simp only [mul_assoc]
+      _ = _ := by rw [h2, hbc, mul_one, mul_one, hg]
+  have hgu : g = b * u * c := by
+    calc g = (b * c) * g * (b * c) := by rw [hbc, one_mul, mul_one]
+      _ = _ := by simp only [hu, mul_assoc]
+  have e1 : g * (b * d * c) = b * (u * d) * c := by
+    rw [hgu]
+    calc b * u * c * (b * d * c) = b * (u * (c * b) * d) * c := by simp only [mul_assoc]
+      _ = _ := by rw [hcb, mul_one]
+  have e2 : (b * d * c) * g = b * (d * u) * c := by
+    rw [hgu]
+    calc b * d * c * (b * u * c) = b * (d * (c * b) * u) * c := by simp only [mul_assoc]
+      _ = _ := by rw [hcb, mul_one]
+  have e3 : ∀ x, c * (b * x * c) * b = x := fun x => by
+    calc c * (b * x * c) * b = (c * b) * x * (c * b) := by simp only [mul_assoc]
+      _ = x := by rw [hcb, one_mul, mul_one]
+  rw [mul_conjTranspose_mul_eq hbc h, Commute, SemiconjBy, e1, e2]
+  constructor
+  · intro hU
+    have hU' : u * uᴴ = 1 := mul_eq_one_comm.1 hU
+    congr 2
+    calc u * d = u * (uᴴ * d * u) := by rw [hud]
+      _ = (u * uᴴ) * d * u := by simp only [mul_assoc]
+      _ = _ := by rw [hU', one_mul]
+  · intro hc
+    have h3 : u * d = d * u := by rw [← e3 (u * d), hc, e3]
+    calc uᴴ * u = uᴴ * (u * d) * d := by rw [mul_assoc, mul_assoc, hd, mul_one]
+      _ = 1 := by rw [h3, ← mul_assoc, hud, hd]
+
+
+end Complex
+
+section Place
+
+variable {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E} {n : ℕ}
+  {w : InfinitePlace F}
+
+theorem map_val_mul_inv {A : Type} [CommRing A] (f : A →+* ℂ) (a : GL (Fin n) A) :
+    a.1.map f * (a⁻¹).1.map f = 1 := by
+  rw [← Matrix.map_mul, Units.mul_inv, Matrix.map_one _ (map_zero _) (map_one _)]
+
+omit [NumberField E] in
+theorem infProj_fst (τ : EmbOver E w) (y : AF F ⊗[F] E) :
+    infProj τ (Algebra.TensorProduct.map (fstA F) (AlgHom.id F E) y) = infEmb τ (compInf F E w y) := by
+  induction y using TensorProduct.induction_on with
+  | zero => simp only [map_zero]
+  | add x y hx hy => simp only [map_add (f := _), hx, hy]
+  | tmul x y => rfl
+
+theorem frame_local_iff (h : IsCMExt F E σ) (τ : EmbOver E w) (J : Matrix (Fin n) (Fin n) E)
+    (c : Matrix (Fin n) (Fin n) (w.Completion ⊗[F] E)) (ε : Fin n → Bool) :
+    cT (Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes.sigR _ σ) c * JR w.Completion J * c = (Matrix.diagonal fun i => if ε i then 1 else -1) ↔
+      (c.map (infEmb τ))ᴴ * J.map τ.1 * c.map (infEmb τ) = Matrix.diagonal fun i => if ε i then 1 else -1 := by
+  have h2 : (JR w.Completion J).map (infEmb τ) = J.map τ.1 := by ext r s; simp [JR, inclR]
+  rw [← (Matrix.map_injective (infEmb_bijective h τ).1).eq_iff]
+  beta_reduce
+  rw [Matrix.map_mul, Matrix.map_mul, Frames.map_cT_sigR h, h2, Matrix.diagonal_map (map_zero _)]
+  refine iff_of_eq (congrArg₂ _ rfl (congrArg _ (funext fun i => ?_)))
+  split_ifs <;> simp
+
+omit [NumberField E] in
+theorem map_conj_proj (τ : EmbOver E w) (J : Matrix (Fin n) (Fin n) E) (a : GL (Fin n) (AF F ⊗[F] E)) (g : GAd σ J) :
+    ((bc (compInf F E w) a)⁻¹ * AdelicU.matHom _ σ J (projArch σ J w g) * bc (compInf F E w) a).1.map (infEmb τ) =
+      ((a⁻¹).1.map (compInf F E w)).map (infEmb τ) * infMat σ J (infProj τ) g *
+        (a.1.map (compInf F E w)).map (infEmb τ) := by
+  have : infMat σ J (infProj τ) g = (AdelicU.matHom _ σ J (projArch σ J w g)).1.map (infEmb τ) :=
+    Matrix.ext fun i j => infProj_fst τ _
+  rw [this, Units.val_mul, Units.val_mul, Matrix.map_mul, Matrix.map_mul]
+  rfl
+
+theorem mem_stabArch_iff_unitary (h : IsCMExt F E σ) (τ : EmbOver E w) (J : Matrix (Fin n) (Fin n) E)
+    (a : GL (Fin n) (AF F ⊗[F] E)) (g : GAd σ J) :
+    projArch σ J w g ∈ stabArch σ J w (bc (compInf F E w) a) ↔
+      (((a⁻¹).1.map (compInf F E w)).map (infEmb τ) * infMat σ J (infProj τ) g *
+        (a.1.map (compInf F E w)).map (infEmb τ))ᴴ *
+      (((a⁻¹).1.map (compInf F E w)).map (infEmb τ) * infMat σ J (infProj τ) g *
+        (a.1.map (compInf F E w)).map (infEmb τ)) = 1 := by
+  rw [mem_stabArch, ← map_conj_proj]
+  generalize (bc (compInf F E w) a)⁻¹ * AdelicU.matHom _ σ J (projArch σ J w g) * bc (compInf F E w) a = x
+  change cT _ x.1 * 1 * x.1 = 1 ↔ _
+  rw [← (Matrix.map_injective (infEmb_bijective h τ).1).eq_iff]
+  beta_reduce
+  rw [mul_one, Matrix.map_mul, Frames.map_cT_sigR h, Matrix.map_one _ (map_zero _) (map_one _)]
+
+end Place
+
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+variable {D : D7}
+
+def frameInv (θ : InfFam D) (V : HSp D) (a : GL (Fin V.rank) (AE D)) (τ : D.what₂.Tau) :
+    Matrix (Fin V.rank) (Fin V.rank) ℂ :=
+  compAt θ τ a.1 * (compAt θ τ a.1)ᴴ * gramAt D V τ
+
+variable {θ : InfFam D}
+
+theorem compAt_eq_map (hθ : IsInfFam θ) (τ : D.what₂.Tau) {m n : ℕ} (y : Matrix (Fin m) (Fin n) (AE D)) :
+    compAt θ τ y = (y.map (compInf _ _ (placeOf D τ))).map (infEmb (embOverOf D τ)) := by
+  ext i j
+  change θ τ (infPart D (y i j)) = infEmb (embOverOf D τ) (compInf _ _ (placeOf D τ) (y i j))
+  rw [eq_infProj hθ (embOverOf D τ) rfl]
+  exact infProj_fst _ _
+
+theorem compAt_mul_inv (τ : D.what₂.Tau) {m : ℕ} (a : GL (Fin m) (AE D)) :
+    compAt θ τ a.1 * compAt θ τ (a⁻¹).1 = 1 := map_val_mul_inv ((θ τ).comp (infPart D)) a
+
+variable {V : HSp D} {a : GL (Fin V.rank) (AE D)}
+
+theorem isMaj_iff (hθ : IsInfFam θ) : IsMaj V a ↔ ∀ τ, ∃ ε : Fin V.rank → Bool,
+    (compAt θ τ a.1)ᴴ * gramAt D V τ * compAt θ τ a.1 = Matrix.diagonal fun i => if ε i then 1 else -1 := by
+  refine (placeOf_bijective D).2.forall.trans (forall_congr' fun τ => exists_congr fun ε => ?_)
+  rw [compAt_eq_map hθ]
+  exact frame_local_iff (isCMExt_host D) (embOverOf D τ) V.gram _ ε
+
+
+theorem infMat_isometry (hθ : IsInfFam θ) (τ : D.what₂.Tau) (g : GA D V) :
+    (infMat D.sp.cm.sig V.gram (θ τ) g)ᴴ * gramAt D V τ * infMat D.sp.cm.sig V.gram (θ τ) g = gramAt D V τ := by
+  rw [eq_infProj hθ (embOverOf D τ) rfl, infMat_infProj V.gram (isCMExt_host D)]
+  exact (archEquiv V.gram (isCMExt_host D) (embOverOf D τ) (projArch _ _ _ g)).2
+
+theorem IsMaj.mem_stabArch_iff (h : IsMaj V a) (hθ : IsInfFam θ) (τ : D.what₂.Tau) (g : GA D V) :
+    projArch D.sp.cm.sig V.gram (placeOf D τ) g ∈
+        stabArch D.sp.cm.sig V.gram (placeOf D τ) (bc (compInf _ _ (placeOf D τ)) a) ↔
+      Commute (infMat D.sp.cm.sig V.gram (θ τ) g) (frameInv θ V a τ) := by
+  obtain ⟨ε, hε⟩ := (isMaj_iff hθ).1 h τ
+  refine Iff.trans ?_ (unitary_iff_commute (compAt_mul_inv τ a) hε (diagonal_sign_mul_self ε) (infMat_isometry hθ τ g))
+  rw [compAt_eq_map hθ, compAt_eq_map hθ, eq_infProj hθ (embOverOf D τ) rfl]
+  exact mem_stabArch_iff_unitary (isCMExt_host D) (embOverOf D τ) V.gram a g
+
+
+
+theorem gramAt_dblSp (V : HSp D) (τ : D.what₂.Tau) :
+    gramAt D (dblSp V) τ = blkMat finSumFinEquiv (gramAt D V τ) (-gramAt D V τ) :=
+  (congrArg (fun x => x.map (tauE D τ)) (gram_hdbl V)).trans ((blkMat_map _ _ (map_zero _) _ _).trans
+    (congrArg _ (Matrix.map_neg _ (map_neg (tauE D τ)) _)))
+
+theorem frameInv_dblSp (θ : InfFam D) (V : HSp D) (a : GL (Fin V.rank) (AE D)) (τ : D.what₂.Tau) :
+    frameInv θ (dblSp V) (blkGL finSumFinEquiv (a, a)) τ =
+      blkMat finSumFinEquiv (frameInv θ V a τ) (-frameInv θ V a τ) := by
+  have e : compAt θ τ (blkGL finSumFinEquiv (a, a)).1 = blkMat finSumFinEquiv (compAt θ τ a.1) (compAt θ τ a.1) :=
+    blkMat_map finSumFinEquiv ((θ τ).comp (infPart D)) (map_zero _) _ _
+  have e' : ∀ b : Matrix (Fin V.rank) (Fin V.rank) ℂ,
+      (blkMat finSumFinEquiv b b)ᴴ = blkMat finSumFinEquiv bᴴ bᴴ := fun b => by
+    simp [blkMat, Matrix.fromBlocks_conjTranspose]
+  have : compAt θ τ (blkGL finSumFinEquiv (a, a)).1 * (compAt θ τ (blkGL finSumFinEquiv (a, a)).1)ᴴ *
+      blkMat finSumFinEquiv (gramAt D V τ) (-gramAt D V τ) =
+      blkMat finSumFinEquiv (frameInv θ V a τ) (-frameInv θ V a τ) := by
+    rw [e, e', blkMat_mul, blkMat_mul, Matrix.mul_neg, frameInv]
+  rw [frameInv, gramAt_dblSp]
+  exact this
+
+end GlobalTheory.Doubling
+
+end

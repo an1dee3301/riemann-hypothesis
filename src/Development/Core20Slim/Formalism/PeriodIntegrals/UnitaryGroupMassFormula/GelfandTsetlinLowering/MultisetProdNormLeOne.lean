@@ -1,0 +1,213 @@
+module
+
+public import Mathlib
+public import Init.Classical
+public import Init.Core
+public import Init.Data.Function
+public import Init.Data.Int.Basic
+public import Init.Data.Nat.Basic
+public import Init.Data.NeZero
+public import Init.Data.Order.Lemmas
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Spectrum.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.BigOperators.Group.Multiset.Defs
+public import Mathlib.Algebra.BigOperators.Ring.Finset
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.IsField
+public import Mathlib.Algebra.Group.Action.Pi
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.Hom
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
+public import Mathlib.Algebra.Notation.Defs
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Order.Archimedean.Real.Basic
+public import Mathlib.Algebra.Order.BigOperators.Group.Finset
+public import Mathlib.Algebra.Order.Floor.Defs
+public import Mathlib.Algebra.Order.GroupWithZero.Basic
+public import Mathlib.Algebra.Order.Monoid.Defs
+public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
+public import Mathlib.Algebra.Order.Monoid.Unbundled.Defs
+public import Mathlib.Algebra.Order.Ring.Defs
+public import Mathlib.Algebra.Order.Ring.Unbundled.Basic
+public import Mathlib.Algebra.Order.Star.Basic
+public import Mathlib.Algebra.Order.Star.Real
+public import Mathlib.Algebra.Polynomial.Degree.Defs
+public import Mathlib.Algebra.Polynomial.Eval.Defs
+public import Mathlib.Algebra.Polynomial.Roots
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Nat
+public import Mathlib.Algebra.Star.Basic
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.Analysis.Complex.Norm
+public import Mathlib.Analysis.Complex.Polynomial.Basic
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Group.Basic
+public import Mathlib.Analysis.Normed.Group.Defs
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.Complex.BigOperators
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.Real.Star
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Finset.Image
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Basic
+public import Mathlib.Data.Matrix.Diagonal
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Multiset.Defs
+public import Mathlib.Data.Multiset.ZeroCons
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Nat.Init
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Data.Set.Operations
+public import Mathlib.GroupTheory.GroupAction.Ring
+public import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
+public import Mathlib.LinearAlgebra.Matrix.Charpoly.Coeff
+public import Mathlib.LinearAlgebra.Matrix.Charpoly.Eigs
+public import Mathlib.LinearAlgebra.Matrix.ConjTranspose
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+public import Mathlib.LinearAlgebra.Matrix.ToLinearEquiv
+public import Mathlib.LinearAlgebra.UnitaryGroup
+public import Mathlib.Logic.Equiv.Defs
+public import Mathlib.Logic.Function.Basic
+public import Mathlib.Logic.Function.Defs
+public import Mathlib.Order.Defs.LinearOrder
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.Order.RelClasses
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.SimpleRing.Principal
+public import Mathlib.Tactic.Linarith.Lemmas
+public import Mathlib.Tactic.NormNum.Basic
+public import Mathlib.Tactic.NormNum.Ineq
+public import Mathlib.Tactic.NormNum.Result
+public import Mathlib.Tactic.Ring.Basic
+public import Mathlib.Tactic.Ring.Common
+
+@[expose] public section
+
+noncomputable section
+
+namespace PI.WGL.XiU
+
+open Matrix
+
+theorem normSq_sum_eq {N : ℕ} (u : Fin N → ℂ) :
+    star u ⬝ᵥ u = ((∑ a, Complex.normSq (u a) : ℝ) : ℂ) := by
+  simp only [dotProduct, Pi.star_apply, Complex.ofReal_sum]
+  refine Finset.sum_congr rfl (fun a _ => ?_)
+  rw [Complex.normSq_eq_conj_mul_self, Complex.star_def]
+
+theorem normSq_sum_mulVec {N : ℕ} (x : Matrix (Fin N) (Fin N) ℂ) (hx : x ∈ Matrix.unitaryGroup (Fin N) ℂ)
+    (w : Fin N → ℂ) : ∑ a, Complex.normSq ((x *ᵥ w) a) = ∑ b, Complex.normSq (w b) := by
+  apply Complex.ofReal_injective
+  rw [← normSq_sum_eq, ← normSq_sum_eq, Matrix.star_mulVec, ← Matrix.dotProduct_mulVec,
+    Matrix.mulVec_mulVec, ← Matrix.star_eq_conjTranspose, (Matrix.mem_unitaryGroup_iff').1 hx,
+    Matrix.one_mulVec]
+
+theorem sum_comp_le {N s : ℕ} (I : Fin s → Fin N) (hI : Function.Injective I) (f : Fin N → ℝ)
+    (hf : ∀ a, 0 ≤ f a) : ∑ p, f (I p) ≤ ∑ a, f a := by
+  rw [← Finset.sum_image (fun p _ q _ h => hI h)]
+  exact Finset.sum_le_univ_sum_of_nonneg hf
+
+theorem sum_comp_eq {N s : ℕ} {M : Type*} [AddCommMonoid M] (I : Fin s → Fin N) (hI : Function.Injective I)
+    (f : Fin N → M) (hf : ∀ b, b ∉ Set.range I → f b = 0) : ∑ b, f b = ∑ p, f (I p) := by
+  rw [← Finset.sum_image (fun p _ q _ h => hI h)]
+  symm
+  apply Finset.sum_subset (Finset.subset_univ _)
+  intro b _ hb
+  apply hf
+  rintro ⟨p, rfl⟩
+  exact hb (Finset.mem_image_of_mem _ (Finset.mem_univ p))
+
+theorem sub_contract {N s : ℕ} (x : Matrix (Fin N) (Fin N) ℂ) (hx : x ∈ Matrix.unitaryGroup (Fin N) ℂ)
+    (I J : Fin s → Fin N) (hI : Function.Injective I) (hJ : Function.Injective J) (v : Fin s → ℂ) :
+    ∑ p, Complex.normSq (((Matrix.of fun p q => x (I p) (J q)) *ᵥ v) p) ≤ ∑ q, Complex.normSq (v q) := by
+  set w : Fin N → ℂ := Function.extend J v 0 with hw
+  have hwJ : ∀ q, w (J q) = v q := fun q => hJ.extend_apply v 0 q
+  have hw0 : ∀ b, b ∉ Set.range J → w b = 0 := by
+    intro b hb
+    rw [hw, Function.extend_apply' _ _ _ hb]
+    rfl
+  have hmv : ∀ p, ((Matrix.of fun p q => x (I p) (J q)) *ᵥ v) p = (x *ᵥ w) (I p) := by
+    intro p
+    have hs := sum_comp_eq J hJ (fun b => x (I p) b * w b) (fun b hb => by simp [hw0 b hb])
+    simp only [Matrix.mulVec, dotProduct, Matrix.of_apply]
+    rw [hs]
+    simp only [hwJ]
+  have hnorm : ∑ b, Complex.normSq (w b) = ∑ q, Complex.normSq (v q) := by
+    have hs := sum_comp_eq J hJ (fun b => Complex.normSq (w b)) (fun b hb => by simp [hw0 b hb])
+    rw [hs]
+    simp only [hwJ]
+  calc ∑ p, Complex.normSq (((Matrix.of fun p q => x (I p) (J q)) *ᵥ v) p)
+      = ∑ p, Complex.normSq ((x *ᵥ w) (I p)) := by simp only [hmv]
+    _ ≤ ∑ a, Complex.normSq ((x *ᵥ w) a) :=
+        sum_comp_le I hI _ (fun a => Complex.normSq_nonneg _)
+    _ = ∑ b, Complex.normSq (w b) := normSq_sum_mulVec x hx w
+    _ = ∑ q, Complex.normSq (v q) := hnorm
+
+theorem multiset_prod_norm_le_one (m : Multiset ℂ) (h : ∀ μ ∈ m, ‖μ‖ ≤ 1) : ‖m.prod‖ ≤ 1 := by
+  induction m using Multiset.induction_on with
+  | empty => simp
+  | cons a s ih =>
+    rw [Multiset.prod_cons, norm_mul]
+    have ha := h a (by simp)
+    have hs := ih (fun μ hμ => h μ (by simp [hμ]))
+    exact mul_le_one₀ ha (norm_nonneg _) hs
+
+theorem det_sub_norm_le_one {N s : ℕ} (x : Matrix (Fin N) (Fin N) ℂ) (hx : x ∈ Matrix.unitaryGroup (Fin N) ℂ)
+    (I J : Fin s → Fin N) (hI : Function.Injective I) (hJ : Function.Injective J) :
+    ‖(Matrix.of fun p q => x (I p) (J q)).det‖ ≤ 1 := by
+  set A := Matrix.of fun p q => x (I p) (J q) with hA
+  rw [Matrix.det_eq_prod_roots_charpoly]
+  apply multiset_prod_norm_le_one
+  intro μ hμ
+  have hroot : A.charpoly.IsRoot μ := (Polynomial.mem_roots (Matrix.charpoly_monic A).ne_zero).1 hμ
+  have hspec : μ ∈ spectrum ℂ A := Matrix.mem_spectrum_iff_isRoot_charpoly.2 hroot
+  rw [spectrum.mem_iff, Matrix.isUnit_iff_isUnit_det, isUnit_iff_ne_zero, not_not] at hspec
+  obtain ⟨v, hv0, hv⟩ := Matrix.exists_mulVec_eq_zero_iff.2 hspec
+  have hAv : A *ᵥ v = μ • v := by
+    first
+    | rw [Algebra.algebraMap_eq_smul_one, Matrix.sub_mulVec, Matrix.smul_mulVec,
+        Matrix.one_mulVec, sub_eq_zero] at hv
+    | rw [Algebra.algebraMap_eq_smul_one, Matrix.sub_mulVec, Matrix.smul_mulVec_assoc,
+        Matrix.one_mulVec, sub_eq_zero] at hv
+    exact hv.symm
+  have hc := sub_contract x hx I J hI hJ v
+  rw [← hA, hAv] at hc
+  simp only [Pi.smul_apply, smul_eq_mul, Complex.normSq_mul, ← Finset.mul_sum] at hc
+  have hpos : 0 < ∑ q, Complex.normSq (v q) := by
+    obtain ⟨q, hq⟩ := Function.ne_iff.1 hv0
+    exact lt_of_lt_of_le (Complex.normSq_pos.2 hq)
+      (Finset.single_le_sum (fun i _ => Complex.normSq_nonneg (v i)) (Finset.mem_univ q))
+  have h1 : Complex.normSq μ ≤ 1 := by
+    by_contra hcon
+    push_neg at hcon
+    nlinarith
+  have h2 := Complex.normSq_eq_norm_sq μ
+  nlinarith [norm_nonneg μ]
+
+end PI.WGL.XiU

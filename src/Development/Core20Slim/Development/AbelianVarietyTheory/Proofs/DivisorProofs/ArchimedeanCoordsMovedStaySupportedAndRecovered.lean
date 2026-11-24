@@ -1,0 +1,134 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.Divisors.SiegelWeilAnisotropicHermitian
+public import Development.AbelianVarietyTheory.Definitions.Divisors.CTSmallCone
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.WordAppend
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.AppSmul
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
+public import Development.AbelianVarietyTheory.Definitions.Divisors.HilbertNinetyQuotientHomEqIff
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Init.Core
+public import Init.Data.Zero
+public import Init.Ext
+public import Init.Prelude
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Action.Pi
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.Hom
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Equiv.Defs
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Prod
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Notation.Prod
+public import Mathlib.Algebra.Ring.CompTypeclasses
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Equiv
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Pi
+public import Mathlib.Algebra.Ring.Prod
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Prod
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.LinearAlgebra.DFinsupp
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.NumberTheory.NumberField.CanonicalEmbedding.Basic
+public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
+public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+public import Mathlib.RingTheory.TensorProduct.Basic
+
+@[expose] public section
+
+open NumberField IsDedekindDomain MeasureTheory Filter Topology Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes
+open GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.ThK
+open scoped TensorProduct NNReal Matrix
+open scoped Classical
+open GlobalTheory.ArchDecay
+
+namespace GlobalTheory.ArchDecay
+
+theorem at_mul_of_at {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E]
+    {n d : ℕ} (G : Matrix (Fin n) (Fin n) (_root_.GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.AE (F := F) (E := E))) (H : Matrix (Fin d) (Fin d) (_root_.GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.AE (F := F) (E := E)))
+    (L : Matrix (Fin n) (Fin d) (_root_.GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.AE (F := F) (E := E))) (hL : At (evI F) L) : At (evI F) (G * L * Hᵀ) := by
+  intro u hu
+  rw [← Matrix.smul_mul, ← Matrix.mul_smul, hL u hu, Matrix.mul_zero, Matrix.zero_mul]
+
+theorem mul_infAd_of_evI {F : Type} [Field F] [NumberField F] (u : AF F) (hu : evI F u = 0)
+    (α : mixedEmbedding.mixedSpace F) : u * infAd F α = 0 := by
+  have h1 : u.1 = 0 := (InfiniteAdeleRing.ringEquiv_mixedSpace F).map_eq_zero_iff.mp hu
+  refine Prod.ext ?_ ?_
+  · show u.1 * _ = 0
+    rw [h1, zero_mul]
+  · show u.2 * 0 = 0
+    rw [mul_zero]
+
+theorem eq_infAd_of_ann {F : Type} [Field F] [NumberField F] (z : AF F)
+    (hz : ∀ a : AF F, evI F a = 0 → a * z = 0) : z = infAd F (evI F z) := by
+  obtain ⟨a, ha1, ha2⟩ : ∃ a : AF F, a.1 = 0 ∧ a.2 = 1 := ⟨(0, 1), rfl, rfl⟩
+  have h0 : evI F a = 0 := by
+    have e : evI F a = InfiniteAdeleRing.ringEquiv_mixedSpace F a.1 := rfl
+    rw [e, ha1, map_zero]
+  have h2 : z.2 = 0 := by
+    have h3 := congrArg Prod.snd (hz a h0)
+    have h4 : (a * z).2 = a.2 * z.2 := rfl
+    rw [h4, ha2, one_mul] at h3
+    exact h3
+  refine Prod.ext ?_ ?_
+  · show z.1 = (InfiniteAdeleRing.ringEquiv_mixedSpace F).symm (InfiniteAdeleRing.ringEquiv_mixedSpace F z.1)
+    rw [RingEquiv.symm_apply_apply]
+  · show z.2 = 0
+    exact h2
+
+theorem liftI_at_movI : ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E) (n d : ℕ) (X : Spc F E n) (W : Spc F E d) (M : Model σ X W) (p : UA σ X.J × UA σ W.J) (ζ : (Fin n × Fin d → mixedEmbedding.mixedSpace F) × (Fin n × Fin d → mixedEmbedding.mixedSpace F)), At (evI F) (liftI M ζ) ∧ liftI M (movI M p ζ) = actAB (cA σ) p⁻¹ (liftI M ζ) := by
+  intro F E _ _ _ _ _ σ n d X W M p ζ
+  have hL : At (evI F) (liftI M ζ) := by
+    intro u hu
+    unfold liftI
+    rw [← LinearEquiv.map_smul]
+    convert (M.co.e.symm).map_zero using 2
+    refine Prod.ext ?_ ?_
+    · funext i
+      exact mul_infAd_of_evI u hu _
+    · funext i
+      exact mul_infAd_of_evI u hu _
+  refine ⟨hL, ?_⟩
+  have hw : At (evI F) (actAB (cA σ) p⁻¹ (liftI M ζ)) := at_mul_of_at _ _ _ hL
+  set w := actAB (cA σ) p⁻¹ (liftI M ζ) with hwdef
+  have hc : ∀ u : AF F, evI F u = 0 → u • M.co.e w = 0 := by
+    intro u hu
+    rw [← LinearEquiv.map_smul, hw u hu, LinearEquiv.map_zero]
+  unfold liftI movI arch
+  conv_rhs => rw [← M.co.e.symm_apply_apply w]
+  congr 1
+  refine Prod.ext ?_ ?_
+  · funext i
+    exact (eq_infAd_of_ann _ fun a ha => congrFun (congrArg Prod.fst (hc a ha)) i).symm
+  · funext i
+    exact (eq_infAd_of_ann _ fun a ha => congrFun (congrArg Prod.snd (hc a ha)) i).symm
+
+end GlobalTheory.ArchDecay

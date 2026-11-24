@@ -1,0 +1,505 @@
+module
+
+public import Mathlib
+public import GroundTheory.GlobalFields.Adele.Approximation
+public import Development.Core20Slim.Development.AutomorphicArithmetic.IntegralCasts.CapelliIdentities.InfiniteTraceAlgebraMap
+public import Batteries.Classes.RatCast
+public import Batteries.Logic
+public import Init.Classical
+public import Init.Core
+public import Init.Data.Cast
+public import Init.Data.Int.Basic
+public import Init.Data.Int.Lemmas
+public import Init.Data.List.Basic
+public import Init.Data.Nat.Basic
+public import Init.Data.Rat.Basic
+public import Init.Data.Zero
+public import Init.Omega.Coeffs
+public import Init.Omega.Constraint
+public import Init.Omega.Int
+public import Init.Omega.LinearCombo
+public import Init.Prelude
+public import Init.PropLemmas
+public import Init.SimpLemmas
+public import Mathlib.Algebra.AffineMonoid.Basic
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Rat
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.CharZero.Defs
+public import Mathlib.Algebra.EuclideanDomain.Int
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Rat
+public import Mathlib.Algebra.Group.AddChar
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Int.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Basic
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Subgroup.Lattice
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Subsemigroup.Defs
+public import Mathlib.Algebra.Group.TypeTags.Basic
+public import Mathlib.Algebra.Group.WithOne.Defs
+public import Mathlib.Algebra.GroupWithZero.Basic
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.Hom
+public import Mathlib.Algebra.GroupWithZero.NeZero
+public import Mathlib.Algebra.GroupWithZero.NonZeroDivisors
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
+public import Mathlib.Algebra.GroupWithZero.WithZero
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.NatInt
+public import Mathlib.Algebra.Module.StablyFree.Basic
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Module.Torsion.Free
+public import Mathlib.Algebra.NeZero
+public import Mathlib.Algebra.NoZeroSMulDivisors.Basic
+public import Mathlib.Algebra.NoZeroSMulDivisors.Defs
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Order.AbsoluteValue.Basic
+public import Mathlib.Algebra.Order.Archimedean.Real.Basic
+public import Mathlib.Algebra.Order.Floor.Defs
+public import Mathlib.Algebra.Order.GroupWithZero.Basic
+public import Mathlib.Algebra.Order.GroupWithZero.Canonical
+public import Mathlib.Algebra.Order.Monoid.TypeTags
+public import Mathlib.Algebra.Order.Monoid.Unbundled.TypeTags
+public import Mathlib.Algebra.Order.Ring.Defs
+public import Mathlib.Algebra.Order.Ring.Int
+public import Mathlib.Algebra.Ring.Basic
+public import Mathlib.Algebra.Ring.CharZero
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Equiv
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Int.Defs
+public import Mathlib.Algebra.Ring.Nat
+public import Mathlib.Algebra.Ring.Rat
+public import Mathlib.Algebra.Ring.Subring.Basic
+public import Mathlib.Algebra.Ring.Subring.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.Analysis.Complex.Circle
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Field.WithAbs
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.Normed.Ring.WithAbs
+public import Mathlib.Analysis.SpecialFunctions.Complex.Circle
+public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Int.Cast.Basic
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Int.Cast.Lemmas
+public import Mathlib.Data.Int.Order.Basic
+public import Mathlib.Data.Nat.Basic
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Nat.Init
+public import Mathlib.Data.Rat.Cast.CharZero
+public import Mathlib.Data.Rat.Cast.Defs
+public import Mathlib.Data.Rat.Defs
+public import Mathlib.Data.Set.Defs
+public import Mathlib.FieldTheory.Perfect
+public import Mathlib.FieldTheory.Separable
+public import Mathlib.LinearAlgebra.Basis.VectorSpace
+public import Mathlib.LinearAlgebra.BilinearMap
+public import Mathlib.LinearAlgebra.Dimension.Finite
+public import Mathlib.LinearAlgebra.Dimension.Finrank
+public import Mathlib.LinearAlgebra.FreeModule.PID
+public import Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.NumberTheory.NumberField.Completion.InfinitePlace
+public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings
+public import Mathlib.Order.Basic
+public import Mathlib.Order.Defs.Lattice
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.Order.Filter.Basic
+public import Mathlib.Order.Filter.Cofinite
+public import Mathlib.Order.Filter.Defs
+public import Mathlib.Order.Lattice
+public import Mathlib.Order.Notation
+public import Mathlib.RingTheory.Algebraic.Integral
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Valuation
+public import Mathlib.RingTheory.DedekindDomain.Basic
+public import Mathlib.RingTheory.DedekindDomain.Different
+public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+public import Mathlib.RingTheory.DedekindDomain.Ideal.Basic
+public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
+public import Mathlib.RingTheory.Flat.Basic
+public import Mathlib.RingTheory.Flat.FaithfullyFlat.Algebra
+public import Mathlib.RingTheory.Flat.FaithfullyFlat.Basic
+public import Mathlib.RingTheory.Flat.TorsionFree
+public import Mathlib.RingTheory.FractionalIdeal.Basic
+public import Mathlib.RingTheory.FractionalIdeal.Inverse
+public import Mathlib.RingTheory.FractionalIdeal.Operations
+public import Mathlib.RingTheory.Henselian
+public import Mathlib.RingTheory.Ideal.Defs
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Mathlib.RingTheory.LocalRing.Defs
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.PrincipalIdealDomain
+public import Mathlib.RingTheory.RegularLocalRing.Defs
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.SimpleRing.Principal
+public import Mathlib.RingTheory.Trace.Defs
+public import Mathlib.RingTheory.Valuation.Basic
+public import Mathlib.RingTheory.Valuation.ValuationSubring
+public import Mathlib.Tactic.Abel
+public import Mathlib.Tactic.CancelDenoms.Core
+public import Mathlib.Tactic.FieldSimp.Lemmas
+public import Mathlib.Tactic.Linarith.Lemmas
+public import Mathlib.Tactic.NormNum.Basic
+public import Mathlib.Tactic.NormNum.Eq
+public import Mathlib.Tactic.NormNum.Ineq
+public import Mathlib.Tactic.NormNum.Inv
+public import Mathlib.Tactic.NormNum.Result
+public import Mathlib.Tactic.Positivity.Core
+public import Mathlib.Tactic.Ring.Basic
+public import Mathlib.Tactic.Ring.Common
+public import Mathlib.Topology.Algebra.Group.Defs
+public import Mathlib.Topology.Algebra.Monoid
+public import Mathlib.Topology.Algebra.Monoid.Defs
+public import Mathlib.Topology.Algebra.OpenSubgroup
+public import Mathlib.Topology.Algebra.RestrictedProduct.Basic
+public import Mathlib.Topology.Algebra.Ring.Basic
+public import Mathlib.Topology.Algebra.Ring.Real
+public import Mathlib.Topology.Algebra.Valued.ValuationTopology
+public import Mathlib.Topology.Algebra.Valued.WithVal
+public import Mathlib.Topology.Constructions
+public import Mathlib.Topology.Constructions.SumProd
+public import Mathlib.Topology.Continuous
+public import Mathlib.Topology.ContinuousMap.Defs
+public import Mathlib.Topology.Defs.Basic
+public import Mathlib.Topology.Defs.Filter
+public import Mathlib.Topology.EMetricSpace.Defs
+public import Mathlib.Topology.MetricSpace.Basic
+public import Mathlib.Topology.MetricSpace.Isometry
+public import Mathlib.Topology.MetricSpace.Pseudo.Defs
+public import Mathlib.Topology.Neighborhoods
+public import Mathlib.Topology.UniformSpace.Completion
+public import Mathlib.Topology.UniformSpace.Defs
+
+@[expose] public section
+
+namespace GroundTheory.Global
+
+open NumberField NumberField.InfinitePlace NumberField.InfinitePlace.Completion IsDedekindDomain
+  IsDedekindDomain.HeightOneSpectrum Topology Filter
+open scoped NumberField.AdeleRing RestrictedProduct FourierTransform nonZeroDivisors
+
+noncomputable section
+
+theorem fourierChar_eq_one_iff (t : ℝ) : 𝐞 t = 1 ↔ ∃ n : ℤ, t = n := by
+  rw [Real.fourierChar_apply', Circle.exp_eq_one]
+  constructor
+  · rintro ⟨n, hn⟩
+    refine ⟨n, mul_left_cancel₀ (by positivity : (2 * Real.pi) ≠ 0) ?_⟩
+    rw [hn]
+    ring
+  · rintro ⟨n, rfl⟩
+    exact ⟨n, by ring⟩
+
+theorem fourierChar_intCast (n : ℤ) : 𝐞 (n : ℝ) = 1 :=
+  (fourierChar_eq_one_iff _).mpr ⟨n, rfl⟩
+
+variable (K : Type*) [Field K] [NumberField K]
+
+def infiniteTrace : InfiniteAdeleRing K →+ ℝ where
+  toFun x := ∑ w : InfinitePlace K, (w.mult : ℝ) * (extensionEmbedding w (x w)).re
+  map_zero' := by
+    refine Finset.sum_eq_zero fun w _ => ?_
+    show (w.mult : ℝ) * (extensionEmbedding w 0).re = 0
+    simp
+  map_add' x y := by
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun w _ => ?_
+    show (w.mult : ℝ) * (extensionEmbedding w (x w + y w)).re = _
+    rw [map_add (f := _), Complex.add_re, mul_add]
+
+theorem infiniteTrace_apply (x : InfiniteAdeleRing K) :
+    infiniteTrace K x = ∑ w : InfinitePlace K, (w.mult : ℝ) * (extensionEmbedding w (x w)).re :=
+  rfl
+
+theorem continuous_infiniteTrace : Continuous (infiniteTrace K) := by
+  show Continuous fun x : InfiniteAdeleRing K =>
+    ∑ w : InfinitePlace K, (w.mult : ℝ) * (extensionEmbedding w (x w)).re
+  exact continuous_finsetSum _ fun w _ => continuous_const.mul (Complex.continuous_re.comp
+    ((isometry_extensionEmbedding w).continuous.comp (continuous_apply w)))
+
+omit [NumberField K] in
+theorem extensionEmbedding_algebraMap_apply (k : K) (w : InfinitePlace K) :
+    extensionEmbedding w (algebraMap K (InfiniteAdeleRing K) k w) = w.embedding k := by
+  simp [InfiniteAdeleRing.algebraMap_apply]
+
+theorem infiniteTrace_algebraMap (k : K) :
+    infiniteTrace K (algebraMap K (InfiniteAdeleRing K) k) = (Algebra.trace ℚ K k : ℝ) :=
+  by apply _root_.UpperTheory.Reformulated.B.Qh34.infiniteTrace_algebraMap <;> assumption
+
+theorem forall_mul_mem_iff_forall_trace_mem (k : K) :
+    (∀ y ∈ differentIdeal ℤ (𝓞 K), k * algebraMap (𝓞 K) K y ∈ (algebraMap (𝓞 K) K).range) ↔
+      ∀ a : 𝓞 K, Algebra.trace ℚ K (k * algebraMap (𝓞 K) K a) ∈ (algebraMap ℤ ℚ).range := by
+  have hd := coeIdeal_differentIdeal (A := ℤ) (K := ℚ) (L := K) (B := 𝓞 K)
+  have hdual0 : FractionalIdeal.dual ℤ ℚ (1 : FractionalIdeal (𝓞 K)⁰ K) ≠ 0 :=
+    FractionalIdeal.dual_ne_zero ℤ ℚ one_ne_zero
+  have hD0 : ((differentIdeal ℤ (𝓞 K) : Ideal (𝓞 K)) : FractionalIdeal (𝓞 K)⁰ K) ≠ 0 := by
+    rw [hd]
+    exact inv_ne_zero hdual0
+  have key : k ∈ ((differentIdeal ℤ (𝓞 K) : Ideal (𝓞 K)) : FractionalIdeal (𝓞 K)⁰ K)⁻¹ ↔
+      k ∈ FractionalIdeal.dual ℤ ℚ (1 : FractionalIdeal (𝓞 K)⁰ K) := by
+    rw [hd, inv_inv]
+  rw [FractionalIdeal.mem_inv_iff hD0,
+    FractionalIdeal.mem_dual (one_ne_zero : (1 : FractionalIdeal (𝓞 K)⁰ K) ≠ 0)] at key
+  constructor
+  · intro h a
+    have := key.mp (fun y hy => ?_) (algebraMap (𝓞 K) K a) ?_
+    · simpa [Algebra.traceForm_apply] using this
+    · obtain ⟨y', hy', rfl⟩ := (FractionalIdeal.mem_coeIdeal _).mp hy
+      obtain ⟨z, hz⟩ := h y' hy'
+      exact (FractionalIdeal.mem_one_iff _).mpr ⟨z, hz⟩
+    · exact (FractionalIdeal.mem_one_iff _).mpr ⟨a, rfl⟩
+  · intro h y hy
+    have := key.mpr (fun b hb => ?_) (algebraMap (𝓞 K) K y)
+      ((FractionalIdeal.mem_coeIdeal _).mpr ⟨y, hy, rfl⟩)
+    · obtain ⟨z, hz⟩ := (FractionalIdeal.mem_one_iff _).mp this
+      exact ⟨z, hz⟩
+    · obtain ⟨b', rfl⟩ := (FractionalIdeal.mem_one_iff _).mp hb
+      simpa [Algebra.traceForm_apply] using h b'
+
+variable {K}
+
+def localInvDifferent (v : HeightOneSpectrum (𝓞 K)) : AddSubgroup (v.adicCompletion K) where
+  carrier := {x | ∀ y ∈ differentIdeal ℤ (𝓞 K),
+    x * ((algebraMap (𝓞 K) K y : K) : v.adicCompletion K) ∈ v.adicCompletionIntegers K}
+  zero_mem' := fun y _ => by
+    rw [zero_mul]
+    exact zero_mem _
+  add_mem' := fun ha hb y hy => by
+    rw [add_mul]
+    exact add_mem (ha y hy) (hb y hy)
+  neg_mem' := fun ha y hy => by
+    rw [neg_mul]
+    exact neg_mem (ha y hy)
+
+theorem coe_algebraMap_mem_adicCompletionIntegers (v : HeightOneSpectrum (𝓞 K)) (y : 𝓞 K) :
+    ((algebraMap (𝓞 K) K y : K) : v.adicCompletion K) ∈ v.adicCompletionIntegers K := by
+  rw [coe_mem_adicCompletionIntegers_iff, valuation_of_algebraMap]
+  exact v.intValuation_le_one y
+
+theorem coe_mul_adicCompletion (v : HeightOneSpectrum (𝓞 K)) (a b : K) :
+    ((a * b : K) : v.adicCompletion K) = (a : v.adicCompletion K) * (b : v.adicCompletion K) := by
+  have hc : ∀ z : K, (z : v.adicCompletion K) = algebraMap K (v.adicCompletion K) z :=
+    fun z => by simp [algebraMap_adicCompletion]
+  rw [hc, hc, hc, map_mul]
+
+theorem mem_localInvDifferent_of_mem {v : HeightOneSpectrum (𝓞 K)} {x : v.adicCompletion K}
+    (hx : x ∈ v.adicCompletionIntegers K) : x ∈ localInvDifferent v :=
+  fun y _ => mul_mem hx (coe_algebraMap_mem_adicCompletionIntegers v y)
+
+theorem mul_mem_localInvDifferent {v : HeightOneSpectrum (𝓞 K)} {a x : v.adicCompletion K}
+    (ha : a ∈ v.adicCompletionIntegers K) (hx : x ∈ localInvDifferent v) :
+    a * x ∈ localInvDifferent v :=
+  fun y hy => by
+    rw [mul_assoc]
+    exact mul_mem ha (hx y hy)
+
+
+theorem coe_mem_localInvDifferent_iff (v : HeightOneSpectrum (𝓞 K)) (k : K) :
+    (k : v.adicCompletion K) ∈ localInvDifferent v ↔
+      ∀ y ∈ differentIdeal ℤ (𝓞 K), v.valuation K (k * algebraMap (𝓞 K) K y) ≤ 1 := by
+  refine forall₂_congr fun y _ => ?_
+  rw [← coe_mul_adicCompletion, coe_mem_adicCompletionIntegers_iff]
+
+theorem forall_coe_mem_localInvDifferent_iff (k : K) :
+    (∀ v : HeightOneSpectrum (𝓞 K), (k : v.adicCompletion K) ∈ localInvDifferent v) ↔
+      ∀ a : 𝓞 K, Algebra.trace ℚ K (k * algebraMap (𝓞 K) K a) ∈ (algebraMap ℤ ℚ).range := by
+  rw [← forall_mul_mem_iff_forall_trace_mem]
+  simp_rw [coe_mem_localInvDifferent_iff]
+  constructor
+  · intro h y hy
+    exact mem_integers_of_valuation_le_one (R := 𝓞 K) K _ fun v => h v y hy
+  · intro h v y hy
+    obtain ⟨z, hz⟩ := h y hy
+    rw [← hz, valuation_of_algebraMap]
+    exact v.intValuation_le_one z
+
+@[simp] theorem adeleRing_algebraMap_fst (k : K) :
+    (algebraMap K 𝔸[K] k).1 = algebraMap K (InfiniteAdeleRing K) k := rfl
+@[simp] theorem adeleRing_algebraMap_snd (k : K) :
+    (algebraMap K 𝔸[K] k).2 = algebraMap K (FiniteAdeleRing (𝓞 K) K) k := rfl
+
+
+variable (K) in
+def finiteInvDifferent : AddSubgroup (FiniteAdeleRing (𝓞 K) K) where
+  carrier := {a | ∀ v : HeightOneSpectrum (𝓞 K), a v ∈ localInvDifferent v}
+  zero_mem' v := zero_mem (localInvDifferent v)
+  add_mem' ha hb v := add_mem (ha v) (hb v)
+  neg_mem' ha v := neg_mem (ha v)
+
+
+theorem mem_finiteInvDifferent_of_mem_integralFiniteAdeles {a : FiniteAdeleRing (𝓞 K) K}
+    (ha : a ∈ integralFiniteAdeles (𝓞 K) K) : a ∈ finiteInvDifferent K :=
+  fun v => mem_localInvDifferent_of_mem (ha v)
+
+
+variable (K) in
+theorem isOpen_finiteInvDifferent :
+    IsOpen (finiteInvDifferent K : Set (FiniteAdeleRing (𝓞 K) K)) :=
+  AddSubgroup.isOpen_of_mem_nhds _ (g := 0) (Filter.mem_of_superset
+    ((isOpen_integralFiniteAdeles (R := 𝓞 K) (K := K)).mem_nhds (zero_mem _))
+    fun _ ha => mem_finiteInvDifferent_of_mem_integralFiniteAdeles ha)
+
+theorem exists_sub_mem_finiteInvDifferent (a : FiniteAdeleRing (𝓞 K) K) :
+    ∃ k : K, a - algebraMap K (FiniteAdeleRing (𝓞 K) K) k ∈ finiteInvDifferent K := by
+  obtain ⟨k, hk⟩ := exists_sub_mem_integralFiniteAdeles (R := 𝓞 K) a
+  exact ⟨k, mem_finiteInvDifferent_of_mem_integralFiniteAdeles hk⟩
+
+theorem algebraMap_mem_finiteInvDifferent_iff (k : K) :
+    algebraMap K (FiniteAdeleRing (𝓞 K) K) k ∈ finiteInvDifferent K ↔
+      ∀ a : 𝓞 K, Algebra.trace ℚ K (k * algebraMap (𝓞 K) K a) ∈ (algebraMap ℤ ℚ).range :=
+  forall_coe_mem_localInvDifferent_iff k
+
+theorem exists_trace_eq_intCast {k : K}
+    (hk : algebraMap K (FiniteAdeleRing (𝓞 K) K) k ∈ finiteInvDifferent K) :
+    ∃ n : ℤ, (Algebra.trace ℚ K k : ℝ) = n := by
+  obtain ⟨n, hn⟩ := (algebraMap_mem_finiteInvDifferent_iff k).mp hk 1
+  refine ⟨n, ?_⟩
+  rw [map_one, mul_one] at hn
+  rw [← hn]
+  simp
+
+
+variable (K) in
+def invDifferentAdeles : AddSubgroup 𝔸[K] :=
+  (⊤ : AddSubgroup (InfiniteAdeleRing K)).prod (finiteInvDifferent K)
+
+theorem mem_invDifferentAdeles {x : 𝔸[K]} :
+    x ∈ invDifferentAdeles K ↔ x.2 ∈ finiteInvDifferent K := by
+  exact ⟨fun h => h.2, fun h => ⟨AddSubgroup.mem_top _, h⟩⟩
+
+
+theorem fourierChar_infiniteTrace_eq (x : InfiniteAdeleRing K) (a : FiniteAdeleRing (𝓞 K) K)
+    {k k' : K} (hk : a - algebraMap K _ k ∈ finiteInvDifferent K)
+    (hk' : a - algebraMap K _ k' ∈ finiteInvDifferent K) :
+    𝐞 (-infiniteTrace K (x - algebraMap K _ k)) = 𝐞 (-infiniteTrace K (x - algebraMap K _ k')) := by
+  have hd : algebraMap K (FiniteAdeleRing (𝓞 K) K) (k' - k) ∈ finiteInvDifferent K := by
+    have := sub_mem hk hk'
+    rwa [sub_sub_sub_cancel_left, ← map_sub] at this
+  obtain ⟨n, hn⟩ := exists_trace_eq_intCast hd
+  have : -infiniteTrace K (x - algebraMap K _ k) =
+      -infiniteTrace K (x - algebraMap K _ k') - n := by
+    rw [← hn, ← infiniteTrace_algebraMap]
+    simp only [map_sub]
+    ring
+  rw [this, AddChar.map_sub_eq_div, fourierChar_intCast, div_one]
+
+
+variable (K) in
+def adelicCharFun (x : 𝔸[K]) : Circle :=
+  𝐞 (-infiniteTrace K (x.1 - algebraMap K _ (exists_sub_mem_finiteInvDifferent x.2).choose))
+
+theorem adelicCharFun_eq (x : 𝔸[K]) {k : K}
+    (hk : x.2 - algebraMap K _ k ∈ finiteInvDifferent K) :
+    adelicCharFun K x = 𝐞 (-infiniteTrace K (x.1 - algebraMap K _ k)) :=
+  fourierChar_infiniteTrace_eq _ _ (exists_sub_mem_finiteInvDifferent x.2).choose_spec hk
+
+
+variable (K) in
+def adelicChar : AddChar 𝔸[K] Circle where
+  toFun := adelicCharFun K
+  map_zero_eq_one' := by
+    rw [adelicCharFun_eq (k := 0) 0 (by simp)]
+    simp
+  map_add_eq_mul' x y := by
+    obtain ⟨kx, hx⟩ := exists_sub_mem_finiteInvDifferent x.2
+    obtain ⟨ky, hy⟩ := exists_sub_mem_finiteInvDifferent y.2
+    have hxy : (x + y).2 - algebraMap K _ (kx + ky) ∈ finiteInvDifferent K := by
+      have := add_mem hx hy
+      rw [map_add (f := _)]
+      convert this using 1
+      rw [show (x + y).2 = x.2 + y.2 from rfl]
+      abel
+    rw [adelicCharFun_eq _ hxy, adelicCharFun_eq _ hx, adelicCharFun_eq _ hy,
+      ← AddChar.map_add_eq_mul]
+    congr 1
+    simp only [show (x + y).1 = x.1 + y.1 from rfl, map_add (f := _), map_sub]
+    ring
+
+theorem adelicChar_eq (x : 𝔸[K]) {k : K}
+    (hk : x.2 - algebraMap K _ k ∈ finiteInvDifferent K) :
+    adelicChar K x = 𝐞 (-infiniteTrace K (x.1 - algebraMap K _ k)) :=
+  adelicCharFun_eq x hk
+
+theorem adelicChar_algebraMap_add (a : K) {y : 𝔸[K]} (hy : y ∈ invDifferentAdeles K) :
+    adelicChar K (algebraMap K 𝔸[K] a + y) = 𝐞 (-infiniteTrace K y.1) := by
+  rw [adelicChar_eq (k := a)]
+  · congr 3
+    show algebraMap K (InfiniteAdeleRing K) a + y.1 - algebraMap K _ a = y.1
+    abel
+  · show algebraMap K (FiniteAdeleRing (𝓞 K) K) a + y.2 - algebraMap K _ a ∈ _
+    rw [add_sub_cancel_left]
+    exact mem_invDifferentAdeles.mp hy
+
+theorem adelicChar_of_mem_invDifferentAdeles {y : 𝔸[K]} (hy : y ∈ invDifferentAdeles K) :
+    adelicChar K y = 𝐞 (-infiniteTrace K y.1) := by
+  simpa using adelicChar_algebraMap_add (0 : K) hy
+
+theorem adelicChar_algebraMap (k : K) : adelicChar K (algebraMap K 𝔸[K] k) = 1 := by
+  simpa using adelicChar_algebraMap_add k (zero_mem (invDifferentAdeles K))
+
+theorem adelicChar_infinite (x : InfiniteAdeleRing K) :
+    adelicChar K ((x, 0) : InfiniteAdeleRing K × FiniteAdeleRing (𝓞 K) K) =
+      𝐞 (-infiniteTrace K x) :=
+  adelicChar_of_mem_invDifferentAdeles (mem_invDifferentAdeles.mpr (zero_mem _))
+
+theorem continuous_adelicChar : Continuous (adelicChar K) := by
+  rw [continuous_iff_continuousAt]
+  intro x0
+  obtain ⟨k, hk⟩ := exists_sub_mem_finiteInvDifferent x0.2
+  have hU : IsOpen {x : 𝔸[K] | x.2 - algebraMap K _ k ∈ finiteInvDifferent K} :=
+    (isOpen_finiteInvDifferent K).preimage (continuous_snd.sub continuous_const)
+  have heq : (fun x : 𝔸[K] => 𝐞 (-infiniteTrace K (x.1 - algebraMap K _ k))) =ᶠ[𝓝 x0]
+      adelicChar K :=
+    Filter.eventually_of_mem (hU.mem_nhds hk) fun x hx => (adelicChar_eq x hx).symm
+  refine ContinuousAt.congr ?_ heq
+  exact (Real.continuous_fourierChar.comp ((continuous_infiniteTrace K).comp
+    (continuous_fst.sub continuous_const)).neg).continuousAt
+
+theorem adelicChar_ne_one : adelicChar K ≠ 1 := by
+  intro h
+  set n := Module.finrank ℚ K with hn
+  have hn0 : (n : ℚ) ≠ 0 := by
+    have := Module.finrank_pos (R := ℚ) (M := K)
+    exact_mod_cast this.ne'
+  have htr : Algebra.trace ℚ K (algebraMap ℚ K (1 / (2 * n))) = 1 / 2 := by
+    rw [Algebra.trace_algebraMap, ← hn, nsmul_eq_mul]
+    field_simp
+  have h1 : adelicChar K
+      ((algebraMap K (InfiniteAdeleRing K) (algebraMap ℚ K (1 / (2 * n))), 0) :
+        InfiniteAdeleRing K × FiniteAdeleRing (𝓞 K) K) = 1 := by
+    rw [h]
+    rfl
+  rw [adelicChar_infinite, infiniteTrace_algebraMap, htr, fourierChar_eq_one_iff] at h1
+  obtain ⟨m, hm⟩ := h1
+  have : (2 * m : ℝ) = -1 := by
+    push_cast at hm
+    linarith
+  have : (2 * m : ℤ) = -1 := by exact_mod_cast this
+  omega
+
+end
+
+end GroundTheory.Global
