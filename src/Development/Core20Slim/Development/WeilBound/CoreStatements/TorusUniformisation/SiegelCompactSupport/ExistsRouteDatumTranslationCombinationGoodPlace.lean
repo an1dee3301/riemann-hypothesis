@@ -1050,6 +1050,8 @@ theorem AE_ext (h : IsCMExt F E σ) (t : E →ₐ[F] Fv F v) {y z : AE F E} (h0 
   exact sub_left_injective h0
 
 
+def spM (h : IsCMExt F E σ) (t : E →ₐ[F] Fv F v) {m n : Type} (A B : Matrix m n (Fv F v)) : Matrix m n (AE F E) :=
+  of fun i j => tensAt E v ((splitAlgEquiv h t).symm (A i j, B i j))
 
 
 

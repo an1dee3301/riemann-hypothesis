@@ -1,0 +1,109 @@
+module
+
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.DiscreteSpectrumResidualClassification
+public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ThetaEqB
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.IsThetaSubSelf
+public import Development.AbelianVarietyTheory.Definitions.Divisors.DiscreteSeriesHermitianUnique
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.HoweDualityUnitary
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.HoweDualityReal
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.HypothesesAbsDet
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EqOfComponentTensorAdelicFunctionEq
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SquareTriple
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.UnifModGrowthOfIsUnifModerate
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LiftPRouteSmall
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsNatMulIntegralOfIsCompact
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsTranslatesEqPrimFrameLat
+public import Development.AbelianVarietyTheory.Definitions.Divisors.SiegelWeilAnisotropicHermitian
+public import Development.AbelianVarietyTheory.Definitions.Divisors.CTSmallCone
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.AdelicHeisenbergActsByLocalSchrodinger
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.SchrodingerPreservesSchwartzBruhat
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsometryCommutingHeisenbergActsFibrewiseStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.AdelicSchwartzSpaceTranslateMemOfMemStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.AdelicSchwartzRestrictFinitePlaceMemSchwartzBruhStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsComplementaryAdelicSchwartzRestFunctionStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.StandardAdelicAddCharNontrivialFinitePlaceStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.EqOfComponentTensorAdelicFunctionEqStatement
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LatAtVAtStable
+public import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.IsFieldAdicCompletionTensorOfInert
+public import Development.AbelianVarietyTheory.Definitions.Foundations.EqPlaceIdemOfIsPrimeIdem
+public import Development.AbelianVarietyTheory.Proofs.HeightProofs.EqOrConjOfPlaceOf
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.QuadraticClassFieldTheory
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.StandardAdelicAddCharNontrivialFinitePlace
+public import Development.AbelianVarietyTheory.Definitions.Foundations.SmoothPartStable
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsComplementaryAdelicSchwartzRestFunction
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ThetaActionExists
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.SchroedingerPreservesAdelicSchwartz
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.MeasurableThetaSumOfSchrodinger
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Divisors.IsCompactIsOpenUnitsAt
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.OneMemKAt
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsHaarOfIsCompact
+public import Development.AbelianVarietyTheory.Proofs.SiegelThetaTransformation.ExistsCompactLatticeStabilizerBoundedReal
+public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.WeightedMeasureSplitting.ContinuousTensMap
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EventuallyIntegralPointsIndicatorIsVacuum
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.DoubledUnitaryElementActsLocalOperatorAtPlace
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsAdmittedDiagonalIntegralLinearForm
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.DistribHaarCharSupportedIdeleEqLocalAbsValue
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FinitePlaceComponentAdeleNormEqLocalNorm
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.SiegelParabolicLeviInverseQuotientDetNorm
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsDblCoordDblD
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.WeilObjectsInhabited
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.StandardAdelicCharacterNontrivialAtPlaces
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsConstOfPolConst
+public import Development.AbelianVarietyTheory.Definitions.Foundations.SecondCountableAndT2LocalField
+public import Development.AbelianVarietyTheory.Definitions.Divisors.MatchingOfParts
+public import Development.AbelianVarietyTheory.Definitions.Divisors.RankEqCardIffExistsFrameMatrixFirstColumnBlock
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Divisors.IsPairOfIsTriple
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.LiftVOneMul
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.LocalCharacterSmoothUnitary
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.IsOpenKerOfContinuous
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.IsSubquotientDetRepParInd
+public import Development.AbelianVarietyTheory.Definitions.Divisors.HilbertNinetyQuotientHomEqIff
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.StoneVonNeumannSchwartzBruhatTransverseLagrangiaStatement
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LocalCharacterConductorExists
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.GlCharacterFactorsThroughDetOfTwoNeZero
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.TraceSymplecticSelfZeroSplitSupported
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.IsClosedEmbeddingTopEmb
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.SchwartzBruhatSweepSmoothlyInduced
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.RankFiltrationExists
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.SmIndCoinvariants
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.LeviIntegralFacts
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsOpenNormalisedSubgroupSubset
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.HasFiniteLengthOfIsIrreducible
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.EventuallyCompSideMulEq
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.HoweDualityRealPlacesTrivialCharFockLiftStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.MatchedMapsIntertwining
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.BernsteinUnitaryProductIrreducible
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Init.Core
+public import Init.Data.Zero
+public import Init.Prelude
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.NumberTheory.NumberField.Basic
+
+@[expose] public section
+
+section
+open NumberField IsDedekindDomain
+set_option maxHeartbeats 1000000 in
+abbrev _root_.GlobalTheory.T.TwistedThetaKernelCondition : Prop :=  GlobalTheory.Published.HoweDualityReal → _root_.GlobalTheory.FunPr.ThetaLocalInputs →
+    ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
+    (Bs : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (Xc : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
+    (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W), GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsTriple Bs G Xc om om' →
+    ∀ (R : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a') (Rf : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'),
+    GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched Bs G Xc om om' R Rf →
+    ∀ N, GlobalTheory.CoinvKer.IsThetaSub om Bs.emb (GlobalTheory.SquareAgree.algD G.M Bs.ψ Bs.emb) N →
+      N ≠ GlobalTheory.SquareAgree.algD G.M Bs.ψ Bs.emb →
+      ∀ ΦD ∈ N, GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.PolMatch Bs G Xc R Rf ΦD 0
+end
