@@ -1,0 +1,330 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.FibRepApply
+public import Batteries.Logic
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.OpenClosedSequences
+public import Development.AbelianVarietyTheory.Definitions.Divisors.T2SpaceGeneralLinearGroup
+public import Development.AbelianVarietyTheory.Definitions.Foundations.MatrixMeasurableSpace
+public import Development.AbelianVarietyTheory.Definitions.Foundations.SecondCountableAndT2LocalField
+public import Development.AbelianVarietyTheory.Definitions.Foundations.SmoothPartStable
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.IsSubquotientDetRepParInd
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.IsUnitarisableOfCharIff
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.LeviEmbMemNormalizerLower
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsGLMulRightColumnsEqZeroOfRankStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.IsClosedEmbeddingTopEmb
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.IwasawaBlockTriangular
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.LeftColumnsMulVecInjectiveOfRankEqCardStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.SchwartzBruhatSweepSmoothlyInducedStatement
+public import Init.Core
+public import Init.Data.Bool
+public import Init.Data.Cast
+public import Init.Data.Function
+public import Init.Data.Int.Basic
+public import Init.Data.Nat.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Init.SizeOf
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Equiv.Defs
+public import Mathlib.Algebra.Group.Hom.Basic
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Basic
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.NeZero
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Equiv.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.LinearMap.End
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.NeZero
+public import Mathlib.Algebra.Notation.Defs
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Notation.Prod
+public import Mathlib.Algebra.Order.GroupWithZero.Canonical
+public import Mathlib.Algebra.Order.Ring.Nat
+public import Mathlib.Algebra.Order.SuccPred
+public import Mathlib.Algebra.Ring.Basic
+public import Mathlib.Algebra.Ring.CompTypeclasses
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Nat
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Embedding
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Bool.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Fintype.BigOperators
+public import Mathlib.Data.Fintype.Card
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Fintype.Sum
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.ColumnRowPartitioned
+public import Mathlib.Data.Matrix.Diagonal
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Basic
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Nat.Init
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Data.Set.Lattice.Indexed
+public import Mathlib.Data.Set.Operations
+public import Mathlib.LinearAlgebra.DFinsupp
+public import Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
+public import Mathlib.LinearAlgebra.Matrix.Block
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.Matrix.Invertible
+public import Mathlib.LinearAlgebra.Matrix.Rank
+public import Mathlib.Logic.Equiv.Defs
+public import Mathlib.NumberTheory.LocalField.Basic
+public import Mathlib.Order.Defs.Lattice
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.Order.Lattice
+public import Mathlib.Order.SetNotation
+public import Mathlib.Order.SuccPred.Nat
+public import Mathlib.RepresentationTheory.Basic
+public import Mathlib.RepresentationTheory.Intertwining
+public import Mathlib.RingTheory.Henselian
+public import Mathlib.RingTheory.LocalRing.Defs
+public import Mathlib.RingTheory.RegularLocalRing.Defs
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.SimpleRing.Principal
+public import Mathlib.RingTheory.Valuation.ValuativeRel.Basic
+public import Mathlib.Tactic.FieldSimp.Lemmas
+public import Mathlib.Tactic.NormNum.Basic
+public import Mathlib.Tactic.NormNum.Inv
+public import Mathlib.Tactic.NormNum.Result
+public import Mathlib.Tactic.Ring.Basic
+public import Mathlib.Tactic.Ring.Common
+public import Mathlib.Topology.Algebra.Constructions
+public import Mathlib.Topology.Algebra.Field
+public import Mathlib.Topology.Algebra.Group.Units
+public import Mathlib.Topology.Algebra.Ring.Basic
+public import Mathlib.Topology.Bases
+public import Mathlib.Topology.Basic
+public import Mathlib.Topology.Constructions
+public import Mathlib.Topology.Constructions.SumProd
+public import Mathlib.Topology.Continuous
+public import Mathlib.Topology.Defs.Basic
+public import Mathlib.Topology.Defs.Induced
+public import Mathlib.Topology.Instances.Matrix
+public import Mathlib.Topology.Maps.Basic
+public import Mathlib.Topology.Separation.Hausdorff
+
+@[expose] public section
+
+noncomputable section
+
+open GlobalTheory.PRep GlobalTheory.SplitWeil GlobalTheory.SmGL GlobalTheory.IndefiniteRowSideFullHecke.OpenClosedSequences GlobalTheory.RankStrataProof GlobalTheory.CompanionTheory.ThetaGLLen Matrix Topology
+
+namespace GlobalTheory.CompanionTheory.ThetaGLLen
+
+variable {k : Type} [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k]
+  {a b c d : Type} [Fintype a] [DecidableEq a] [Fintype b] [DecidableEq b] [Fintype c] [DecidableEq c]
+  [Fintype d] [DecidableEq d]
+
+def topR (e : c ⊕ d ≃ b) (y : Matrix c a k) : Matrix b a k := (fromRows y 0).submatrix e.symm id
+
+omit [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] [Fintype a] [DecidableEq a]
+  [Fintype b] [DecidableEq b] [Fintype c] [DecidableEq c] [Fintype d] [DecidableEq d] in
+@[simp] theorem topR_inl (e : c ⊕ d ≃ b) (y : Matrix c a k) (i : c) (l : a) :
+    topR e y (e (.inl i)) l = y i l := by
+  simp [topR]
+
+omit [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] [Fintype a] [DecidableEq a]
+  [Fintype b] [DecidableEq b] [Fintype c] [DecidableEq c] [Fintype d] [DecidableEq d] in
+@[simp] theorem topR_inr (e : c ⊕ d ≃ b) (y : Matrix c a k) (i : d) (l : a) :
+    topR e y (e (.inr i)) l = 0 := by
+  simp [topR]
+
+theorem mul_topR (e : c ⊕ d ≃ b) (g : Matrix b b k) (y : Matrix c a k) (i : b) (l : a) :
+    (g * topR e y) i l = ∑ m, g i (e (.inl m)) * y m l := by
+  rw [Matrix.mul_apply, ← e.sum_comp, Fintype.sum_sum_type]
+  simp
+
+theorem topR_mul (e : c ⊕ d ≃ b) (y : Matrix c a k) (g : Matrix a a k) :
+    topR e (y * g) = topR e y * g := by
+  ext i l
+  obtain ⟨i | i, rfl⟩ := e.surjective i <;> simp [Matrix.mul_apply]
+
+theorem rank_topR (e : c ⊕ d ≃ b) (y : Matrix c a k) : (topR e y).rank = y.rank := by
+  refine le_antisymm ?_ ?_
+  · have h : topR e y = ((1 : Matrix b b k).submatrix id fun i => e (.inl i)) * y := by
+      ext i l
+      obtain ⟨i | i, rfl⟩ := e.surjective i
+      · rw [topR_inl, Matrix.mul_apply]
+        change y i l = ∑ j, (1 : Matrix b b k) (e (.inl i)) (e (.inl j)) * y j l
+        simp [Matrix.one_apply, e.injective.eq_iff]
+      · simp [Matrix.mul_apply, one_apply]
+    rw [h]
+    exact rank_mul_le_right _ _
+  · have h : (topR e y).submatrix (fun i => e (.inl i)) (Equiv.refl a) = y := by
+      ext i l; simp
+    have h2 := rank_submatrix_le (topR e y) (fun i => e (.inl i)) (Equiv.refl a)
+    rwa [h] at h2
+
+def topEmbR (e : c ⊕ d ≃ b) {κ : ℕ} (y : RankIn (k := k) (a := a) (b := c) {κ}) :
+    RankIn (k := k) (a := a) (b := b) {κ} :=
+  ⟨topR e y.1, (rank_topR e y.1).trans y.2⟩
+
+theorem range_topEmbR (e : c ⊕ d ≃ b) {κ : ℕ} :
+    Set.range (topEmbR (k := k) (a := a) e (κ := κ)) = {x | ∀ j i, x.1 (e (.inr j)) i = 0} := by
+  ext x
+  refine ⟨?_, fun hx => ?_⟩
+  · rintro ⟨y, rfl⟩ j i
+    exact topR_inr e _ j i
+  · have hxy : x.1 = topR e (x.1.submatrix (fun i => e (.inl i)) id) := by
+      ext i l
+      obtain ⟨i | i, rfl⟩ := e.surjective i
+      · simp
+      · simpa using hx i l
+    have hr : (x.1.submatrix (fun i => e (.inl i)) id).rank = κ := by
+      rw [← rank_topR e, ← hxy]
+      exact x.2
+    exact ⟨⟨_, hr⟩, Subtype.ext hxy.symm⟩
+
+theorem isClosedEmbedding_topEmbR (e : c ⊕ d ≃ b) {κ : ℕ} :
+    IsClosedEmbedding (topEmbR (k := k) (a := a) e (κ := κ)) := by
+  obtain ⟨_, _⟩ := SplitWeil.Model.secondCountable_and_t2_local_field (k := k)
+  refine ⟨IsEmbedding.of_comp (g := fun x : RankIn (k := k) (a := a) (b := b) {κ} =>
+    x.1.submatrix (fun i => e (.inl i)) id)
+    (Continuous.subtype_mk (continuous_matrix fun i l => ?_) _)
+    (continuous_subtype_val.matrix_submatrix _ _) ?_, ?_⟩
+  · obtain ⟨i | i, rfl⟩ := e.surjective i
+    · simp only [topR_inl]
+      exact continuous_subtype_val.matrix_elem _ _
+    · simp only [topR_inr]
+      exact continuous_const
+  · convert IsEmbedding.subtypeVal (p := fun y : Matrix c a k => y.rank ∈ ({κ} : Set ℕ)) using 1
+    funext y
+    ext i l
+    exact topR_inl e _ i l
+  · rw [range_topEmbR]
+    simp only [Set.setOf_forall]
+    exact isClosed_iInter fun i => isClosed_iInter fun j =>
+      isClosed_eq (continuous_subtype_val.matrix_elem _ _) continuous_const
+
+theorem lAct_topEmbR (e : c ⊕ d ≃ b) {κ : ℕ}
+    (y : RankIn (k := k) (a := a) (b := c) {κ}) (p : parab k (two e)) :
+    lAct _ (topEmbR e y) p = topEmbR e (lAct _ y (show GL c k from leviProj k (two e) p false)) := by
+  refine Subtype.ext ?_
+  rw [lAct_val]
+  ext i l
+  refine (mul_topR e _ _ i l).trans ?_
+  obtain ⟨i | i, rfl⟩ := e.surjective i
+  · refine Eq.trans ?_ (topR_inl e _ i l).symm
+    rw [lAct_val]
+    have : (show GL c k from leviProj k (two e) p false)⁻¹ = leviProj k (two e) p⁻¹ false := by
+      rw [map_inv]; rfl
+    rw [this]
+    rfl
+  · refine Eq.trans ?_ (topR_inr e _ i l).symm
+    refine Finset.sum_eq_zero fun m _ => ?_
+    rw [(mem_parab_two k).1 (inv_mem p.2), zero_mul]
+
+theorem eq_zero_of_vecMul (e : c ⊕ d ≃ b) {κ : ℕ} (hκ : κ = Fintype.card c)
+    (y : RankIn (k := k) (a := a) (b := c) {κ})
+    (v : c → k) (h : v ᵥ* y.1 = 0) : v = 0 := by
+  refine GlobalTheory.T.leftColumns_mulVec_injective_of_rank_eq_card k a c d b e (topR e y.1)ᵀ
+    ((rank_transpose _).trans (((rank_topR e y.1).trans y.2).trans hκ)) (fun i j => topR_inr e _ j i) v ?_
+  have hs : (topR e y.1)ᵀ.submatrix id (fun i => e (.inl i)) = y.1ᵀ := by
+    ext i l; simp
+  rw [hs, mulVec_transpose, h]
+
+theorem exists_topEmbR (e : c ⊕ d ≃ b) {κ : ℕ} (hκ : κ = Fintype.card c)
+    (x : RankIn (k := k) (a := a) (b := b) {κ}) :
+    ∃ y, ∃ w ∈ KO k b, x = lAct _ (topEmbR e y) w := by
+  obtain ⟨g, hg⟩ := GlobalTheory.T.exists_GL_mul_rightColumns_eq_zero_of_rank k a c d b e x.1ᵀ ((rank_transpose _).trans (x.2.trans hκ))
+  obtain ⟨u, hu⟩ := (isUnit_transpose _).2 g.isUnit
+  obtain ⟨p, hp, w, hw, h⟩ := iwasawa_blockTriangular k b (fun i => (blk (two e) i).toNat) u
+  have hp' : p ∈ parab k (two e) := (mem_parab_two k).2 fun i j => hp (by
+    rw [← two_false e, ← two_true e]; simp only [blk_apply]; simp)
+  have : lAct _ x u⁻¹ ∈ Set.range (topEmbR (k := k) (a := a) e (κ := κ)) := by
+    rw [range_topEmbR]
+    intro j i
+    rw [lAct_val, inv_inv, hu, ← transpose_transpose x.1, ← transpose_mul]
+    exact hg i j
+  obtain ⟨y, hy⟩ := this
+  refine ⟨_, w, hw, Eq.trans ?_ (congrArg (lAct _ · w) (lAct_topEmbR e y ⟨p, hp'⟩))⟩
+  show x = lAct _ (lAct _ _ p) w
+  rw [hy, ← lAct_mul, ← lAct_mul, ← h, inv_mul_cancel, lAct_one]
+
+theorem fibChar_fst (e : c ⊕ d ≃ b) (μ : kˣ →* ℂˣ) (γ : GL a k) :
+    fibChar a c d μ (γ, 1, 1) = omChar a b μ (γ, 1) := by
+  have hb : ((Fintype.card c : ℂ) + Fintype.card d) / 2 = (Fintype.card b : ℂ) / 2 := by
+    rw [← Fintype.card_congr e, Fintype.card_sum]; push_cast; ring
+  simp [fibChar, omChar, hb]
+
+theorem fibStr : ∀ (k : Type) [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k]
+    (a b c d : Type) [Fintype a] [DecidableEq a] [Fintype b] [DecidableEq b] [Fintype c] [DecidableEq c]
+    [Fintype d] [DecidableEq d] (e : c ⊕ d ≃ b) (κ : ℕ), κ = Fintype.card c → ∀ μ : kˣ →* ℂˣ,
+    IsSmoothChar μ → Nonempty ((omegaOn a b μ {κ}).Equiv (indSnd e (fibRep a c d μ κ))) := by
+  intro k _ _ _ _ a b c d _ _ _ _ _ _ _ _ e κ hκ μ hμ
+  obtain ⟨_, _⟩ := SplitWeil.Model.secondCountable_and_t2_local_field (k := k)
+  obtain ⟨E, hE⟩ := GlobalTheory.T.schwartzBruhat_sweep_smoothly_induced (GL b k)
+    (RankIn (k := k) (a := a) (b := b) {κ}) (RankIn (k := k) (a := a) (b := c) {κ})
+    (SB (RankIn (k := k) (a := a) (b := c) {κ})) (lAct {κ}) (lAct_one _) (lAct_mul _) (continuous_lAct _)
+    (topEmbR e) (isClosedEmbedding_topEmbR e) (parab k (two e)) (KO k b) SplitFlip.isCompact_KO
+    (exists_topEmbR e hκ)
+    (fun y p => lAct _ y (show GL c k from leviProj k (two e) p false)) (lAct_topEmbR e)
+    (fun y y' g h => by
+      refine inv_mem_iff.1 ((mem_parab_two k).2 fun j i => ?_)
+      have h0 : (fun m => (g⁻¹).val (e (.inr j)) (e (.inl m))) ᵥ* y.1 = 0 := by
+        funext l
+        have := congrArg (fun x : RankIn (k := k) (a := a) (b := b) {κ} => x.1 (e (.inr j)) l) h
+        simp only [lAct_val] at this
+        exact (mul_topR e _ _ _ l).symm.trans (this.trans (topR_inr e _ j l))
+      exact congrFun (eq_zero_of_vecMul e hκ y _ h0) i)
+    ((omChar a b μ).comp (MonoidHom.inr _ _))
+    ((isSmoothChar_omChar hμ).comp _ (continuous_const.prodMk continuous_id))
+    ((twist (MonoidHom.comp ((fibRep a c d μ κ).comp (MonoidHom.inr _ _)) (leviTwo k c d).symm.toMonoidHom)
+      (deltaHalf k (Two c d))).comp (leviProj k (two e)))
+    (LinearEquiv.refl ℂ _)
+    (fun p w y => by
+      set m := leviProj k (two e) p with hm
+      have hd : GeneralLinearGroup.det (p : GL b k) =
+          GeneralLinearGroup.det (m false) * GeneralLinearGroup.det (m true) :=
+        (det_parab k (two e) p).trans ((Fintype.prod_bool _).trans (mul_comm _ _))
+      have hδ := deltaHalf_two (k := k) (m false, m true)
+      rw [show leviTwo k c d (m false, m true) = m from (leviTwo k c d).right_inv m] at hδ
+      show (deltaHalf k (Two c d) m : ℂ) * (fibRep a c d μ κ (1, m false, m true) w).1 y = _
+      rw [fibRep_apply, ← mul_assoc, ← Units.val_mul]
+      refine congrArg₂ _ (congrArg _ ?_) rfl
+      rw [hδ]
+      simp only [fibChar, omChar, MonoidHom.comp_apply, MonoidHom.mul_apply, detChar_apply,
+        MonoidHom.inr_apply, MonoidHom.coe_fst, MonoidHom.coe_snd, map_one, one_mul, hd, map_mul,
+        neg_div, absPow_neg, MonoidHom.inv_apply, absPow_add, mul_inv, inv_inv, inv_one]
+      ext
+      simp only [Units.val_mul, Units.val_inv_eq_inv_val]
+      field_simp)
+  have hE' : ∀ Φ g y, ((E Φ).1.1 g).1 y =
+      (omChar a b μ (1, g) : ℂ) * Φ.1 (lAct _ (topEmbR e y) g) := hE
+  refine ⟨.mk E fun g => LinearMap.ext fun Φ => Subtype.ext (Subtype.ext (funext fun x =>
+    Subtype.ext (funext fun y => ?_)))⟩
+  obtain ⟨γ, h⟩ := g
+  refine (hE' _ x y).trans (Eq.trans ?_ (fibRep_apply a c d μ κ γ 1 1 ((E Φ).1.1 (x * h)) y).symm)
+  rw [hE', omegaOn_apply, fibChar_fst e, ← mul_assoc, ← mul_assoc, ← Units.val_mul, ← Units.val_mul,
+    ← map_mul, ← map_mul]
+  refine congrArg₂ _ (congrArg _ (congrArg _ (by simp))) (congrArg _ (Subtype.ext ?_))
+  simp only [lAct_val, act, topEmbR, Units.val_mul, topR_mul, _root_.mul_inv_rev, Matrix.mul_assoc,
+    Units.val_one, Matrix.one_mul, inv_one, Matrix.mul_one]
+
+end GlobalTheory.CompanionTheory.ThetaGLLen
