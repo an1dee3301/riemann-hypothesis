@@ -10,30 +10,6 @@ public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsTransl
 public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
 public import Development.AbelianVarietyTheory.Definitions.Foundations.EventuallyNormFinLeOne
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Notation.Indicator
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Logic.Function.Basic
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.Order.Filter.Cofinite
-public import Mathlib.Order.Filter.Defs
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
-public import Mathlib.RingTheory.Valuation.ValuationSubring
 
 @[expose] public section
 

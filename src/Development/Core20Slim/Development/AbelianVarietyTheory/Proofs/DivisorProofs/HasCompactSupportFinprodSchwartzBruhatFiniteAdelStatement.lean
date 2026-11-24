@@ -9,34 +9,6 @@ public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsNatMul
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsTranslatesEqPrimFrameLat
 public import Development.AbelianVarietyTheory.Definitions.Divisors.HilbertNinetyQuotientHomEqIff
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.BigOperators.Finprod
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Notation.Indicator
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.Order.Filter.Cofinite
-public import Mathlib.Order.Filter.Defs
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
-public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-public import Mathlib.RingTheory.Valuation.ValuationSubring
-public import Mathlib.Topology.Algebra.Support
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 

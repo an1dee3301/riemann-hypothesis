@@ -3,23 +3,6 @@ module
 public import Mathlib
 public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
 public import Development.AbelianVarietyTheory.Definitions.Divisors.CTSmallCone
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Subgroup.Ker
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Topology.Algebra.Constructions
-public import Mathlib.Topology.Defs.Basic
 
 @[expose] public section
 

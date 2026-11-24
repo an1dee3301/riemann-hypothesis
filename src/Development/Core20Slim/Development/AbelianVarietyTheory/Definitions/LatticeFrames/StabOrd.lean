@@ -18,12 +18,6 @@ public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
 public import Formalism.LocalToGlobal.SiegelLatticeTheory.ClosedLocalOrbits.RealObj
 public import Formalism.SharpRestriction.GrowthBounds.SegRing
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Prelude
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
 public import ReciprocityTheory.ReductiveGroups.DiscreteSeries.TailIntegrals.HermitianLiftIdentities
 
 @[expose] public section
