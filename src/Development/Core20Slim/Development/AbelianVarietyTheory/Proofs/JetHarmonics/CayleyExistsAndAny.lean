@@ -1,6 +1,8 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Jets.SideFam
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Jets.SumIoPr
 public import Formalism.PeriodIntegrals.UpqRep
 public import Init.Core
 public import Init.Data.Zero

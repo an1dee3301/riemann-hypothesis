@@ -13,88 +13,6 @@ public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedSmooth
 public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedType
 public import Formalism.RealPlaceAnalysis.Complexify
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Data.List.Basic
-public import Init.Data.List.Lemmas
-public import Init.Data.List.OfFn
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Subsemigroup.Defs
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Notation.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Calculus.ContDiff.Basic
-public import Mathlib.Analysis.Calculus.ContDiff.Defs
-public import Mathlib.Analysis.Calculus.ContDiff.Operations
-public import Mathlib.Analysis.Calculus.Deriv.Basic
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.Normed.Algebra.Exponential
-public import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.Lemmas
-public import Mathlib.Analysis.Normed.Group.Constructions
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Group.Real
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.Normed.Ring.Lemmas
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.Real.Star
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.ENat.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Matrix.Basic
-public import Mathlib.Data.Matrix.Diagonal
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Operations
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.LinearAlgebra.Complex.Module
-public import Mathlib.LinearAlgebra.Matrix.ConjTranspose
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
-public import Mathlib.LinearAlgebra.Matrix.InvariantBasisNumber
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-public import Mathlib.LinearAlgebra.Span.Defs
-public import Mathlib.Order.Notation
-public import Mathlib.Order.TypeTags
-public import Mathlib.RingTheory.FiniteType
-public import Mathlib.Topology.Algebra.Field
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
-public import Mathlib.Topology.Algebra.UniformMulAction
-public import Mathlib.Topology.Instances.Matrix
-public import Mathlib.Topology.MetricSpace.Algebra
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -159,8 +77,18 @@ def lieJ (ε : Fin n → Bool) : Submodule ℝ (Matrix (Fin n) (Fin n) ℂ) wher
     simp only [Set.mem_setOf_eq] at *
     rw [conjTranspose_smul, star_trivial, Matrix.smul_mul, Matrix.mul_smul, ← smul_add, hX, smul_zero]
 
+theorem exp_memJ {X : Matrix (Fin n) (Fin n) ℂ} (hX : X ∈ lieJ ε) (t : ℝ) : NormedSpace.exp (t • X) ∈ UJset ε :=
+  exp_mem (IsUnit.of_mul_eq_one _ (Formalism.REAL.Jm_mul_self ε)) hX t
 
+theorem expProd_memJ {k : ℕ} {Xs : Fin k → Matrix (Fin n) (Fin n) ℂ} (hX : ∀ i, Xs i ∈ lieJ ε) (t : Fin k → ℝ) :
+    (List.ofFn fun i => NormedSpace.exp (t i • Xs i)).prod ∈ UJset ε :=
+  list_prod_mem (G := Formalism.REAL.Jm ε) _ fun g hg => by
+    obtain ⟨i, rfl⟩ := (List.mem_ofFn' _ _).1 hg
+    exact exp_memJ (hX i) _
 
+theorem rep_mul (hσ : IsURepOn (UJset ε) σ) {a b : Matrix (Fin n) (Fin n) ℂ} (ha : a ∈ UJset ε) (hb : b ∈ UJset ε)
+    (v : H) : σ a (σ b v) = σ (a * b) v := by
+  rw [hσ.1.2 _ ha _ hb]; rfl
 
 def smSub (ε : Fin n → Bool) (σ : Matrix (Fin n) (Fin n) ℂ → (H →L[ℂ] H)) : Submodule ℂ H where
   carrier := {w | SmoothVec (lieJ ε : Set _) σ w}
@@ -168,7 +96,36 @@ def smSub (ε : Fin n → Bool) (σ : Matrix (Fin n) (Fin n) ℂ → (H →L[ℂ
   zero_mem' := fun k Xs _ => by simpa only [map_zero] using contDiff_const
   smul_mem' := fun c w hw k Xs hX => by simpa only [map_smul] using (hw k Xs hX).const_smul c
 
+theorem hasDerivAt_dRep {w : H} (hw : w ∈ smSub ε σ) {X : Matrix (Fin n) (Fin n) ℂ} (hX : X ∈ lieJ ε) :
+    HasDerivAt (fun t : ℝ => σ (NormedSpace.exp (t • X)) w) (dRep σ X w) 0 := by
+  have h := (hw 1 (fun _ => X) fun _ => hX).comp (contDiff_pi.2 fun _ : Fin 1 => (contDiff_id : ContDiff ℝ ∞ (id : ℝ → ℝ)))
+  have h2 : ContDiff ℝ ∞ fun t : ℝ => σ (NormedSpace.exp (t • X)) w := by
+    simpa [Function.comp_def] using h
+  exact (h2.differentiable (by simp) 0).hasDerivAt
 
+theorem dRep_mem (hσ : IsURepOn (UJset ε) σ) {w : H} (hw : w ∈ smSub ε σ) {X : Matrix (Fin n) (Fin n) ℂ}
+    (hX : X ∈ lieJ ε) : dRep σ X w ∈ smSub ε σ := by
+  intro k Xs hXs
+  have h := hw (k + 1) (Fin.snoc Xs X) (by
+    intro i
+    refine Fin.lastCases ?_ (fun j => ?_) i
+    · simpa using hX
+    · simpa using hXs j)
+  have hs : ContDiff ℝ ∞ fun z : (Fin k → ℝ) × ℝ => (Fin.snoc z.1 z.2 : Fin (k + 1) → ℝ) := by
+    refine contDiff_pi.2 fun i => Fin.lastCases ?_ (fun j => ?_) i
+    · simpa using contDiff_snd
+    · simpa [Function.comp_def] using (contDiff_apply ℝ (fun _ => ℝ) j).comp (contDiff_fst (F := ℝ))
+  have h2 : ContDiff ℝ ∞ fun z : (Fin k → ℝ) × ℝ =>
+      σ ((List.ofFn fun i => NormedSpace.exp (z.1 i • Xs i)).prod) (σ (NormedSpace.exp (z.2 • X)) w) := by
+    convert h.comp hs using 2 with z
+    rw [rep_mul hσ (expProd_memJ hXs _) (exp_memJ hX _)]
+    simp only [Function.comp_def, List.ofFn_succ_last, Fin.snoc_castSucc, Fin.snoc_last, List.prod_append,
+      List.prod_singleton]
+  have h3 := ContDiff.fderiv (𝕜 := ℝ) (m := ∞) (n := ∞) (f := fun (t : Fin k → ℝ) (s : ℝ) =>
+      σ ((List.ofFn fun i => NormedSpace.exp (t i • Xs i)).prod) (σ (NormedSpace.exp (s • X)) w))
+      (g := fun _ => 0) h2 contDiff_const (by simp)
+  convert h3.clm_apply (contDiff_const (c := (1 : ℝ))) using 2 with t
+  exact (((σ _).restrictScalars ℝ).hasFDerivAt.comp_hasDerivAt 0 (hasDerivAt_dRep hw hX)).deriv.symm
 
 variable {φ : Matrix (Fin n) (Fin n) ℂ → ℝ}
 

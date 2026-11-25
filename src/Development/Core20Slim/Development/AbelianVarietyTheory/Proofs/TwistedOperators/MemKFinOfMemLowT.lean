@@ -18,35 +18,6 @@ public import Formalism.LocalToGlobal.IndefiniteReal.ScalarOnPartsFull
 public import Formalism.RealPlaceAnalysis.Complexify
 public import Formalism.SharpRestriction.CuspSpanNormBounds.RelevantZeroGramTerms
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Lattice
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Set.Defs
-public import Mathlib.LinearAlgebra.FiniteDimensional.Defs
-public import Mathlib.LinearAlgebra.Multilinear.Basic
-public import Mathlib.Order.CompleteLattice.Defs
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Notation
 
 @[expose] public section
 

@@ -21,14 +21,6 @@ public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
 public import Formalism.RealPlaceAnalysis.Complexify
 public import Formalism.SharpRestriction.CuspSpanNormBounds.RelevantZeroGramTerms
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Data.Set.Defs
-public import Mathlib.LinearAlgebra.Matrix.Defs
 
 @[expose] public section
 

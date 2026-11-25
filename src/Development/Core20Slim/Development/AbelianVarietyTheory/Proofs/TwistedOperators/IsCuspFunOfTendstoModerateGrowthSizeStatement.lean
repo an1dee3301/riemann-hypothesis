@@ -18,31 +18,6 @@ public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
 public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.ENNReal.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Nat.Basic
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.Order.Filter.AtTopBot.Defs
-public import Mathlib.Order.Filter.Defs
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.Order.Real
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 

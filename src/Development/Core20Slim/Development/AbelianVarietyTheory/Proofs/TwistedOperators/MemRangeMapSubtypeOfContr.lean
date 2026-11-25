@@ -3,22 +3,6 @@ module
 public import Mathlib
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.FiniteSupport
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ProdUpdateSelf
-public import Init.Prelude
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.LinearMap.End
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.LinearMap
-public import Mathlib.Algebra.Module.Submodule.Range
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.LinearAlgebra.PiTensorProduct.Basic
 
 @[expose] public section
 

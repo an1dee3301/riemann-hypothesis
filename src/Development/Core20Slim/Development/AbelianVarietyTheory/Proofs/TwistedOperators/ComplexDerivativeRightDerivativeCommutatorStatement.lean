@@ -20,19 +20,6 @@ public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
 public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedSmooth
 public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Prelude
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Set.Defs
-public import Mathlib.LinearAlgebra.Matrix.Defs
 
 @[expose] public section
 

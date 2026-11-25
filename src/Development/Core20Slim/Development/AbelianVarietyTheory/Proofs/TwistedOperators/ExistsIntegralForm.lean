@@ -8,6 +8,7 @@ public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.Twi
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsFockPolynomialIsoUnitaryPair
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.DiscreteSeriesPureInnerProductsTensorProduct
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.SubstitutionTotalDegreeLe
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.MultTEqZero
 public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.OmPureTensorOOfFinite
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.NoIntertwinerSmallerFockToDiscreteSeries
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.EquivariantMapCarriesGelfandInvariantToFunction
@@ -30,11 +31,9 @@ public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.Twi
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.KMeanMemKFinOfCoefFam
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.IntegrableOnMulRight
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ItEqSumKMean
-public import Batteries.Classes.RatCast
 public import Development.Core20Slim.Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.KTypeExtension
 public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.RaisingLoweringOperators
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.EqZeroOfInnerSmooth
-public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsRealIntertwinerOfCompactGroupIntertwiner
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ChosenSeries
 public import Formalism.FormalDegreeBessel.StatementBF
 public import Formalism.FormalDegreeBessel.StatementDS
@@ -60,138 +59,6 @@ public import Formalism.RealPlaceAnalysis.SmoothVectorGrowthBound
 public import Formalism.SharpRestriction.CuspSpanNormBounds.RelevantZeroGramTerms
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.ByCases
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Function
-public import Init.Data.Rat.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Init.SizeOf
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Finsupp
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.IsApply
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Nat.Defs
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.BigOperators
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Subsemigroup.Defs
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Nat
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Equiv.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.LinearMap.End
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Basic
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Ker
-public import Mathlib.Algebra.Module.Submodule.Lattice
-public import Mathlib.Algebra.Module.Submodule.LinearMap
-public import Mathlib.Algebra.Module.Submodule.Map
-public import Mathlib.Algebra.Module.Submodule.Range
-public import Mathlib.Algebra.MonoidAlgebra.Basic
-public import Mathlib.Algebra.MonoidAlgebra.Defs
-public import Mathlib.Algebra.MvPolynomial.Basic
-public import Mathlib.Algebra.MvPolynomial.Rename
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Calculus.Deriv.Basic
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.Normed.Algebra.Exponential
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.Lemmas
-public import Mathlib.Analysis.Normed.Group.Continuity
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.IsEmpty.Defs
-public import Mathlib.Basic.Logic.Basic
-public import Mathlib.Basic.Nontrivial.Defs
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Finset.Empty
-public import Mathlib.Data.Finset.Insert
-public import Mathlib.Data.Finsupp.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Matrix.Diagonal
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Operations
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.GroupTheory.GroupAction.Ring
-public import Mathlib.LinearAlgebra.Basis.VectorSpace
-public import Mathlib.LinearAlgebra.BilinearMap
-public import Mathlib.LinearAlgebra.FiniteDimensional.Basic
-public import Mathlib.LinearAlgebra.FiniteDimensional.Defs
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-public import Mathlib.LinearAlgebra.Matrix.Trace
-public import Mathlib.LinearAlgebra.Multilinear.Basic
-public import Mathlib.LinearAlgebra.PiTensorProduct.Basic
-public import Mathlib.LinearAlgebra.Span.Basic
-public import Mathlib.LinearAlgebra.Span.Defs
-public import Mathlib.LinearAlgebra.UnitaryGroup
-public import Mathlib.Logic.Function.Basic
-public import Mathlib.MeasureTheory.Function.L1Space.Integrable
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
-public import Mathlib.MeasureTheory.Integral.IntegrableOn
-public import Mathlib.MeasureTheory.MeasurableSpace.Constructions
-public import Mathlib.MeasureTheory.MeasurableSpace.Defs
-public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
-public import Mathlib.MeasureTheory.Measure.Restrict
-public import Mathlib.MeasureTheory.OuterMeasure.AE
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.Order.BoundedOrder.Basic
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Filter.Basic
-public import Mathlib.Order.Notation
-public import Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic
-public import Mathlib.Topology.Algebra.Constructions
-public import Mathlib.Topology.Algebra.Field
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
-public import Mathlib.Topology.Algebra.Ring.Basic
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.Defs.Induced
-public import Mathlib.Topology.Instances.Matrix
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Cauchy
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -292,6 +159,31 @@ open GlobalTheory.IndefiniteRowSideFullHecke.RaisingLoweringOperators GlobalTheo
 
 variable {D : D7} {V W : HSp D} {S S' : D.what₂.Tau → SPar}
 
+theorem exists_local {X : ProvA} (hX : ChosenSeries X) (h3 : Formalism.MainNotions.SchurIrreducible.ArchimedeanRallisUpDownLine X) (h5 : GlobalTheory.Published.HarishChandraModules)
+    (hB : ModelsAreCoverSeries D) (M : DSModel V S) (M' : DSModel W S') (τ : D.what₂.Tau) {t : ℕ}
+    {al be ga de : List ℚ} (hd : Formalism.MainNotions.SchurIrreducible.DataAR t al be ga de) {aS aT : ℚ}
+    (hS : S τ = dualPar (signed (al ++ be) (ga ++ de) aT))
+    (hS' : S' τ = dualPar (signed (al ++ block t ++ de) (ga ++ be) aS)) :
+    (kFin M τ ≤ M.sm τ ∧ kFin M' τ ≤ M'.sm τ) ∧ ∃ a a', IsKAct M τ a ∧ IsKAct M' τ a' ∧
+      AbsIrr (fun X : lieAt V τ => a X) ∧ LocKer M M' τ aS aT a' := by
+  obtain ⟨-, p1, p2, -⟩ := GlobalTheory.LowestTypes.lowest_types t al be ga de hd.1
+  have ht := hd.1.1
+  have hn := hd.1.2.1
+  obtain ⟨⟨e, he⟩, m, hm, hU⟩ := hB.1 X V S M τ (al.length + be.length) (ga.length + de.length) _ _ aT
+    ⟨by omega, by simp, by simp, p1, hX _ _ _ p1, hS⟩
+  obtain ⟨⟨e', he'⟩, m', hm', hU'⟩ := hB.2 X W S' M' τ (al.length + de.length + t) (ga.length + be.length) _ _ aS
+    ⟨by omega, by simp [block]; omega, by simp, p2, hX _ _ _ p2, hS'⟩
+  obtain ⟨U, hU⟩ := hU e he
+  obtain ⟨U', hU'⟩ := hU' e' he'
+  obtain ⟨κ, hκ⟩ := PolyIso.exists_isPolyIso _ _ _ _ _ _ _ _ e e' he he'
+  obtain ⟨s, a, ha⟩ := GlobalTheory.Chain.IoLift.kFin_smooth_isKAct D V S M τ _ _ _ _ _ _ _ hU
+  obtain ⟨s', a', ha'⟩ := GlobalTheory.Chain.IoLift.kFin_smooth_isKAct D W S' M' τ _ _ _ _ _ _ _ hU'
+  have i1 := GlobalTheory.SmallerSource.discrete_series_gk_admissible_irreducible X (h5.admQ5_of_harishChandraModules X) (by omega) (lamA al be ga de)
+  have i2 := GlobalTheory.SmallerSource.discrete_series_gk_admissible_irreducible X (h5.admQ5_of_harishChandraModules X) (by omega) (lamA' t al be ga de)
+  refine ⟨⟨s, s'⟩, a, a', ha, ha', GlobalTheory.KFinIrr.absIrr_kFin D V S M τ _ _ _ _ _ m U.toLinearEquiv a hU i1.2 i1.1 ha, ?_⟩
+  exact GlobalTheory.Chain.IoLift.KerTransfer.locKer_of_coverKer D V W S S' M M' τ _ _ _ _ _ _ _ _ e e' m m' aS aT U U' κ a' hm' hU hU' hκ ha'
+    (GlobalTheory.Chain.IoLift.CoverKernel.coverKer_of_down X _ _ _ _ _ _ (h3.1 t al be ga de hd).2.1 i1.2 (GlobalTheory.Chain.IoLift.UImg.unitaryImage _ _ _ _)
+      (GlobalTheory.Chain.IoLift.finiteSupport_of_admissible _ _ _ _ _ _ i2.1) GlobalTheory.Chain.IoLift.TensorFormProof.tensorForm)
 
 variable {M : DSModel V S} {M' : DSModel W S'}
 
@@ -410,7 +302,143 @@ theorem inclK_update (h : KSm M) (u : KVec M) (τ : D.what₂.Tau) (w : kFin M �
   · subst e; simp
   · simp [e]
 
+theorem exists_factor_kFin (hdec : GlobalTheory.Published.CuspDecaySobolev) {θ : InfFam D} (hθ : IsInfFam θ)
+    {aS aT : D.what₂.Tau → ℚ} {a : ∀ τ, Matrix (Fin V.rank) (Fin V.rank) ℂ → Module.End ℂ (kFin M τ)}
+    {a' : ∀ τ, Matrix (Fin W.rank) (Fin W.rank) ℂ → Module.End ℂ (kFin M' τ)} (ha : ∀ τ, IsKAct M τ (a τ))
+    (hirr : ∀ τ, AbsIrr fun X : lieAt V τ => a τ X) (hker : ∀ τ, LocKer M M' τ (aS τ) (aT τ) (a' τ))
+    (I : PolF D W.rank V.rank →ₗ[ℂ] KT M' →ₗ[ℂ] KT M) (B : PolF D W.rank V.rank →ₗ[ℂ] KT M' →ₗ[ℂ] (GA D V → ℂ))
+    (h0 : I ≠ 0) (hIs : ∀ τ, ∀ X ∈ lieAt V τ, ∀ φ y, I (srcOp M M' τ (aT τ) X φ) y = intersection_update_fsHerm_neg_one τ (a τ X) (I φ y))
+    (hIt : ∀ τ, ∀ Y ∈ lieAt W τ, ∀ φ y, I (tgtOp M M' τ (aS τ) Y φ) y + I φ (intersection_update_fsHerm_neg_one τ (a' τ Y) y) = 0)
+    (hBg : ∀ φ y, IsCuspGrow θ V (B φ y))
+    (hBs : ∀ τ, ∀ X ∈ lieAt V τ, ∀ φ y, B (srcOp M M' τ (aT τ) X φ) y = Rder θ V τ X (B φ y))
+    (hBt : ∀ τ, ∀ Y ∈ lieAt W τ, ∀ φ (y : KVec M'), B (tgtOp M M' τ (aS τ) Y φ) (PiTensorProduct.tprod ℂ y) +
+      B φ (intersection_update_fsHerm_neg_one τ (a' τ Y) (PiTensorProduct.tprod ℂ y)) = 0) :
+    (∃ T : KT M →ₗ[ℂ] (GA D V → ℂ), ∀ φ y, T (I φ y) = B φ y) ∧ Submodule.span ℂ {x | ∃ φ y, I φ y = x} = ⊤ := by
+  obtain ⟨μ, 𝓕, hμ, h𝓕⟩ := GlobalTheory.Ker.HypModel.exists_haar_fundDom D V
+  obtain ⟨E, hE0, hE⟩ := GlobalTheory.Chain.CuspL2.exists_embedding_skew hdec D θ V μ 𝓕 hθ hμ h𝓕
+  have s1 : ∀ τ X (p : D.what₂.Tau → LPol W.rank V.rank) x, glue (Function.update p τ (sOp M M' τ (aT τ) X x)) =
+      srcOp M M' τ (aT τ) X (glue (Function.update p τ x)) := fun τ X p x => by
+    rw [srcOp_glue, Function.update_idem, Function.update_self]
+  have s2 : ∀ τ Y (p : D.what₂.Tau → LPol W.rank V.rank) x, glue (Function.update p τ (tOp M M' τ (aS τ) Y x)) =
+      tgtOp M M' τ (aS τ) Y (glue (Function.update p τ x)) := fun τ X p x => by
+    rw [tgtOp_glue, Function.update_idem, Function.update_self]
+  have s3 : ∀ τ (A : Module.End ℂ (kFin M' τ)) (y : KVec M') z, PiTensorProduct.tprod ℂ (Function.update y τ (A z)) =
+      intersection_update_fsHerm_neg_one τ A (PiTensorProduct.tprod ℂ (Function.update y τ z)) := fun τ A y z => by
+    rw [position_tprod, Function.update_idem, Function.update_self]
+  have pI : ∀ τ L, IsContr τ L → ∀ p y,
+      IsLocPair M M' τ (aS τ) (aT τ) (a' τ) ((slice (multi I) τ p y).compr₂ L) := fun τ L hL p y => by
+    refine ⟨fun X hX P P' z z' => ?_, fun Y hY P z => ?_⟩
+    · have hL' := fun x => LinearMap.congr_fun (hL (a τ X)) x
+      simp only [LinearMap.comp_apply] at hL'
+      simp only [LinearMap.compr₂_apply, slice_apply, multi_apply, s1, hIs τ X hX, hL']
+      exact (ha τ).skew X hX _ _
+    · simp only [LinearMap.compr₂_apply, slice_apply, multi_apply, s2, s3]
+      rw [← map_add (f := _), hIt τ Y hY, map_zero]
+  have pB : ∀ τ p y, IsLocPair M M' τ (aS τ) (aT τ) (a' τ) ((slice (multi B) τ p y).compr₂ E) := fun τ p y => by
+    refine ⟨fun X hX P P' z z' => ?_, fun Y hY P z => ?_⟩
+    · simp only [LinearMap.compr₂_apply, slice_apply, multi_apply, s1, hBs τ X hX]
+      exact hE τ X hX _ _ (hBg _ _) (hBg _ _) (hBs τ X hX _ _ ▸ hBg _ _) (hBs τ X hX _ _ ▸ hBg _ _)
+    · simp only [LinearMap.compr₂_apply, slice_apply, multi_apply, s2, s3]
+      rw [← map_add (f := _), hBt τ Y hY, map_zero]
+  obtain ⟨⟨T, hT⟩, hs⟩ := exists_factor (fun τ (X : lieAt V τ) => sOp M M' τ (aT τ) X) _ hirr (multi I) (multi B)
+    (by by_contra hn; exact h0 (span_multi I fun p y => by_contra fun h => hn ⟨p, y, h⟩))
+    (fun τ X p y => by rw [multi_apply, multi_apply, ← srcOp_glue, hIs τ X X.2])
+    fun τ L hL p y hne => ⟨fun L' hL' p' y' => hker τ _ _ _ _ (pI τ L hL p y) (pI τ L' hL' p' y') hne,
+      fun p' y' n x z h => by
+        refine (hE0 _ (GlobalTheory.Chain.CuspGrowSpace.isCuspGrow_of_mem_span D θ V _ (sum_mem fun i _ => Submodule.subset_span (hBg _ _)))).2 ?_
+        set_option synthInstance.maxHeartbeats 100000 in
+          rw [map_sum]
+        exact hker τ _ _ _ _ (pI τ L hL p y) (pB τ p' y') hne n x z h⟩
+  refine ⟨⟨T, fun φ y => ?_⟩, eq_top_iff.2 (hs ▸ Submodule.span_mono ?_)⟩
+  · have := span_multi (I.compr₂ T - B) fun p y => sub_eq_zero.2 (hT p y)
+    exact sub_eq_zero.1 (LinearMap.congr_fun₂ this φ y)
+  · rintro _ ⟨p, y, rfl⟩
+    exact ⟨_, _, rfl⟩
 
+theorem exists_mult (hG : GlobalTheory.IndefiniteRowSideFullHecke.KTypeExtension.ExtExists D) (hdec : GlobalTheory.Published.CuspDecaySobolev) {θ : InfFam D}
+    (hθ : IsInfFam θ) (h : KSm M) (h' : KSm M')
+    {aS aT : D.what₂.Tau → ℚ} {a : ∀ τ, Matrix (Fin V.rank) (Fin V.rank) ℂ → Module.End ℂ (kFin M τ)}
+    {a' : ∀ τ, Matrix (Fin W.rank) (Fin W.rank) ℂ → Module.End ℂ (kFin M' τ)} (ha : ∀ τ, IsKAct M τ (a τ))
+    (ha' : ∀ τ, IsKAct M' τ (a' τ))
+    (hirr : ∀ τ, AbsIrr fun X : lieAt V τ => a τ X) (hker : ∀ τ, LocKer M M' τ (aS τ) (aT τ) (a' τ))
+    (It : PolF D W.rank V.rank →ₗ[ℂ] SmT M' →ₗ[ℂ] SmT M) (B : PolF D W.rank V.rank →ₗ[ℂ] SmT M' →ₗ[ℂ] (GA D V → ℂ))
+    {J : Set (GA D V)} {χ : GA D V → ℂ} (h0 : ∃ φ y, It φ (inclK h' y) ≠ 0)
+    (hK : ∀ τ (φ : PolF D W.rank V.rank), ∀ k ∈ maxCpt M τ, ∃ φ' : PolF D W.rank V.rank,
+      φ'.totalDegree ≤ φ.totalDegree ∧ ∀ v, inclT M (It φ' v) = actT M τ k (inclT M (It φ v)) ∧
+        B φ' v = rTr V (atTau θ V τ k) (B φ v))
+    (hIs : ∀ τ, ∀ X ∈ lieAt V τ, ∀ φ v, DerT M τ X (It φ v) (It (srcOp M M' τ (aT τ) X φ) v))
+    (hIt : ∀ τ, ∀ Y ∈ lieAt W τ, ∀ φ v v', DerT M' τ Y v v' → It (tgtOp M M' τ (aS τ) Y φ) v + It φ v' = 0)
+    (hBg : ∀ φ v, IsCuspGrow θ V (B φ v))
+    (hBs : ∀ τ, ∀ X ∈ lieAt V τ, ∀ φ v, B (srcOp M M' τ (aT τ) X φ) v = Rder θ V τ X (B φ v))
+    (hBt : ∀ τ, ∀ Y ∈ lieAt W τ, ∀ φ (v : M'.Vec) (w : M'.sm τ), (w : M'.H τ) = dRep (M'.rep τ) Y (v τ) →
+      B (tgtOp M M' τ (aS τ) Y φ) (PiTensorProduct.tprod ℂ v) +
+        B φ (PiTensorProduct.tprod ℂ (Function.update v τ w)) = 0)
+    (hlev : ∀ φ v, ∀ k ∈ J, ∀ g, B φ v (g * k) = χ k * B φ v g) :
+    ∃ u ∈ MultT θ M J χ, ∀ φ y, u (It φ (inclK h' y)) = B φ (inclK h' y) := by
+  have inj := inclK_injective h
+  obtain ⟨g, hg⟩ := LinearMap.exists_leftInverse_of_injective _ (LinearMap.ker_eq_bot.2 inj)
+  let I := (It.compl₂ (inclK h')).compr₂ g
+  have hI : ∀ φ y, inclK h (I φ y) = It φ (inclK h' y) := fun φ y => by
+    obtain ⟨z, hz⟩ := mem_range_inclK h (It φ (inclK h' y)) fun τ =>
+      ⟨(MvPolynomial.restrictTotalDegree _ ℂ φ.totalDegree).map (inclT M ∘ₗ It.flip (inclK h' y)), inferInstance,
+        fun k hk => by
+          obtain ⟨φ', h1, h2⟩ := hK τ φ k hk
+          exact ⟨φ', (MvPolynomial.mem_restrictTotalDegree _ _ _).2 h1, (h2 _).1⟩⟩
+    change inclK h (g (It φ (inclK h' y))) = _
+    rw [← hz, ← LinearMap.comp_apply g, hg, LinearMap.id_apply]
+  have hIs' : ∀ τ, ∀ X ∈ lieAt V τ, ∀ φ y, I (srcOp M M' τ (aT τ) X φ) y = intersection_update_fsHerm_neg_one τ (a τ X) (I φ y) :=
+    fun τ X hX φ y => inj (by
+      rw [hI]
+      exact derT_unique (hIs τ X hX φ _) (hI φ y ▸ (GlobalTheory.Chain.IoLift.FinTensor.kFinTensor D V S M τ h).2.1 _ (ha τ) X hX _))
+  obtain ⟨⟨T, hT⟩, hs⟩ := exists_factor_kFin hdec hθ ha hirr hker I (B.compl₂ (inclK h'))
+    (fun e => by
+      obtain ⟨φ, y, h0⟩ := h0
+      exact h0 (by rw [← hI, e]; simp)) hIs'
+    (fun τ Y hY φ y => inj (by
+      rw [map_add (f := _), hI, hI, map_zero]
+      exact hIt τ Y hY φ _ _ ((GlobalTheory.Chain.IoLift.FinTensor.kFinTensor D W S' M' τ h').2.1 _ (ha' τ) Y hY _)))
+    (fun φ y => hBg _ _) (fun τ X hX φ y => hBs τ X hX _ _) fun τ Y hY φ y => by
+      rw [LinearMap.compl₂_apply, LinearMap.compl₂_apply, position_tprod, inclK_update, inclK_tprod]
+      exact hBt τ Y hY φ _ _ ((ha' τ).der Y hY _).deriv.symm
+  simp only [LinearMap.compl₂_apply] at hT
+  have hind : ∀ p : KT M → Prop, (∀ φ y, p (I φ y)) → (∀ x y, p x → p y → p (x + y)) → ∀ y, p y := by
+    intro p h1 h3 y
+    have hy : y ∈ Submodule.span ℂ {x | ∃ φ y, I φ y = x} := hs ▸ Submodule.mem_top
+    suffices ∀ c : ℂ, p (c • y) by simpa using this 1
+    induction hy using Submodule.span_induction with
+    | mem _ h => obtain ⟨P, x, rfl⟩ := h; intro c; rw [← map_smul]; exact h1 _ _
+    | zero => intro c; simpa using h1 0 0
+    | add _ _ _ _ a b => intro c; rw [smul_add]; exact h3 _ _ (a c) (b c)
+    | smul a _ _ h => intro c; rw [smul_smul]; exact h _
+  have hg : ∀ x, IsCuspGrow θ V (T x) := fun x => GlobalTheory.Chain.CuspGrowSpace.isCuspGrow_of_mem_span D θ V _ (hind (fun x => T x ∈ _)
+    (fun φ y => Submodule.subset_span (hT φ y ▸ hBg _ _)) (fun x y a b => by rw [T.map_add]; exact add_mem a b) x)
+  obtain ⟨μ, 𝓕, hμ, h𝓕⟩ := GlobalTheory.Ker.HypModel.exists_haar_fundDom D V
+  obtain ⟨E, hE0, -⟩ := GlobalTheory.Chain.CuspL2.exists_embedding_skew hdec D θ V μ 𝓕 hθ hμ h𝓕
+  obtain ⟨U, ⟨hU, hUe⟩, -⟩ := hG θ hθ V S M J χ μ 𝓕 hμ h𝓕 (T.compMultilinearMap (PiTensorProduct.tprod ℂ))
+    ⟨fun u => (hg _).1, fun u => (hg _).2.1, fun u => (hg _).2.2.1, fun u => (hE0 _ (hg _)).1, fun u => (hg _).2.2.2,
+      fun u => hind (fun x => ∀ k ∈ J, ∀ g, T x (g * k) = χ k * T x g) (fun φ y => hT φ y ▸ hlev _ _)
+        (fun x y a b k hk g => by simp only [map_add (f := _), Pi.add_apply, a k hk g, b k hk g, mul_add]) _,
+      fun τ k hk u w hw => by
+        obtain rfl : w = kOp M τ hk (u τ) := Subtype.ext hw
+        rw [LinearMap.compMultilinearMap_apply, ← position_tprod]
+        refine hind (fun x => T (intersection_update_fsHerm_neg_one τ (kOp M τ hk) x) = rTr V (atTau θ V τ k) (T x)) (fun φ y => ?_)
+          (fun x y a b => by rw [map_add (f := _), map_add (f := _), map_add (f := _), a, b]; rfl) _
+        obtain ⟨φ', -, h2⟩ := hK τ φ k hk
+        rw [hT, ← (h2 _).2, ← hT]
+        refine congrArg T (inj ((tensorLaw D V S M).inj ?_))
+        rw [(GlobalTheory.Chain.IoLift.FinTensor.kFinTensor D V S M τ h).2.2, hI, hI, (h2 _).1],
+      fun τ X hX u w hw => by
+        obtain rfl : w = a τ X (u τ) := Subtype.ext (hw.trans ((ha τ).der X hX _).deriv)
+        rw [LinearMap.compMultilinearMap_apply, ← position_tprod]
+        refine hind (fun x => T (intersection_update_fsHerm_neg_one τ (a τ X) x) = Rder θ V τ X (T x)) (fun φ y => ?_)
+          (fun x y a b => by
+            rw [map_add (f := _), map_add (f := _), map_add (f := _), a, b, (GlobalTheory.Mem.AutSpace.linOnSm_Rder hX).add _ (hg _).2.1 _ (hg _).2.1]) _
+        rw [← hIs' τ X hX, hT, hT, hBs τ X hX]⟩
+  refine ⟨PiTensorProduct.lift U, ⟨U, Submodule.subset_span hU, rfl⟩, fun φ y => ?_⟩
+  have e : PiTensorProduct.lift U ∘ₗ inclK h = T := PiTensorProduct.ext (MultilinearMap.ext fun u => by
+    rw [LinearMap.compMultilinearMap_apply, LinearMap.comp_apply, inclK_tprod, PiTensorProduct.lift.tprod]
+    exact hUe _ u fun _ => rfl)
+  rw [← hI, ← hT, ← e, LinearMap.comp_apply]
 
 theorem exists_integralForm {X : Type} [MeasurableSpace X] (μ : Measure X) :
     ∃ I : (X → ℂ) →ₗ[ℂ] ℂ, ∀ φ, Integrable φ μ → I φ = ∫ x, φ x ∂μ := by
@@ -453,6 +481,21 @@ theorem exists_trilinear {G H S P Ds : Type} [MeasurableSpace H] [AddCommGroup S
     show I _ = c • I _
     rw [← map_smul]; congr 1; funext h; simp [mul_left_comm]
 
+theorem ioExists_of_forall {G H S P Ds Dt : Type} [MeasurableSpace H] [AddCommGroup P] [Module ℂ P]
+    [AddCommGroup Ds] [Module ℂ Ds] [AddCommGroup Dt] [Module ℂ Dt] {ν : Measure H} {𝓕 : Set H} {th : G → H → S → ℂ}
+    {pt : P → S} {T : P →ₗ[ℂ] Ds →ₗ[ℂ] Dt} {C : Submodule ℂ (Ds →ₗ[ℂ] (H → ℂ))} {C' : Submodule ℂ (Dt →ₗ[ℂ] (G → ℂ))}
+    (hint : ∀ F : C, ∀ φ v g, IntegrableOn (fun h => th g h (pt φ) * (F : Ds →ₗ[ℂ] (H → ℂ)) v h) 𝓕 ν)
+    (B : P →ₗ[ℂ] Ds →ₗ[ℂ] C →ₗ[ℂ] (G → ℂ))
+    (hB : ∀ φ v F, B φ v F = Lift.liftInt ν 𝓕 th (pt φ) ((F : Ds →ₗ[ℂ] (H → ℂ)) v))
+    (hex : ∀ F : C, ∃ u ∈ C', ∀ φ v, u (T φ v) = B φ v F) (hun : ∀ u ∈ C', (∀ φ v, u (T φ v) = 0) → u = 0) :
+    Lift.IoExists ν 𝓕 th pt T C C' := by
+  choose u hu he using hex
+  refine ⟨LinearMap.codRestrict C' ⟨⟨u, fun F F' => ?_⟩, fun c F => ?_⟩ hu, hint, fun F φ v g => ?_⟩
+  · refine sub_eq_zero.1 (hun _ (sub_mem (hu _) (add_mem (hu _) (hu _))) fun φ v => ?_)
+    simp only [LinearMap.sub_apply, LinearMap.add_apply, he, map_add (f := _), sub_self]
+  · refine sub_eq_zero.1 (hun _ (sub_mem (hu _) (C'.smul_mem _ (hu _))) fun φ v => ?_)
+    simp only [LinearMap.sub_apply, LinearMap.smul_apply, he, map_smul, RingHom.id_apply, sub_self]
+  · exact congrFun ((hB φ v F).symm.trans (he F φ v).symm) g
 
 theorem elt_one {θ : InfFam D} (hθ : IsInfFam θ) (M : DSModel V S) (τ : D.what₂.Tau) : elt θ M τ 1 = 1 := by
   rw [elt, Matrix.mul_one, Matrix.nonsing_inv_mul _ ((Matrix.isUnit_iff_isUnit_det _).1 (M.fr_unit τ)), atTau_one hθ]
