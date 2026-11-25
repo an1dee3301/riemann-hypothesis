@@ -13,7 +13,7 @@ namespace Formalism.CohomologicalDescent.Down7
 
 section SF09
 
-open  MvPolynomial
+open TensorProduct MvPolynomial
 open Formalism.UG Formalism.RankGapBounds.FormsTensorLocalization Formalism.GradedWeylDivisibility Formalism.CohomologicalDescent.LD Formalism.CohomologicalDescent.UnitNormBounds Formalism.CohomologicalDescent.DepthNonnegative Formalism.CohomologicalDescent.LogSmallConstantBounds Formalism.CohomologicalDescent.ShortWeightBounds
 
 def HidaLatticeInclusionAtCoarseWeightBound : Prop :=

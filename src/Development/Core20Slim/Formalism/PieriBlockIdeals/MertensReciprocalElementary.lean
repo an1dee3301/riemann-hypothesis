@@ -7,6 +7,7 @@ public import Development.Core20Slim.Formalism.PieriBlockIdeals.ContentDistanceB
 
 noncomputable section
 
+open Finset
 
 namespace Formalism.CohomologicalDescent.LogSmallConstantBounds
 

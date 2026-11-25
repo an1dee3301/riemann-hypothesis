@@ -59,6 +59,13 @@ theorem adelicTheta_diagonal_mul (F : 𝔸[K] → ℂ) (δ : Kˣ) (a : IdeleGrou
   rw [Units.val_mul, coe_diagonal, map_mul]
   ring
 
+theorem adelicTheta_neg (F : 𝔸[K] → ℂ) (a : IdeleGroup K) :
+    adelicTheta (fun x ↦ F (-x)) a = adelicTheta F a := by
+  unfold adelicTheta
+  rw [← (Equiv.neg K).tsum_eq]
+  refine tsum_congr fun ξ ↦ congrArg F ?_
+  change -((a : 𝔸[K]) * algebraMap K 𝔸[K] (-ξ)) = (a : 𝔸[K]) * algebraMap K 𝔸[K] ξ
+  rw [map_neg, mul_neg, neg_neg]
 
 theorem smul_algebraMap_zero (a : IdeleGroup K) : a • algebraMap K 𝔸[K] 0 = 0 := by
   rw [map_zero, smul_zero]
@@ -253,6 +260,11 @@ theorem thetaIntegral_inv (w : InfinitePlace K) {F : 𝔸[K] → ℂ} (hF : F �
   exact setIntegral_inv_eq (h := thetaIntegrand w (adelicFourier K F) χ⁻¹ t)
     (thetaIntegrand_mul_diagonalToNormOne w _ χ⁻¹ t)
 
+theorem thetaIntegral_neg (w : InfinitePlace K) (F : 𝔸[K] → ℂ) (χ : HeckeCharacter K) :
+    thetaIntegral w (fun x ↦ F (-x)) χ = thetaIntegral w F χ := by
+  funext t
+  unfold thetaIntegral thetaIntegrand
+  simp only [adelicTheta_neg]
 
 end
 

@@ -39,7 +39,7 @@ public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClas
 @[expose] public section
 
 open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.L2.DIV Formalism.IndefR Formalism.IndefR.Links Formalism.IndefR.Lev Formalism.IndefR.Mult Formalism.IndefR.Datum MeasureTheory IsDedekindDomain NumberField Matrix
-open GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.Unf GlobalTheory.SeeSaw GlobalTheory.StepData GlobalTheory.SymChain GlobalTheory.LocMod    ValuativeRel
+open GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.Unf GlobalTheory.SeeSaw GlobalTheory.StepData GlobalTheory.SymChain GlobalTheory.LocMod GlobalTheory.MiS GlobalTheory.MiTop GlobalTheory.Fam ValuativeRel
 open scoped TensorProduct Classical
 attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
@@ -47,7 +47,7 @@ noncomputable section
 
 namespace GlobalTheory.HalfProd
 
-open GlobalTheory.PlaceModel GlobalTheory.PlaceDatum  GlobalTheory.ExportSeries
+open GlobalTheory.PlaceModel GlobalTheory.PlaceDatum GlobalTheory.AdForm GlobalTheory.ExportSeries
 
 variable {D : D7}
 
@@ -71,7 +71,7 @@ end GlobalTheory.HalfProd
 
 namespace GlobalTheory.HalfProd
 
-open GlobalTheory.PlaceModel GlobalTheory.PlaceDatum  GlobalTheory.ExportSeries GlobalTheory.ExportSeries.RestrictHalfModel
+open GlobalTheory.PlaceModel GlobalTheory.PlaceDatum GlobalTheory.AdForm GlobalTheory.ExportSeries GlobalTheory.ExportSeries.RestrictHalfModel
 
 variable {D : D7}
 

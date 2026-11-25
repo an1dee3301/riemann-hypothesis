@@ -27,7 +27,7 @@ public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClas
 
 noncomputable section
 
-open NumberField IsDedekindDomain Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.L2.Col Formalism.L2.DIV Formalism.L2.Forms GlobalTheory.Mem GlobalTheory.Mem.Col2  Matrix
+open NumberField IsDedekindDomain Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.L2.Col Formalism.L2.DIV Formalism.L2.Forms GlobalTheory.Mem GlobalTheory.Mem.Col2 GlobalTheory.TopStep Matrix
 open Formalism.L2.Theta Formalism.MainNotions.StandardLattice GlobalTheory.Mem.Th Filter Topology
 open Formalism.IndefR.Lev (finE swapAE EAf)
 open scoped TensorProduct

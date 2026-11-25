@@ -347,6 +347,9 @@ def integerUnitsEquiv :
 def mulMap : ℚˣ × positiveSubgroup →* IdeleGroup ℚ :=
   (diagonal ℚ).coprod positiveSubgroup.subtype
 
+theorem mulMap_apply (p : ℚˣ × positiveSubgroup) :
+    mulMap p = diagonal ℚ p.1 * (p.2 : IdeleGroup ℚ) :=
+  rfl
 
 theorem mulMap_bijective : Function.Bijective mulMap := by
   constructor

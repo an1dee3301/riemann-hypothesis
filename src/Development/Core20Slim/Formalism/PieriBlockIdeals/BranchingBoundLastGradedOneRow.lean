@@ -4,9 +4,11 @@ public import Development.Core20Slim.Formalism.PieriBlockIdeals.StatementLD
 
 @[expose] public section
 
+open MvPolynomial
 
 namespace Formalism.CohomologicalDescent.LD
 
+open Formalism.GradedWeylDivisibility
 
 def LemmaDLastGradedAt (l p q w M : ℕ) (lam2 : Fin q → ℕ) (ξ : Fin (q + p) → ℤ) : Prop :=
   ∀ (i' : ℤ) (eL : ℕ),

@@ -46,7 +46,7 @@ def ExCut : Prop :=
 section SF09
 
 open TensorProduct MvPolynomial
-open Formalism.UG  Formalism.GradedWeylDivisibility Formalism.CohomologicalDescent.LD Formalism.CohomologicalDescent.UnitNormBounds  Formalism.CohomologicalDescent.LogSmallConstantBounds Formalism.CohomologicalDescent.ShortWeightBounds
+open Formalism.UG Formalism.RankGapBounds.FormsTensorLocalization Formalism.GradedWeylDivisibility Formalism.CohomologicalDescent.LD Formalism.CohomologicalDescent.UnitNormBounds Formalism.CohomologicalDescent.DepthNonnegative Formalism.CohomologicalDescent.LogSmallConstantBounds Formalism.CohomologicalDescent.ShortWeightBounds
 
 def CorollaryOfRecord7E : Prop :=
   ExInterval → ExCut → ∀ P : Par, P.Hyp → P.Large →
@@ -96,7 +96,7 @@ section Record
 
 open Formalism.DivisionValues Formalism.EigenvalueLevelCeiling
 open TensorProduct MvPolynomial
-open Formalism.UG  Formalism.GradedWeylDivisibility Formalism.CohomologicalDescent.LD Formalism.CohomologicalDescent.UnitNormBounds  Formalism.CohomologicalDescent.LogSmallConstantBounds Formalism.CohomologicalDescent.ShortWeightBounds
+open Formalism.UG Formalism.RankGapBounds.FormsTensorLocalization Formalism.GradedWeylDivisibility Formalism.CohomologicalDescent.LD Formalism.CohomologicalDescent.UnitNormBounds Formalism.CohomologicalDescent.DepthNonnegative Formalism.CohomologicalDescent.LogSmallConstantBounds Formalism.CohomologicalDescent.ShortWeightBounds
   Formalism.CohomologicalDescent.LargeParameterEstimates
 
 def JointRecordE : Prop :=
