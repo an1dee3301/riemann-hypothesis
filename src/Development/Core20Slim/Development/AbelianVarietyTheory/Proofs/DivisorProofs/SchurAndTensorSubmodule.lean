@@ -3,114 +3,7 @@ module
 public import Mathlib
 public import Formalism.SharpRestriction.Divisibility.SchurIrreducible
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Foundations.IsFockIPOfFockData
-public import Batteries.Classes.RatCast
 public import Formalism.LocalRingCardinality.DataTheta
-public import Init.BinderNameHint
-public import Init.ByCases
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Cast
-public import Init.Data.Int.Basic
-public import Init.Data.Rat.Basic
-public import Init.Data.Sum.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
-public import Mathlib.Algebra.CharZero.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Rat
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Module.BigOperators
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.LinearMap.End
-public import Mathlib.Algebra.Module.Submodule.Basic
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Ker
-public import Mathlib.Algebra.Module.Submodule.Lattice
-public import Mathlib.Algebra.Module.Submodule.LinearMap
-public import Mathlib.Algebra.Notation.Defs
-public import Mathlib.Algebra.Order.Group.Unbundled.Basic
-public import Mathlib.Algebra.Order.Monoid.Defs
-public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
-public import Mathlib.Algebra.Order.Monoid.Unbundled.Defs
-public import Mathlib.Algebra.Order.Ring.Rat
-public import Mathlib.Algebra.Order.Ring.Star
-public import Mathlib.Algebra.Order.Ring.Unbundled.Rat
-public import Mathlib.Algebra.Order.Star.Rat
-public import Mathlib.Algebra.Order.ZeroLEOne
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Ring.Rat
-public import Mathlib.Algebra.Star.Rat
-public import Mathlib.Analysis.Complex.Polynomial.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.Finite.Defs
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Nontrivial.Defs
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.ENat.Basic
-public import Mathlib.Data.ENat.Defs
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Fintype.Sum
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Matrix.Basis
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Nat.Cast.Order.Basic
-public import Mathlib.Data.Rat.BigOperators
-public import Mathlib.Data.Rat.Cast.CharZero
-public import Mathlib.Data.Rat.Cast.Defs
-public import Mathlib.Data.Rat.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Finite.Basic
-public import Mathlib.Data.Set.Finite.Lemmas
-public import Mathlib.Data.Set.Function
-public import Mathlib.Data.Set.Operations
-public import Mathlib.Data.Sum.Basic
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.LinearAlgebra.Basis.VectorSpace
-public import Mathlib.LinearAlgebra.Eigenspace.Basic
-public import Mathlib.LinearAlgebra.Eigenspace.Minpoly
-public import Mathlib.LinearAlgebra.Eigenspace.Triangularizable
-public import Mathlib.LinearAlgebra.FiniteDimensional.Defs
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.Order.BoundedOrder.Basic
-public import Mathlib.Order.CompleteLattice.Basic
-public import Mathlib.Order.CompleteLattice.Defs
-public import Mathlib.Order.CompletePartialOrder
-public import Mathlib.Order.Defs.Lattice
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Hom.Basic
-public import Mathlib.Order.Lattice
-public import Mathlib.Order.Notation
-public import Mathlib.Order.SetNotation
-public import Mathlib.RingTheory.Flat.FaithfullyFlat.Basic
-public import Mathlib.RingTheory.Flat.TorsionFree
-public import Mathlib.RingTheory.Ideal.Operations
-public import Mathlib.RingTheory.SimpleRing.Basic
-public import Mathlib.RingTheory.SimpleRing.Principal
-public import Mathlib.Tactic.Linarith.Lemmas
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Push
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
 
 @[expose] public section
 
@@ -122,6 +15,32 @@ namespace GlobalTheory.IrrTensor
 section General
 variable {V : Type} [AddCommGroup V] [Module ℂ V] {ι : Type} (A : ι → Module.End ℂ V)
 
+theorem density [Nontrivial V]
+    (hirr : ∀ N : Submodule ℂ V, (∀ Z, ∀ y ∈ N, A Z y ∈ N) → N = ⊥ ∨ N = ⊤)
+    (hsch : ∀ T : V →ₗ[ℂ] V, (∀ Z, T ∘ₗ A Z = A Z ∘ₗ T) → ∃ c : ℂ, T = c • LinearMap.id)
+    (f : Module.End ℂ V) (s : Finset V) :
+    ∃ r ∈ Algebra.adjoin ℂ (Set.range A), ∀ m ∈ s, f m = r m := by
+  let R := Algebra.adjoin ℂ (Set.range A)
+  have hA : ∀ Z, A Z ∈ R := fun Z => Algebra.subset_adjoin ⟨Z, rfl⟩
+  haveI : IsSimpleModule R V := by
+    refine (isSimpleModule_iff R V).2 ?_
+    refine { toNontrivial := (Submodule.nontrivial_iff R).2 inferInstance, eq_bot_or_eq_top := fun N => ?_ }
+    rcases hirr (N.restrictScalars ℂ) (fun Z y hy => N.smul_mem (⟨A Z, hA Z⟩ : R) hy) with h | h
+    · left
+      exact (Submodule.restrictScalars_eq_bot_iff ℂ R V).1 h
+    · right
+      exact (Submodule.restrictScalars_eq_top_iff ℂ R V).1 h
+  let F : Module.End (Module.End R V) V :=
+    { toFun := f
+      map_add' := f.map_add
+      map_smul' := fun g x => by
+        obtain ⟨c, hc⟩ := hsch (g.restrictScalars ℂ) (fun Z => LinearMap.ext fun y =>
+          g.map_smul (⟨A Z, hA Z⟩ : R) y)
+        have hg : ∀ y, g y = c • y := fun y => LinearMap.congr_fun hc y
+        show f (g x) = g (f x)
+        rw [hg, hg, map_smul] }
+  obtain ⟨r, hr⟩ := jacobson_density (R := R) F s
+  exact ⟨r.1, r.2, fun m hm => hr m hm⟩
 
 variable {W : Type} [AddCommGroup W] [Module ℂ W]
 

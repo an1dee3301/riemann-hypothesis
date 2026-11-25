@@ -7,8 +7,18 @@ public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.DifferentiableOneP
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ContinuousOnAtTau
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.AdelicUnitaryTopology
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsUniqueInfFam
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsOpenKer
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.IsSmoothAutomorphicFunctionStarStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.SmoothAutomorphicFormRightTranslateFiniteAdelicStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.IsSmoothAutomorphicFunctionTranslateAtRealPlaceStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.HeckeCharacterInfinityExponentGroupLawsStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.IsCuspFunctionClosedUnderOperationsStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsContinuousAdelicUnitaryEmbeddingStatement
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.AdelicUnitaryUnimodularExistsFundamentalDomainStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsLatticeStabiliserSubgroupOutsidePlacesStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.PeterssonNormSqPosAutomorphicFunctionUnitaryStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.DefiniteBesselPeriodSesquilinearStatement
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsUniqueNormalizedHaarMeasureAdelicUnitaryStatement
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.BesselCharacterGenericCharacterLawsStatement
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.IsotropicUnipotentRadicalsRationalCocompactStatement
@@ -23,106 +33,6 @@ public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedBessel
 public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedWeil
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Data.Function
-public import Init.Data.Int.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Init.SizeOf
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.AddChar
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Equiv.Defs
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.IsApply
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Pointwise.Set.Basic
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Actions
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Subgroup.Lattice
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Subsemigroup.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Notation.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.Countable.Defs
-public import Mathlib.Basic.ENNReal.Action
-public import Mathlib.Basic.ENNReal.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.NNReal.Defs
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.CoeSort
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Operations
-public import Mathlib.Dynamics.Ergodic.Action.Basic
-public import Mathlib.Dynamics.Ergodic.Action.Regular
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.Logic.Equiv.Defs
-public import Mathlib.Logic.Function.Defs
-public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
-public import Mathlib.MeasureTheory.Group.Arithmetic
-public import Mathlib.MeasureTheory.Group.FundamentalDomain
-public import Mathlib.MeasureTheory.Group.Measure
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
-public import Mathlib.MeasureTheory.MeasurableSpace.Constructions
-public import Mathlib.MeasureTheory.MeasurableSpace.Defs
-public import Mathlib.MeasureTheory.MeasurableSpace.Embedding
-public import Mathlib.MeasureTheory.Measure.AbsolutelyContinuous
-public import Mathlib.MeasureTheory.Measure.Haar.Unique
-public import Mathlib.MeasureTheory.Measure.Map
-public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
-public import Mathlib.MeasureTheory.Measure.Module
-public import Mathlib.MeasureTheory.Measure.QuasiMeasurePreserving
-public import Mathlib.MeasureTheory.Measure.Restrict
-public import Mathlib.MeasureTheory.Measure.Typeclasses.SFinite
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.Localization.FractionRing
-public import Mathlib.Topology.Algebra.ContinuousMonoidHom
-public import Mathlib.Topology.Algebra.Group.Basic
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Group.Pointwise
-public import Mathlib.Topology.Algebra.Group.Subgroup
-public import Mathlib.Topology.Algebra.Monoid.Defs
-public import Mathlib.Topology.Algebra.OpenSubgroup
-public import Mathlib.Topology.Bases
-public import Mathlib.Topology.Compactness.Compact
-public import Mathlib.Topology.Compactness.LocallyCompact
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.Continuous
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.Defs.Induced
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.Order
-public import Mathlib.Topology.Separation.Hausdorff
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -148,17 +58,62 @@ theorem exists_pair (V : HSp D) : ∃ m : Measure (GA D V) × Set (GA D V), IsQu
 
 def mu (V : HSp D) : Measure (GA D V) := (exists_pair V).choose.1
 
+def dom (V : HSp D) : Set (GA D V) := (exists_pair V).choose.2
 
+theorem quot_mu (V : HSp D) : IsQuot V (mu V) (dom V) := (exists_pair V).choose_spec.1
 
+theorem integral_mu {V : HSp D} (hV : V.SigOK) {μ 𝓕} (h : IsVolPair D V μ 𝓕) (f : GA D V → ℂ)
+    (hf : ∀ γ ∈ GQ V, ∀ g, f (γ * g) = f g) : ∫ g in dom V, f g ∂(mu V) = ∫ g in 𝓕, f g ∂μ := by
+  obtain ⟨i1, i2, i3, i4, i5, -, i7⟩ := GlobalTheory.Mem.AdelicGroupTop.adelic_unitary_topology D V
+  have h0 : IsVolPair D V (mu V) (dom V) := (exists_pair V).choose_spec.2 hV
+  obtain rfl : μ = mu V := (GlobalTheory.T.existsUnique_normalizedHaarMeasure_adelicUnitary D V hV).unique h.1 h0.1
+  haveI := h.1.1
+  exact h0.2.setIntegral_eq h.2 fun γ g => hf γ γ.2 g
 
 variable {θ : InfF D}
 
+theorem aut (hθ : IsInfFam θ) {V : HSp D} (φ : AFs θ V) : IsAutFunSm θ V φ.1 :=
+  (GlobalTheory.Mem.AutSpace.mem_AFs_iff D θ hθ V φ.1).1 φ.2
 
+theorem formSub (D : D7) : FormSub D := GlobalTheory.Mem.AutSpace.mem_AFs_iff D
 
+theorem cuspF (hθ : IsInfFam θ) {V : HSp D} (φ : CuspS θ V) : IsCuspForm θ V φ.1 := (mem_CuspS (formSub D) hθ).1 φ.2
 
+def intForm {X Y Z : Type} [MeasurableSpace Z] (μ : Measure Z) (P : Submodule ℂ (X → ℂ)) (Q : Submodule ℂ (Y → ℂ))
+    (a : Z → X) (b : Z → Y) (hi : ∀ (φ : P) (F : Q), Integrable (fun z => star (φ.1 (a z)) * F.1 (b z)) μ) :
+    P →ₗ⋆[ℂ] Q →ₗ[ℂ] ℂ :=
+  LinearMap.mk₂'ₛₗ (starRingEnd ℂ) (RingHom.id ℂ) (fun φ F => ∫ z, star (φ.1 (a z)) * F.1 (b z) ∂μ)
+    (fun φ φ' F => by
+      rw [← integral_add (hi φ F) (hi φ' F)]
+      simp [add_mul])
+    (fun c φ F => by
+      rw [← integral_smul]
+      simp [mul_assoc])
+    (fun φ F F' => by
+      rw [← integral_add (hi φ F) (hi φ F')]
+      simp [mul_add])
+    (fun c φ F => by
+      rw [← integral_smul]
+      simp [mul_left_comm])
 
+def petForm (hP : PetInt D) (hθ : IsInfFam θ) (V : HSp D) : AFs θ V →ₗ⋆[ℂ] CuspS θ V →ₗ[ℂ] ℂ :=
+  intForm ((mu V).restrict (dom V)) _ _ id id fun φ F => hP θ hθ V _ _ (quot_mu V) _ _ (aut hθ φ) (cuspF hθ F)
 
+theorem petForm_apply (hP : PetInt D) (hθ : IsInfFam θ) (V : HSp D) (φ F) :
+    petForm hP hθ V φ F = ∫ g in dom V, star (φ.1 g) * F.1 g ∂(mu V) := rfl
 
+theorem exists_top (hT : TopInt D) (hθ : IsInfFam θ) (A B : HSp D) (ι : B.V →ₗ[D.host.E] A.V) :
+    ∃ b : AFs θ A →ₗ⋆[ℂ] CuspS θ B →ₗ[ℂ] ℂ, B.SigOK → HSpace.IsIsomEmb B A ι → ∀ μ 𝓕, IsVolPair D B μ 𝓕 →
+      ∀ s : GA D B → GA D A, (∀ h, EmbRel A B ι (s h) h) → ∀ φ F, b φ F = ∫ h in 𝓕, star (φ.1 (s h)) * F.1 h ∂μ := by
+  by_cases hι : HSpace.IsIsomEmb B A ι
+  · obtain ⟨s, -, hs, hq⟩ := GlobalTheory.T.exists_continuous_adelicUnitaryEmbedding D A B ι hι
+    refine ⟨intForm ((mu B).restrict (dom B)) _ _ s id fun φ F =>
+      hT θ hθ A B ι hι _ _ (quot_mu B) s (fun h => (hs h _).2 rfl) _ _ (aut hθ φ) (cuspF hθ F), ?_⟩
+    intro hB _ μ 𝓕 hμ s' hs' φ F
+    obtain rfl : s' = s := funext fun h => (hs h _).1 (hs' h)
+    refine integral_mu hB hμ (fun h => star (φ.1 (s h)) * F.1 h) fun γ hγ g => ?_
+    rw [map_mul, (aut hθ φ).left _ (hq γ hγ), (cuspF hθ F).1.left γ hγ]
+  · exact ⟨0, fun _ h => absurd h hι⟩
 
 theorem integral_unit {G : Type} [Group G] [TopologicalSpace G] [IsTopologicalGroup G] [MeasurableSpace G] [BorelSpace G]
     [LocallyCompactSpace G] [SecondCountableTopology G] (Γ : Subgroup G) [Countable Γ] {μ μ' : Measure G} {𝓕 𝓕' : Set G}
@@ -281,6 +236,63 @@ theorem coef_left {ν 𝓝} (h1 : ν.IsHaarMeasure) (h2 : IsFundamentalDomain (N
 
 end Bessel
 
+theorem exists_bes (hB : BesInt D) (hθ : IsInfFam θ) {ψ : AddChar (AF D.host.F) ℂ} (hψ : IsStdChar D ψ (-1))
+    {A B : HSp D} {ι : A.V →ₗ[D.host.E] B.V} (d : BesDat A B ι) :
+    ∃ b : AFs θ A →ₗ⋆[ℂ] CuspS θ B →ₗ[ℂ] ℂ, A.SigOK → HSpace.IsIsomEmb A B ι → ∀ μ 𝓕, IsVolPair D A μ 𝓕 →
+      ∀ s : GA D A → GA D B, (∀ h, EmbRel B A ι (s h) h) → ∀ (φ : AFs θ A) (F : CuspS θ B),
+        IsAniso A ∨ φ.1 ∈ CuspS θ A → GlobalTheory.BesselCompare.ClauseFlag ψ d μ 𝓕 s φ.1 F.1 1 (b φ F) := by
+  by_cases hι : HSpace.IsIsomEmb A B ι
+  swap
+  · exact ⟨0, fun _ h => absurd h hι⟩
+  by_cases hN : ∃ (ν : Measure (NFlag B d.e)) (𝓝 : Set (NFlag B d.e)), ν.IsHaarMeasure ∧
+    IsFundamentalDomain (NFlagQ B d.e) 𝓝 ν ∧ ν 𝓝 = 1
+  swap
+  · exact ⟨0, fun _ _ _ _ _ _ _ _ _ _ ν 𝓝 h1 h2 h3 => absurd ⟨ν, 𝓝, h1, h2, h3⟩ hN⟩
+  obtain ⟨ν, 𝓝, h1, h2, h3⟩ := hN
+  obtain ⟨s, -, hs, hq⟩ := GlobalTheory.T.exists_continuous_adelicUnitaryEmbedding D B A ι hι
+  have k := fun (φ : CuspS θ A) (F : CuspS θ B) => hB θ hθ ψ hψ A B ι hι d _ _ (quot_mu A) ν 𝓝 h1 h2 s
+    (fun h => (hs h _).2 rfl) φ.1 F.1 (cuspF hθ φ).1 (cuspF hθ F) (Or.inr (cuspF hθ φ).2)
+  let b : CuspS θ A →ₗ⋆[ℂ] CuspS θ B →ₗ[ℂ] ℂ := LinearMap.mk₂'ₛₗ (starRingEnd ℂ) (RingHom.id ℂ)
+    (fun φ F => ∫ h in dom A, ∫ n in 𝓝, star (φ.1 h) * F.1 ((n : GA D B) * s h * (d.y : GA D B)) *
+      star (besChar ψ d (n : GA D B)) ∂ν ∂(mu A))
+    (fun φ φ' F => by
+      rw [← integral_add (k φ F).2 (k φ' F).2]
+      congr 1
+      funext h
+      rw [← integral_add ((k φ F).1 h) ((k φ' F).1 h)]
+      simp [add_mul])
+    (fun c φ F => by
+      simp only [← integral_smul]
+      simp [mul_assoc])
+    (fun φ F F' => by
+      rw [← integral_add (k φ F).2 (k φ F').2]
+      congr 1
+      funext h
+      rw [← integral_add ((k φ F).1 h) ((k φ F').1 h)]
+      simp [add_mul, mul_add])
+    (fun c φ F => by
+      simp only [← integral_smul]
+      refine integral_congr_ae (.of_forall fun h => integral_congr_ae (.of_forall fun n => ?_))
+      simp only [Submodule.coe_smul, Pi.smul_apply, smul_eq_mul, RingHom.id_apply]
+      ring)
+  obtain ⟨p, hp⟩ := (Submodule.inclusion (CuspS_le θ A)).exists_leftInverse_of_injective
+    (LinearMap.ker_eq_bot.2 (Submodule.inclusion_injective _))
+  refine ⟨b.comp p, fun hA _ μ 𝓕 hμ s' hs' φ F hφ ν' 𝓝' k1 k2 k3 => ?_⟩
+  obtain rfl : s' = s := funext fun h => (hs h _).1 (hs' h)
+  have hφ' : φ.1 ∈ CuspS θ A := hφ.elim (fun h => by rw [CuspS_eq_of_aniso θ h]; exact φ.2) id
+  have e : p φ = ⟨φ.1, hφ'⟩ := LinearMap.congr_fun hp ⟨φ.1, hφ'⟩
+  have hF := (cuspF hθ F).1.left
+  have f1 : ∀ (ν : Measure (NFlag B d.e)) 𝓝 h, ∫ n in 𝓝, star (φ.1 h) * F.1 ((n : GA D B) * s h * (d.y : GA D B)) *
+      star (besChar ψ d (n : GA D B)) ∂ν = star (φ.1 h) * coef ψ d ν 𝓝 F.1 (s h * d.y) := fun ν 𝓝 h => by
+    simp only [coef, mul_assoc, integral_const_mul]
+  rw [LinearMap.comp_apply, e, one_mul]
+  change ∫ h in dom A, ∫ n in 𝓝, star (φ.1 h) * F.1 ((n : GA D B) * s h * (d.y : GA D B)) *
+      star (besChar ψ d (n : GA D B)) ∂ν ∂(mu A) = _
+  simp only [f1]
+  simp only [← coef_eq hψ hι d h1 h2 h3 k1 k2 k3 hF]
+  refine integral_mu hA hμ (fun h => star (φ.1 h) * coef ψ d ν 𝓝 F.1 (s h * d.y)) fun γ hγ g => ?_
+  rw [(aut hθ φ).left _ hγ, map_mul, mul_assoc,
+    coef_left hψ hι d h1 h2 h3 hF (hq γ hγ) ((hs γ _).2 rfl) ((hs γ⁻¹ _).2 (map_inv s γ).symm)]
 
 end GlobalTheory.Mem.TrueRecord
 

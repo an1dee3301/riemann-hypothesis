@@ -8,7 +8,6 @@ public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Exist
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsWeilRepresentationVacuumCosetVectorsGrid
 public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.HasInfExpOfOrder
 public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.TendstoInfMulProd
-public import Batteries.Logic
 public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.AdelicDataRowMeasureScaleTrivialTuple
 public import Formalism.LocalRingCardinality.DataHost
 public import Formalism.LocalRingCardinality.Params
@@ -21,45 +20,6 @@ public import Formalism.LocalToGlobal.JointCharacters.LocEMulLocE
 public import Formalism.LocalToGlobal.UnitaryNorms.IsUnitaryNormOf
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Basic
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Hom.Instances
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.Group.Units.Hom
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Circle
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.UnitBall
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.LinearAlgebra.TensorProduct.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.RingTheory.TensorProduct.Basic
-public import Mathlib.Topology.Algebra.Constructions
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Monoid.Defs
-public import Mathlib.Topology.Defs.Basic
 public import ReciprocityTheory.NeutralLocalFields.Reciprocity
 
 @[expose] public section
@@ -78,5 +38,19 @@ theorem chrEq_mul {D : D7} {c c' : IdC D} {χ χ' : Formalism.L2.Host.HChar D.ho
   rw [MonoidHom.mul_apply, Circle.coe_mul, h.2 P e he k x hx, h'.2 P e he k x hx, ← Units.val_mul]
   rfl
 
+theorem unramEverywhere {D : D7} {c : IdC D} {χ : Formalism.L2.Host.HChar D.host.E} (hc : ChrEq c χ) (hu : ∀ P, χ.UnrAt P) :
+    UnramEverywhere D c := fun x hx h4 h5 => by
+  obtain ⟨ι, h1, h2, h3⟩ := GlobalTheory.HostAdeleIso.exists_finiteAdele_equiv D
+  apply Circle.ext
+  rw [GlobalTheory.Mem.EtaTilde.val_finite D ι h1 h2 (GlobalTheory.PlaceIdem.exists_isPlIdem D ι h1 h2 h3) c χ hc hu x hx, Circle.coe_one,
+    Units.val_eq_one]
+  refine finprod_eq_one_of_forall_eq_one fun P => ?_
+  have e := GlobalTheory.Mem.EtaTilde.val_mul_inv (RingHom.id _) P (Units.map ((ι : _ →+* _).comp (finPart D)).toMonoidHom x)
+  have e' : Valued.v (ι (finPart D (x : AE D)) P) * Valued.v (ι (finPart D ((x⁻¹ : (AE D)ˣ) : AE D)) P) = 1 := e
+  have e1 : Valued.v (ι (finPart D (x : AE D)) P) = 1 := by
+    refine le_antisymm ((h2 _).1 h4 P) ?_
+    rw [← e']
+    exact mul_le_of_le_one_right' ((h2 _).1 h5 P)
+  rw [e1, WithZero.log_one, neg_zero, zpow_zero]
 
 end GlobalTheory.Mem.TupChar

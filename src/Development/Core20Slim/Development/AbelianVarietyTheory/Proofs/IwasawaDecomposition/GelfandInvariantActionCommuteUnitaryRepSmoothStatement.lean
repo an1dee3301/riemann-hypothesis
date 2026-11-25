@@ -8,30 +8,6 @@ public import Development.AbelianVarietyTheory.Proofs.FlagMeasures.GelfandInvari
 public import Formalism.FormalDegreeBessel.StatementG
 public import Formalism.RealPlaceAnalysis.Complexify
 public import Formalism.SharpRestriction.CuspSpanNormBounds.RelevantZeroGramTerms
-public import Init.Prelude
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Set.Defs
-public import Mathlib.LinearAlgebra.Matrix.ConjTranspose
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Cauchy
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 

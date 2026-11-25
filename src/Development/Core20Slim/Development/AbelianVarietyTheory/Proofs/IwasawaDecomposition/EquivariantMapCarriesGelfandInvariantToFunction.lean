@@ -21,83 +21,6 @@ public import Formalism.LocalToGlobal.IndefiniteReal.ScalarOnPartsFull
 public import Formalism.SharpRestriction.CuspSpanNormBounds.RelevantZeroGramTerms
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Classical
-public import Init.Core
-public import Init.Data.List.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.CStarAlgebra.Module.Constructions
-public import Mathlib.Analysis.CStarAlgebra.Module.Defs
-public import Mathlib.Analysis.Calculus.Deriv.Add
-public import Mathlib.Analysis.Calculus.Deriv.Basic
-public import Mathlib.Analysis.Calculus.Deriv.Pow
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.Complex.Order
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Calculus
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.LocallyConvex.AbsConvexOpen
-public import Mathlib.Analysis.LocallyConvex.WithSeminorms
-public import Mathlib.Analysis.Normed.Algebra.Exponential
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.Lemmas
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Group.Uniform
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Nontrivial.Defs
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Multilinear.Basic
-public import Mathlib.LinearAlgebra.TensorProduct.Defs
-public import Mathlib.Logic.Function.Basic
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.RingTheory.TensorProduct.Basic
-public import Mathlib.Topology.Algebra.Field
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
-public import Mathlib.Topology.Instances.Matrix
-public import Mathlib.Topology.MetricSpace.Algebra
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Cauchy
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -155,8 +78,48 @@ theorem rder_apply (hT : IsMultMap θ M J χ T) [inst : DecidableEq D.what₂.Ta
   unfold Rder
   rw [h1, h4.deriv, ← hℓT w, hw, ha _ (dRep_mem hG (isURep M τ) hu hX)]
 
+theorem rderC_apply (hT : IsMultMap θ M J χ T) [DecidableEq D.what₂.Tau] (τ : D.what₂.Tau) (v : M.Vec)
+    (Z : Matrix (Fin V.rank) (Fin V.rank) ℂ) (u w : M.sm τ)
+    (hw : (w : M.H τ) = dRepC (gramAt D V τ) (trRep (M.σ τ) (M.fr τ)) Z u) :
+    RderC θ V τ Z (T (Function.update v τ u)) = T (Function.update v τ w) := by
+  have hG := gram_unit (M.fr_unit τ) (M.fr_gram τ)
+  have hp := parts_mem hG (gram_herm (M.fr_gram τ)) Z
+  have hu := (mem_sm M τ).1 u.2
+  have h1 := rder_apply hT τ v hp.1 u ⟨_, (mem_sm M τ).2 (dRep_mem hG (isURep M τ) hu hp.1)⟩ rfl
+  have h2 := rder_apply hT τ v hp.2 u ⟨_, (mem_sm M τ).2 (dRep_mem hG (isURep M τ) hu hp.2)⟩ rfl
+  have h3 : w = ⟨_, (mem_sm M τ).2 (dRep_mem hG (isURep M τ) hu hp.1)⟩ +
+      Complex.I • ⟨_, (mem_sm M τ).2 (dRep_mem hG (isURep M τ) hu hp.2)⟩ := Subtype.ext hw
+  rw [h3, T.map_update_add, T.map_update_smul, ← h1, ← h2]
+  rfl
 
+theorem foldr_apply (hT : IsMultMap θ M J χ T) [DecidableEq D.what₂.Tau] (τ : D.what₂.Tau) (v : M.Vec)
+    (l : List (Matrix (Fin V.rank) (Fin V.rank) ℂ)) (u : M.sm τ) :
+    ∃ w : M.sm τ, (w : M.H τ) =
+        (l.map fun Z => dRepC (gramAt D V τ) (trRep (M.σ τ) (M.fr τ)) Z).foldr (fun f acc => f acc) (u : M.H τ) ∧
+      (l.map fun Z => RderC θ V τ Z).foldr (fun f acc => f acc) (T (Function.update v τ u)) =
+        T (Function.update v τ w) := by
+  induction l with
+  | nil => exact ⟨u, rfl, rfl⟩
+  | cons Z l ih =>
+    obtain ⟨w, h1, h2⟩ := ih
+    refine ⟨⟨_, (mem_sm M τ).2 (dRepC_mem (gram_unit (M.fr_unit τ) (M.fr_gram τ)) (gram_herm (M.fr_gram τ))
+      (isURep M τ) Z ((mem_sm M τ).1 w.2))⟩, ?_, ?_⟩
+    · rw [List.map_cons, List.foldr_cons, ← h1]
+    · rw [List.map_cons, List.foldr_cons, h2]
+      exact rderC_apply hT τ v Z w _ rfl
 
+theorem gelf_apply : ∀ (D : D7) (θ : D.what₂.Tau → (Ainf D.host.F ⊗[D.host.F] D.host.E →+* ℂ)) (V : HSp D) (S : D.what₂.Tau → SPar) (M : DSModel V S) (J : Set (GA D V)) (χ : GA D V → ℂ), IsInfFam θ → ∀ T : MMap M, IsMultMap θ M J χ T → ∀ [DecidableEq D.what₂.Tau] (τ : D.what₂.Tau) (k : ℕ) (v : M.Vec) (w : M.sm τ), (w : M.H τ) = gelfH (gramAt D V τ) (M.rep τ) k (v τ) → gelf θ V τ k (T v) = T (Function.update v τ w) := by
+  intro D θ V S M J χ _ T hT _ τ k v w hw
+  choose f hf1 hf2 using fun idx : Fin (k + 1) → Fin V.rank =>
+    foldr_apply hT τ v (List.ofFn fun a : Fin (k + 1) => Matrix.single (idx a) (idx (a + 1)) (1 : ℂ)) (v τ)
+  simp only [List.map_ofFn, Function.comp_def, Function.update_eq_self] at hf1 hf2
+  have h1 : w = ∑ idx, f idx := by
+    refine Subtype.ext ?_
+    rw [hw, Submodule.coe_sum]
+    exact Finset.sum_congr rfl fun idx _ => (hf1 idx).symm
+  rw [h1]
+  refine Eq.trans ?_ (map_sum (T.toLinearMap v τ) f Finset.univ).symm
+  exact Finset.sum_congr rfl fun idx _ => hf2 idx
 
 end GlobalTheory.MultGelf
 

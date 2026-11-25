@@ -9,6 +9,10 @@ public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Local
 public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsMulRightInvariantHaarAdelicUnitaryGroupHermiti
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FundamentalDomainIntegralMulRight
 public import Formalism.LocalToGlobal.GlobalTheory.GL5.FamilyMassVolumeIdentityOfClassDecomp
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.SobolevFormEqZeroOfSmoothOrbitStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.GelfandInvariantActionSmoothVectorsScalarStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.EquivariantMapCarriesGelfandInvariantToFunctionStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsFiniteDimensionalKStableSmoothVectorsStatement
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.SchurLemmaEquivariantPairBoundedFunctionsStatement
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsEqConstMulProdInnerOfSlotwiseStatement
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ContDiffDerivSnoc
@@ -29,108 +33,6 @@ public import Formalism.RealPlaceAnalysis.Complexify
 public import Formalism.SharpRestriction.CuspSpanNormBounds.RelevantZeroGramTerms
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Classical
-public import Init.Core
-public import Init.Data.List.Basic
-public import Init.Prelude
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Subgroup.Actions
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.LinearMap
-public import Mathlib.Algebra.Notation.Defs
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.CStarAlgebra.Module.Constructions
-public import Mathlib.Analysis.CStarAlgebra.Module.Defs
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.Complex.Order
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.InnerProductSpace.Subspace
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.Lemmas
-public import Mathlib.Analysis.Normed.Group.Continuity
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Group.Submodule
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.Countable.Defs
-public import Mathlib.Basic.ENNReal.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Nontrivial.Defs
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Set.Defs
-public import Mathlib.LinearAlgebra.Basis.VectorSpace
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-public import Mathlib.LinearAlgebra.Multilinear.Basic
-public import Mathlib.LinearAlgebra.TensorProduct.Defs
-public import Mathlib.Logic.Function.Basic
-public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
-public import Mathlib.MeasureTheory.Group.Arithmetic
-public import Mathlib.MeasureTheory.Group.Defs
-public import Mathlib.MeasureTheory.Group.FundamentalDomain
-public import Mathlib.MeasureTheory.Group.Measure
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
-public import Mathlib.MeasureTheory.Integral.IntegrableOn
-public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
-public import Mathlib.MeasureTheory.Measure.Restrict
-public import Mathlib.MeasureTheory.Measure.Typeclasses.Finite
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.Order.Basic
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Notation
-public import Mathlib.RingTheory.TensorProduct.Basic
-public import Mathlib.Topology.Algebra.Constructions
-public import Mathlib.Topology.Algebra.Field
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
-public import Mathlib.Topology.Algebra.Monoid.Defs
-public import Mathlib.Topology.Algebra.Ring.Basic
-public import Mathlib.Topology.Bases
-public import Mathlib.Topology.Constructions.SumProd
-public import Mathlib.Topology.Continuous
-public import Mathlib.Topology.ContinuousOn
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.Defs.Induced
-public import Mathlib.Topology.Instances.Matrix
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.Separation.Hausdorff
-public import Mathlib.Topology.UniformSpace.Cauchy
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -182,9 +84,84 @@ theorem exists_continuousLinearMap_tens_update {T : MMap M} (hT : IsMultMap θ M
     exact this
   · rw [ha' ⟨w, mem_sm.2 hw⟩, ← map_sigma hT τ v _ hg, ← ha']
 
+theorem eq_zero_of_apply {T : MMap M} (hT : IsMultMap θ M J χ T) (v₀ : M.Vec) (h₀ : ∀ τ, v₀ τ ≠ 0) (h : T v₀ = 0) :
+    T = 0 := by
+  have key : ∀ s : Finset D.what₂.Tau, ∀ v : M.Vec, (∀ ρ, ρ ∉ s → v ρ = v₀ ρ) → T v = 0 := by
+    intro s
+    induction s using Finset.induction_on with
+    | empty => intro v hv; rw [show v = v₀ from funext fun ρ => hv ρ (by simp), h]
+    | insert τ s _ ih =>
+      intro v hv
+      have h2 : T (Function.update v τ (v₀ τ)) = 0 := by
+        refine ih _ fun ρ hρ => ?_
+        by_cases hh : ρ = τ
+        · subst hh; simp
+        · rw [Function.update_of_ne hh]; exact hv ρ (by simp [hh, hρ])
+      obtain ⟨a, e, hs, hq⟩ := exists_continuousLinearMap_tens_update hT τ v
+      have := (M.ds τ).1
+      funext x
+      have h3 := GlobalTheory.T.sobolevForm_eq_zero_of_smooth_orbit _ _ _ _ _ _ (M.fr_unit τ) (M.fr_gram τ) (M.ds τ).2.2.1 (M.ds τ).2.2.2.1 _ (hs x)
+        (v₀ τ) (mem_sm.1 (v₀ τ).2) (fun c => h₀ τ (Subtype.ext c)) (fun g hg => by
+          show a _ x = 0
+          rw [hq g hg _ (mem_sm.1 (v₀ τ).2), e, h2]
+          rfl) (v τ) (mem_sm.1 (v τ).2)
+      have h4 : a (v τ) x = 0 := h3
+      rwa [e, Function.update_eq_self] at h4
+  exact MultilinearMap.ext fun v => key Finset.univ v (by simp)
 
+def kRep {n : ℕ} {ε : Fin n → Bool} {H : Type} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+    {σ : Matrix (Fin n) (Fin n) ℂ → (H →L[ℂ] H)} (hσ : IsURepOn (UJset ε) σ) (W : Submodule ℂ H)
+    (hW : ∀ k ∈ Formalism.REAL.Kset ε, ∀ w ∈ W, σ k w ∈ W) : Representation ℂ (Formalism.REAL.KG ε) W where
+  toFun k := (σ (Formalism.REAL.toMK k) : H →ₗ[ℂ] H).restrict fun w hw => hW _ k.2 w hw
+  map_one' := by
+    ext w
+    show σ 1 w = w
+    rw [hσ.1.1]; rfl
+  map_mul' k k' := by
+    ext w
+    show σ (Formalism.REAL.toMK k * Formalism.REAL.toMK k') w = σ (Formalism.REAL.toMK k) (σ (Formalism.REAL.toMK k') w)
+    rw [hσ.1.2 _ (k : Formalism.REAL.UJ ε).2 _ (k' : Formalism.REAL.UJ ε).2]; rfl
 
+theorem isContRep_kRep {n : ℕ} {ε : Fin n → Bool} {H : Type} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+    {σ : Matrix (Fin n) (Fin n) ℂ → (H →L[ℂ] H)} (hσ : IsURepOn (UJset ε) σ) (W : Submodule ℂ H)
+    [FiniteDimensional ℂ W] (hW : ∀ k ∈ Formalism.REAL.Kset ε, ∀ w ∈ W, σ k w ∈ W) :
+    GlobalTheory.Published.AutFin.IsContRep (kRep hσ W hW) := fun ℓ w =>
+  (LinearMap.continuous_of_finiteDimensional ℓ).comp
+    (Continuous.subtype_mk ((continuous_orbit hσ w).comp continuous_subtype_val) _)
 
+theorem hcFinite (hP : GlobalTheory.Published.HarishChandraFinite) : HCFinite θ M J χ := by
+  rintro hθ ⟨U, hU, hUJ⟩
+  have hc := fun τ => (M.ds τ).1
+  choose W hWf hW0 hWs hWk using fun τ => GlobalTheory.T.exists_finiteDimensional_kStable_smoothVectors _ _ _ _ _ _ (M.fr_unit τ) (M.fr_gram τ) (M.ds τ).2.2.1
+    ⟨_, (M.ds τ).2.2.2.2.2.1⟩
+  choose c hcs using fun τ => GlobalTheory.T.gelfandInvariantAction_smoothVectors_scalar _ _ _ _ _ _ (M.fr_unit τ) (M.fr_gram τ) (M.ds τ).2.2.1 (M.ds τ).2.2.2.1
+  choose u huW hu0 using fun τ => (Submodule.ne_bot_iff _).1 (hW0 τ)
+  let v₀ : M.Vec := fun τ => ⟨u τ, mem_sm.2 (hWs τ (huW τ))⟩
+  have hfin := hP D θ hθ V U hU M.ε M.fr (fun τ => ⟨M.fr_unit τ, M.fr_gram τ⟩) (fun τ => W τ)
+    (fun τ => kRep (M.ds τ).2.2.1 (W τ) (hWk τ)) (fun τ => isContRep_kRep _ _ _) c
+  have hmem : ∀ T : Mult θ M J χ, (T : MMap M) v₀ ∈ GlobalTheory.Published.AutFin.forms θ V U M.ε M.fr
+      (fun τ => kRep (M.ds τ).2.2.1 (W τ) (hWk τ)) c := by
+    intro T
+    have hT := (GlobalTheory.MultMem.mem_mult_iff D θ V S M J χ T).1 T.2
+    refine ⟨hT.aut v₀, fun k hk hf g => ?_, fun τ => ?_, fun τ k => ?_⟩
+    · rw [hT.lev v₀ k (hUJ k hk hf).1, (hUJ k hk hf).2, one_mul]
+    · obtain ⟨a, e, -, hq⟩ := exists_continuousLinearMap_tens_update hT τ v₀
+      have := GlobalTheory.Published.AutFin.hasTypeAt_of_map θ V τ (M.ε τ) (M.fr τ) (kRep (M.ds τ).2.2.1 (W τ) (hWk τ))
+        (a.comp (W τ).subtype) (fun k w => hq (Formalism.REAL.toMK k) (GlobalTheory.LowTypeRestriction.kset_subset k.2) w (hWs τ w.2)) ⟨u τ, huW τ⟩
+      have e' : (a.comp (W τ).subtype) ⟨u τ, huW τ⟩ = (T : MMap M) v₀ := by
+        rw [← Function.update_eq_self τ v₀, ← e]; rfl
+      rwa [e'] at this
+    · rw [GlobalTheory.T.equivariant_map_carries_gelfandInvariant_to_function D θ V S M J χ hθ T hT τ k v₀ (c τ k • v₀ τ) (hcs τ k _ (mem_sm.1 (v₀ τ).2)).symm,
+        MultilinearMap.map_update_smul, Function.update_eq_self]
+      rfl
+  let ev : Mult θ M J χ →ₗ[ℂ] Submodule.span ℂ (GlobalTheory.Published.AutFin.forms θ V U M.ε M.fr
+      (fun τ => kRep (M.ds τ).2.2.1 (W τ) (hWk τ)) c) :=
+    { toFun := fun T => ⟨(T : MMap M) v₀, Submodule.subset_span (hmem T)⟩
+      map_add' := fun _ _ => rfl
+      map_smul' := fun _ _ => rfl }
+  refine FiniteDimensional.of_injective ev ((injective_iff_map_eq_zero ev).2 fun T hT => Subtype.ext ?_)
+  exact eq_zero_of_apply ((GlobalTheory.MultMem.mem_mult_iff D θ V S M J χ T).1 T.2) v₀
+    (fun τ h => hu0 τ (congrArg Subtype.val h)) (congrArg Subtype.val hT)
 
 theorem schur_multMap (hP : GlobalTheory.Published.CuspRapidDecay) (hθ : IsInfFam θ) {μ : Measure (GA D V)} {𝓕 : Set (GA D V)}
     (hμ : μ.IsHaarMeasure) (h𝓕 : IsFundamentalDomain (GQ V) 𝓕 μ) {T T' : MMap M} (hT : IsMultMap θ M J χ T)
@@ -236,6 +213,11 @@ theorem schurMult (hP : GlobalTheory.Published.CuspRapidDecay) (μ : Measure (GA
   exact ⟨c, fun v v' => ⟨GlobalTheory.CuspDecay.integrableOn_star_mul hP GlobalTheory.Mem.VolFin.finVol hθ μ 𝓕 hμ h𝓕 (hT.aut v)
     (hT'.aut v') (hT'.cusp v'), hc v v'⟩⟩
 
+theorem hcFinite_and_schurMult : GlobalTheory.Published.HarishChandraFinite → GlobalTheory.Published.CuspRapidDecay →
+    ∀ (D : D7) (θ : D.what₂.Tau → (Ainf D.host.F ⊗[D.host.F] D.host.E →+* ℂ)) (V : HSp D) (S : D.what₂.Tau → SPar)
+      (M : DSModel V S) (J : Set (GA D V)) (χ : GA D V → ℂ) (μ : Measure (GA D V)) (𝓕 : Set (GA D V)),
+      HCFinite θ M J χ ∧ SchurMult θ M J χ μ 𝓕 :=
+  fun h h' _ _ _ _ _ _ _ μ 𝓕 => ⟨hcFinite h, schurMult h' μ 𝓕⟩
 
 end GlobalTheory.MultFinite
 

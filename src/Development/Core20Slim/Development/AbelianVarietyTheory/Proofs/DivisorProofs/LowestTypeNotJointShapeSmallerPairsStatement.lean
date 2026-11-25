@@ -5,10 +5,6 @@ public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.Div
 public import Formalism.SharpRestriction.Divisibility.SchurIrreducible
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Foundations.IsFockIPOfFockData
 public import Formalism.LocalRingCardinality.DataTheta
-public import Init.Core
-public import Init.Data.Cast
-public import Init.Data.Rat.Basic
-public import Init.Prelude
 
 @[expose] public section
 

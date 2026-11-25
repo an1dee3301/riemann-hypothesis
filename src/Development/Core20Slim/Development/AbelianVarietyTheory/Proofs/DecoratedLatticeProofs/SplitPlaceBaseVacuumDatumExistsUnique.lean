@@ -9,6 +9,9 @@ public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Schroding
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ExistsNatMulSplitHalfLatticeCoordinatesIntegralStatement
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ExistsNsmulMemHomLatticeOfIntegralFrameCoordsStatement
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.SchwartzBruhatMatrixUniformlyLocallyConstantBounStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.SymplecticPairingLatticeAwaySupportedAtPlaceEqZeStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.HomLatticeIndicatorOnSplitHalfEqHalfIndicatorStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.IndicatorHomSelfDualComponentsSchwartzBruhatStatement
 
 @[expose] public section
 
@@ -95,8 +98,21 @@ theorem isSBHalf_extFun : ∀ (D : D7) (k : Type) [Field k] [ValuativeRel k] [To
     rw [show (Na * Nb * Nc) • t = Na • (Nb • (Nc • t)) by rw [smul_smul, smul_smul, mul_assoc]]
     exact nsmul_mem h1 Na
 
+theorem symplO_off_eq_zero : ∀ (D : D7) (k : Type) [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k]
+    (p : SplitPt D k) (S T : HSp D) (MS : Set (Fin S.rank → D.host.E)) (MT : Set (Fin T.rank → D.host.E)) (P : Pl D → Prop),
+    ¬ P p.v → ∀ u ∈ latO S T MS MT P, ∀ x : WO S T, (∀ i j, (p.e + cA D p.e) * x i j = x i j) → symplO S T u x = 0 := GlobalTheory.T.symplecticPairing_latticeAway_supportedAt_place_eq_zero
 
+theorem extFun_latInd : ∀ (D : D7) (k : Type) [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k]
+    (p : SplitPt D k) (n n' : Type) [Fintype n] [DecidableEq n] [Fintype n'] [DecidableEq n'] (S T : HSp D)
+    (α : Frame p S n') (β : Frame p T n) (LS : Lat S) (LT : Lat T), IsSelfDualC S LS → IsSelfDualC T LT → p.UnitAA →
+    ∀ (ΛS : Submodule 𝒪[k] (n' → k)) (ΛT : Submodule 𝒪[k] (n → k)), α.IsLat LS ΛS → β.IsLat LT ΛT →
+      extFun α β (latInd ΛS ΛT) = halfInd p.e (latO S T (LS : Set _) (LT : Set _) (· = p.v)) := GlobalTheory.T.homLatticeIndicator_on_split_half_eq_half_indicator
 
+theorem latInd_mem_SB : ∀ (D : D7) (k : Type) [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k]
+    (p : SplitPt D k) (n n' : Type) [Fintype n] [DecidableEq n] [Fintype n'] [DecidableEq n'] (S T : HSp D)
+    (α : Frame p S n') (β : Frame p T n) (LS : Lat S) (LT : Lat T), IsSelfDualC S LS → IsSelfDualC T LT →
+    ∀ (ΛS : Submodule 𝒪[k] (n' → k)) (ΛT : Submodule 𝒪[k] (n → k)), α.IsLat LS ΛS → β.IsLat LT ΛT →
+      latInd ΛS ΛT ∈ SB (Matrix n n' k) := GlobalTheory.T.indicator_hom_selfDual_components_schwartzBruhat
 
 variable {D : D7}
 
@@ -142,9 +158,94 @@ theorem isLatVac_zero (ψ : AddChar (AF D.host.F) ℂ) (S T : HSp D) (Λ : AddSu
     IsLatVac (heisO ψ S T) Λ 0 :=
   ⟨fun u _ => heisO_zero_fun ψ S T _, fun _ _ u _ _ => heisO_zero_fun ψ S T u⟩
 
+theorem isLatVac_add {ψ : AddChar (AF D.host.F) ℂ} {S T : HSp D} {Λ : AddSubgroup (WO S T)} {f g : WO S T → ℂ}
+    (hf : IsLatVac (heisO ψ S T) Λ f) (hg : IsLatVac (heisO ψ S T) Λ g) : IsLatVac (heisO ψ S T) Λ (f + g) := by
+  refine ⟨fun u hu => ?_, fun e he u hu hh => ?_⟩
+  · have := (heisL S T ψ (2 • u)).map_add f g
+    change heisO ψ S T (2 • u) (f + g) = _ at this
+    rw [this]; change heisO ψ S T (2 • u) f + heisO ψ S T (2 • u) g = _; rw [hf.1 u hu, hg.1 u hu]
+  · have := (heisL S T ψ u).map_add f g
+    change heisO ψ S T u (f + g) = _ at this
+    rw [this]; change heisO ψ S T u f + heisO ψ S T u g = _; rw [hf.2 e he u hu hh, hg.2 e he u hu hh]
 
+theorem isLatVac_smul {ψ : AddChar (AF D.host.F) ℂ} {S T : HSp D} {Λ : AddSubgroup (WO S T)} (c : ℂ) {f : WO S T → ℂ}
+    (hf : IsLatVac (heisO ψ S T) Λ f) : IsLatVac (heisO ψ S T) Λ (c • f) := by
+  refine ⟨fun u hu => ?_, fun e he u hu hh => ?_⟩
+  · have := (heisL S T ψ (2 • u)).map_smul c f
+    change heisO ψ S T (2 • u) (c • f) = _ at this
+    rw [this]; change c • heisO ψ S T (2 • u) f = _; rw [hf.1 u hu]
+  · have := (heisL S T ψ u).map_smul c f
+    change heisO ψ S T u (c • f) = _ at this
+    rw [this]; change c • heisO ψ S T u f = _; rw [hf.2 e he u hu hh]
 
+theorem isLatVac_heis {ψ : AddChar (AF D.host.F) ℂ} {S T : HSp D} {Λ : AddSubgroup (WO S T)} {x : WO S T}
+    (hx : ∀ u ∈ Λ, symplO S T u x = 0) {f : WO S T → ℂ} (hf : IsLatVac (heisO ψ S T) Λ f) :
+    IsLatVac (heisO ψ S T) Λ (heisO ψ S T x f) := by
+  have key : ∀ u ∈ Λ, heisO ψ S T u f = f → heisO ψ S T u (heisO ψ S T x f) = heisO ψ S T x f := by
+    intro u hu h
+    have := heisL_comm S T ψ u x f
+    change heisO ψ S T u (heisO ψ S T x f) = ψ (symplO S T u x) • heisO ψ S T x (heisO ψ S T u f) at this
+    rw [this, hx u hu, AddChar.map_zero_eq_one, one_smul, h]
+  exact ⟨fun u hu => key _ (nsmul_mem hu 2) (hf.1 u hu), fun e he u hu hh => key u hu (hf.2 e he u hu hh)⟩
 
+theorem overBasic : ∀ D : D7, GlobalTheory.FinPl.OverBasic D := by
+  intro D k _ _ _ _ p n n' _ _ _ _ ψ hψ S T α β LS LT hS hT f₀ hvac
+  obtain ⟨ε, hε, heq⟩ := p.above
+  have hs := p.split
+  have he := hs.1
+  have hec := hs.2.1
+  have he' : cA D p.e * cA D p.e = cA D p.e := by rw [← map_mul, he]
+  have hs' : IsSplitIdem D (cA D p.e) :=
+    ⟨he', by rw [cA_cA, mul_comm, hec], p.v, ε, hε, by rw [cA_cA, add_comm, heq]⟩
+  have heε : algebraMap (AF D.host.F) (AE D) ε * p.e = p.e := by rw [← heq]; linear_combination he + hec
+  have heε' : algebraMap (AF D.host.F) (AE D) ε * cA D p.e = cA D p.e := by rw [← heq]; linear_combination he' + hec
+  obtain ⟨hLL', hX, hY, hfin, hden⟩ := dualPair hψ hS hT hs hε heq
+  set Λ := latO S T (LS : Set _) (LT : Set _) (· = p.v) with hΛ
+  have hex : ∃ Tm, IsPlaceModel ψ (symplO S T) (heisO ψ S T) p.e Λ 1 f₀ Tm :=
+    exists_placeModel ψ hec Λ hLL' hX hY hfin one_ne_zero f₀
+      (fun u hu => hvac.2.2 p.e hs u hu.1 ((isHalf_iff S T).2 hu.2))
+      (fun u hu => hvac.2.2 _ hs' u hu.1 ((isHalf_iff S T).2 hu.2))
+  obtain ⟨Tm, hTm⟩ := hex
+  have huniq := fun {T₁ T₂} (h₁ : IsPlaceModel ψ (symplO S T) (heisO ψ S T) p.e Λ 1 f₀ T₁)
+      (h₂ : IsPlaceModel ψ (symplO S T) (heisO ψ S T) p.e Λ 1 f₀ T₂) {Φ} (hΦ : IsSBHalf p.e Λ Φ) =>
+    placeModel_unique_of_dual ψ Λ hLL' hX hfin hden h₁ h₂ hΦ
+  have hfX : ∀ x ∈ half S T p.e, ∀ i j, (p.e + cA D p.e) * x i j = x i j := fun x hx i j => by
+    have h1 := (isHalf_iff S T).2 hx i j
+    linear_combination (1 - cA D p.e) * h1 + x i j * hec
+  have hfY : ∀ y ∈ half S T (cA D p.e), ∀ i j, (p.e + cA D p.e) * y i j = y i j := fun y hy i j => by
+    have h1 := (isHalf_iff S T).2 hy i j
+    linear_combination (1 - p.e) * h1 + y i j * hec
+  refine ⟨fun Ψ hΨ => ?_, fun Ψ f hf => ?_, fun hU ΛS ΛT hLS hLT => ?_⟩
+  · have hΦ := isSBHalf_extFun D k p n n' S T α β LS LT hS hT Ψ hΨ
+    refine ⟨Tm (extFun α β Ψ), ⟨hS, hT, hvac, hΨ, ⟨Tm, hTm⟩, fun T' hT' => huniq hTm hT' hΦ⟩, fun f hf => ?_⟩
+    exact hf.2.2.2.2.2 Tm hTm
+  · have hΦ := isSBHalf_extFun D k p n n' S T α β LS LT hS hT Ψ hf.2.2.2.1
+    have hfe : f = Tm (extFun α β Ψ) := hf.2.2.2.2.2 Tm hTm
+    rw [hfe]
+    refine ⟨placeModel_induction ψ Λ hLL' hX hfin hden hTm (IsThetaFunO ψ S T) GlobalTheory.WeilVacMove.isTheta_zero
+      (fun _ _ => GlobalTheory.WeilVacMove.isTheta_add) (fun c _ => GlobalTheory.WeilVacMove.isTheta_smul c)
+      (fun x hx g hg => isTheta_heis_fin hψ hg (infPart_half hε heε hx))
+      (fun y hy g hg => isTheta_heis_fin hψ hg (infPart_half hε heε' hy))
+      hvac.1 hΦ, fun MS MT P hP hv => ⟨?_, ?_⟩⟩
+    · exact placeModel_induction ψ Λ hLL' hX hfin hden hTm (IsThetaFunO ψ S T) GlobalTheory.WeilVacMove.isTheta_zero
+        (fun _ _ => GlobalTheory.WeilVacMove.isTheta_add) (fun c _ => GlobalTheory.WeilVacMove.isTheta_smul c)
+        (fun x hx g hg => isTheta_heis_fin hψ hg (infPart_half hε heε hx))
+        (fun y hy g hg => isTheta_heis_fin hψ hg (infPart_half hε heε' hy))
+        hvac.1 hΦ
+    · have hv2 : IsLatVac (heisO ψ S T) (latO S T (MS : Set (Fin S.rank → D.host.E)) (MT : Set (Fin T.rank → D.host.E)) P) f₀ := hv.2
+      exact placeModel_induction ψ Λ hLL' hX hfin hden hTm
+        (IsLatVac (heisO ψ S T) (latO S T (MS : Set (Fin S.rank → D.host.E)) (MT : Set (Fin T.rank → D.host.E)) P)) (isLatVac_zero ψ S T _)
+        (fun _ _ => isLatVac_add) (fun c _ => isLatVac_smul c)
+        (fun x hx g hg => isLatVac_heis (fun u hu => symplO_off_eq_zero D k p S T _ _ P hP u hu x (hfX x hx)) hg)
+        (fun y hy g hg => isLatVac_heis (fun u hu => symplO_off_eq_zero D k p S T _ _ P hP u hu y (hfY y hy)) hg)
+        hv2 hΦ
+  · have hE := extFun_latInd D k p n n' S T α β LS LT hS hT hU ΛS ΛT hLS hLT
+    refine ⟨hS, hT, hvac, latInd_mem_SB D k p n n' S T α β LS LT hS hT ΛS ΛT hLS hLT, ⟨Tm, hTm⟩, fun T' hT' => ?_⟩
+    have := hT'.vac
+    rw [one_smul] at this
+    change f₀ = T' (extFun α β (latInd ΛS ΛT))
+    rw [hE, this]
 
 end GlobalTheory.FinPl.OverProof
 
+theorem GlobalTheory.FinPl.overBasic : ∀ D : D7, GlobalTheory.FinPl.OverBasic D := GlobalTheory.FinPl.OverProof.overBasic

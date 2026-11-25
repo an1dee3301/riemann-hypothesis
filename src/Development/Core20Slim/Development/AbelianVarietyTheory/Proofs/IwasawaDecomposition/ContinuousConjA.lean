@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.BlockTheory.HeightDefect.SymplecticTensorMeasures
 public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedLocW
 public import Formalism.LocalRingCardinality.DataHost
 public import Formalism.LocalRingCardinality.DataSpaces
