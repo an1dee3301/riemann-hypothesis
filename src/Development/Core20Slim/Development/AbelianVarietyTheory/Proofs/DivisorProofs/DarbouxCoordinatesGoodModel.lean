@@ -30,6 +30,18 @@ variable [NumberField F]
 
 
 
+theorem acts_unique' (v : Pl (F := F)) {φ φ₁ φ₂ : (κ → Fv F v) → ℂ} {R : (κ → AF F) → ℂ} (hR0 : R 0 ≠ 0)
+    (hR : Rest (evFin F v) φ R) {T : ((κ → AF F) → ℂ) → (κ → AF F) → ℂ}
+    (h₁ : Acts (evFin F v) T φ φ₁) (h₂ : Acts (evFin F v) T φ φ₂) : φ₁ = φ₂ := by
+  have e := (h₁ R hR).symm.trans (h₂ R hR)
+  funext t
+  have h := congrFun e (fun i => GlobalTheory.LatVac.liftV v (t i))
+  have hx : R (fun i => GlobalTheory.LatVac.liftV v (t i)) = R 0 := by
+    have := hR.1 0 (fun i => GlobalTheory.LatVac.liftV v (t i))
+      (fun u hu => by funext i; exact GlobalTheory.LatVac.at_liftV v _ u hu)
+    simpa using this
+  simp only [tens, GlobalTheory.LatVac.evFin_liftV, hx] at h
+  exact mul_right_cancel₀ hR0 h
 
 end GlobalTheory.SympChange
 
