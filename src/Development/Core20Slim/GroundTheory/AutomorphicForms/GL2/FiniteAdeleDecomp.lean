@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.GroundTheory.AutomorphicForms.GL2.GodementSectionFactor
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdelicCharLocal
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdeleMeasure
 public import Development.Core20Slim.GroundTheory.LocalFields.Different

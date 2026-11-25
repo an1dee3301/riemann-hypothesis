@@ -242,6 +242,23 @@ theorem adelicFourier_adelicFourier {F : 𝔸[K] → ℂ} (hF : F ∈ schwartzBr
     rw [adelicFourier_smul, adelicFourier_smul, ih]
     rfl
 
+theorem adelicFourier_comp_smul (a : IdeleGroup K) (F : 𝔸[K] → ℂ) (y : 𝔸[K]) :
+    adelicFourier K (fun x ↦ F (a • x)) y =
+      ((IdeleGroup.ideleModule K a : ℝ)⁻¹ : ℂ) * adelicFourier K F (a⁻¹ • y) := by
+  set G : 𝔸[K] → ℂ := fun z ↦ F z * (adelicChar K (z * (a⁻¹ • y)) : ℂ)
+  have hG : ∀ x, G (a • x) = F (a • x) * (adelicChar K (x * y) : ℂ) := by
+    intro x
+    simp only [G]
+    rw [Units.smul_def, Units.smul_def, smul_eq_mul, smul_eq_mul, mul_mul_mul_comm, Units.mul_inv,
+      one_mul]
+  have hemb : MeasurableEmbedding fun x : 𝔸[K] ↦ a • x :=
+    (Homeomorph.smul a).toMeasurableEquiv.measurableEmbedding
+  have h := hemb.integral_map (μ := adeleMeasure K) G
+  rw [map_smul_adeleMeasure, integral_smul_measure, ENNReal.toReal_ofReal
+    (inv_nonneg.mpr (IdeleGroup.ideleModule K a).2.le)] at h
+  rw [adelicFourier, adelicFourier]
+  simp only [← hG]
+  rw [← h, Complex.real_smul, Complex.ofReal_inv]
 
 end
 

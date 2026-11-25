@@ -104,6 +104,8 @@ public import Mathlib.Topology.Homeomorph.Defs
 public import Mathlib.Topology.MetricSpace.Pseudo.Defs
 public import Mathlib.Topology.UniformSpace.Defs
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open NumberField NumberField.mixedEmbedding IsDedekindDomain IsDedekindDomain.HeightOneSpectrum

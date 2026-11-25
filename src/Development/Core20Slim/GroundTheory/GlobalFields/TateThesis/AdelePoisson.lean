@@ -378,6 +378,9 @@ theorem summable_norm_algebraMap_of_mem_schwartzBruhat {F : 𝔸[K] → ℂ} (hF
     Summable fun ξ : K ↦ ‖F (algebraMap K 𝔸[K] ξ)‖ :=
   (poisson_of_mem_span (schwartzBruhat_le_span_cosetIndicator hF)).1
 
+theorem tsum_algebraMap_eq_tsum_adelicFourier {F : 𝔸[K] → ℂ} (hF : F ∈ schwartzBruhat K) :
+    ∑' ξ : K, F (algebraMap K 𝔸[K] ξ) = ∑' ξ : K, adelicFourier K F (algebraMap K 𝔸[K] ξ) :=
+  (poisson_of_mem_span (schwartzBruhat_le_span_cosetIndicator hF)).2.2
 
 def mixedMulLeft (u : (mixedSpace K)ˣ) : mixedSpace K ≃L[ℝ] mixedSpace K :=
   LinearEquiv.toContinuousLinearEquiv
@@ -423,6 +426,13 @@ theorem summable_norm_smul_algebraMap (a : IdeleGroup K) {F : 𝔸[K] → ℂ}
     (comp_smul_mem_schwartzBruhat a hF)
 
 
+theorem tsum_smul_algebraMap_eq (a : IdeleGroup K) {F : 𝔸[K] → ℂ} (hF : F ∈ schwartzBruhat K) :
+    ∑' ξ : K, F (a • algebraMap K 𝔸[K] ξ) =
+      ((IdeleGroup.ideleModule K a : ℝ)⁻¹ : ℂ) *
+        ∑' ξ : K, adelicFourier K F (a⁻¹ • algebraMap K 𝔸[K] ξ) := by
+  rw [tsum_algebraMap_eq_tsum_adelicFourier (F := fun x ↦ F (a • x))
+    (comp_smul_mem_schwartzBruhat a hF), ← tsum_mul_left]
+  exact tsum_congr fun ξ ↦ adelicFourier_comp_smul a F _
 
 end
 
