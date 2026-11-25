@@ -8,9 +8,6 @@ public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership
 public import Formalism.LocalRingCardinality.DataRows
 public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
 public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
-public import Init.Core
-public import Init.Data.Rat.Basic
-public import Init.Prelude
 
 @[expose] public section
 

@@ -7,128 +7,6 @@ public import Formalism.LocalRingCardinality.Params
 public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
 public import Formalism.LocalToGlobal.ProjectiveLattices.HalfOneAddSqrtNegIsIntegral
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Data.Cast
-public import Init.Data.Function
-public import Init.Data.Int.Basic
-public import Init.Data.Rat.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Equiv
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.Algebra.NonUnitalHom
-public import Mathlib.Algebra.Algebra.Operations
-public import Mathlib.Algebra.Algebra.Rat
-public import Mathlib.Algebra.Algebra.Subalgebra.Basic
-public import Mathlib.Algebra.Algebra.Tower
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.BigOperators.Ring.Finset
-public import Mathlib.Algebra.CharZero.Defs
-public import Mathlib.Algebra.EuclideanDomain.Int
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Rat
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Subsemigroup.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Pi
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Hom
-public import Mathlib.Algebra.GroupWithZero.Nat
-public import Mathlib.Algebra.GroupWithZero.NeZero
-public import Mathlib.Algebra.GroupWithZero.NonZeroDivisors
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.NatInt
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Lattice
-public import Mathlib.Algebra.Module.Submodule.Map
-public import Mathlib.Algebra.Module.Torsion.Free
-public import Mathlib.Algebra.Module.Torsion.Pi
-public import Mathlib.Algebra.NeZero
-public import Mathlib.Algebra.Order.Kleene
-public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
-public import Mathlib.Algebra.Ring.Action.Basic
-public import Mathlib.Algebra.Ring.Basic
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Int.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Ring.Rat
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Nontrivial.Defs
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Nat.Cast.Basic
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Rat.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.FieldTheory.IntermediateField.Basic
-public import Mathlib.FieldTheory.Perfect
-public import Mathlib.FieldTheory.Separable
-public import Mathlib.GroupTheory.GroupAction.Ring
-public import Mathlib.GroupTheory.OreLocalization.OreSet
-public import Mathlib.LinearAlgebra.FiniteDimensional.Defs
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.CMField
-public import Mathlib.NumberTheory.NumberField.InfinitePlace.TotallyRealComplex
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Notation
-public import Mathlib.RingTheory.Algebraic.Integral
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.DedekindDomain.Different
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Basic
-public import Mathlib.RingTheory.Etale.Weakly
-public import Mathlib.RingTheory.Finiteness.Basic
-public import Mathlib.RingTheory.Finiteness.Defs
-public import Mathlib.RingTheory.Flat.TorsionFree
-public import Mathlib.RingTheory.FractionalIdeal.Basic
-public import Mathlib.RingTheory.FractionalIdeal.Inverse
-public import Mathlib.RingTheory.FractionalIdeal.Operations
-public import Mathlib.RingTheory.Ideal.Defs
-public import Mathlib.RingTheory.Ideal.Maps
-public import Mathlib.RingTheory.Ideal.Norm.AbsNorm
-public import Mathlib.RingTheory.Ideal.Pointwise
-public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-public import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
-public import Mathlib.RingTheory.IntegralClosure.IsIntegral.Defs
-public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Defs
-public import Mathlib.RingTheory.Localization.FractionRing
-public import Mathlib.RingTheory.Noetherian.Basic
-public import Mathlib.RingTheory.Noetherian.Defs
-public import Mathlib.RingTheory.OreLocalization.Ring
-public import Mathlib.RingTheory.PrincipalIdealDomain
-public import Mathlib.RingTheory.RegularLocalRing.Defs
-public import Mathlib.RingTheory.SimpleRing.Basic
-public import Mathlib.RingTheory.SimpleRing.Principal
-public import Mathlib.RingTheory.TotallySplit
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
 
 @[expose] public section
 
@@ -190,7 +68,25 @@ theorem herm_smul_right {D : D7} (G : Matrix (Fin r) (Fin r) D.host.E) (c : D.ho
   simp only [Pi.smul_apply, smul_eq_mul, cc, map_mul]
   ring
 
+theorem herm_add_left {D : D7} (G : Matrix (Fin r) (Fin r) D.host.E) (x x' y : Fin r → D.host.E) :
+    herm G (x + x') y = herm G x y + herm G x' y := by
+  unfold herm
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun a _ => ?_
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun b _ => ?_
+  simp only [Pi.add_apply]
+  ring
 
+theorem herm_add_right {D : D7} (G : Matrix (Fin r) (Fin r) D.host.E) (x y y' : Fin r → D.host.E) :
+    herm G x (y + y') = herm G x y + herm G x y' := by
+  unfold herm
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun a _ => ?_
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun b _ => ?_
+  simp only [Pi.add_apply, cc, map_add (f := _)]
+  ring
 
 theorem AA_mul_inv (hP : FactPrincipalDatum) (D : D7) : D.host.AA * D.host.AA⁻¹ = 1 :=
   mul_inv_cancel₀ (AA_ne_zero hP D)
@@ -316,6 +212,26 @@ theorem mem_dual_localLattice_of_forall {x : Fin r → D.host.E} (hx : ∀ y ∈
 
 end Dual
 
+theorem lat_eq_span (hP : FactPrincipalDatum) {D : D7} (Λ : Submodule (𝓞 D.host.E) (Fin r → D.host.E)) :
+    Λ = Submodule.span (𝓞 D.host.E) {v | ∃ a ∈ D.host.AA, ∃ u ∈ lattice₂ D Λ, v = a • u} := by
+  apply le_antisymm
+  · intro z hz
+    have h1 : (1 : D.host.E) ∈ D.host.AA * D.host.AA⁻¹ := by
+      rw [AA_mul_inv hP D]; exact one_mem_one _
+    have key := FractionalIdeal.mul_induction_on
+      (C := fun w : D.host.E => w • z ∈ Submodule.span (𝓞 D.host.E) {v | ∃ a ∈ D.host.AA, ∃ u ∈ lattice₂ D Λ, v = a • u})
+      h1 (fun a ha b hb => by
+        show (a * b) • z ∈ _
+        rw [mul_smul]
+        exact Submodule.subset_span ⟨a, ha, b • z, smul_mem_latP hP hb hz, rfl⟩)
+      (fun x y hx hy => by
+        show (x + y) • z ∈ _
+        rw [add_smul]
+        exact Submodule.add_mem _ hx hy)
+    simpa using key
+  · rw [Submodule.span_le]
+    rintro v ⟨a, ha, u, hu, rfl⟩
+    exact mem_latP.1 hu a ha
 
 theorem normCc_mem_AA (D : D7) : ((Ideal.absNorm D.host.ccK : ℕ) : D.host.E) ∈ D.host.AA := by
   obtain ⟨hB, -⟩ := bB_ne D
