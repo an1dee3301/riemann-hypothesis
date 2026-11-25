@@ -43,8 +43,22 @@ def adelicTheta (F : 𝔸[K] → ℂ) (a : IdeleGroup K) : ℂ :=
 
 
 
+theorem smul_algebraMap_zero (a : IdeleGroup K) : a • algebraMap K 𝔸[K] 0 = 0 := by
+  rw [map_zero, smul_zero]
 
+theorem continuousOn_adelicTheta {F : 𝔸[K] → ℂ} (hF : F ∈ schwartzBruhat K)
+    {C : Set (IdeleGroup K)} (hC : IsCompact C) : ContinuousOn (adelicTheta F) C := by
+  obtain ⟨u, hu, hFu⟩ := exists_summable_bound_smul_algebraMap hF hC
+  refine continuousOn_tsum (fun ξ ↦ ?_) hu (fun ξ a ha ↦ hFu a ha ξ)
+  have h : Continuous fun a : IdeleGroup K ↦ F ((a : 𝔸[K]) * algebraMap K 𝔸[K] ξ) :=
+    (continuous_of_mem_schwartzBruhat hF).comp (Units.continuous_val.mul continuous_const)
+  exact h.continuousOn
 
+theorem continuous_adelicTheta {F : 𝔸[K] → ℂ} (hF : F ∈ schwartzBruhat K) :
+    Continuous (adelicTheta F) := by
+  refine continuous_iff_continuousAt.2 fun a ↦ ?_
+  obtain ⟨C, hC, haC⟩ := exists_compact_mem_nhds a
+  exact (continuousOn_adelicTheta hF hC).continuousAt haC
 
 
 
@@ -65,7 +79,20 @@ def thetaIntegral (w : InfinitePlace K) (F : 𝔸[K] → ℂ) (χ : HeckeCharact
   ∫ u in normOneFundamentalDomain K, thetaIntegrand w F χ t u ∂normOneMeasure K
 
 
+theorem continuous_thetaIntegrand (w : InfinitePlace K) {F : 𝔸[K] → ℂ}
+    (hF : F ∈ schwartzBruhat K) (χ : HeckeCharacter K) (t : {r : ℝ // 0 < r}) :
+    Continuous (thetaIntegrand w F χ t) := by
+  have h1 : Continuous fun u : normOneSubgroup K ↦ moduleSection w t * (u : IdeleGroup K) :=
+    continuous_const.mul continuous_subtype_val
+  have h2 : Continuous fun u : normOneSubgroup K ↦ (χ.toIdele (u : IdeleGroup K) : ℂ) :=
+    continuous_subtype_val.comp (χ.continuous_toIdele.comp continuous_subtype_val)
+  exact ((continuous_adelicTheta hF).comp h1).mul h2
 
+theorem integrableOn_thetaIntegrand (w : InfinitePlace K) {F : 𝔸[K] → ℂ}
+    (hF : F ∈ schwartzBruhat K) (χ : HeckeCharacter K) (t : {r : ℝ // 0 < r}) :
+    IntegrableOn (thetaIntegrand w F χ t) (normOneFundamentalDomain K) (normOneMeasure K) :=
+  ((continuous_thetaIntegrand w hF χ t).continuousOn.integrableOn_compact
+    (isCompact_closure_normOneFundamentalDomain K)).mono_set subset_closure
 
 
 theorem toIdele_inv (χ : HeckeCharacter K) (x : IdeleGroup K) :

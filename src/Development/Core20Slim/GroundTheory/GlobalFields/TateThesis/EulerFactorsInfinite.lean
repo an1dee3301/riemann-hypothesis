@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.EulerFactorsArch
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.GaussianSchwartz
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.TraceFourier
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.HeckeCharRayClass
