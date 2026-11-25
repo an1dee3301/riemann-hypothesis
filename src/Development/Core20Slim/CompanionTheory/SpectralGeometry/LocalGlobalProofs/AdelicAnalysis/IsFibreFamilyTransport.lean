@@ -1,0 +1,103 @@
+module
+
+public import Mathlib
+public import Formalism.UnipotentAdelicQuotients.SWXSDefs
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Init.Core
+public import Init.Data.Function
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Analysis.InnerProductSpace.Basic
+public import Mathlib.Analysis.InnerProductSpace.Defs
+public import Mathlib.Analysis.Normed.Group.Continuity
+public import Mathlib.Analysis.Normed.Group.Defs
+public import Mathlib.Analysis.Normed.Group.Real
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.RCLike.Basic
+public import Mathlib.Basic.ENNReal.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Data.Set.Image
+public import Mathlib.Data.Set.Insert
+public import Mathlib.Data.Set.Operations
+public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
+public import Mathlib.MeasureTheory.Function.L1Space.Integrable
+public import Mathlib.MeasureTheory.Integral.Bochner.Basic
+public import Mathlib.MeasureTheory.Integral.Lebesgue.Basic
+public import Mathlib.MeasureTheory.Integral.Lebesgue.Map
+public import Mathlib.MeasureTheory.MeasurableSpace.Defs
+public import Mathlib.MeasureTheory.MeasurableSpace.Embedding
+public import Mathlib.MeasureTheory.Measure.Map
+public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
+public import Mathlib.MeasureTheory.Measure.OpenPos
+public import Mathlib.MeasureTheory.Measure.Restrict
+public import Mathlib.MeasureTheory.Measure.Typeclasses.Finite
+public import Mathlib.Order.Notation
+public import Mathlib.Topology.Algebra.Support
+public import Mathlib.Topology.Bases
+public import Mathlib.Topology.Continuous
+public import Mathlib.Topology.ContinuousOn
+public import Mathlib.Topology.Defs.Basic
+public import Mathlib.Topology.Defs.Filter
+public import Mathlib.Topology.Homeomorph.Defs
+public import Mathlib.Topology.MetricSpace.Pseudo.Defs
+public import Mathlib.Topology.Separation.Hausdorff
+public import Mathlib.Topology.UniformSpace.Defs
+
+@[expose] public section
+
+open MeasureTheory Topology Matrix
+open scoped ENNReal NNReal
+
+namespace GlobalTheory.CompanionTheory.SW
+
+theorem isFibreFamily_transport :
+    ∀ (V X Y : Type) [TopologicalSpace V] [LocallyCompactSpace V] [SecondCountableTopology V] [T2Space V] [MeasurableSpace V] [BorelSpace V] [TopologicalSpace X] [LocallyCompactSpace X] [SecondCountableTopology X] [T2Space X] [MeasurableSpace X] [BorelSpace X] (μ : Measure V) (ν : Measure X) [IsLocallyFiniteMeasure μ] [IsLocallyFiniteMeasure ν] [ν.IsOpenPosMeasure] (f : V → Y) (g : V → X) (ι : X → Y), Function.Injective ι → Continuous g → (∀ v, f v = ι (g v)) → ∀ (V' : Type) [TopologicalSpace V'] [LocallyCompactSpace V'] [SecondCountableTopology V'] [T2Space V'] [MeasurableSpace V'] [BorelSpace V'] (f' : V' → Y) (g' : V' → X), Continuous g' → (∀ v, f' v = ι (g' v)) → ∀ (e : V ≃ₜ V') (τ : X ≃ₜ X), (∀ v, g' (e v) = τ (g v)) → ∀ (B : Set X), IsOpen B → ∀ fib : X → Measure V, Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes.IsFibreFamily μ f ι (g ⁻¹' B) ν B fib → Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes.IsFibreFamily (μ.map e) f' ι (g' ⁻¹' (τ '' B)) (ν.map τ) (τ '' B) (fun b => (fib (τ.symm b)).map e) := by
+  intro V X Y _ _ _ _ _ _ _ _ _ _ _ _ μ ν _ _ _ f g ι hι hg hf V' _ _ _ _ _ _ f' g' hg' hf' e τ hc B hB fib h
+  obtain ⟨h1, h2, h3⟩ := h
+  have hU : e ⁻¹' (g' ⁻¹' (τ '' B)) = g ⁻¹' B := by
+    ext v
+    simp only [Set.mem_preimage, hc v, τ.injective.mem_set_image]
+  have hemb : MeasurableEmbedding e := e.measurableEmbedding
+  have hτ : MeasurableEmbedding τ := τ.measurableEmbedding
+  refine ⟨?_, ?_, ?_⟩
+  · intro b
+    have hset : e ⁻¹' (f' ⁻¹' {ι b} ∩ g' ⁻¹' (τ '' B))ᶜ = (f ⁻¹' {ι (τ.symm b)} ∩ g ⁻¹' B)ᶜ := by
+      rw [Set.preimage_compl, Set.preimage_inter, hU]
+      congr 2
+      ext v
+      simp only [Set.mem_preimage, Set.mem_singleton_iff, hf, hf', hι.eq_iff, hc v]
+      exact ⟨fun hh => by rw [← hh, τ.symm_apply_apply], fun hh => by rw [hh, τ.apply_symm_apply]⟩
+    show ((fib (τ.symm b)).map e) _ = 0
+    rw [hemb.map_apply, hset]
+    exact h1 _
+  · intro φ hφ
+    have hr : (μ.map e).restrict (g' ⁻¹' (τ '' B)) = (μ.restrict (g ⁻¹' B)).map e := by
+      rw [← hU]
+      exact (hemb.restrict_map μ _)
+    rw [hr, hemb.lintegral_map, h2 (fun v => φ (e v)) (hφ.comp e.measurable), hτ.lintegral_map]
+    refine lintegral_congr fun b => ?_
+    simp only [τ.symm_apply_apply, hemb.lintegral_map, Function.comp]
+  · intro φ hφ hcs hts
+    have hts' : tsupport (φ ∘ e) ⊆ g ⁻¹' B := by
+      rw [tsupport_comp_eq_preimage, ← hU]
+      exact Set.preimage_mono hts
+    obtain ⟨hi, hcont⟩ := h3 (φ ∘ e) (hφ.comp e.continuous)
+      (hcs.comp_isClosedEmbedding e.isClosedEmbedding) hts'
+    have hm : Set.MapsTo τ.symm (τ '' B) B := by
+      rintro _ ⟨x, hx, rfl⟩
+      simpa using hx
+    refine ⟨fun b hb => ?_, ?_⟩
+    · rw [hemb.integrable_map_iff]
+      exact hi _ (hm hb)
+    · have : (fun b => ∫ v, φ v ∂((fib (τ.symm b)).map e))
+          = (fun b => ∫ v, (φ ∘ e) v ∂(fib b)) ∘ τ.symm := by
+        funext b
+        exact hemb.integral_map φ
+      rw [this]
+      exact hcont.comp τ.symm.continuous.continuousOn hm
+
+end GlobalTheory.CompanionTheory.SW

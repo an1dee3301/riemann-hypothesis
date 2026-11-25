@@ -1,0 +1,262 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.IntegrandSZero
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.DoubledLatticeHeightSelfDualLatticesEqConjStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.WeilRepPreservesFockDegreeOfCommuteCartanStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.CuspFormsArchimedeanKFiniteRightTranslateFiniteAStatement
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ThetaFunctionScalarProductPreservedIsometry
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.CompAtMtOfMemGfC
+public import Formalism.LocalToGlobal.IndefiniteReal.LevelTypeEquivalence.UnimodGA
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.AdelicDataRowMeasureScaleTrivialTuple
+public import Development.AbelianVarietyTheory.Definitions.Foundations.AestronglyMeasurableQuotMeasureIffLift
+public import Development.AbelianVarietyTheory.Definitions.Foundations.IsIwasawaOfIsCompact
+public import Development.AbelianVarietyTheory.Definitions.Foundations.MemL2OfBoundedContinuousInvariant
+public import Development.AbelianVarietyTheory.Definitions.Foundations.OfInfProjInfMulOfFinProjFin
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.LocalRingCardinality.DataSpaces
+public import Formalism.LocalRingCardinality.DataTheta
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
+public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
+public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedSmooth
+public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedWeil
+public import Formalism.LocalToGlobal.IndefiniteReal.FinitePlaces.IdemElt
+public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
+public import Formalism.LocalToGlobal.ProjectiveLattices.IsProbabilityMeasureAutQuotientNormalized
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
+public import Init.Core
+public import Init.Data.Int.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Mathlib.Algebra.Field.Subfield.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.AddChar
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Int.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Actions
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.LinearMap.End
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Module.Submodule.Lattice
+public import Mathlib.Algebra.Notation.Defs
+public import Mathlib.Algebra.Notation.Prod
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Algebra.Star.Basic
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Complex.Circle
+public import Mathlib.Analysis.Complex.Norm
+public import Mathlib.Analysis.InnerProductSpace.Basic
+public import Mathlib.Analysis.InnerProductSpace.Defs
+public import Mathlib.Analysis.Normed.Group.Continuity
+public import Mathlib.Analysis.Normed.Group.Defs
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.RCLike.Basic
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.ENNReal.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Quot
+public import Mathlib.Data.Set.Defs
+public import Mathlib.GroupTheory.Coset.Defs
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.Logic.Equiv.Defs
+public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
+public import Mathlib.MeasureTheory.Function.L1Space.Integrable
+public import Mathlib.MeasureTheory.Group.Defs
+public import Mathlib.MeasureTheory.Group.FundamentalDomain
+public import Mathlib.MeasureTheory.Group.Integral
+public import Mathlib.MeasureTheory.Group.Measure
+public import Mathlib.MeasureTheory.Integral.Bochner.Basic
+public import Mathlib.MeasureTheory.MeasurableSpace.Constructions
+public import Mathlib.MeasureTheory.MeasurableSpace.Defs
+public import Mathlib.MeasureTheory.MeasurableSpace.Embedding
+public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
+public import Mathlib.MeasureTheory.Measure.Restrict
+public import Mathlib.MeasureTheory.OuterMeasure.AE
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.Order.Filter.Basic
+public import Mathlib.RingTheory.DedekindDomain.Basic
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.Tactic.Group
+public import Mathlib.Topology.Algebra.Group.Defs
+public import Mathlib.Topology.Algebra.Monoid.Defs
+public import Mathlib.Topology.Instances.Matrix
+public import Mathlib.Topology.MetricSpace.Pseudo.Defs
+public import Mathlib.Topology.UniformSpace.Defs
+
+@[expose] public section
+
+noncomputable section
+
+open scoped ComplexConjugate Matrix NNReal
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.L2.Theta Formalism.L2.Pj Formalism.IndefR.Datum MeasureTheory IsDedekindDomain NumberField
+open GlobalTheory.AutomorphicL2Unitary GlobalTheory.Cusp GlobalTheory.AdelicU GlobalTheory.Doubling GlobalTheory.Cont
+open GlobalTheory.IndefiniteRowSideFullHecke.SphericalVolumeLift (FinPl RealMat Lat IsFockVec IsSphOff HidaSetting volQ)
+open GlobalTheory.IndefiniteRowSideFullHecke.SphericalZero (ip delta swSec sZero IsKFinVec ThetaClause SectionClause CoefClause)
+open GlobalTheory.Mem.Th (CptF)
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+open GlobalTheory.Core.Rk.IP
+
+namespace GlobalTheory.Core.Rk.GlobMove
+
+variable {D : D7}
+
+theorem rmul_one' {V : HSp D} (q : AutomorphicL2Unitary.Quot (GQ V)) : AutomorphicL2Unitary.rmul (GQ V) 1 q = q := by
+  induction q using Quotient.inductionOn' with
+  | h x => exact congrArg _ (mul_one x)
+
+def rmulEquiv {V : HSp D} (y : GA D V) : AutomorphicL2Unitary.Quot (GQ V) ≃ᵐ AutomorphicL2Unitary.Quot (GQ V) where
+  toFun := AutomorphicL2Unitary.rmul (GQ V) y
+  invFun := AutomorphicL2Unitary.rmul (GQ V) y⁻¹
+  left_inv q := by rw [← AutomorphicL2Unitary.rmul_mul, mul_inv_cancel, rmul_one']
+  right_inv q := by rw [← AutomorphicL2Unitary.rmul_mul, inv_mul_cancel, rmul_one']
+  measurable_toFun := AutomorphicL2Unitary.measurable_rmul y
+  measurable_invFun := AutomorphicL2Unitary.measurable_rmul y⁻¹
+
+theorem descend_mul_right {V : HSp D} {φ : GA D V → ℂ} (hφ : AutomorphicL2Unitary.LeftInv (GQ V) φ) (y : GA D V) :
+    AutomorphicL2Unitary.descend (GQ V) (fun x => φ (x * y)) = AutomorphicL2Unitary.descend (GQ V) φ ∘ AutomorphicL2Unitary.rmul (GQ V) y := by
+  funext q
+  have e : AutomorphicL2Unitary.rmul (GQ V) y q = AutomorphicL2Unitary.mk (GQ V) (q.out * y) := by
+    conv_lhs => rw [← Quotient.out_eq q]
+    rfl
+  simp only [Function.comp, e, hφ.descend_mk]
+  rfl
+
+section Quot
+
+variable {V : HSp D} (m : Measure (GA D V)) [m.IsHaarMeasure] [m.IsMulRightInvariant]
+
+theorem integral_descend_mul_right {φ : GA D V → ℂ} (hφ : AutomorphicL2Unitary.LeftInv (GQ V) φ) (y : GA D V) :
+    ∫ q, AutomorphicL2Unitary.descend (GQ V) (fun x => φ (x * y)) q ∂autMeasure V m =
+      ∫ q, AutomorphicL2Unitary.descend (GQ V) φ q ∂autMeasure V m := by
+  rw [descend_mul_right hφ y]
+  exact (AutomorphicL2Unitary.measurePreserving_rmul (Γ := GQ V) (μ := m) y).integral_comp (rmulEquiv y).measurableEmbedding _
+
+theorem integrable_descend_mul_right_iff {φ : GA D V → ℂ} (hφ : AutomorphicL2Unitary.LeftInv (GQ V) φ) (y : GA D V) :
+    Integrable (AutomorphicL2Unitary.descend (GQ V) (fun x => φ (x * y))) (autMeasure V m) ↔
+      Integrable (AutomorphicL2Unitary.descend (GQ V) φ) (autMeasure V m) := by
+  rw [descend_mul_right hφ y]
+  exact (AutomorphicL2Unitary.measurePreserving_rmul (Γ := GQ V) (μ := m) y).integrable_comp_emb (rmulEquiv y).measurableEmbedding
+
+theorem petersson_rTr {φ ψ : GA D V → ℂ} (hφ : AutomorphicL2Unitary.LeftInv (GQ V) φ) (hψ : AutomorphicL2Unitary.LeftInv (GQ V) ψ) (y : GA D V) :
+    petersson V m (rTr V y φ) (rTr V y ψ) = petersson V m φ ψ := by
+  show ∫ q, AutomorphicL2Unitary.descend (GQ V) (fun x => φ (x * y)) q * conj (AutomorphicL2Unitary.descend (GQ V) (fun x => ψ (x * y)) q)
+      ∂autMeasure V m = ∫ q, AutomorphicL2Unitary.descend (GQ V) φ q * conj (AutomorphicL2Unitary.descend (GQ V) ψ q) ∂autMeasure V m
+  rw [descend_mul_right hφ y, descend_mul_right hψ y]
+  exact (AutomorphicL2Unitary.measurePreserving_rmul (Γ := GQ V) (μ := m) y).integral_comp (rmulEquiv y).measurableEmbedding
+    (fun q => AutomorphicL2Unitary.descend (GQ V) φ q * conj (AutomorphicL2Unitary.descend (GQ V) ψ q))
+
+end Quot
+
+section Conj
+
+variable {V : HSp D} (m : Measure (GA D V)) [m.IsHaarMeasure] [m.IsMulRightInvariant]
+
+theorem integral_conj (F : GA D V → ℂ) (k : GA D V) : ∫ y, F (k * y * k⁻¹) ∂m = ∫ y, F y ∂m := by
+  rw [integral_mul_left_eq_self (fun z => F (z * k⁻¹)) k, integral_mul_right_eq_self F k⁻¹]
+
+theorem integrable_of_conj {F : GA D V → ℂ} (k : GA D V) (h : Integrable (fun y => F (k * y * k⁻¹)) m) :
+    Integrable F m := by
+  have h2 := (h.comp_mul_left k⁻¹).comp_mul_right k
+  refine h2.congr (Filter.Eventually.of_forall fun x => ?_)
+  simp only [mul_assoc, mul_inv_cancel_left, mul_inv_cancel, mul_one]
+
+end Conj
+
+end GlobalTheory.Core.Rk.GlobMove
+
+namespace GlobalTheory.Core.Rk.GlobMove
+
+variable {D : D7}
+
+section Weil
+
+variable {ψ : AddChar (AF D.host.F) ℂ} {A B : HSp D} {χA χB : (AE D)ˣ →* Circle} {om : WRep A B}
+
+theorem om_mul_one (g g' : GA D A) (f : WO A B → ℂ) : om (g, 1) (om (g', 1) f) = om (g * g', 1) f := by
+  rw [← Module.End.mul_apply, ← map_mul, Prod.mk_mul_mk, mul_one]
+
+theorem thetaKO_om (g k : GA D A) (h : GA D B) (Φ : WO A B → ℂ) :
+    thetaKO om g h (om (k, 1) Φ) = thetaKO om (g * k) h Φ := by
+  unfold thetaKO
+  rw [← Module.End.mul_apply, ← map_mul, Prod.mk_mul_mk, mul_one]
+
+theorem leftInv_thetaKO (hW : IsWeilDatumO ψ A B χA χB om) {Φ : WO A B → ℂ} (hΦ : IsThetaFunO ψ A B Φ) (h : GA D B) :
+    AutomorphicL2Unitary.LeftInv (GQ A) fun g => thetaKO om g h Φ := by
+  intro γ hγ g
+  show om (γ * g, h) Φ 0 = om (g, h) Φ 0
+  have e : ((γ * g, h) : GA D A × GA D B) = (γ, 1) * (g, h) := by rw [Prod.mk_mul_mk, one_mul]
+  rw [e, map_mul, Module.End.mul_apply]
+  exact hW.om_aut γ hγ 1 (GQ B).one_mem _ (hW.om_pres _ _ hΦ)
+
+theorem wcoef_om (hW : IsWeilDatumO ψ A B χA χB om) {ν : Measure (WO A B)} {𝓕 : Set (WO A B)}
+    (hν : IsCovolOne (ratL B A) ν 𝓕) {Φ₁ Φ₂ : WO A B → ℂ} (h₁ : IsThetaFunO ψ A B Φ₁) (h₂ : IsThetaFunO ψ A B Φ₂)
+    (k y : GA D A) :
+    wcoef om ν 𝓕 (om (k⁻¹, 1) Φ₁) (om (k⁻¹, 1) Φ₂) y = wcoef om ν 𝓕 Φ₁ Φ₂ (k * y * k⁻¹) := by
+  have e : om (y, 1) (om (k⁻¹, 1) Φ₁) = om (k⁻¹, 1) (om (k * y * k⁻¹, 1) Φ₁) := by
+    rw [om_mul_one, om_mul_one]; congr 2; group
+  have key := GlobalTheory.Mem.LiftPolar.scalar_eq D ψ hW.std A B ν 𝓕 hν.1 hν.2.1 (om (k⁻¹, 1))
+    (fun f hf => hW.om_pres (k⁻¹, 1) f hf) (fun f hf => hW.om_unit ν 𝓕 hν.1 hν.2.1 (k⁻¹, 1) f hf)
+    (om (k * y * k⁻¹, 1) Φ₁) Φ₂ (hW.om_pres _ _ h₁) h₂
+  simp only [wcoef, GlobalTheory.IndefiniteRowSideFullHecke.SphericalZero.ip, e]
+  exact key
+
+end Weil
+
+section Cusp
+
+variable {V : HSp D} (m : Measure (GA D V)) [m.IsHaarMeasure] [m.IsMulRightInvariant]
+
+theorem rcoef_rTr {u₁ u₂ : GA D V → ℂ} (h₁ : AutomorphicL2Unitary.LeftInv (GQ V) u₁) (h₂ : AutomorphicL2Unitary.LeftInv (GQ V) u₂) (k y : GA D V) :
+    rcoef m (rTr V k⁻¹ u₁) (rTr V k⁻¹ u₂) y = rcoef m u₁ u₂ (k * y * k⁻¹) := by
+  unfold rcoef
+  have h₃ : AutomorphicL2Unitary.LeftInv (GQ V) (rTr V (k * y * k⁻¹) u₁) := h₁.mul_right _
+  rw [← petersson_rTr m h₃ h₂ k⁻¹]
+  congr 1
+  funext x
+  change u₁ ((x * y) * k⁻¹) = u₁ ((x * k⁻¹) * (k * y * k⁻¹))
+  congr 1
+  group
+
+end Cusp
+
+end GlobalTheory.Core.Rk.GlobMove
+
+namespace GlobalTheory.Core.Rk.GlobMove
+
+variable {D : D7}
+
+theorem cuspFormsArchimedeanKFinite_left_invariant {θ : InfFam D} {A : HSp D} {cA : CptF A} {u : GA D A → ℂ} (hu : u ∈ A0 θ A cA) :
+    AutomorphicL2Unitary.LeftInv (GQ A) u :=
+  AutomorphicL2Unitary.leftInv_of_isAutFun (Submodule.mem_inf.1 hu).1.1.toIsAutFun
+
+
+end GlobalTheory.Core.Rk.GlobMove

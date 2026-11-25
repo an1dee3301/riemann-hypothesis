@@ -1,0 +1,82 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.Foundations.StrictInterlaceIffDescEnum
+public import Formalism.LocalRingCardinality.DataTheta
+public import Init.Core
+public import Init.Data.Bool
+public import Init.Data.Cast
+public import Init.Data.Int.Basic
+public import Init.Data.Int.DivMod.Basic
+public import Init.Data.Int.DivMod.Bootstrap
+public import Init.Data.Int.Lemmas
+public import Init.Data.Int.Order
+public import Init.Data.List.Basic
+public import Init.Data.Nat.Basic
+public import Init.Data.Rat.Basic
+public import Init.Omega.Coeffs
+public import Init.Omega.Constraint
+public import Init.Omega.Int
+public import Init.Omega.LinearCombo
+public import Init.Omega.Logic
+public import Init.Prelude
+public import Init.PropLemmas
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Rat
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Even
+public import Mathlib.Algebra.Group.Nat.Even
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Nat
+public import Mathlib.Algebra.Ring.Parity
+public import Mathlib.Algebra.Ring.Rat
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Card
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Finset.Filter
+public import Mathlib.Data.Finset.Image
+public import Mathlib.Data.Finset.Range
+public import Mathlib.Data.Int.Cast.Lemmas
+public import Mathlib.Data.Nat.Basic
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Order.Defs.LinearOrder
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.Order.Interval.Set.Defs
+
+@[expose] public section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.L2.Theta Finset
+
+namespace GlobalTheory.SignedHC.Model
+
+theorem nMinus_parD (G : GridData) (i j : ℕ) : nMinus (G.parD i j) = (G.m - j) / 2 := by
+  have : (G.parD i j).filter (fun x => x.2 = false) =
+      (range ((G.m - j) / 2)).image fun a => (-(G.b (j + 2 + 2 * a) : ℚ), false) := by
+    ext ⟨x, s⟩
+    simp only [mem_filter, GridData.mem_parD, mem_image, mem_range, Prod.mk.injEq]
+    constructor
+    · rintro ⟨h | ⟨l, h1, h2, h3, h4⟩ | ⟨l, -, -, -, h⟩ | ⟨l, -, -, -, h⟩, rfl⟩
+      · simp at h
+      · have h5 : ¬ (l ≤ j + 1 ∨ Even (l - j - 1)) := by simpa using h4.symm
+        rw [Nat.even_iff] at h5
+        refine ⟨(l - j - 2) / 2, by omega, ?_, rfl⟩
+        rw [show j + 2 + 2 * ((l - j - 2) / 2) = l by omega, h3]
+      · simp at h
+      · simp at h
+    · rintro ⟨a, ha, rfl, rfl⟩
+      refine ⟨Or.inr (Or.inl ⟨j + 2 + 2 * a, by omega, by omega, rfl, ?_⟩), rfl⟩
+      symm; rw [decide_eq_false_iff_not, Nat.even_iff]; omega
+  rw [nMinus, this, card_image_of_injOn, card_range]
+  intro a ha a' ha' h
+  simp only [coe_range, Set.mem_Iio] at ha ha'
+  have h1 : G.b (j + 2 + 2 * a) = G.b (j + 2 + 2 * a') := by
+    have := congrArg Prod.fst h
+    simpa using this
+  by_contra hne
+  rcases lt_or_gt_of_ne hne with h2 | h2
+  · have := G.b_mono (j + 2 + 2 * a) (j + 2 + 2 * a') (by omega) (by omega) (by omega); omega
+  · have := G.b_mono (j + 2 + 2 * a') (j + 2 + 2 * a) (by omega) (by omega) (by omega); omega
+
+end GlobalTheory.SignedHC.Model

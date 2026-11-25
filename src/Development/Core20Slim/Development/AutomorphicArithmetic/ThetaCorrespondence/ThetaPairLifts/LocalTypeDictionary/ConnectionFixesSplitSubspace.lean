@@ -1,0 +1,275 @@
+module
+
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.DiscreteSpectrumResidualClassification
+public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsRtensOp
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.OneMemKAt
+public import Development.AbelianVarietyTheory.Definitions.Divisors.DiscreteSeriesHermitianUnique
+public import Formalism.SharpRestriction.Divisibility.SchurIrreducible
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FromBlocksMem
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsComplementaryAdelicSchwartzRestFunction
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LatAtVAtStable
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.StarMemAdelicSchwartzSpaceNumberField
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.VacuumSplitPlaceIndicatorDualPair
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.UnipotentConjugateToSquareStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.VacuumSplitPlaceIndicatorFinal
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.BernsteinUnitaryProductIrreducible
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.SplitParallelDerivativeLeftFixed
+public import Development.AbelianVarietyTheory.Definitions.Divisors.AdelicAdmissibleSmul
+public import Development.AbelianVarietyTheory.Definitions.Divisors.HilbertNinetyQuotientHomEqIff
+public import Development.AbelianVarietyTheory.Definitions.Foundations.EventuallyNormFinLeOne
+public import Development.AbelianVarietyTheory.Definitions.Foundations.NormEulerPolySubOneLe
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.DoubledSiegelParabolicDiagonalActionIntegral
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.EventuallyIntegralPointsIndicatorIsVacuum
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsTranslationInvariantDoubledFormConjProduct
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.HeisenbergLatticeSelfDualEveryFinitePlace
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.LocalThetaIntegralAtInertPlace
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ProductFunctionOnSumCoordsMemAdelicSchwartzSpace
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Init.Classical
+public import Init.Core
+public import Init.Data.Cast
+public import Init.Data.Int.Basic
+public import Init.Data.Nat.Basic
+public import Init.Data.Sum.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Action.Pi
+public import Mathlib.Algebra.Group.AddChar
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Hom.Basic
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Invertible.Defs
+public import Mathlib.Algebra.Group.IsApply
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.Group.Units.Hom
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Action.Pi
+public import Mathlib.Algebra.GroupWithZero.Basic
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Equiv.Defs
+public import Mathlib.Algebra.Module.FinitePresentation
+public import Mathlib.Algebra.Module.Lattice.Full
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.LinearMap.End
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Prod
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Module.Torsion.Free
+public import Mathlib.Algebra.Module.Torsion.Pi
+public import Mathlib.Algebra.Notation.Defs
+public import Mathlib.Algebra.Notation.Indicator
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Ring.CompTypeclasses
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Nat
+public import Mathlib.Algebra.Star.Basic
+public import Mathlib.Analysis.CStarAlgebra.CStarMatrix
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.Analysis.Complex.Circle
+public import Mathlib.Analysis.Complex.Polynomial.Basic
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Field.UnitBall
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.SpecialFunctions.Pow.Real
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.NNReal.Defs
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Card
+public import Mathlib.Data.Fintype.Prod
+public import Mathlib.Data.Fintype.Sum
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Diagonal
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Nat.Init
+public import Mathlib.Data.Set.Defs
+public import Mathlib.FieldTheory.IsSepClosed
+public import Mathlib.GroupTheory.GroupAction.Hom
+public import Mathlib.LinearAlgebra.DFinsupp
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.Logic.Function.Basic
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
+public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
+public import Mathlib.RingTheory.EssentialFiniteness
+public import Mathlib.RingTheory.Etale.Basic
+public import Mathlib.RingTheory.Etale.Weakly
+public import Mathlib.RingTheory.FinitePresentation
+public import Mathlib.RingTheory.Finiteness.ModuleFinitePresentation
+public import Mathlib.RingTheory.Flat.TorsionFree
+public import Mathlib.RingTheory.Ideal.Defs
+public import Mathlib.RingTheory.Norm.Defs
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.SimpleRing.Principal
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.RingTheory.TensorProduct.Maps
+public import Mathlib.RingTheory.TotallySplit
+public import Mathlib.RingTheory.Valuation.ValuationSubring
+public import Mathlib.Tactic.LinearCombination.Lemmas
+public import Mathlib.Tactic.NormNum.Basic
+public import Mathlib.Tactic.NormNum.Result
+public import Mathlib.Tactic.Ring.Basic
+public import Mathlib.Tactic.Ring.Common
+public import Mathlib.Topology.Algebra.Constructions
+public import Mathlib.Topology.Constructions
+public import Mathlib.Topology.Defs.Induced
+public import Mathlib.Topology.Instances.Matrix
+public import Mathlib.Topology.UniformSpace.Defs
+
+@[expose] public section
+
+section
+open NumberField IsDedekindDomain Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
+open scoped TensorProduct Matrix GlobalTheory.VacAny
+noncomputable section
+namespace GlobalTheory.NabFixSplitV
+open GlobalTheory.DblVacLineTransp GlobalTheory.DblVacLine GlobalTheory.SplitParLeft in
+theorem connection_fixes_split_subspace : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E) (B : Base F E)
+    (a a' : ℕ) (G : Geo σ a a') (X : Chars F E) (om : Rep σ G.V G.W) (om' : Rep σ G.V' G.W), IsTriple B G X om om' →
+    ∀ (v : Pl F), Formalism.MainNotions.SchurIrreducible.IsSplit (E := E) v → v ∉ X.T → PsiUnr B.ψ v → (2 : 𝓞 F) ∉ v.asIdeal →
+    G.M'.vac v = Set.indicator {x | ∀ i, x i ∈ v.adicCompletionIntegers F} 1 →
+    ∀ (d' : Darboux (symp (cA σ) (-1) (incM F G.W.J) (incM F G.V'.J)) (Fin a' × Fin (a + a'))),
+      (∀ x : Matrix (Fin a') (Fin (a + a')) (AE F E), d'.e xᵀ = G.M'.co.e x) →
+    ∀ (dd : Darboux (symp (cA σ) (-1) (incM F G.W.J) (dbl (incM F G.V'.J))) (Fin a' × Fin (a + a') ⊕ Fin a' × Fin (a + a')))
+      (omd : UG (cA σ) (dbl (incM F G.V'.J)) →* Module.End ℂ ((Fin a' × Fin (a + a') ⊕ Fin a' × Fin (a + a') → AF F) → ℂ)),
+      IsDblCoord (cA σ) (-1) (incM F G.W.J) (incM F G.V'.J) d' dd →
+      IsUWeilSplit (cA σ) (adeleClass F) B.ψ (-1) (incM F G.W.J) (dbl (incM F G.V'.J)) dd (X.α / X.β) (diagCols (Fin a')) omd →
+    ∀ R : (Fin a' × Fin (a + a') → AF F) → ℂ, R 0 ≠ 0 → Rest (evFin F v) (G.M'.vac v) R →
+    ∀ n ∈ InertDbl.NabD σ G.V' v, omd n (InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R)) =
+      InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R) := by
+  have hConj := T.adelicSchwartzSpace_le_span_pureTensors
+  intro _ F E _ _ _ _ _ σ B a a' G X om om' hTr v hsp hT hψ h2 _ d' hd' dd omd hdc hws R hR0 hRv n hn
+  set Φ := InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R) with hΦdef
+  have hLine : ∃ c : ℂ, omd n Φ = c • Φ := by
+    obtain ⟨hSB, h0, θ, hθ, hvac⟩ := hTr.geo.hM'.vac v
+    refine dbl_line_co hTr.base.std v hψ hTr.geo.hW.lat.toIsLattice hTr.geo.hV'.lat.toIsLattice ?_ d' (G.M'.vac v)
+      ⟨hSB, h0, θ, hθ, ?_⟩ dd omd hdc hws.2.1 R hRv n hn.1
+    · intro z hz
+      have h := LatSelfDualAll.latAtV_selfDual F E σ B _ _ G.V' G.W _ _ _ _
+        hTr.base hTr.geo.hV' hTr.geo.hW v zᵀ ((at_transpose v z).2 hz)
+      rw [mem_latAtV_transpose] at h
+      rw [h]
+      constructor
+      · intro H γ hγ
+        have := H γᵀ ((mem_latAtV_transpose _ _ v γ).2 hγ)
+        rwa [symp_transpose] at this
+      · intro H γ hγ
+        have := H γᵀ ((mem_latAtV_transpose _ _ v γ).2 hγ)
+        have e := symp_transpose (R := AF F) (cA σ) (-1) (incM F G.W.J) (incM F G.V'.J) z γᵀ
+        rw [Matrix.transpose_transpose] at e
+        rw [e]
+        exact this
+    · intro γ hγ
+      have h := hvac γᵀ ((mem_latAtV_transpose _ _ v γ).2 hγ)
+      have e : d'.rho B.ψ γ = G.M'.co.rho B.ψ γᵀ := by
+        simp only [Darboux.rho]
+        rw [← hd' γᵀ, Matrix.transpose_transpose]
+      rw [e, ← symp_transpose (R := AF F) (cA σ) _ (incM F G.W.J) (incM F G.V'.J) γ γ]
+      exact h
+  obtain ⟨c, hc⟩ := hLine
+  obtain ⟨s, hs, hsn⟩ := hConj F E σ B hTr.base a' G.V' v hsp h2 n hn
+  have hs1 : omd s Φ = Φ := by
+    let Ψ := tens (evFin F v) (G.M'.vac v) R
+    have hΨ : Ψ ∈ schA F _ := hRv.2
+    have hΦ : Φ ∈ schA F _ :=
+      SchwartzBox.boxFun_mem_schA F _ _ Ψ hΨ _ (SchAConj.star_mem_schA F _ Ψ hΨ)
+    obtain ⟨y, hy⟩ := Function.ne_iff.mp (hTr.geo.hM'.vac v).2.1
+    have hΨne : Ψ ≠ 0 := by
+      intro h0
+      let x : Fin a' × Fin (a + a') → AF F := fun i => LatVac.liftV v (y i)
+      have hRx : R x = R 0 := by
+        have := hRv.1 0 x (fun u hu => by funext i; exact LatVac.at_liftV v _ u hu)
+        simpa using this
+      have h1 := congrFun h0 x
+      simp only [Ψ, tens, x, LatVac.evFin_liftV, hRx, Pi.zero_apply] at h1
+      exact mul_ne_zero hy hR0 h1
+    obtain ⟨k, hk⟩ := dblFun_eigen_left hTr.base hTr.geo v hψ d' hd' dd omd hdc hws.2.1 R hRv s hs.1
+    obtain ⟨l, hl, hinv, hl0⟩ := DblDiagForm.exists_form F _ Ψ hΨ hΨne
+    obtain ⟨t, ht⟩ := hs.2
+    have hS := hws.2.2 l hl (fun z φ hφ => hinv φ hφ _ _ (WeilM.SiegelModel.rho_diag B.ψ hdc z φ)) s t ht _ hΦ
+    have hts := InertDbl.parD_diag_action F E σ G.V' v s hs t ht
+    have hw : ∀ w : HeightOneSpectrum (𝓞 E), w.under (𝓞 F) = v → w ∉ above E (X.T : Set (Pl F)) :=
+      fun w h hm => hT (h ▸ hm)
+    have ha : (X.α / X.β) (Matrix.GeneralLinearGroup.det t) = 1 := by
+      rw [MonoidHom.div_apply,
+        chr_det_eq_one G.V' hTr.geo.hV'.lat v X.α (fun w h => hTr.chars.unrα w (hw w h)) t hts.1 hts.2,
+        chr_det_eq_one G.V' hTr.geo.hV'.lat v X.β (fun w h => hTr.chars.unrβ w (hw w h)) t hts.1 hts.2, div_one]
+    have hb := IntegralDetModule.modu_norm_det G.V' hTr.geo.hV'.lat v t hts.1 hts.2
+    rw [ha, hb] at hS
+    simp only [Circle.coe_one, NNReal.coe_one, Real.one_rpow, Complex.ofReal_one, one_mul] at hS
+    change omd s Φ = k • Φ at hk
+    rw [hk, map_smul, smul_eq_mul] at hS
+    have hk1 : k = 1 := (mul_eq_right₀ hl0).mp hS
+    rw [hk, hk1, one_smul]
+  have hs2 : omd s⁻¹ Φ = Φ := by
+    conv_lhs => rw [← hs1]
+    rw [← mul_apply_eq_comp, ← map_mul, inv_mul_cancel, map_one, one_apply_eq_self]
+  have e1 : omd (s * n * s⁻¹) Φ = c • Φ := by
+    rw [map_mul, map_mul, mul_apply_eq_comp, mul_apply_eq_comp, hs2, hc, map_smul, hs1]
+  have e2 : omd (n * n) Φ = (c * c) • Φ := by
+    rw [map_mul, mul_apply_eq_comp, hc, map_smul, hc, smul_smul]
+  rw [hsn, e2] at e1
+  by_cases hΦ : Φ = 0
+  · rw [hΦ, map_zero]
+  have hcc : c * c = c := smul_left_injective ℂ hΦ e1
+  have h01 : c = 0 ∨ c = 1 := by
+    rcases mul_eq_zero.1 (show c * (c - 1) = 0 by linear_combination hcc) with h | h
+    · exact Or.inl h
+    · exact Or.inr (by linear_combination h)
+  rcases h01 with h0 | h1
+  · exfalso
+    apply hΦ
+    have : omd n⁻¹ (omd n Φ) = Φ := by
+      rw [← mul_apply_eq_comp, ← map_mul, inv_mul_cancel, map_one, one_apply_eq_self]
+    rw [← this, hc, h0, zero_smul, map_zero]
+  · rw [hc, h1, one_smul]
+end GlobalTheory.NabFixSplitV
+end
+end
+
+section
+open NumberField IsDedekindDomain Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
+open scoped TensorProduct Matrix
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.nabla_fixed_split_subspace : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E) (B : Base F E)
+    (a a' : ℕ) (G : Geo σ a a') (X : Chars F E) (om : Rep σ G.V G.W) (om' : Rep σ G.V' G.W), IsTriple B G X om om' →
+    ∀ (v : Pl F), Formalism.MainNotions.SchurIrreducible.IsSplit (E := E) v → v ∉ X.T → PsiUnr B.ψ v → (2 : 𝓞 F) ∉ v.asIdeal →
+    G.M'.vac v = Set.indicator {x | ∀ i, x i ∈ v.adicCompletionIntegers F} 1 →
+    ∀ (d' : Darboux (symp (cA σ) (-1) (incM F G.W.J) (incM F G.V'.J)) (Fin a' × Fin (a + a'))),
+      (∀ x : Matrix (Fin a') (Fin (a + a')) (AE F E), d'.e xᵀ = G.M'.co.e x) →
+    ∀ (dd : Darboux (symp (cA σ) (-1) (incM F G.W.J) (dbl (incM F G.V'.J))) (Fin a' × Fin (a + a') ⊕ Fin a' × Fin (a + a')))
+      (omd : UG (cA σ) (dbl (incM F G.V'.J)) →* Module.End ℂ ((Fin a' × Fin (a + a') ⊕ Fin a' × Fin (a + a') → AF F) → ℂ)),
+      IsDblCoord (cA σ) (-1) (incM F G.W.J) (incM F G.V'.J) d' dd →
+      IsUWeilSplit (cA σ) (adeleClass F) B.ψ (-1) (incM F G.W.J) (dbl (incM F G.V'.J)) dd (X.α / X.β) (diagCols (Fin a')) omd →
+    ∀ R : (Fin a' × Fin (a + a') → AF F) → ℂ, R 0 ≠ 0 → Rest (evFin F v) (G.M'.vac v) R →
+    ∀ n ∈ GlobalTheory.InertDbl.NabD σ G.V' v, omd n (GlobalTheory.InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R)) =
+      GlobalTheory.InertDbl.dblFun (tens (evFin F v) (G.M'.vac v) R) := by
+  exact _root_.GlobalTheory.NabFixSplitV.connection_fixes_split_subspace
+end

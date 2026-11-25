@@ -1,0 +1,303 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.IdeleNorms.CompletionsOverBasisRepr
+public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.Restricted
+public import Development.Core20Slim.GroundTheory.GlobalFields.Adele.BaseChange.FiniteMap
+public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.IdeleNorms.BaseChange
+public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.InfiniteProjInfiniteEmbeddingOfNe
+public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.ContinuousCompletionMap
+public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.Infinite
+public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.InfiniteAdele
+public import Init.Classical
+public import Init.Core
+public import Init.Data.Subtype.Basic
+public import Init.Data.Zero
+public import Init.Ext
+public import Init.Prelude
+public import Init.PropLemmas
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Equiv.Defs
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Pi.Units
+public import Mathlib.Algebra.Group.Subgroup.Basic
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Mathlib.Algebra.Group.Subgroup.Map
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Submonoid.Units
+public import Mathlib.Algebra.Group.Subsemigroup.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.Group.Units.Hom
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Notation.Prod
+public import Mathlib.Algebra.Order.AbsoluteValue.Basic
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Subring.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Field.WithAbs
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.Finite.Defs
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Fintype.EquivFin
+public import Mathlib.Data.Set.CoeSort
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Data.Set.Finite.Basic
+public import Mathlib.Data.Set.Finite.Range
+public import Mathlib.Data.Set.Operations
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.NumberTheory.NumberField.Completion.InfinitePlace
+public import Mathlib.NumberTheory.NumberField.Completion.LiesOverInstances
+public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Ramification
+public import Mathlib.Order.Filter.Basic
+public import Mathlib.Order.Filter.Cofinite
+public import Mathlib.Order.Filter.Defs
+public import Mathlib.Order.Filter.Tendsto
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
+public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
+public import Mathlib.RingTheory.Ideal.Defs
+public import Mathlib.RingTheory.Ideal.Over
+public import Mathlib.RingTheory.Norm.Defs
+public import Mathlib.RingTheory.Valuation.ValuationSubring
+public import Mathlib.Topology.Algebra.Constructions
+public import Mathlib.Topology.Algebra.ContinuousMonoidHom
+public import Mathlib.Topology.Algebra.RestrictedProduct.Basic
+public import Mathlib.Topology.Algebra.RestrictedProduct.TopologicalSpace
+public import Mathlib.Topology.Constructions.SumProd
+public import Mathlib.Topology.UniformSpace.Defs
+
+set_option synthInstance.maxHeartbeats 400000
+
+@[expose] public section
+
+namespace GroundTheory.Global
+
+open IsDedekindDomain NumberField Filter
+open AdeleBaseChange SemiLocal
+open scoped NumberField.AdeleRing NumberField.LiesOver
+
+noncomputable section
+
+namespace IdeleNorm
+
+variable {K : Type*} [Field K] [NumberField K] (L : Type*) [Field L] [NumberField L]
+  [Algebra K L]
+
+def finiteLocalNorm (v : HeightOneSpectrum (𝓞 K)) :
+    ((w : PlacesOver L v) → (w.1.adicCompletion L)ˣ) →* (v.adicCompletion K)ˣ where
+  toFun y := ∏ w, Units.map (Algebra.norm (v.adicCompletion K) :
+    w.1.adicCompletion L →* v.adicCompletion K) (y w)
+  map_one' := by simp
+  map_mul' y z := by simp only [Pi.mul_apply, map_mul, Finset.prod_mul_distrib]
+
+
+variable {L} in
+theorem coe_finiteLocalNorm (v : HeightOneSpectrum (𝓞 K))
+    (y : (w : PlacesOver L v) → (w.1.adicCompletion L)ˣ) :
+    ((finiteLocalNorm L v y : (v.adicCompletion K)ˣ) : v.adicCompletion K) =
+      ∏ w, Algebra.norm (v.adicCompletion K) (y w : w.1.adicCompletion L) := by
+  simp [finiteLocalNorm, Units.coe_prod]
+
+def integerUnitsOver (v : HeightOneSpectrum (𝓞 K)) :
+    Subgroup ((w : PlacesOver L v) → (w.1.adicCompletion L)ˣ) :=
+  Subgroup.pi Set.univ fun w ↦ (Submonoid.ofClass (w.1.adicCompletionIntegers L)).units
+
+
+omit [NumberField K] in
+variable {L} in
+theorem mem_integerUnitsOver {v : HeightOneSpectrum (𝓞 K)}
+    {y : (w : PlacesOver L v) → (w.1.adicCompletion L)ˣ} :
+    y ∈ integerUnitsOver L v ↔
+      ∀ w, y w ∈ (Submonoid.ofClass (w.1.adicCompletionIntegers L)).units := by
+  simp [integerUnitsOver, Subgroup.mem_pi]
+
+
+open scoped Classical in
+def infiniteLocalNorm (v : InfinitePlace K) :
+    ((w : v.placesOver L) → ((w : InfinitePlace L).Completion)ˣ) →* (v.Completion)ˣ where
+  toFun y := ∏ w : v.placesOver L, Units.map (Algebra.norm v.Completion :
+    (w : InfinitePlace L).Completion →* v.Completion) (y w)
+  map_one' := by simp
+  map_mul' y z := by simp only [Pi.mul_apply, map_mul, Finset.prod_mul_distrib]
+
+
+omit [NumberField K] in
+open scoped Classical in
+variable {L} in
+theorem coe_infiniteLocalNorm (v : InfinitePlace K)
+    (y : (w : v.placesOver L) → ((w : InfinitePlace L).Completion)ˣ) :
+    ((infiniteLocalNorm L v y : (v.Completion)ˣ) : v.Completion) =
+      ∏ w : v.placesOver L, Algebra.norm v.Completion (y w : (w : InfinitePlace L).Completion) := by
+  simp [infiniteLocalNorm, Units.coe_prod]
+
+variable {L}
+
+theorem finiteProj_ideleNorm (y : IdeleGroup L) (v : HeightOneSpectrum (𝓞 K)) :
+    IdeleGroup.finiteProj v (ideleNorm K L y) =
+      finiteLocalNorm L v (fun w ↦ IdeleGroup.finiteProj w.1 y) := by
+  apply Units.ext
+  simpa only [IdeleGroup.coe_finiteProj, coe_finiteLocalNorm] using ideleNorm_snd y v
+
+theorem infiniteProj_ideleNorm (y : IdeleGroup L) (v : InfinitePlace K) :
+    IdeleGroup.infiniteProj v (ideleNorm K L y) =
+      infiniteLocalNorm L v (fun w ↦ IdeleGroup.infiniteProj (w : InfinitePlace L) y) := by
+  classical
+  apply Units.ext
+  simpa only [IdeleGroup.coe_infiniteProj, coe_infiniteLocalNorm] using ideleNorm_fst y v
+
+theorem eventually_finiteProj_mem (y : IdeleGroup L) :
+    ∀ᶠ w in cofinite,
+      IdeleGroup.finiteProj w y ∈ (Submonoid.ofClass (w.adicCompletionIntegers L)).units := by
+  refine (IdeleGroup.prodRestrictedEquiv L y).2.2.mono fun w hw ↦ ?_
+  have e : IdeleGroup.finiteProj w y = (IdeleGroup.prodRestrictedEquiv L y).2 w :=
+    Units.ext (by simp)
+  rw [e]
+  exact hw
+
+
+omit [NumberField K] [NumberField L] in
+variable (K) in
+theorem eventually_forall_placesOver {P : HeightOneSpectrum (𝓞 L) → Prop}
+    (h : ∀ᶠ w in cofinite, P w) :
+    ∀ᶠ v : HeightOneSpectrum (𝓞 K) in cofinite, ∀ w : PlacesOver L v, P w.1 := by
+  rw [eventually_cofinite] at h ⊢
+  refine (h.image (below (K := K))).subset fun v hv ↦ ?_
+  simp only [Set.mem_ofPred_eq, not_forall] at hv
+  obtain ⟨w, hw⟩ := hv
+  exact ⟨w.1, hw, HeightOneSpectrum.ext w.2.over.symm⟩
+
+
+omit [NumberField K] in
+theorem placesOver_congr (yf : ∀ v : HeightOneSpectrum (𝓞 K),
+      (w : PlacesOver L v) → (w.1.adicCompletion L)ˣ)
+    {v v' : HeightOneSpectrum (𝓞 K)} (h : v' = v) (w : HeightOneSpectrum (𝓞 L))
+    (hw : w.asIdeal.LiesOver v.asIdeal) (hw' : w.asIdeal.LiesOver v'.asIdeal) :
+    yf v' ⟨w, hw'⟩ = yf v ⟨w, hw⟩ := by
+  subst h
+  rfl
+
+
+omit [NumberField K] [NumberField L] in
+theorem infinitePlacesOver_congr (yi : ∀ v : InfinitePlace K,
+      (w : v.placesOver L) → ((w : InfinitePlace L).Completion)ˣ)
+    {v v' : InfinitePlace K} (h : v' = v) (w : InfinitePlace L)
+    (hw : w ∈ v.placesOver L) (hw' : w ∈ v'.placesOver L) :
+    yi v' ⟨w, hw'⟩ = yi v ⟨w, hw⟩ := by
+  subst h
+  rfl
+
+def glue (yf : ∀ v : HeightOneSpectrum (𝓞 K), (w : PlacesOver L v) → (w.1.adicCompletion L)ˣ)
+    (hyf : ∀ᶠ v in cofinite, yf v ∈ integerUnitsOver L v)
+    (yi : ∀ v : InfinitePlace K, (w : v.placesOver L) → ((w : InfinitePlace L).Completion)ˣ) :
+    IdeleGroup L := by
+  have hbelow : Tendsto (below (K := K) (L := L)) cofinite cofinite := by
+    refine Filter.Tendsto.cofinite_of_finite_preimage_singleton fun v ↦ ?_
+    refine ((Set.finite_range (Subtype.val : PlacesOver L v → HeightOneSpectrum (𝓞 L))).subset
+      fun w hw ↦ ?_).to_subtype
+    exact ⟨⟨w, ⟨congrArg HeightOneSpectrum.asIdeal hw.symm⟩⟩, rfl⟩
+  exact (IdeleGroup.prodRestrictedEquiv L).symm
+    (MulEquiv.piUnits.symm fun w : InfinitePlace L ↦
+        yi (w.comap (algebraMap K L)) ⟨w, (inferInstance : w.LiesOver (w.comap (algebraMap K L)))⟩,
+      ⟨fun w ↦ yf (below (K := K) w) ⟨w, ⟨rfl⟩⟩,
+        (hbelow.eventually hyf).mono fun w hw ↦
+          mem_integerUnitsOver.1 hw ⟨w, ⟨rfl⟩⟩⟩)
+
+theorem glue_snd (yf : ∀ v : HeightOneSpectrum (𝓞 K),
+      (w : PlacesOver L v) → (w.1.adicCompletion L)ˣ)
+    (hyf : ∀ᶠ v in cofinite, yf v ∈ integerUnitsOver L v)
+    (yi : ∀ v : InfinitePlace K, (w : v.placesOver L) → ((w : InfinitePlace L).Completion)ˣ)
+    (v : HeightOneSpectrum (𝓞 K)) (w : PlacesOver L v) :
+    ((glue yf hyf yi : 𝔸[L]).2 w.1) = (yf v w : w.1.adicCompletion L) := by
+  rw [← IdeleGroup.prodRestrictedEquiv_apply_snd, glue, ContinuousMulEquiv.apply_symm_apply]
+  exact congrArg Units.val (placesOver_congr yf (HeightOneSpectrum.ext w.2.over.symm) w.1 w.2 _)
+
+theorem glue_fst (yf : ∀ v : HeightOneSpectrum (𝓞 K),
+      (w : PlacesOver L v) → (w.1.adicCompletion L)ˣ)
+    (hyf : ∀ᶠ v in cofinite, yf v ∈ integerUnitsOver L v)
+    (yi : ∀ v : InfinitePlace K, (w : v.placesOver L) → ((w : InfinitePlace L).Completion)ˣ)
+    (v : InfinitePlace K) (w : v.placesOver L) :
+    ((glue yf hyf yi : 𝔸[L]).1 w) = (yi v w : (w : InfinitePlace L).Completion) := by
+  rw [← IdeleGroup.prodRestrictedEquiv_apply_fst, glue, ContinuousMulEquiv.apply_symm_apply]
+  have := infinitePlacesOver_congr yi (InfinitePlace.LiesOver.comap_eq (w : InfinitePlace L) v)
+    (w : InfinitePlace L) w.2
+    (inferInstance : (w : InfinitePlace L).LiesOver ((w : InfinitePlace L).comap (algebraMap K L)))
+  exact congrArg Units.val this
+
+theorem ideleNorm_glue (yf : ∀ v : HeightOneSpectrum (𝓞 K),
+      (w : PlacesOver L v) → (w.1.adicCompletion L)ˣ)
+    (hyf : ∀ᶠ v in cofinite, yf v ∈ integerUnitsOver L v)
+    (yi : ∀ v : InfinitePlace K, (w : v.placesOver L) → ((w : InfinitePlace L).Completion)ˣ)
+    {x : IdeleGroup K} (hf : ∀ v, finiteLocalNorm L v (yf v) = IdeleGroup.finiteProj v x)
+    (hi : ∀ v, infiniteLocalNorm L v (yi v) = IdeleGroup.infiniteProj v x) :
+    ideleNorm K L (glue yf hyf yi) = x := by
+  classical
+  apply Units.ext
+  refine Prod.ext (funext fun v ↦ ?_) (FiniteAdeleRing.ext (K := K) fun v ↦ ?_)
+  · rw [ideleNorm_fst, ← IdeleGroup.coe_infiniteProj, ← hi v, coe_infiniteLocalNorm]
+    exact Finset.prod_congr rfl fun w _ ↦ by rw [glue_fst]
+  · rw [ideleNorm_snd, ← IdeleGroup.coe_finiteProj, ← hf v, coe_finiteLocalNorm]
+    exact Finset.prod_congr rfl fun w _ ↦ by rw [glue_snd]
+
+theorem mem_range_ideleNorm (x : IdeleGroup K)
+    (hfin : ∀ v, IdeleGroup.finiteProj v x ∈ (finiteLocalNorm L v).range)
+    (hinf : ∀ v, IdeleGroup.infiniteProj v x ∈ (infiniteLocalNorm L v).range)
+    (hint : ∀ᶠ v in cofinite,
+      IdeleGroup.finiteProj v x ∈ (integerUnitsOver L v).map (finiteLocalNorm L v)) :
+    x ∈ (ideleNorm K L).range := by
+  classical
+  let yf : ∀ v : HeightOneSpectrum (𝓞 K), (w : PlacesOver L v) → (w.1.adicCompletion L)ˣ :=
+    fun v ↦ if h : IdeleGroup.finiteProj v x ∈ (integerUnitsOver L v).map (finiteLocalNorm L v)
+      then (Subgroup.mem_map.1 h).choose else (MonoidHom.mem_range.1 (hfin v)).choose
+  have hyf_int : ∀ᶠ v in cofinite, yf v ∈ integerUnitsOver L v := hint.mono fun v h ↦ by
+    simp only [yf, dif_pos h]
+    exact (Subgroup.mem_map.1 h).choose_spec.1
+  have hyf : ∀ v, finiteLocalNorm L v (yf v) = IdeleGroup.finiteProj v x := by
+    intro v
+    by_cases h : IdeleGroup.finiteProj v x ∈ (integerUnitsOver L v).map (finiteLocalNorm L v)
+    · simp only [yf, dif_pos h]
+      exact (Subgroup.mem_map.1 h).choose_spec.2
+    · simp only [yf, dif_neg h]
+      exact (MonoidHom.mem_range.1 (hfin v)).choose_spec
+  exact ⟨glue yf hyf_int (fun v ↦ (MonoidHom.mem_range.1 (hinf v)).choose),
+    ideleNorm_glue _ _ _ hyf fun v ↦ (MonoidHom.mem_range.1 (hinf v)).choose_spec⟩
+
+theorem mem_range_ideleNorm_iff (x : IdeleGroup K) :
+    x ∈ (ideleNorm K L).range ↔
+      (∀ v, IdeleGroup.finiteProj v x ∈ (finiteLocalNorm L v).range) ∧
+      (∀ v, IdeleGroup.infiniteProj v x ∈ (infiniteLocalNorm L v).range) ∧
+      ∀ᶠ v in cofinite,
+        IdeleGroup.finiteProj v x ∈ (integerUnitsOver L v).map (finiteLocalNorm L v) := by
+  refine ⟨?_, fun ⟨h1, h2, h3⟩ ↦ mem_range_ideleNorm x h1 h2 h3⟩
+  rintro ⟨y, rfl⟩
+  refine ⟨fun v ↦ ⟨_, (finiteProj_ideleNorm y v).symm⟩,
+    fun v ↦ ⟨_, (infiniteProj_ideleNorm y v).symm⟩, ?_⟩
+  refine (eventually_forall_placesOver K (eventually_finiteProj_mem y)).mono fun v hv ↦ ?_
+  exact ⟨_, mem_integerUnitsOver.2 hv, (finiteProj_ideleNorm y v).symm⟩
+
+end IdeleNorm
+
+end
+
+end GroundTheory.Global

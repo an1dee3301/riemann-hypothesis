@@ -1,0 +1,20 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.Formalism.PeriodIntegrals.UnitaryGroupMassFormula.ThetaSeriesExistence.ThetaDerivNe
+public import Development.Core20Slim.Formalism.PeriodIntegrals.UnitaryGroupMassFormula.ThetaSeriesExistence.Development
+public import Development.Core20Slim.Formalism.PeriodIntegrals.UnitaryGroupMassFormula.ThetaSeriesExistence.ThetaA
+public import Development.Core20Slim.Formalism.PeriodIntegrals.UnitaryGroupMassFormula.ThetaSeriesExistence.ThetaNz
+public import Development.Core20Slim.Formalism.PeriodIntegrals.UnitaryGroupMassFormula.ThetaSeriesExistence.Reduce
+public import Development.Core20Slim.Formalism.PeriodIntegrals.UnitaryGroupMassFormula.ThetaSeriesExistence.GenEqOf
+public import Development.Core20Slim.Formalism.PeriodIntegrals.UnitaryGroupMassFormula.ThetaSeriesExistence.LatExt
+public import Development.Core20Slim.Formalism.PeriodIntegrals.SigmaStarEx
+
+@[expose] public section
+
+namespace PI.SSE
+
+theorem sigmaStarEx : PI.SigmaStarEx :=
+  sigmaStarEx_of_parts thetaA thetaDerivNe reduceBasis genEqOf latExt
+
+end PI.SSE

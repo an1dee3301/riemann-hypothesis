@@ -1,0 +1,253 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.TwistPlacesOffPrimeQZero
+public import Development.AbelianVarietyTheory.Definitions.Divisors.DiscreteSeriesHermitianUnique
+public import Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.NormSmall
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.DictAt
+public import Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.ThetaIntegralsAgree
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.CuspAlongSmoothRows
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.ToricSymbols
+public import Development.AbelianVarietyTheory.Definitions.Foundations.NormSumPairRankZeroOfCurveCoordNorm
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.FrT
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.SrcLat
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.CsSpan
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.CsApprox
+public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.SmulMemLatO
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.SelfDualSplitComponentIsLatticeStabilizerEq
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.UnitaryPairMapsCompletedHomLatticeOntoTranslate
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.FinitePartEqIntegralCombinationOfMemCompletedLatStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.WeilActionOMemLatticeOOfIntegralCombinationsStatement
+public import Development.AbelianVarietyTheory.Definitions.Divisors.BasePlaceNotMemChiGridBadPlaces
+public import Development.AbelianVarietyTheory.Definitions.Divisors.InvVolConjLevelOne
+public import Development.AbelianVarietyTheory.Definitions.Divisors.KernelNormConstantSpec
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.InfClassAt
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.LocalRingCardinality.DataSpaces
+public import Formalism.LocalRingCardinality.DataTheta
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
+public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
+public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedWeil
+public import Formalism.LocalToGlobal.Divisibility.CoefMod
+public import Formalism.LocalToGlobal.HermitianColumns.InLocalDiscriminantKernel
+public import Formalism.LocalToGlobal.IndefiniteReal.DatumVec
+public import Formalism.LocalToGlobal.IndefiniteReal.LinksDefs
+public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
+public import Formalism.LocalToGlobal.IndefiniteReal.SubgroupCharExtensionOneApply
+public import Formalism.SatakeDualWeyl.DefsCS
+public import Formalism.SatakeDualWeyl.Statement
+public import Formalism.SatakeDualWeyl.StatementC
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
+public import Init.Core
+public import Init.Data.Zero
+public import Init.Prelude
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.BigOperators.Pi
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Mathlib.Algebra.Field.Subfield.Defs
+public import Mathlib.Algebra.Group.Action.Pi
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Submodule.Basic
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Module.Submodule.Lattice
+public import Mathlib.Algebra.Module.Submodule.Map
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Subring.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Fintype.EquivFin
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Diagonal
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Data.Set.Finite.Range
+public import Mathlib.Data.Set.Operations
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.Matrix.ToLin
+public import Mathlib.LinearAlgebra.Span.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.Order.BoundedOrder.Basic
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.Order.Notation
+public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
+public import Mathlib.RingTheory.Finiteness.Basic
+public import Mathlib.RingTheory.Finiteness.Defs
+public import Mathlib.RingTheory.TensorProduct.Basic
+
+@[expose] public section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR Formalism.IndefR.Datum Formalism.IndefR.Links Formalism.L2.DIV
+open IsDedekindDomain NumberField GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.RowTest GlobalTheory.RowClaim
+open Formalism.L2.Host (HChar)
+open GlobalTheory.IndefiniteRowSideFullHecke.UnitCharTriangle (Tri)
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+open Formalism.MainNotions.TaylorLogMetric Formalism.MainNotions.StandardLatticesGL3
+
+open scoped TensorProduct
+open GlobalTheory.MovedDict Formalism.L2.Ker GlobalTheory.SignedHC
+
+open scoped TensorProduct
+open GlobalTheory.MovedDict Formalism.L2.Ker GlobalTheory.SignedHC
+
+noncomputable section
+namespace GlobalTheory.MovedHomLat
+open Matrix
+variable {D : D7}
+set_option synthInstance.maxHeartbeats 400000
+
+theorem bridge (V : HSp D) (k : GA D V) (s : Fin V.rank → D.host.E) :
+    (fun i => Formalism.IndefR.Datum.toEAf D ((mt V k *ᵥ fun j => incA D (s j)) i)) =
+      (Formalism.IndefR.Lev.finE V k).1 *ᵥ (fun j => Formalism.IndefR.Datum.eToEAf D (s j)) := by
+  funext i
+  set_option synthInstance.maxHeartbeats 100000 in
+    simp only [Matrix.mulVec, dotProduct, map_sum, map_mul]
+  rfl
+
+theorem fwd (V : HSp D) (k : GA D V) (C : Submodule (𝓞 D.host.E) (Fin V.rank → D.host.E))
+    (hfg : Module.Finite (𝓞 D.host.E) C) (hsp : Submodule.span D.host.E (C : Set (Fin V.rank → D.host.E)) = ⊤)
+    (s : Fin V.rank → D.host.E) (hs : s ∈ C) :
+    (fun i => Formalism.IndefR.Datum.toEAf D ((mt V k *ᵥ fun j => incA D (s j)) i)) ∈
+      Formalism.L2.Herm.hatL (F := D.host.F) (Formalism.UG.CS.globLat (Formalism.IndefR.Lev.finE V k) C) := by
+  have hmem : (fun j => Formalism.IndefR.Datum.eToEAf D (s j)) ∈ Formalism.L2.Herm.hatL (F := D.host.F) C :=
+    Submodule.subset_span ⟨s, hs, rfl⟩
+  have key := Formalism.UG.P.span_recovery_of_integral_adelic_approx Formalism.UG.P.integral_adele_approximation_holds D.host.F D.host.E (Fin V.rank) C hfg hsp
+    (Formalism.IndefR.Lev.finE V k) ((Formalism.IndefR.Lev.finE V k).1 *ᵥ (fun j => Formalism.IndefR.Datum.eToEAf D (s j)))
+  have e : ((Formalism.IndefR.Lev.finE V k)⁻¹ : GL (Fin V.rank) (Formalism.IndefR.Lev.EAf D)).1 *ᵥ ((Formalism.IndefR.Lev.finE V k).1 *ᵥ (fun j => Formalism.IndefR.Datum.eToEAf D (s j))) = (fun j => Formalism.IndefR.Datum.eToEAf D (s j)) := by
+    rw [Matrix.mulVec_mulVec, ← Units.val_mul, inv_mul_cancel, Units.val_one, Matrix.one_mulVec]
+  rw [← e] at hmem
+  have k2 := key.2 hmem
+  have hb := bridge V k s
+  simp only [hb]
+  exact k2
+
+theorem bwd (V : HSp D) (k : GA D V) (C : Submodule (𝓞 D.host.E) (Fin V.rank → D.host.E))
+    (s : Fin V.rank → D.host.E) (hs : s ∈ Formalism.UG.CS.globLat (Formalism.IndefR.Lev.finE V k) C) :
+    (fun i => Formalism.IndefR.Datum.toEAf D ((mt V k⁻¹ *ᵥ fun j => incA D (s j)) i)) ∈ Formalism.L2.Herm.hatL (F := D.host.F) C := by
+  rw [bridge, map_inv]
+  exact hs
+
+theorem mem_globLat_iff {n : ℕ} (g : GL (Fin n) (Formalism.IndefR.Lev.EAf D)) (C : Submodule (𝓞 D.host.E) (Fin n → D.host.E))
+    (y : Fin n → D.host.E) :
+    y ∈ Formalism.UG.CS.globLat g C ↔ (g⁻¹).1 *ᵥ (fun i => Formalism.IndefR.Datum.eToEAf D (y i)) ∈ Formalism.L2.Herm.hatL (F := D.host.F) C :=
+  Iff.rfl
+
+theorem colLat_fin {n : ℕ} (B : GL (Fin n) D.host.E) : Module.Finite (𝓞 D.host.E) (colLat B) :=
+  Module.Finite.iff_fg.2 (Submodule.fg_span (Set.finite_range _))
+
+theorem colLat_span {n : ℕ} (B : GL (Fin n) D.host.E) :
+    Submodule.span D.host.E (colLat B : Set (Fin n → D.host.E)) = ⊤ := by
+  refine eq_top_iff.2 fun v _ => ?_
+  have hcol : ∀ j : Fin n, (fun a : Fin n => (B : Matrix (Fin n) (Fin n) D.host.E) a j) ∈
+      Submodule.span D.host.E (colLat B : Set (Fin n → D.host.E)) :=
+    fun j => Submodule.subset_span (Submodule.subset_span ⟨j, rfl⟩)
+  have e : v = ∑ j, ((B⁻¹ : GL (Fin n) D.host.E).1 *ᵥ v) j • (fun a : Fin n => (B : Matrix (Fin n) (Fin n) D.host.E) a j) := by
+    have h1 : (B : Matrix (Fin n) (Fin n) D.host.E) *ᵥ ((B⁻¹ : GL (Fin n) D.host.E).1 *ᵥ v) = v := by
+      rw [Matrix.mulVec_mulVec, ← Units.val_mul, mul_inv_cancel, Units.val_one, Matrix.one_mulVec]
+    conv_lhs => rw [← h1]
+    funext a
+    simp only [Matrix.mulVec, dotProduct, Finset.sum_apply, Pi.smul_apply, smul_eq_mul]
+    exact Finset.sum_congr rfl fun j _ => mul_comm _ _
+  rw [e]
+  exact Submodule.sum_mem _ fun j _ => Submodule.smul_mem _ _ (hcol j)
+
+
+set_option maxHeartbeats 1000000 in
+theorem globLat_mul_iff {n : ℕ} (a b : GL (Fin n) (Formalism.IndefR.Lev.EAf D)) (Λ C : Submodule (𝓞 D.host.E) (Fin n → D.host.E))
+    (hb : ∀ v, v ∈ Formalism.L2.Herm.hatL (F := D.host.F) C ↔ b.1 *ᵥ v ∈ Formalism.L2.Herm.hatL (F := D.host.F) Λ) (y : Fin n → D.host.E) :
+    y ∈ Formalism.UG.CS.globLat a Λ ↔ y ∈ Formalism.UG.CS.globLat (a * b) C := by
+  rw [mem_globLat_iff, mem_globLat_iff]
+  have e : ((a * b)⁻¹ : GL (Fin n) (Formalism.IndefR.Lev.EAf D)).1 = (b⁻¹).1 * (a⁻¹).1 := congrArg Units.val (_root_.mul_inv_rev a b)
+  have e2 : b.1 * (b⁻¹).1 = 1 := congrArg Units.val (mul_inv_cancel b)
+  rw [e, ← Matrix.mulVec_mulVec, hb ((b⁻¹).1 *ᵥ ((a⁻¹).1 *ᵥ fun i => Formalism.IndefR.Datum.eToEAf D (y i))),
+    Matrix.mulVec_mulVec, e2, Matrix.one_mulVec]
+
+theorem movedLat_eq {T : Type} {L : LevCh D T} {sc : GlobalTheory.ChiGrid.Consts} {G : GlobalTheory.ChiGrid.GridData L sc} {W : G.Weil}
+    (S : GridChoice W Set.univ) (X : Node) (hX : DefNode D.R.m X) (x : FinPt G X) :
+    inV (S.N.fr X) (GlobalTheory.SumSize.latAt S X x) =
+      (Formalism.UG.CS.globLat (Formalism.IndefR.Lev.finE (G.V X) ((x * S.N.u X : FinPt G X) : GA D (G.V X))) (colLat (S.N.fr X)) :
+        Set (Fin (G.V X).rank → D.host.E)) := by
+  have key : ∀ y, y ∈ Formalism.UG.CS.globLat (finG (G.V X) x) (G.Λ X) ↔
+      y ∈ Formalism.UG.CS.globLat (Formalism.IndefR.Lev.finE (G.V X) ((x * S.N.u X : FinPt G X) : GA D (G.V X))) (colLat (S.N.fr X)) := by
+    have e : Formalism.IndefR.Lev.finE (G.V X) ((x * S.N.u X : FinPt G X) : GA D (G.V X)) =
+        finG (G.V X) x * Formalism.IndefR.Lev.finE (G.V X) (S.N.u X).1 :=
+      map_mul (Formalism.IndefR.Lev.finE (G.V X)) (x : GA D (G.V X)) (S.N.u X).1
+    rw [e]
+    exact globLat_mul_iff _ _ _ _ (S.N.u_lat X hX)
+  ext y
+  simp only [inV, GlobalTheory.SumSize.latAt, Set.mem_image, SetLike.mem_coe, Submodule.mem_comap, LinearMap.restrictScalars_apply,
+    Matrix.mulVecLin_apply]
+  constructor
+  · rintro ⟨z, hz, rfl⟩
+    exact (key _).1 hz
+  · intro hy
+    refine ⟨((S.N.fr X)⁻¹ : GL _ D.host.E).1 *ᵥ y, ?_, ?_⟩ <;>
+      rw [Matrix.mulVec_mulVec, ← Units.val_mul, mul_inv_cancel, Units.val_one, Matrix.one_mulVec]
+    exact (key _).2 hy
+
+theorem actO_latO_le (S T : HSp D) (g : GA D S) (h : GA D T)
+    (AS BS : Submodule (𝓞 D.host.E) (Fin S.rank → D.host.E)) (AT BT : Submodule (𝓞 D.host.E) (Fin T.rank → D.host.E))
+    (hS : ∀ s ∈ AS, (fun i => Formalism.IndefR.Datum.toEAf D ((mt S g *ᵥ fun k => incA D (s k)) i)) ∈
+      Formalism.L2.Herm.hatL (F := D.host.F) BS)
+    (hT : ∀ t ∈ AT, (fun i => Formalism.IndefR.Datum.toEAf D ((mt T h *ᵥ fun k => incA D (t k)) i)) ∈
+      Formalism.L2.Herm.hatL (F := D.host.F) BT) :
+    ∀ w ∈ latO S T (AS : Set (Fin S.rank → D.host.E)) (AT : Set (Fin T.rank → D.host.E)) (fun _ => True),
+      actO S T g h w ∈ latO S T (BS : Set (Fin S.rank → D.host.E)) (BT : Set (Fin T.rank → D.host.E)) (fun _ => True) :=
+  GlobalTheory.T.weilActionO_mem_latticeO_of_integralCombinations S T g h AS BS AT BT (fun s hs => GlobalTheory.T.finitePart_eq_integralCombination_of_mem_completedLattice BS _ (hS s hs)) (fun t ht => GlobalTheory.T.finitePart_eq_integralCombination_of_mem_completedLattice BT _ (hT t ht))
+
+theorem actO_actO_inv (S T : HSp D) (g : GA D S) (h : GA D T) (w : WO S T) : actO S T g h (actO S T g⁻¹ h⁻¹ w) = w := by
+  simp only [actO]
+  rw [inv_inv, Matrix.mul_assoc (mt T h), Matrix.mul_assoc (mt T h⁻¹ * w), ← GlobalTheory.LatMoveStd.mt_mul'', mul_inv_cancel,
+    GlobalTheory.LatMoveStd.mt_one'', Matrix.mul_one, ← Matrix.mul_assoc, ← GlobalTheory.LatMoveStd.mt_mul'', mul_inv_cancel,
+    GlobalTheory.LatMoveStd.mt_one'', Matrix.one_mul]
+
+theorem actO_latO_onto (S T : HSp D) (g : GA D S) (h : GA D T)
+    (AS BS : Submodule (𝓞 D.host.E) (Fin S.rank → D.host.E)) (AT BT : Submodule (𝓞 D.host.E) (Fin T.rank → D.host.E))
+    (hS : ∀ s ∈ AS, (fun i => Formalism.IndefR.Datum.toEAf D ((mt S g *ᵥ fun k => incA D (s k)) i)) ∈
+      Formalism.L2.Herm.hatL (F := D.host.F) BS)
+    (hT : ∀ t ∈ AT, (fun i => Formalism.IndefR.Datum.toEAf D ((mt T h *ᵥ fun k => incA D (t k)) i)) ∈
+      Formalism.L2.Herm.hatL (F := D.host.F) BT)
+    (hS' : ∀ s ∈ BS, (fun i => Formalism.IndefR.Datum.toEAf D ((mt S g⁻¹ *ᵥ fun k => incA D (s k)) i)) ∈
+      Formalism.L2.Herm.hatL (F := D.host.F) AS)
+    (hT' : ∀ t ∈ BT, (fun i => Formalism.IndefR.Datum.toEAf D ((mt T h⁻¹ *ᵥ fun k => incA D (t k)) i)) ∈
+      Formalism.L2.Herm.hatL (F := D.host.F) AT) :
+    (∀ w ∈ latO S T (AS : Set (Fin S.rank → D.host.E)) (AT : Set (Fin T.rank → D.host.E)) (fun _ => True),
+      actO S T g h w ∈ latO S T (BS : Set (Fin S.rank → D.host.E)) (BT : Set (Fin T.rank → D.host.E)) (fun _ => True)) ∧
+    (∀ w' ∈ latO S T (BS : Set (Fin S.rank → D.host.E)) (BT : Set (Fin T.rank → D.host.E)) (fun _ => True),
+      ∃ w ∈ latO S T (AS : Set (Fin S.rank → D.host.E)) (AT : Set (Fin T.rank → D.host.E)) (fun _ => True),
+        actO S T g h w = w') :=
+  ⟨actO_latO_le S T g h AS BS AT BT hS hT, fun w' hw' =>
+    ⟨actO S T g⁻¹ h⁻¹ w', actO_latO_le S T g⁻¹ h⁻¹ BS AS BT AT hS' hT' w' hw', actO_actO_inv S T g h w'⟩⟩
+
+end GlobalTheory.MovedHomLat
+

@@ -1,0 +1,166 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.Divisors.ExistsNotRelZero
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.UnitaryConjugation
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SquareTriple
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SquareStanding
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.MemPairLat
+public import Init.Core
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Action.Pi
+public import Mathlib.Algebra.Group.Action.Prod
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.NeZero
+public import Mathlib.Algebra.GroupWithZero.NonZeroDivisors
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Equiv.Basic
+public import Mathlib.Algebra.Module.Equiv.Defs
+public import Mathlib.Algebra.Module.Lattice.Basic
+public import Mathlib.Algebra.Module.Lattice.Full
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Prod
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Module.Submodule.Lattice
+public import Mathlib.Algebra.Module.Submodule.Map
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Ring.CompTypeclasses
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Set.CoeSort
+public import Mathlib.Data.Set.Defs
+public import Mathlib.GroupTheory.GroupAction.Hom
+public import Mathlib.LinearAlgebra.BilinearMap
+public import Mathlib.LinearAlgebra.LinearIndependent.Defs
+public import Mathlib.LinearAlgebra.Pi
+public import Mathlib.LinearAlgebra.Prod
+public import Mathlib.LinearAlgebra.Span.Basic
+public import Mathlib.LinearAlgebra.Span.Defs
+public import Mathlib.Logic.Equiv.Defs
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.Order.BoundedOrder.Basic
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.Order.Notation
+public import Mathlib.RingTheory.DedekindDomain.Ideal.Basic
+public import Mathlib.RingTheory.Finiteness.Basic
+public import Mathlib.RingTheory.Finiteness.Prod
+public import Mathlib.RingTheory.FractionalIdeal.Basic
+public import Mathlib.RingTheory.FractionalIdeal.Inverse
+public import Mathlib.RingTheory.Localization.Module
+public import Mathlib.RingTheory.Noetherian.Basic
+public import Mathlib.RingTheory.RegularLocalRing.Defs
+
+@[expose] public section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR.Datum Formalism.IndefR.Links
+open IsDedekindDomain NumberField MeasureTheory Matrix
+open Classical
+open scoped TensorProduct ComplexConjugate GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
+open GlobalTheory.FunObj GlobalTheory.ChiGrid GlobalTheory.SplitFlip GlobalTheory.SplitWeil GlobalTheory.StdFrames Formalism.L2.DIV
+open GlobalTheory.IndefiniteRowSideFullHecke.UnitaryConjugation (spV spW spW₁ spV₁ alpha beta Num skewGram blk conjU)
+open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels (Base Spc Model HasExp SplitsFully Chars)
+
+attribute [local instance] Formalism.BasicNotions.Host.cmStar GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField borelKw borelSpaceKw
+
+open scoped nonZeroDivisors
+
+namespace GlobalTheory.SkewLat.PairLatLattice
+
+variable {E : Type} [Field E] [NumberField E]
+
+theorem scLat_isLattice {n : ℕ} {𝔞 : FractionalIdeal (𝓞 E)⁰ E} (h𝔞 : 𝔞 ≠ 0)
+    {Λ : Submodule (𝓞 E) (Fin n → E)} (hΛ : Submodule.IsLattice E Λ) :
+    Submodule.IsLattice E (GlobalTheory.SkewLat.scLat 𝔞 Λ) := by
+  have hinv : 𝔞⁻¹ ≠ 0 := inv_ne_zero h𝔞
+  obtain ⟨b, hb, hb0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot
+    (FractionalIdeal.coeToSubmodule_ne_bot.mpr hinv)
+  obtain ⟨a, ha, ha0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot
+    (FractionalIdeal.coeToSubmodule_ne_bot.mpr h𝔞)
+  have hb' : b ∈ 𝔞⁻¹ := hb
+  have ha' : a ∈ 𝔞 := ha
+  refine ⟨?_, ?_⟩
+  ·
+    let f : (Fin n → E) →ₗ[𝓞 E] (Fin n → E) :=
+      (LinearMap.lsmul E (Fin n → E) b⁻¹).restrictScalars (𝓞 E)
+    have hle : GlobalTheory.SkewLat.scLat 𝔞 Λ ≤ Λ.map f := by
+      intro y hy
+      refine ⟨b • y, hy b hb', ?_⟩
+      simp [f, smul_smul, mul_inv_cancel₀ hb0]
+    exact Submodule.FG.of_le (Submodule.FG.map f hΛ.fg) hle
+  ·
+    have hmem : ∀ y ∈ Λ, a • y ∈ GlobalTheory.SkewLat.scLat 𝔞 Λ := by
+      intro y hy c hc
+      have hca : c * a ∈ (1 : FractionalIdeal (𝓞 E)⁰ E) := by
+        rw [← inv_mul_cancel₀ h𝔞]
+        exact FractionalIdeal.mul_mem_mul hc ha'
+      obtain ⟨r, hr⟩ := (FractionalIdeal.mem_one_iff _).mp hca
+      rw [smul_smul, ← hr, algebraMap_smul]
+      exact Λ.smul_mem r hy
+    intro s hs hli
+    exact (LinearIndependent.iff_fractionRing _ _).mp hli
+theorem prod_span_eq_top {a b : ℕ} {M : Submodule (𝓞 E) (Fin a → E)} {N : Submodule (𝓞 E) (Fin b → E)}
+    (hM : Submodule.IsFullLattice E M) (hN : Submodule.IsFullLattice E N) :
+    Submodule.span E ((M.prod N : Submodule (𝓞 E) ((Fin a → E) × (Fin b → E))) : Set ((Fin a → E) × (Fin b → E))) = ⊤ := by
+  set S := Submodule.span E ((M.prod N : Submodule (𝓞 E) ((Fin a → E) × (Fin b → E))) : Set ((Fin a → E) × (Fin b → E)))
+  have hl : ∀ x : Fin a → E, (x, 0) ∈ S := by
+    have : Submodule.span E (M : Set (Fin a → E)) ≤ S.comap (LinearMap.inl E (Fin a → E) (Fin b → E)) := by
+      refine Submodule.span_le.mpr fun m hm => ?_
+      exact Submodule.subset_span (show (m, (0 : Fin b → E)) ∈ M.prod N from ⟨hm, N.zero_mem⟩)
+    intro x
+    have hx : x ∈ Submodule.span E (M : Set (Fin a → E)) := by rw [Submodule.IsFullLattice.span_eq_top (self := hM)]; trivial
+    exact this hx
+  have hr : ∀ y : Fin b → E, (0, y) ∈ S := by
+    have : Submodule.span E (N : Set (Fin b → E)) ≤ S.comap (LinearMap.inr E (Fin a → E) (Fin b → E)) := by
+      refine Submodule.span_le.mpr fun m hm => ?_
+      exact Submodule.subset_span (show ((0 : Fin a → E), m) ∈ M.prod N from ⟨M.zero_mem, hm⟩)
+    intro y
+    have hy : y ∈ Submodule.span E (N : Set (Fin b → E)) := by rw [Submodule.IsFullLattice.span_eq_top (self := hN)]; trivial
+    exact this hy
+  apply top_unique
+  intro ⟨x, y⟩ _
+  simpa using S.add_mem (hl x) (hr y)
+theorem pairLat_isLattice {a b d : ℕ} {M : Submodule (𝓞 E) (Fin a → E)} {N : Submodule (𝓞 E) (Fin b → E)}
+    (hM : Submodule.IsLattice E M) (hN : Submodule.IsLattice E N) (e : Fin a ⊕ Fin b ≃ Fin d) :
+    Submodule.IsLattice E (GlobalTheory.SkewLat.pairLat M N e) := by
+  let φ : (Fin d → E) ≃ₗ[E] (Fin a → E) × (Fin b → E) :=
+    (LinearEquiv.funCongrLeft E E e).trans (LinearEquiv.sumArrowLequivProdArrow _ _ E E)
+  have hφ : GlobalTheory.SkewLat.pairLat M N e = (M.prod N).map (φ.symm.restrictScalars (𝓞 E)).toLinearMap := by
+    ext x
+    rw [Submodule.mem_map_equiv, GlobalTheory.SkewLat.mem_pairLat]
+    rfl
+  rw [hφ]
+  refine ⟨Submodule.FG.map _ (Submodule.FG.prod hM.fg hN.fg), ?_⟩
+  intro s hs hli
+  exact (LinearIndependent.iff_fractionRing _ _).mp hli
+
+end GlobalTheory.SkewLat.PairLatLattice
+
+open GlobalTheory.SkewLat.PairLatLattice in
+theorem GlobalTheory.SkewLat.pairLat_scLat_isLattice : ∀ {E : Type} [Field E] [NumberField E] {a b d : ℕ} {𝔞 : FractionalIdeal (𝓞 E)⁰ E}, 𝔞 ≠ 0 →
+    ∀ {ΛA : Submodule (𝓞 E) (Fin a → E)} {ΛB : Submodule (𝓞 E) (Fin b → E)}, Submodule.IsLattice E ΛA →
+    Submodule.IsLattice E ΛB → ∀ (e : Fin a ⊕ Fin b ≃ Fin d),
+    Submodule.IsLattice E (GlobalTheory.SkewLat.pairLat (GlobalTheory.SkewLat.scLat 𝔞 ΛA) (GlobalTheory.SkewLat.scLat 𝔞 ΛB) e) := by
+  intro E _ _ a b d 𝔞 h𝔞 ΛA ΛB hA hB e
+  exact pairLat_isLattice (scLat_isLattice h𝔞 hA) (scLat_isLattice h𝔞 hB) e

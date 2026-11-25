@@ -1,0 +1,24 @@
+module
+
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.FockModels.FockAnisoOfRanges
+public import Development.Core20Slim.Development.WeilBound.RepresentationTheoryGL.EisensteinSeries.SiegelEisensteinHalfPlane.IntegralUnitCoefficients.CoefND
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.SiegelWeilDoubledSpaceOfStandardUnitary
+public import Development.Core20Slim.Development.WeilBound.RepresentationTheoryGL.SiegelWeil.ArchimedeanSiegelWeil.WeilSiegelFormula
+public import Development.Core20Slim.Development.WeilBound.CoreStatements.TemperedRepresentationTheory.SiegelFormulaSchwartz.SiegelFormulaThetaOfSchwartz
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.WeilRepresentation.WeilTheta
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.SiegelWeilUnitaryConvergent
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.WeilSiegelFormulaUnitary
+
+@[expose] public section
+
+namespace UpperTheory.Lit.Sw47
+
+theorem convergent : GlobalTheory.Published.SiegelWeilUnitaryConvergent := GlobalTheory.StdUnn.sw_doubled_of_std PositivityTheory.SiegelWeilCoefficients.field
+
+theorem weilUnitary : GlobalTheory.Published.WeilSiegelFormulaUnitary :=
+  PositivityTheory.SiegelWeilFormulaUnitary.weilSiegelFormulaUnitary_of_two weilThetaConvergence PositivityTheory.Rg.Wsf.weilSiegelFormula
+
+theorem fa : FA := fa_of convergent weilUnitary
+
+
+end UpperTheory.Lit.Sw47

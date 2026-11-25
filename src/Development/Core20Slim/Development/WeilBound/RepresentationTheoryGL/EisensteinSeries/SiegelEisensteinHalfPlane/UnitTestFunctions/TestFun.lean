@@ -1,0 +1,25 @@
+module
+
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.BumpProfileEqZeroOfLtHalf
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.HasCompactSupportSmallF
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.RealComponentCoe
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ProdFunHasCompactSupport
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.NatCastFiniteAdeleApply
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ValEqOneOfMulEq
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.EqZeroOfForallInM
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ExistsOfChiNeZero
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ZetaIntegrandTensor
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ContinuousInfiniteIdeleInclusion
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.InfiniteModuleOfFinite
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.IdeleModuleOfFiniteEq
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.MemOHOfMemIntAd
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.MemStabOfInvCol
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ToIdeleMulSelf
+public import Development.Core20Slim.Development.AutomorphicSpectrum.Proofs.BlockDecomposition.StandardSectionGood
+public import Development.Core20Slim.Development.WeilBound.RepresentationTheoryGL.EisensteinSeries.SiegelEisensteinContinuation.IsEpCont
+
+@[expose] public section
+
+theorem PositivityTheory.RgEis.TF.testFun : PositivityTheory.RgEis.TestFun :=
+  GlobalTheory.CompanionTheory.RgEisAsm.asm GlobalTheory.CompanionTheory.EisCol.colLaw GlobalTheory.CompanionTheory.RgEis.InMTopPf.inMTop (GlobalTheory.CompanionTheory.RgEisSupp.supp GlobalTheory.CompanionTheory.EisCol.colLaw GlobalTheory.CompanionTheory.RgEis.InMTopPf.inMTop) (GlobalTheory.CompanionTheory.EisTF.archFun_of_bumps GlobalTheory.CompanionTheory.TestFun.realBump GlobalTheory.CompanionTheory.TestBump.cplxBump GlobalTheory.CompanionTheory.RgEisSign.signChar)
+    (GlobalTheory.CompanionTheory.RgEisFin.finFun GlobalTheory.CompanionTheory.EisTF.condM GlobalTheory.CompanionTheory.EisTF.liftUnit GlobalTheory.CompanionTheory.RgEis.InMTopPf.inMTop) GlobalTheory.CompanionTheory.RgEisTF.zSplit GlobalTheory.CompanionTheory.EisTestFun.zInf_ne_zero GlobalTheory.CompanionTheory.EisTestFun.zFinPos GlobalTheory.CompanionTheory.EisTF.zFinLim GlobalTheory.CompanionTheory.StdGoodAd.stdGood

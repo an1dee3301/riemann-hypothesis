@@ -1,0 +1,285 @@
+module
+
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.DiscreteSpectrumResidualClassification
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.MatchedMapsLocalIdentity
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.BernsteinUnitaryProductIrreducible
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.ThetaKernelLocalOperatorAction
+public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.PolMatchFiniteSetVacuum
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.ThetaEqB
+public import Development.AbelianVarietyTheory.Definitions.Divisors.DiscreteSeriesHermitianUnique
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.HoweDualityUnitary
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.HoweDualityReal
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
+public import Development.AbelianVarietyTheory.Definitions.Divisors.CTSmallCone
+public import Development.AbelianVarietyTheory.Definitions.Divisors.HilbertNinetyQuotientHomEqIff
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Divisors.PairsOfSquareTriple
+public import Development.AbelianVarietyTheory.Definitions.Foundations.EventuallyNormFinLeOne
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.PolMatchIff
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Init.Classical
+public import Init.Core
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Action.Pi
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Hom.Basic
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Subsemigroup.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Action.Pi
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.LinearMap.End
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Module.Submodule.Lattice
+public import Mathlib.Algebra.Module.Submodule.Map
+public import Mathlib.Algebra.Notation.Indicator
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Notation.Prod
+public import Mathlib.Algebra.Ring.CompTypeclasses
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.Analysis.Complex.Circle
+public import Mathlib.Analysis.Complex.Norm
+public import Mathlib.Analysis.Distribution.SchwartzSpace.Basic
+public import Mathlib.Analysis.InnerProductSpace.Basic
+public import Mathlib.Analysis.InnerProductSpace.Defs
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Group.Constructions
+public import Mathlib.Analysis.Normed.Group.Defs
+public import Mathlib.Analysis.Normed.Group.Real
+public import Mathlib.Analysis.Normed.Module.Basic
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.RCLike.Basic
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.ExistsUnique
+public import Mathlib.Basic.Finite.Defs
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Fintype.Prod
+public import Mathlib.Data.Fintype.Sets
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Diagonal
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Data.Set.Finite.Basic
+public import Mathlib.GroupTheory.GroupAction.Hom
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+public import Mathlib.LinearAlgebra.Multilinear.Basic
+public import Mathlib.LinearAlgebra.PiTensorProduct.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Map
+public import Mathlib.Logic.Function.Basic
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.NumberTheory.NumberField.CanonicalEmbedding.Basic
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
+public import Mathlib.Order.Filter.Cofinite
+public import Mathlib.Order.Filter.Defs
+public import Mathlib.Order.Notation
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.RingTheory.Valuation.ValuationSubring
+public import Mathlib.Topology.Algebra.Constructions
+public import Mathlib.Topology.Constructions
+public import Mathlib.Topology.Constructions.SumProd
+public import Mathlib.Topology.Defs.Filter
+public import Mathlib.Topology.Defs.Induced
+public import Mathlib.Topology.Instances.Matrix
+public import Mathlib.Topology.UniformSpace.Defs
+
+@[expose] public section
+
+section
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.MainNotions.S MeasureTheory IsDedekindDomain NumberField Matrix
+open Formalism.L2.Theta Formalism.L2.DIV Formalism.L2.Indef Formalism.DivisionValues
+open Formalism.IndefR Formalism.IndefR.Links Formalism.IndefR.Mult Formalism.IndefR.Datum
+open GlobalTheory.Grid GlobalTheory.Doubling GlobalTheory.ChainFr GlobalTheory.IndefiniteRowSideFullHecke.MatchingAdjoints
+open scoped TensorProduct GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+open GlobalTheory.SquareComm GlobalTheory.SquareAgree
+noncomputable section
+namespace GlobalTheory.ThK.PolMatchStep
+open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.WeilM GlobalTheory.AdelicU
+section Local
+variable {F : Type} [Field F] [NumberField F] {κ : Type} [Fintype κ]
+end Local
+theorem polynomial_matching_on_succ : FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
+    (B : IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (X : IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
+    (om : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W) (R : IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a')
+    (Rf : IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'), IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched B G X om om' R Rf →
+    ∀ (T : Finset (IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F))) (v : IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F)), v ∈ T →
+    ∀ h ∈ IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ G.W (AdelicU.evFin F v), ∀ Φ Φ',
+    PolynomialMatching.PolMatchOn B G X R Rf T Φ Φ' → PolynomialMatching.PolMatchOn B G X R Rf T (om (1, h) Φ) (om' (1, h) Φ') := by
+  classical
+  intro hP F E _ _ _ _ _ σ B a a' G X om om' R Rf hM T v hv h hh Φ Φ' hPM
+  obtain ⟨m, m', f, φ, f', φ', hφ, hφ', hΦ, hΦ', hsum⟩ := hPM
+  have hT := hM.triple
+  have ex := (_root_.GlobalTheory.T.theta_kernel_local_operator_action hP) F E σ B _ _ _ _ _ _ _ _ _ _ _ _ (Inhab.pairV hT) v
+  have ex' := (_root_.GlobalTheory.T.theta_kernel_local_operator_action hP) F E σ B _ _ _ _ _ _ _ _ _ _ _ _ (Inhab.pairV' hT) v
+  have h1 : (1 : IndefiniteRowSideFullHecke.WeilTensorModels.UA σ G.V.J) ∈ IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ G.V (AdelicU.evFin F v) := by
+    intro u _
+    show u • ((1 : Matrix _ _ _) - 1) = 0
+    simp
+  have h1' : (1 : IndefiniteRowSideFullHecke.WeilTensorModels.UA σ G.V'.J) ∈ IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ G.V' (AdelicU.evFin F v) := by
+    intro u _
+    show u • ((1 : Matrix _ _ _) - 1) = 0
+    simp
+  have E1 := fun x hx => (ex.1 1 h1 h hh x hx).exists
+  have E1' := fun x hx => (ex'.1 1 h1' h hh x hx).exists
+  let loc : ((Fin a × Fin (a + a') → Fv F v) → ℂ) → (Fin a × Fin (a + a') → Fv F v) → ℂ :=
+    fun x => if hx : x ∈ WeilM.SB _ then (E1 x hx).choose else 0
+  let loc' : ((Fin a' × Fin (a + a') → Fv F v) → ℂ) → (Fin a' × Fin (a + a') → Fv F v) → ℂ :=
+    fun x => if hx : x ∈ WeilM.SB _ then (E1' x hx).choose else 0
+  have hloc : ∀ x ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v), loc x ∈ WeilM.SB _ ∧
+      IndefiniteRowSideFullHecke.WeilTensorModels.Acts (AdelicU.evFin F v) (om (1, h)) x (loc x) := fun x hx => by
+    simp only [loc, dif_pos hx]; exact (E1 x hx).choose_spec
+  have hloc' : ∀ x ∈ WeilM.SB (Fin a' × Fin (a + a') → Fv F v), loc' x ∈ WeilM.SB _ ∧
+      IndefiniteRowSideFullHecke.WeilTensorModels.Acts (AdelicU.evFin F v) (om' (1, h)) x (loc' x) := fun x hx => by
+    simp only [loc', dif_pos hx]; exact (E1' x hx).choose_spec
+  have pre : ∀ y : Rf.Pi v, ∃ x ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v), Rf.p v x = y := fun y => by
+    have hy : y ∈ (WeilM.SB _).map (Rf.p v) := by rw [hM.fin.onto v]; trivial
+    exact hy
+  have pre' : ∀ y : Rf.Pi v, ∃ x ∈ WeilM.SB (Fin a' × Fin (a + a') → Fv F v), Rf.p' v x = y := fun y => by
+    have hy : y ∈ (WeilM.SB _).map (Rf.p' v) := by rw [hM.fin.onto' v]; trivial
+    exact hy
+  let A0 : Rf.Pi v → Rf.Pi v := fun y => Rf.p v (loc (pre y).choose)
+  have K : ∀ x ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v), A0 (Rf.p v x) = Rf.p v (loc x) := by
+    intro x hx
+    obtain ⟨hx0, hx0e⟩ := (pre (Rf.p v x)).choose_spec
+    obtain ⟨x', hx', hx'e⟩ := pre' (Rf.p v x)
+    have a1 := hM.fin.equiv v h hh _ hx0 x' hx' _ (hloc _ hx0).1 _ (hloc' x' hx').1 (hloc _ hx0).2 (hloc' x' hx').2
+      (hx0e.trans hx'e.symm)
+    have a2 := hM.fin.equiv v h hh x hx x' hx' _ (hloc x hx).1 _ (hloc' x' hx').1 (hloc x hx).2 (hloc' x' hx').2
+      hx'e.symm
+    exact a1.trans a2.symm
+  have K' : ∀ x' ∈ WeilM.SB (Fin a' × Fin (a + a') → Fv F v), A0 (Rf.p' v x') = Rf.p' v (loc' x') := by
+    intro x' hx'
+    obtain ⟨x, hx, hxe⟩ := pre (Rf.p' v x')
+    rw [← hxe, K x hx]
+    exact hM.fin.equiv v h hh x hx x' hx' _ (hloc x hx).1 _ (hloc' x' hx').1 (hloc x hx).2 (hloc' x' hx').2 hxe
+  have Klin : ∀ x ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v), ∀ y ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v),
+      ∀ c d : ℂ, loc (c • x + d • y) = c • loc x + d • loc y := by
+    intro x hx y hy c d
+    have hs : c • x + d • y ∈ WeilM.SB (Fin a × Fin (a + a') → Fv F v) :=
+      add_mem ((WeilM.SB _).smul_mem c hx) ((WeilM.SB _).smul_mem d hy)
+    exact acts_lin_eq v (om (1, h)) hx hy (hloc x hx).2 (hloc y hy).2 c d (hloc _ hs).2
+  let A : Rf.Pi v →ₗ[ℂ] Rf.Pi v :=
+    { toFun := A0
+      map_add' := by
+        intro y z
+        obtain ⟨x, hx, rfl⟩ := pre y
+        obtain ⟨w, hw, rfl⟩ := pre z
+        rw [← map_add (f := _), K _ (add_mem hx hw), K x hx, K w hw, ← map_add (f := _)]
+        congr 1
+        simpa using Klin x hx w hw 1 1
+      map_smul' := by
+        intro c y
+        obtain ⟨x, hx, rfl⟩ := pre y
+        rw [← map_smul, K _ ((WeilM.SB _).smul_mem c hx), K x hx, RingHom.id_apply, ← map_smul]
+        congr 1
+        simpa using Klin x hx x hx c 0 }
+  have hvT : ∀ w, w ∉ T → w ≠ v := fun w hw e => hw (e ▸ hv)
+  have evc : ∀ {n : ℕ} {Y : IndefiniteRowSideFullHecke.WeilTensorModels.Spc F E n} (M : IndefiniteRowSideFullHecke.WeilTensorModels.Model σ Y G.W) (ρ : ∀ w : IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin n × Fin (a + a') → Fv F w) → ℂ),
+      (∀ w, w ∉ T → ρ w = M.vac w) → M.IsGood B.ψ →
+      ∀ᶠ w in Filter.cofinite, ρ w = Set.indicator {x | ∀ i, x i ∈ w.adicCompletionIntegers F} 1 := by
+    intro n Y M ρ hρ hG
+    have e0 : ∀ᶠ w in Filter.cofinite, ρ w = M.vac w :=
+      Filter.eventually_cofinite.2 ((T.finite_toSet).subset fun w hw => by
+        by_contra hc; exact hw (hρ w hc))
+    filter_upwards [e0, hG.std] with w e1 e2
+    rw [e1, e2]
+  let φN : Fin m → ∀ w : IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin a × Fin (a + a') → Fv F w) → ℂ :=
+    fun i => Function.update (φ i) v (loc (φ i v))
+  let φN' : Fin m' → ∀ w : IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F), (Fin a' × Fin (a + a') → Fv F w) → ℂ :=
+    fun j => Function.update (φ' j) v (loc' (φ' j v))
+  refine ⟨m, m', f, φN, f', φN', fun i => ⟨(hφ i).1, fun w => ?_, fun w hw => ?_⟩,
+    fun j => ⟨(hφ' j).1, fun w => ?_, fun w hw => ?_⟩, ?_, ?_, ?_⟩
+  · by_cases hw : w = v
+    · subst hw; simp only [φN, Function.update_self]; exact (hloc _ ((hφ i).2.1 w)).1
+    · simp only [φN, Function.update_of_ne hw]; exact (hφ i).2.1 w
+  · simp only [φN, Function.update_of_ne (hvT w hw)]; exact (hφ i).2.2 w hw
+  · by_cases hw : w = v
+    · subst hw; simp only [φN', Function.update_self]; exact (hloc' _ ((hφ' j).2.1 w)).1
+    · simp only [φN', Function.update_of_ne hw]; exact (hφ' j).2.1 w
+  · simp only [φN', Function.update_of_ne (hvT w hw)]; exact (hφ' j).2.2 w hw
+  set_option synthInstance.maxHeartbeats 100000 in
+    · rw [hΦ, map_sum]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      exact pure_update v (om (1, h)) (f i) (φ i) (hφ i).2.1 (evc G.M (φ i) (hφ i).2.2 hT.geo.hM)
+        (hloc _ ((hφ i).2.1 v)).2
+  set_option synthInstance.maxHeartbeats 100000 in
+    · rw [hΦ', map_sum]
+      refine Finset.sum_congr rfl fun j _ => ?_
+      exact pure_update v (om' (1, h)) (f' j) (φ' j) (hφ' j).2.1 (evc G.M' (φ' j) (hφ' j).2.2 hT.geo.hM')
+        (hloc' _ ((hφ' j).2.1 v)).2
+  · have key := congrArg (LinearMap.lTensor R.Pi (PiTensorProduct.map
+      (Function.update (fun u : T => (LinearMap.id : Rf.Pi u.1 →ₗ[ℂ] Rf.Pi u.1)) ⟨v, hv⟩ A))) hsum
+    set_option synthInstance.maxHeartbeats 100000 in
+      simp only [map_sum, LinearMap.lTensor_tmul, PiTensorProduct.map_tprod] at key
+    have e1 : ∀ i, (fun u : T => Function.update (fun u : T => (LinearMap.id : Rf.Pi u.1 →ₗ[ℂ] Rf.Pi u.1)) ⟨v, hv⟩ A u
+        (Rf.p u (φ i u))) = fun u : T => Rf.p u (φN i u) := by
+      intro i; funext u
+      by_cases hu : u = ⟨v, hv⟩
+      · subst hu; simp only [Function.update_self, φN]; exact K _ ((hφ i).2.1 v)
+      · have hu' : u.1 ≠ v := fun e => hu (Subtype.ext e)
+        simp only [Function.update_of_ne hu, φN, Function.update_of_ne hu', LinearMap.id_apply]
+    have e2 : ∀ j, (fun u : T => Function.update (fun u : T => (LinearMap.id : Rf.Pi u.1 →ₗ[ℂ] Rf.Pi u.1)) ⟨v, hv⟩ A u
+        (Rf.p' u (φ' j u))) = fun u : T => Rf.p' u (φN' j u) := by
+      intro j; funext u
+      by_cases hu : u = ⟨v, hv⟩
+      · subst hu; simp only [Function.update_self, φN']; exact K' _ ((hφ' j).2.1 v)
+      · have hu' : u.1 ≠ v := fun e => hu (Subtype.ext e)
+        simp only [Function.update_of_ne hu, φN', Function.update_of_ne hu', LinearMap.id_apply]
+    simp only [e1, e2] at key
+    exact key
+end GlobalTheory.ThK.PolMatchStep
+end
+end
+
+section
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.MainNotions.S MeasureTheory IsDedekindDomain NumberField Matrix
+open Formalism.L2.Theta Formalism.L2.DIV Formalism.L2.Indef Formalism.DivisionValues
+open Formalism.IndefR Formalism.IndefR.Links Formalism.IndefR.Mult Formalism.IndefR.Datum
+open GlobalTheory.Grid GlobalTheory.Doubling GlobalTheory.ChainFr GlobalTheory.IndefiniteRowSideFullHecke.MatchingAdjoints
+open scoped TensorProduct GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+open GlobalTheory.SquareComm GlobalTheory.SquareAgree
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.polynomial_matching_induction : _root_.GlobalTheory.FunPr.ThetaLocalInputs → ∀ (F E : Type) [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] (σ : E →ₐ[F] E)
+    (B : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Base F E) (a a' : ℕ) (G : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Geo σ a a') (X : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Chars F E)
+    (om : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V G.W) (om' : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Rep σ G.V' G.W) (R : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.RealMaps F a a')
+    (Rf : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.FinMaps F a a'), GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsMatched B G X om om' R Rf →
+    ∀ (T : Finset (GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F))) (v : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.Pl (F := F)), v ∈ T →
+    ∀ h ∈ GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.UAt σ G.W (GlobalTheory.AdelicU.evFin F v), ∀ Φ Φ',
+    GlobalTheory.ThK.PolynomialMatching.PolMatchOn B G X R Rf T Φ Φ' → GlobalTheory.ThK.PolynomialMatching.PolMatchOn B G X R Rf T (om (1, h) Φ) (om' (1, h) Φ') := by
+  first | exact @_root_.GlobalTheory.ThK.PolMatchStep.polynomial_matching_on_succ | exact _root_.GlobalTheory.ThK.PolMatchStep.polynomial_matching_on_succ | (intros; apply _root_.GlobalTheory.ThK.PolMatchStep.polynomial_matching_on_succ <;> assumption)
+end

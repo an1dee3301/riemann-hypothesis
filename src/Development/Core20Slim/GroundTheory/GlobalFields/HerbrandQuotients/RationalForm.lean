@@ -1,0 +1,214 @@
+module
+
+public import Mathlib
+public import Batteries.Classes.RatCast
+public import Init.BinderNameHint
+public import Init.Classical
+public import Init.Core
+public import Init.Data.Rat.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Algebra.NonUnitalHom
+public import Mathlib.Algebra.Algebra.Rat
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.BigOperators.Ring.Finset
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Rat
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Finsupp
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Nat.Defs
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.Hom
+public import Mathlib.Algebra.GroupWithZero.Nat
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Equiv.Defs
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Module.Submodule.Ker
+public import Mathlib.Algebra.Module.Submodule.LinearMap
+public import Mathlib.Algebra.MonoidAlgebra.Basic
+public import Mathlib.Algebra.MonoidAlgebra.Defs
+public import Mathlib.Algebra.MvPolynomial.Basic
+public import Mathlib.Algebra.MvPolynomial.Eval
+public import Mathlib.Algebra.MvPolynomial.Funext
+public import Mathlib.Algebra.Order.Archimedean.Real.Basic
+public import Mathlib.Algebra.Order.Floor.Defs
+public import Mathlib.Algebra.Order.Ring.Defs
+public import Mathlib.Algebra.Order.Ring.Star
+public import Mathlib.Algebra.Order.Ring.Unbundled.Rat
+public import Mathlib.Algebra.Order.Star.Rat
+public import Mathlib.Algebra.Ring.CompTypeclasses
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Rat
+public import Mathlib.Algebra.Star.Rat
+public import Mathlib.Analysis.Normed.Field.Basic
+public import Mathlib.Analysis.Normed.Field.Lemmas
+public import Mathlib.Analysis.Normed.Module.Basic
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.RCLike.Basic
+public import Mathlib.Basic.Finite.Prod
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Finsupp.Defs
+public import Mathlib.Data.Finsupp.SMul
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Fintype.EquivFin
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Basic
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Rat.Cast.CharZero
+public import Mathlib.Data.Rat.Cast.Defs
+public import Mathlib.Data.Rat.Defs
+public import Mathlib.Data.Set.Finite.Range
+public import Mathlib.Data.Set.Operations
+public import Mathlib.GroupTheory.GroupAction.Hom
+public import Mathlib.LinearAlgebra.Basis.Basic
+public import Mathlib.LinearAlgebra.Basis.Defs
+public import Mathlib.LinearAlgebra.Basis.VectorSpace
+public import Mathlib.LinearAlgebra.DFinsupp
+public import Mathlib.LinearAlgebra.FreeModule.Basic
+public import Mathlib.LinearAlgebra.FreeModule.Finite.Basic
+public import Mathlib.LinearAlgebra.FreeModule.PID
+public import Mathlib.LinearAlgebra.LinearIndependent.Basic
+public import Mathlib.LinearAlgebra.LinearIndependent.Defs
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+public import Mathlib.LinearAlgebra.Span.Defs
+public import Mathlib.Logic.Equiv.Defs
+public import Mathlib.Order.Interval.Set.Infinite
+public import Mathlib.RingTheory.DedekindDomain.Basic
+public import Mathlib.RingTheory.Finiteness.Basic
+public import Mathlib.RingTheory.Finiteness.Defs
+public import Mathlib.RingTheory.Flat.FaithfullyFlat.Basic
+public import Mathlib.RingTheory.Flat.TorsionFree
+public import Mathlib.RingTheory.Ideal.Operations
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.SimpleRing.Principal
+public import Mathlib.Tactic.Push
+
+set_option synthInstance.maxHeartbeats 400000
+
+@[expose] public section
+
+namespace GroundTheory.Global
+
+open Matrix
+
+theorem exists_rat_intertwiner {ι J : Type*} [Fintype ι] [DecidableEq ι]
+    (A A' : J → Matrix ι ι ℚ) (P : Matrix ι ι ℝ) (hP : P.det ≠ 0)
+    (h : ∀ j, P * (A j).map (Rat.cast : ℚ → ℝ) = (A' j).map (Rat.cast : ℚ → ℝ) * P) :
+    ∃ Q : Matrix ι ι ℚ, Q.det ≠ 0 ∧ ∀ j, Q * A j = A' j * Q := by
+
+  obtain ⟨V, hV⟩ : ∃ V : Submodule ℚ ℝ,
+      V = Submodule.span ℚ (Set.range fun p : ι × ι => P p.1 p.2) := ⟨_, rfl⟩
+  have : Module.Finite ℚ V := hV ▸ Module.Finite.span_of_finite ℚ (Set.finite_range _)
+  obtain ⟨κ, _, ⟨c⟩⟩ : ∃ (κ : Type) (_ : Fintype κ), Nonempty (Module.Basis κ ℚ V) :=
+    ⟨_, inferInstance, ⟨Module.Free.chooseBasis ℚ V⟩⟩
+  have hmem : ∀ a b, P a b ∈ V := fun a b => hV ▸ Submodule.subset_span ⟨(a, b), rfl⟩
+
+  let Bm : κ → Matrix ι ι ℚ := fun k a b => c.repr ⟨P a b, hmem a b⟩ k
+  have hcast : ∀ (q : ℚ) (r : ℝ), q • r = (q : ℝ) * r := fun q r => by
+    rw [Algebra.smul_def, eq_ratCast]
+  have hP_eq : P = ∑ k, (c k : ℝ) • (Bm k).map (Rat.cast : ℚ → ℝ) := by
+    ext a b
+    have h1 := congrArg (Subtype.val : V → ℝ) (c.sum_repr ⟨P a b, hmem a b⟩)
+    rw [Submodule.coe_sum] at h1
+    simp only [Submodule.coe_smul, hcast] at h1
+    rw [Matrix.sum_apply]
+    simp only [Matrix.smul_apply, Matrix.map_apply, smul_eq_mul]
+    rw [← h1]
+    exact Finset.sum_congr rfl fun k _ => mul_comm _ _
+  have hli : LinearIndependent ℚ (fun k => (c k : ℝ)) :=
+    c.linearIndependent.map' V.subtype (Submodule.ker_subtype V)
+
+  have hB : ∀ k j, Bm k * A j = A' j * Bm k := by
+    intro k j
+    have hsum : ∑ k, (c k : ℝ) • (Bm k * A j - A' j * Bm k).map (Rat.cast : ℚ → ℝ) = 0 := by
+      have hmap : ∀ X Y : Matrix ι ι ℚ, (X * Y).map (Rat.cast : ℚ → ℝ) =
+          X.map (Rat.cast : ℚ → ℝ) * Y.map (Rat.cast : ℚ → ℝ) := fun X Y =>
+        Matrix.map_mul (f := Rat.castHom ℝ)
+      have hsub : ∀ X Y : Matrix ι ι ℚ, (X - Y).map (Rat.cast : ℚ → ℝ) =
+          X.map (Rat.cast : ℚ → ℝ) - Y.map (Rat.cast : ℚ → ℝ) := fun X Y => by
+        ext; simp
+      have e1 : ∑ k, (c k : ℝ) • ((Bm k).map (Rat.cast : ℚ → ℝ) * (A j).map (Rat.cast : ℚ → ℝ)) =
+          P * (A j).map (Rat.cast : ℚ → ℝ) := by
+        rw [hP_eq, Finset.sum_mul]
+        simp only [Matrix.smul_mul]
+      have e2 : ∑ k, (c k : ℝ) • ((A' j).map (Rat.cast : ℚ → ℝ) * (Bm k).map (Rat.cast : ℚ → ℝ)) =
+          (A' j).map (Rat.cast : ℚ → ℝ) * P := by
+        rw [hP_eq, Finset.mul_sum]
+        simp only [Matrix.mul_smul]
+      simp only [hsub, hmap, smul_sub, Finset.sum_sub_distrib, e1, e2, h j, sub_self]
+    ext a b
+    have hab := congrFun (congrFun hsum a) b
+    simp only [Matrix.sum_apply, Matrix.smul_apply, Matrix.map_apply, smul_eq_mul,
+      Matrix.zero_apply] at hab
+    have := Fintype.linearIndependent_iff.1 hli (fun k => (Bm k * A j - A' j * Bm k) a b)
+      (by simpa only [hcast, mul_comm] using hab) k
+    rwa [Matrix.sub_apply, sub_eq_zero] at this
+
+  clear_value Bm
+  obtain ⟨Mx, hMx⟩ : ∃ Mx : Matrix ι ι (MvPolynomial κ ℚ),
+      Mx = Matrix.of fun a b => ∑ k, MvPolynomial.X k * MvPolynomial.C (Bm k a b) := ⟨_, rfl⟩
+  have hev : ∀ (t : κ → ℝ),
+      (MvPolynomial.aeval t : MvPolynomial κ ℚ →ₐ[ℚ] ℝ).mapMatrix Mx =
+        Matrix.of fun a b => ∑ k, t k * algebraMap ℚ ℝ (Bm k a b) := by
+    intro t
+    ext a b
+    rw [AlgHom.mapMatrix_apply, Matrix.map_apply, Matrix.of_apply]
+    set_option synthInstance.maxHeartbeats 100000 in
+      rw [hMx, Matrix.of_apply, map_sum]
+    refine Finset.sum_congr rfl fun k _ => ?_
+    rw [map_mul, MvPolynomial.aeval_X, MvPolynomial.aeval_C]
+  have hPof : P = Matrix.of fun a b => ∑ k, (c k : ℝ) * algebraMap ℚ ℝ (Bm k a b) := by
+    refine hP_eq.trans ?_
+    ext a b
+    rw [Matrix.sum_apply, Matrix.of_apply]
+    refine Finset.sum_congr rfl fun k _ => ?_
+    rw [Matrix.smul_apply, Matrix.map_apply, smul_eq_mul, eq_ratCast]
+  have hF : Mx.det ≠ 0 := by
+    intro h0
+    apply hP
+    rw [hPof, ← hev, ← AlgHom.map_det, h0]
+    exact map_zero _
+  obtain ⟨q, hq⟩ : ∃ q : κ → ℚ, MvPolynomial.eval q Mx.det ≠ 0 := by
+    by_contra! hall
+    exact hF (MvPolynomial.funext fun x => by rw [hall x, map_zero])
+  refine ⟨∑ k, q k • Bm k, ?_, fun j => ?_⟩
+  · have hQ : ∑ k, q k • Bm k = Matrix.of fun a b => ∑ k, q k * algebraMap ℚ ℚ (Bm k a b) := by
+      ext a b
+      rw [Matrix.sum_apply, Matrix.of_apply]
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [Matrix.smul_apply, smul_eq_mul, Algebra.algebraMap_self, RingHom.id_apply]
+    have hevq : (MvPolynomial.eval q).mapMatrix Mx =
+        Matrix.of fun a b => ∑ k, q k * algebraMap ℚ ℚ (Bm k a b) := by
+      ext a b
+      set_option synthInstance.maxHeartbeats 100000 in
+        rw [RingHom.mapMatrix_apply, Matrix.map_apply, hMx, Matrix.of_apply, Matrix.of_apply,
+        map_sum]
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [map_mul, MvPolynomial.eval_X, MvPolynomial.eval_C, Algebra.algebraMap_self,
+        RingHom.id_apply]
+    have := RingHom.map_det (MvPolynomial.eval q) Mx
+    rw [hevq] at this
+    rw [hQ, ← this]
+    exact hq
+  · rw [Finset.sum_mul, Finset.mul_sum]
+    exact Finset.sum_congr rfl fun k _ => by rw [Matrix.smul_mul, Matrix.mul_smul, hB]
+
+end GroundTheory.Global

@@ -1,0 +1,125 @@
+module
+
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.DiscreteSpectrumResidualClassification
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.Divisors.SlopeTestRemainingChoicesAlt
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.FormulaAt
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Divisors.TieTest
+public import Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.NormSmall
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.ToricSymbols
+public import Development.AbelianVarietyTheory.Definitions.Divisors.DiscreteSeriesHermitianUnique
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.InfClassAt
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.DictAt
+public import Development.AbelianVarietyTheory.Definitions.Foundations.NormSumPairRankZeroOfCurveCoordNorm
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.StepUnfold
+public import Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.ThetaIntegralsAgree
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.CuspAlongSmoothRows
+public import Development.AbelianVarietyTheory.Definitions.Divisors.MatchingOfParts
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.VpBounds
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.LatticeNormTransport
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.ZetaValueIdeals
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.HeckeFunctionalEquationAbs
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.LevelPlusSubgroup
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FiniteCoefficientBound
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FiniteSumDenominatorBoundOfFactorClaims
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FiniteInfinitePsiBounds
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.SumOKEx
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.FormulaAtOfSubsingleton
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsExpansionIff
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsCosetIndicatorExpansionOfDepthPeriodicStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.DepthPeriodicOfCosetIndicatorExpansionStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FlatProductDepthPeriodicGcdStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FlatTensorDepthConditionsAwayFromTwist
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.DictionarySizeBound
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.TwistPlacesOffPrimeQZero
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FiniteDataBound
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FiniteGammaBound
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FiniteInfiniteFormBounds
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FiniteInfinitePairBounds
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.PairIntAt
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.TopDlNonneg
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.DerivationDenominatorsAndHostFieldSizes
+public import Development.AbelianVarietyTheory.Statements.CuspidalUnitaryTwists.ExistsSmallSpherical
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.FoundationProofs.PadicValuationThetaKernelJetBound
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.HighestWeightBelow
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.VwNatCastNonneg
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.JetKapIff
+public import Development.Core20Slim.Development.AutomorphicArithmetic.CyclotomicBounds.WildJets.Imports
+public import Development.Core20Slim.Development.AutomorphicArithmetic.CyclotomicBounds.WildJets.ImportsTer
+public import Development.Core20Slim.Development.AutomorphicArithmetic.CyclotomicBounds.WildJets.ImportsBis
+public import Development.Core20Slim.Development.AutomorphicArithmetic.CyclotomicBounds.WildJets.RatMove
+public import Development.Core20Slim.Development.AutomorphicArithmetic.CyclotomicBounds.WildJets.KerStd
+public import Development.Core20Slim.Development.AutomorphicArithmetic.CyclotomicBounds.WildJets.MatLat
+public import Development.Core20Slim.Development.AutomorphicArithmetic.CyclotomicBounds.WildJets.LatMove
+public import Development.Core20Slim.Development.AutomorphicArithmetic.CyclotomicBounds.WildJets.LossOne
+public import Development.Core20Slim.Development.AutomorphicArithmetic.CyclotomicBounds.WildJets.ExpLoss
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.SumEqualSignKernelLossesBounded
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.InfCountAtOf
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.DatumCountBoundLargeDataStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.CosineCountOfHyp
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.PureTensorCountBoundOfCosetDepthBound
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ArchimedeanSumSizeBoundLargeDataFromFactorsStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ConjPlInvolutive
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.DictionaryDepthPairStandard
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.InfiniteTensorBound
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.InfiniteTopOfDictionaryDepth
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FiniteInfiniteScalarBounds
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ContinuousReGLSymm
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.GridKernelPairingIndependentOfExpansionStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.FlatIntegrableAaVacOfConductor
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsMemValuationEq
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.FoundationProofs.CmThetaNormBoundHypothesesSatisfiedStatement
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.BernsteinUnitaryProductIrreducible
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.RowSumOfHyp
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.DepthOfSumBound
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.SumSizeDictionaryOfLocalBounds
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.FiniteInfiniteScalarBounds
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.FormValueFiniteInfiniteFactorization
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.FieldPairComparison
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.TestVectorValueFactorization
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.FiniteTopTermIntegralBoundOfLocal
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.SumSizeBoundFinitePlaces
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.KernelConjugationMeanArchimedeanTopTerm
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.ArchimedeanSumSizeOppositeConjugate
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.TwistedLocalFactorAwayFromLevel
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.FiniteCoefficientBound
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.FiniteDataBound
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.GammaFactorLossAtFinitePlaces
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.ArchimedeanTensorSizeBoundOfLocal
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.ArchimedeanSumCountBound
+public import Development.Core20Slim.Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.ArchimedeanClassCountBound
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Init.Prelude
+
+@[expose] public section
+
+section
+namespace GlobalTheory.SumSize.Join
+theorem sum_size_finite_away_archimedean_combined : FunPr.ThetaLocalInputs → FinK ∧ AwayK ∧ InfK := by
+  intro P
+  have hInp : ∀ D, NormSum.Inp D := T.cmThetaNormBoundHypotheses_satisfied
+  have hOK : RowClaim.SumOKK := T.sumOKK_of_theta_local_inputs P
+  have hDep : DepthK := T.depthK_of_sumOKK P hOK
+  have hDict : DictK := T.sum_size_dictionary P hInp
+  have hScal := T.finite_and_infinite_scalar_bounds P
+  have hForm := T.form_value_finite_infinite_factorization P
+  have hPair := T.field_pair_comparison P
+  have hPsi := Adopt.test_vector_value_factorization P
+  have hTopF := T.sum_size_finite_top_term_integral P hInp hDict hDep
+  have hRowF := T.sum_size_bound_finite_places P hInp hDict hDep
+  have hTopI := T.kernel_conjugation_mean_archimedean_top_term P hInp hDict hDep
+  have hRowI := T.sum_size_bound_opposite_conjugation P hInp hDict hDep
+  refine ⟨?_, Adopt.twisted_local_factor_away_from_level P, ?_⟩
+  · exact Adopt.finiteSumDenominatorBound_of_factor_claims hOK hDep hScal.1 (Adopt.finCoefK_of_theta_inputs P) (T.finDatK_of_theta_inputs P) (T.gamma_factor_loss_at_finite_places P)
+      hTopF hRowF hPair.1 hPsi.1 hForm.1
+  · exact T.archimedeanSumSizeBound_largeData_from_factors hOK hDep hScal.2 (T.sum_size_archimedean_tensor_bound P) (T.sum_count_bound_archimedean P hDep) (T.class_count_bound_archimedean P)
+      hTopI hRowI hPair.2 hPsi.2 hForm.2
+end GlobalTheory.SumSize.Join
+end
+
+section
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.sum_size_bound_all_places : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.SumSize.FinK ∧ GlobalTheory.SumSize.AwayK ∧ GlobalTheory.SumSize.InfK := by
+  first | exact @_root_.GlobalTheory.SumSize.Join.sum_size_finite_away_archimedean_combined | exact _root_.GlobalTheory.SumSize.Join.sum_size_finite_away_archimedean_combined | (intros; apply _root_.GlobalTheory.SumSize.Join.sum_size_finite_away_archimedean_combined <;> assumption)
+end

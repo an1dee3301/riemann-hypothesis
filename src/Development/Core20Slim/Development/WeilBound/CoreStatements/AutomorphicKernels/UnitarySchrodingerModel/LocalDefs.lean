@@ -1,0 +1,122 @@
+module
+
+public import Mathlib
+public import Init.Core
+public import Init.Data.Cast
+public import Init.Data.Int.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.Field.IsField
+public import Mathlib.Algebra.Group.AddChar
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Nat.Defs
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Quotient
+public import Mathlib.Algebra.Regular.SMul
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Basic
+public import Mathlib.Data.Nat.Log
+public import Mathlib.Data.Set.CoeSort
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Data.Set.Operations
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+public import Mathlib.LinearAlgebra.Matrix.Trace
+public import Mathlib.LinearAlgebra.Quotient.Defs
+public import Mathlib.Order.Filter.AtTopBot.Defs
+public import Mathlib.Order.Filter.Defs
+public import Mathlib.RingTheory.Ideal.Defs
+public import Mathlib.RingTheory.Ideal.Quotient.Defs
+public import Mathlib.RingTheory.Ideal.Span
+public import Mathlib.SetTheory.Cardinal.Finite
+public import Mathlib.Topology.Algebra.InfiniteSum.Defs
+public import Mathlib.Topology.Algebra.InfiniteSum.SummationFilter
+public import Mathlib.Topology.Defs.Filter
+public import Mathlib.Topology.MetricSpace.Pseudo.Defs
+public import Mathlib.Topology.UniformSpace.Defs
+
+@[expose] public section
+
+noncomputable section
+
+open Filter Topology
+
+namespace PositivityTheory.PfSWUS.Loc
+
+variable {R : Type} [CommRing R]
+
+abbrev lev (ϖ : R) (k : ℕ) : Ideal R := Ideal.span {ϖ ^ k}
+
+def cT (σ : R →+* R) {a b : ℕ} (x : Matrix (Fin a) (Fin b) R) : Matrix (Fin b) (Fin a) R := (x.map σ).transpose
+
+structure IsUnrQuad (R : Type) [CommRing R] (σ : R →+* R) (ϖ : R) (q : ℕ) (ε : ℤ) : Prop where
+  inv : ∀ a, σ (σ a) = a
+  fix_ϖ : σ ϖ = ϖ
+  reg : IsSMulRegular R ϖ
+  notUnit : ¬ IsUnit ϖ
+  sep : ∀ a : R, (∀ k, a ∈ lev ϖ k) → a = 0
+  complete : ∀ f : ℕ → R, (∀ k, f (k + 1) - f k ∈ lev ϖ k) → ∃ a, ∀ k, a - f k ∈ lev ϖ k
+  fixLocal : ∀ a, σ a = a → a ∉ lev ϖ 1 → IsUnit a
+  basis : ∃ u : R, IsUnit (u - σ u) ∧ ∀ a, ∃ x y, σ x = x ∧ σ y = y ∧ a = x + y * u
+  one_lt : 1 < q
+  card : Nat.card (R ⧸ lev ϖ 1) = q ^ 2
+  eps : (ε = -1 ∧ IsField (R ⧸ lev ϖ 1)) ∨ (ε = 1 ∧ ¬ IsField (R ⧸ lev ϖ 1))
+
+def IsUnimod (σ : R →+* R) {m : ℕ} (S : Matrix (Fin m) (Fin m) R) : Prop := cT σ S = S ∧ IsUnit S.det
+
+
+def red (ϖ : R) (k : ℕ) {a b : ℕ} (x : Matrix (Fin a) (Fin b) R) : Matrix (Fin a) (Fin b) (R ⧸ lev ϖ k) :=
+  x.map (Ideal.Quotient.mk (lev ϖ k))
+
+def solCount (σ : R →+* R) (ϖ : R) {m n : ℕ} (S : Matrix (Fin m) (Fin m) R) (T : Matrix (Fin n) (Fin n) R) (k : ℕ) : ℕ :=
+  Nat.card (red ϖ k '' {x : Matrix (Fin m) (Fin n) R | red ϖ k (cT σ x * S * x) = red ϖ k T})
+
+def hermMod (σ : R →+* R) (ϖ : R) (n k : ℕ) : Set (Matrix (Fin n) (Fin n) (R ⧸ lev ϖ k)) :=
+  red ϖ k '' {h : Matrix (Fin n) (Fin n) R | cT σ h = h}
+
+def densAt (σ : R →+* R) (ϖ : R) {m n : ℕ} (S : Matrix (Fin m) (Fin m) R) (T : Matrix (Fin n) (Fin n) R) (k : ℕ) : ℝ :=
+  (solCount σ ϖ S T k : ℝ) * (Nat.card (hermMod σ ϖ n k) : ℝ) /
+    (Nat.card (Matrix (Fin m) (Fin n) (R ⧸ lev ϖ k)) : ℝ)
+
+def IsDens (σ : R →+* R) (ϖ : R) {m n : ℕ} (S : Matrix (Fin m) (Fin m) R) (T : Matrix (Fin n) (Fin n) R) (α : ℝ) : Prop :=
+  Tendsto (densAt σ ϖ S T) atTop (𝓝 α)
+
+structure IsLevelChars (σ : R →+* R) (ϖ : R) (ψ : ∀ k, AddChar (R ⧸ lev ϖ k) ℂ) : Prop where
+  compat : ∀ k a, ψ (k + 1) (Ideal.Quotient.mk _ (ϖ * a)) = ψ k (Ideal.Quotient.mk _ a)
+  prim : ∀ a, σ a = a → (∀ b, σ b = b → ψ 1 (Ideal.Quotient.mk _ (a * b)) = 1) → a ∈ lev ϖ 1
+
+def nuAt (ϖ : R) {n k : ℕ} (B : Matrix (Fin n) (Fin n) (R ⧸ lev ϖ k)) : ℕ :=
+  Nat.card (Set.range fun x : Fin n → R ⧸ lev ϖ k => Matrix.vecMul x B)
+
+def siegAt (ϖ : R) (σ : R →+* R) (ψ : ∀ k, AddChar (R ⧸ lev ϖ k) ℂ) (q : ℕ) (ε : ℤ) (m : ℕ) {n : ℕ}
+    (T : Matrix (Fin n) (Fin n) R) (k : ℕ) : ℂ :=
+  ∑' B : hermMod σ ϖ n k, ψ k (Matrix.trace (red ϖ k T * B.1)) *
+    (((ε : ℂ) ^ m * (q : ℂ) ^ (-(m : ℤ))) ^ Nat.log (q ^ 2) (nuAt ϖ B.1))
+
+
+def UnrFormula : Prop :=
+  ∀ (R : Type) [CommRing R] (σ : R →+* R) (ϖ : R) (q : ℕ) (ε : ℤ), IsUnrQuad R σ ϖ q ε →
+  ∀ (m n : ℕ), n ≤ m → ∀ (S : Matrix (Fin m) (Fin m) R) (T : Matrix (Fin n) (Fin n) R),
+    IsUnimod σ S → IsUnimod σ T →
+      IsDens σ ϖ S T (∏ i : Fin n, (1 - ((ε : ℝ) / q) ^ (m - (i : ℕ))))
+
+end PositivityTheory.PfSWUS.Loc
+
+end

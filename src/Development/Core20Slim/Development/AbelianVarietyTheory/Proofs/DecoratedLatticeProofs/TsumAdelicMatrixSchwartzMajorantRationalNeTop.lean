@@ -1,0 +1,332 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.IsQuasiFam
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.RealSizeNonneg
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.UnifModGrowthOfIsUnifModerate
+public import Formalism.LocalToGlobal.IndefiniteReal.OrthogonalComplementCharacterisation
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.ExistsHeightLeTwoMulQuotHeight
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.WittDecompSymplInclIsotropicInclAnisotropic
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.TransvectionAction
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.WeilDatumExistence
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.CovolOneIntegralAdd
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.IntegrableMajorantCoordinateCosetMeasureStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.AdelicMatrixSchwartzMajorantMeasurableRationalShStatement
+public import Development.AbelianVarietyTheory.Proofs.HeightProofs.IsTopologicalRingAE
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.LocalRingCardinality.DataRows
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
+public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
+public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
+public import Init.Classical
+public import Init.Core
+public import Init.Data.Int.Basic
+public import Init.Data.Nat.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.CharZero.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Mathlib.Algebra.Field.Subfield.Defs
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Pointwise.Set.Basic
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Order.Archimedean.Real.Basic
+public import Mathlib.Algebra.Order.BigOperators.Group.Finset
+public import Mathlib.Algebra.Order.Floor.Defs
+public import Mathlib.Algebra.Order.GroupWithZero.Basic
+public import Mathlib.Algebra.Order.Monoid.Defs
+public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
+public import Mathlib.Algebra.Order.Ring.Defs
+public import Mathlib.Algebra.Order.ZeroLEOne
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Int.Defs
+public import Mathlib.Algebra.Ring.Nat
+public import Mathlib.Algebra.Ring.Subring.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Defs
+public import Mathlib.Analysis.CStarAlgebra.Classes
+public import Mathlib.Analysis.Complex.Norm
+public import Mathlib.Analysis.Normed.Group.Basic
+public import Mathlib.Analysis.Normed.Group.Continuity
+public import Mathlib.Analysis.Normed.Group.Defs
+public import Mathlib.Analysis.Normed.Ring.Basic
+public import Mathlib.Analysis.RCLike.Basic
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.Countable.Defs
+public import Mathlib.Basic.ENNReal.Basic
+public import Mathlib.Basic.ENNReal.Operations
+public import Mathlib.Basic.ENNReal.Real
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.Nonempty
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Basic.SProd
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Nat.Init
+public import Mathlib.Data.Set.Basic
+public import Mathlib.Data.Set.BooleanAlgebra
+public import Mathlib.Data.Set.Defs
+public import Mathlib.Data.Set.Disjoint
+public import Mathlib.Data.Set.Insert
+public import Mathlib.Data.Set.Operations
+public import Mathlib.LinearAlgebra.LinearIndependent.Defs
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.TensorProduct.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.Defs
+public import Mathlib.Logic.Function.Defs
+public import Mathlib.Logic.Pairwise
+public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
+public import Mathlib.MeasureTheory.Function.L1Space.Integrable
+public import Mathlib.MeasureTheory.Group.Measure
+public import Mathlib.MeasureTheory.Integral.IntegrableOn
+public import Mathlib.MeasureTheory.Integral.Lebesgue.Add
+public import Mathlib.MeasureTheory.Integral.Lebesgue.Basic
+public import Mathlib.MeasureTheory.MeasurableSpace.Defs
+public import Mathlib.MeasureTheory.Measure.Haar.Basic
+public import Mathlib.MeasureTheory.Measure.Map
+public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
+public import Mathlib.MeasureTheory.Measure.OpenPos
+public import Mathlib.MeasureTheory.Measure.Restrict
+public import Mathlib.MeasureTheory.Measure.Typeclasses.Finite
+public import Mathlib.MeasureTheory.OuterMeasure.AE
+public import Mathlib.NumberTheory.NumberField.AdeleRing
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
+public import Mathlib.Order.Basic
+public import Mathlib.Order.BoundedOrder.Basic
+public import Mathlib.Order.CompleteBooleanAlgebra
+public import Mathlib.Order.CompletePartialOrder
+public import Mathlib.Order.Defs.Lattice
+public import Mathlib.Order.Defs.LinearOrder
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.Order.Disjoint
+public import Mathlib.Order.Filter.Basic
+public import Mathlib.Order.Filter.Defs
+public import Mathlib.Order.Lattice
+public import Mathlib.Order.Notation
+public import Mathlib.Order.SetNotation
+public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.Tactic.Abel
+public import Mathlib.Tactic.Linarith.Lemmas
+public import Mathlib.Tactic.NormNum.Basic
+public import Mathlib.Tactic.NormNum.Ineq
+public import Mathlib.Tactic.NormNum.Result
+public import Mathlib.Tactic.Positivity.Core
+public import Mathlib.Tactic.Ring.Basic
+public import Mathlib.Tactic.Ring.Common
+public import Mathlib.Topology.Algebra.Group.Defs
+public import Mathlib.Topology.Algebra.InfiniteSum.Defs
+public import Mathlib.Topology.Algebra.InfiniteSum.ENNReal
+public import Mathlib.Topology.Algebra.InfiniteSum.SummationFilter
+public import Mathlib.Topology.Algebra.Monoid
+public import Mathlib.Topology.Algebra.Monoid.Defs
+public import Mathlib.Topology.Algebra.Ring.Basic
+public import Mathlib.Topology.Bases
+public import Mathlib.Topology.Closure
+public import Mathlib.Topology.Compactness.Compact
+public import Mathlib.Topology.Compactness.Lindelof
+public import Mathlib.Topology.Compactness.LocallyCompact
+public import Mathlib.Topology.Constructions.SumProd
+public import Mathlib.Topology.Continuous
+public import Mathlib.Topology.Defs.Basic
+public import Mathlib.Topology.Defs.Filter
+public import Mathlib.Topology.Defs.Induced
+public import Mathlib.Topology.Instances.Matrix
+public import Mathlib.Topology.MetricSpace.Polish
+public import Mathlib.Topology.MetricSpace.Pseudo.Defs
+public import Mathlib.Topology.Metrizable.Basic
+public import Mathlib.Topology.Metrizable.CompletelyMetrizable
+public import Mathlib.Topology.Neighborhoods
+public import Mathlib.Topology.Order
+public import Mathlib.Topology.Order.OrderClosed
+public import Mathlib.Topology.Order.Real
+public import Mathlib.Topology.Separation.Hausdorff
+public import Mathlib.Topology.Sets.Compacts
+public import Mathlib.Topology.UniformSpace.Defs
+
+@[expose] public section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR.Datum MeasureTheory IsDedekindDomain NumberField Matrix
+open GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.Grow
+open scoped TensorProduct
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+open GlobalTheory.Unf
+open scoped ComplexOrder ENNReal NNReal ContDiff Pointwise
+
+noncomputable section
+
+namespace GlobalTheory.MajSum
+
+variable {D : D7}
+
+theorem realSize_add_le (θ : InfFam D) {m n : ℕ} (x y : Mx D m n) :
+    realSize θ (x + y) ≤ realSize θ x + realSize θ y := by
+  unfold realSize
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun τ _ => ?_
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun i _ => ?_
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun j _ => ?_
+  have : Formalism.IndefR.Datum.compAt θ τ (x + y) i j =
+      Formalism.IndefR.Datum.compAt θ τ x i j + Formalism.IndefR.Datum.compAt θ τ y i j := by
+    show θ τ (infPart D (x i j + y i j)) = θ τ (infPart D (x i j)) + θ τ (infPart D (y i j))
+    rw [RingHom.map_add (infPart D), RingHom.map_add (θ τ)]
+  rw [this]
+  exact norm_add_le _ _
+
+theorem maj_le_shift (θ : InfFam D) {m n : ℕ} (K C : Set (Mx D m n)) (N : ℕ) (γ w : Mx D m n)
+    (hwC : w ∈ C) (hw : realSize θ w ≤ 1) :
+    maj θ K N γ ≤ 2 ^ N * maj θ (K + C) N (γ + w) := by
+  unfold maj
+  by_cases hγ : InBox K γ
+  · have hbox : InBox (K + C) (γ + w) := by
+      obtain ⟨k, hk, hk0⟩ := hγ
+      refine ⟨k + w, Set.add_mem_add hk hwC, ?_⟩
+      have : γ + w - (k + w) = γ - k := by abel
+      rw [this]; exact hk0
+    rw [if_pos hγ, if_pos hbox]
+    have h0 := realSize_nonneg θ γ
+    have h1 := realSize_nonneg θ (γ + w)
+    have h2 : 1 + realSize θ (γ + w) ≤ 2 * (1 + realSize θ γ) := by
+      have := realSize_add_le θ γ w; linarith
+    have hp : (0:ℝ) < (1 + realSize θ (γ + w)) ^ N := by positivity
+    have hq : (0:ℝ) < (1 + realSize θ γ) ^ N := by positivity
+    rw [← div_eq_mul_inv, inv_eq_one_div, div_le_div_iff₀ hq hp, one_mul]
+    calc (1 + realSize θ (γ + w)) ^ N ≤ (2 * (1 + realSize θ γ)) ^ N := by gcongr
+      _ = 2 ^ N * (1 + realSize θ γ) ^ N := by rw [mul_pow]
+  · rw [if_neg hγ]
+    have := maj_nonneg θ (K + C) N (γ + w)
+    unfold maj at this
+    positivity
+
+end GlobalTheory.MajSum
+
+namespace GlobalTheory.MajSum
+
+theorem realSize_zero {D : D7} (θ : InfFam D) {m n : ℕ} : realSize θ (0 : Mx D m n) = 0 := by
+  have h : ∀ τ (i : Fin m) (j : Fin n), Formalism.IndefR.Datum.compAt θ τ (0 : Mx D m n) i j = 0 := by
+    intro τ i j
+    show θ τ (infPart D 0) = 0
+    rw [RingHom.map_zero (infPart D), RingHom.map_zero (θ τ)]
+  unfold realSize
+  simp only [h, norm_zero, Finset.sum_const_zero]
+
+
+set_option synthInstance.maxHeartbeats 400000 in
+theorem tsum_maj_ne_top : ∀ (D : D7) (θ : InfFam D), IsInfFam θ → ∀ m n : ℕ, ∃ N : ℕ, ∀ K : Set (Mx D m n), IsCompact K →
+    (∑' y : ratMx D m n, ENNReal.ofReal (maj θ K N y)) ≠ ⊤ := by
+  intro D θ hθ m n
+  obtain ⟨i1, i2, i3, i4, i5, -⟩ := lattice_Mx D m n
+  haveI : BorelSpace (Mx D m n) := ⟨rfl⟩
+  haveI : Countable (ratMx D m n) := TopologicalSpace.separableSpace_iff_countable.1 inferInstance
+  let μ : Measure (Mx D m n) := Measure.addHaar
+  have hcont : Continuous (realSize θ : Mx D m n → ℝ) :=
+    ((GlobalTheory.T.adelicMatrixSchwartzMajorant_measurable_rationalShift D θ hθ).1 m n ∅ isCompact_empty).2.1
+  obtain ⟨N, hN⟩ := GlobalTheory.T.integrable_majorant_coordinate_coset_measure D θ hθ m n (fun _ _ => True) 0 μ inferInstance
+    (Filter.Eventually.of_forall fun x i j h => (h trivial).elim)
+    (fun t _ => by
+      have e : (fun x : Mx D m n => x + t) = fun x => t + x := funext fun x => add_comm x t
+      rw [e]; exact map_add_left_eq_self μ t)
+  refine ⟨N, fun K hK => ?_⟩
+
+  obtain ⟨U, hUo, hU⟩ : ∃ U : Set (Mx D m n), IsOpen U ∧ ∀ γ ∈ ratMx D m n, γ ∈ U ↔ γ = 0 := by
+    have h0 : IsOpen ({0} : Set (ratMx D m n)) := @isOpen_discrete (ratMx D m n) _ i5 _
+    obtain ⟨U, hUo, hUe⟩ := isOpen_induced_iff.mp h0
+    refine ⟨U, hUo, fun γ hγ => ?_⟩
+    have := Set.ext_iff.mp hUe ⟨γ, hγ⟩
+    simp only [Set.mem_preimage, Set.mem_singleton_iff] at this
+    rw [this]
+    exact ⟨fun h => congrArg Subtype.val h, fun h => Subtype.ext h⟩
+  have h0U : (0 : Mx D m n) ∈ U := (hU 0 (zero_mem _)).2 rfl
+  have hsub : {p : Mx D m n × Mx D m n | p.1 - p.2 ∈ U} ∈ nhds ((0 : Mx D m n), (0 : Mx D m n)) := by
+    have hc : Continuous fun p : Mx D m n × Mx D m n => p.1 - p.2 := continuous_fst.sub continuous_snd
+    refine hc.continuousAt.preimage_mem_nhds ?_
+    simpa using hUo.mem_nhds h0U
+  obtain ⟨A, hA, B, hB, hAB⟩ := mem_nhds_prod_iff.mp hsub
+  obtain ⟨C, hCc, hC⟩ := exists_compact_mem_nhds (0 : Mx D m n)
+  have hR : {w : Mx D m n | realSize θ w < 1} ∈ nhds (0 : Mx D m n) := by
+    refine (isOpen_lt hcont continuous_const).mem_nhds ?_
+    show realSize θ (0 : Mx D m n) < 1
+    rw [realSize_zero]; exact one_pos
+  set W := interior (A ∩ B ∩ C ∩ {w : Mx D m n | realSize θ w < 1}) with hWdef
+  have hW0 : (0 : Mx D m n) ∈ W :=
+    mem_interior_iff_mem_nhds.2 (Filter.inter_mem (Filter.inter_mem (Filter.inter_mem hA hB) hC) hR)
+  have hμW : μ W ≠ 0 := (isOpen_interior.measure_pos μ ⟨0, hW0⟩).ne'
+
+  let s : ratMx D m n → Set (Mx D m n) := fun γ => (fun x => -(γ : Mx D m n) + x) ⁻¹' W
+  have hs : ∀ γ, MeasurableSet (s γ) := fun γ =>
+    (isOpen_interior.preimage (continuous_const.add continuous_id)).measurableSet
+  have hdisj : Pairwise (Function.onFun Disjoint s) := by
+    intro γ γ' hne
+    refine Set.disjoint_left.2 fun x hx hx' => hne ?_
+    have hxA : -(γ : Mx D m n) + x ∈ A := (interior_subset hx).1.1.1
+    have hxB : -(γ' : Mx D m n) + x ∈ B := (interior_subset hx').1.1.2
+    have hmem : (-(γ : Mx D m n) + x, -(γ' : Mx D m n) + x) ∈ {p : Mx D m n × Mx D m n | p.1 - p.2 ∈ U} :=
+      hAB ⟨hxA, hxB⟩
+    simp only [Set.mem_setOf_eq] at hmem
+    have e : -(γ : Mx D m n) + x - (-(γ' : Mx D m n) + x) = (γ' : Mx D m n) - γ := by abel
+    rw [e] at hmem
+    have := (hU _ (sub_mem γ'.2 γ.2)).1 hmem
+    exact Subtype.ext (sub_eq_zero.1 this).symm
+  set K' := K + C
+  have hK' : IsCompact K' := hK.add hCc
+  have hfin : ∫⁻ x, ENNReal.ofReal (maj θ K' N x) ∂μ < ⊤ := (hN K' hK').lintegral_lt_top
+  have key : ∀ γ : ratMx D m n, ENNReal.ofReal (maj θ K N γ) * μ W ≤
+      2 ^ N * ∫⁻ x in s γ, ENNReal.ofReal (maj θ K' N x) ∂μ := by
+    intro γ
+    calc ENNReal.ofReal (maj θ K N γ) * μ W = ∫⁻ _x in s γ, ENNReal.ofReal (maj θ K N γ) ∂μ := by
+          rw [setLIntegral_const]
+          congr 1
+          exact (measure_preimage_add μ (-(γ : Mx D m n)) W).symm
+      _ ≤ ∫⁻ x in s γ, 2 ^ N * ENNReal.ofReal (maj θ K' N x) ∂μ := by
+          refine setLIntegral_mono' (hs γ) fun x hx => ?_
+          have hw := interior_subset hx
+          have h1 := maj_le_shift θ K C N (γ : Mx D m n) (-(γ : Mx D m n) + x) hw.1.2 (le_of_lt hw.2)
+          rw [add_neg_cancel_left] at h1
+          calc ENNReal.ofReal (maj θ K N γ) ≤ ENNReal.ofReal (2 ^ N * maj θ K' N x) :=
+                ENNReal.ofReal_le_ofReal h1
+            _ = 2 ^ N * ENNReal.ofReal (maj θ K' N x) := by
+                rw [ENNReal.ofReal_mul (by positivity), ENNReal.ofReal_pow (by norm_num), ENNReal.ofReal_ofNat]
+      _ = 2 ^ N * ∫⁻ x in s γ, ENNReal.ofReal (maj θ K' N x) ∂μ :=
+          lintegral_const_mul' _ _ (ENNReal.pow_ne_top ENNReal.ofNat_ne_top)
+  have hsum : (∑' γ : ratMx D m n, ENNReal.ofReal (maj θ K N γ)) * μ W ≤
+      2 ^ N * ∫⁻ x, ENNReal.ofReal (maj θ K' N x) ∂μ := by
+    rw [← ENNReal.tsum_mul_right]
+    calc _ ≤ ∑' γ : ratMx D m n, 2 ^ N * ∫⁻ x in s γ, ENNReal.ofReal (maj θ K' N x) ∂μ :=
+          ENNReal.tsum_le_tsum key
+      _ = 2 ^ N * ∑' γ : ratMx D m n, ∫⁻ x in s γ, ENNReal.ofReal (maj θ K' N x) ∂μ := ENNReal.tsum_mul_left
+      _ = 2 ^ N * ∫⁻ x in ⋃ γ, s γ, ENNReal.ofReal (maj θ K' N x) ∂μ := by rw [lintegral_iUnion hs hdisj]
+      _ ≤ 2 ^ N * ∫⁻ x, ENNReal.ofReal (maj θ K' N x) ∂μ := by
+          gcongr; exact Measure.restrict_le_self
+  intro htop
+  rw [htop, ENNReal.top_mul hμW] at hsum
+  exact (ENNReal.mul_lt_top (ENNReal.pow_lt_top ENNReal.ofNat_lt_top) hfin).ne (top_le_iff.1 hsum)
+
+end GlobalTheory.MajSum

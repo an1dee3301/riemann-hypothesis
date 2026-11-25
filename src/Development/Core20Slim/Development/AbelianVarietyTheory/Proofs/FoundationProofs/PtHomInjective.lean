@@ -1,0 +1,154 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.Foundations.NormSumPairRankZeroOfCurveCoordNorm
+public import Development.Core20Slim.Development.AbelianVarietyTheory.BlockTheory.TorsionBlocks.PolarLatticePairs
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.IdealPeriodLatticeOfCurveDatum
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.InducedTypeThetaGenusOnePermutes
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.FoundationProofs.StandardPairLatticeLocallyOrthonormalBasis
+public import Formalism.FrobeniusOrbits.Statement
+public import Formalism.LocalRingCardinality.DataHost
+public import Formalism.LocalRingCardinality.DataRows
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.SharpRestriction.GlobalSchurBounds.GL3Theta
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.IsDiscriminantTwelfthRootOfIdealLattice
+public import Formalism.SharpRestriction.GlobalSchurBounds.StandardLatticesGL3
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
+public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ZsmulGeneratorEqZeroOfProjection
+public import Init.Core
+public import Init.Data.Function
+public import Init.Data.Int.Basic
+public import Init.Data.Rat.Basic
+public import Init.Data.Zero
+public import Init.Prelude
+public import Init.SimpLemmas
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Rat
+public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+public import Mathlib.Algebra.CharZero.Defs
+public import Mathlib.Algebra.Field.Defs
+public import Mathlib.Algebra.Field.Rat
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.Algebra.Group.Action.Pi
+public import Mathlib.Algebra.Group.Defs
+public import Mathlib.Algebra.Group.DivInvMonoid
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Algebra.Group.Int.Defs
+public import Mathlib.Algebra.Group.Monoid
+public import Mathlib.Algebra.Group.Pi.Basic
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.Semigroup
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Algebra.Group.Subgroup.Lattice
+public import Mathlib.Algebra.Group.Subgroup.Map
+public import Mathlib.Algebra.Group.Submonoid.BigOperators
+public import Mathlib.Algebra.Group.Submonoid.Defs
+public import Mathlib.Algebra.Group.Subsemigroup.Defs
+public import Mathlib.Algebra.Group.TypeTags.Basic
+public import Mathlib.Algebra.Group.Units.Defs
+public import Mathlib.Algebra.GroupWithZero.Action.Defs
+public import Mathlib.Algebra.GroupWithZero.Defs
+public import Mathlib.Algebra.GroupWithZero.NonZeroDivisors
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Notation.Pi.Defs
+public import Mathlib.Algebra.Ring.Defs
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Basic.Complex.Basic
+public import Mathlib.Basic.FunLike.Basic
+public import Mathlib.Basic.FunLike.Equiv
+public import Mathlib.Basic.SetLike.Basic
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Fintype.Basic
+public import Mathlib.Data.Fintype.Defs
+public import Mathlib.Data.Int.Cast.Defs
+public import Mathlib.Data.Matrix.Basis
+public import Mathlib.Data.NNRat.Defs
+public import Mathlib.Data.Nat.Cast.Defs
+public import Mathlib.Data.Rat.Init
+public import Mathlib.Data.Set.Defs
+public import Mathlib.FieldTheory.IntermediateField.Basic
+public import Mathlib.GroupTheory.GroupAction.Ring
+public import Mathlib.LinearAlgebra.Matrix.Defs
+public import Mathlib.LinearAlgebra.Span.Defs
+public import Mathlib.Logic.Equiv.Defs
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Mathlib.Order.Defs.PartialOrder
+public import Mathlib.RingTheory.FractionalIdeal.Basic
+public import Mathlib.RingTheory.Ideal.Defs
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.SimpleRing.Principal
+
+@[expose] public section
+
+open NumberField IsDedekindDomain Classical Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.TaylorLogMetric Formalism.MainNotions.StandardLatticesGL3 GlobalTheory.IndefiniteRowSideFullHecke.PolarLatticePairs
+open scoped Pointwise
+
+noncomputable section
+
+namespace GlobalTheory.ThetaLatticePoints
+
+def ptHom (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (a d : ℕ) :
+    Matrix (Fin d) (Fin a) D.host.E →+ VC D a d :=
+  AddMonoidHom.mk' (pt D (tor0 D cc δ) δ) fun y y' => by
+    funext τ i j
+    simp [pt, embV, tor0, mul_add]
+
+theorem ptHom_apply (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (a d : ℕ)
+    (z : Matrix (Fin d) (Fin a) D.host.E) : ptHom D cc δ a d z = pt D (tor0 D cc δ) δ z := rfl
+
+theorem ptHom_injective (D : D7) (cc : Ideal (𝓞 D.host.K)) {δ : ℂ} (hδ : δ ≠ 0) (a d : ℕ) :
+    Function.Injective (ptHom D cc δ a d) := by
+  intro y y' h
+  refine Matrix.ext fun i j => ?_
+  have h1 : δ * embT D (D.eTau.symm 1) (y i j) = δ * embT D (D.eTau.symm 1) (y' i j) :=
+    congrFun (congrFun (congrFun h (D.eTau.symm 1)) i) j
+  exact (embT D _).injective (mul_left_cancel₀ hδ h1)
+
+theorem ptHom_smul (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (a d : ℕ) (c : 𝓞 D.host.K)
+    (y : Matrix (Fin d) (Fin a) D.host.E) :
+    ptHom D cc δ a d (((c : D.host.K) : D.host.E) • y) =
+      (δ * D.host.φ₀ ((c : D.host.K) : D.host.E)) • embV D (tor0 D cc δ) y := by
+  funext τ i j
+  simp only [ptHom_apply, pt, embV, tor0, Pi.smul_apply, Matrix.smul_apply, smul_eq_mul, map_mul,
+    GlobalTheory.InducedType.restrict_K D τ, mul_assoc]
+
+theorem single_mem (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (a d : ℕ) (i : Fin d) (j : Fin a)
+    {t : D.host.E} (ht : t ∈ coefLat D cc) (r : 𝓞 D.host.E) :
+    ptHom D cc δ a d (Matrix.single i j (r • t)) ∈ La0 D (tor0 D cc δ) a d := by
+  induction ht using Submodule.span_induction generalizing r with
+  | mem t ht =>
+    obtain ⟨c, hc, m, hm, rfl⟩ := ht
+    refine AddSubgroup.subset_closure ⟨δ * D.host.φ₀ ((c : D.host.K) : D.host.E),
+      AddSubgroup.subset_closure ⟨c, hc, rfl⟩, Matrix.single i j (r • m), ?_, ?_⟩
+    · refine (GlobalTheory.OddGenus.mem_iff_entries D a d _).2 fun k l => ?_
+      rw [Matrix.single_apply]
+      split_ifs
+      · exact (D.host.AA0 : Submodule (𝓞 D.host.E) D.host.E).smul_mem r hm
+      · exact D.host.AA0.zero_mem
+    · rw [← ptHom_smul, Matrix.smul_single, smul_eq_mul, mul_smul_comm]
+  | zero => rw [smul_zero, Matrix.single_zero, map_zero]; exact zero_mem _
+  | add x y _ _ hx hy => rw [smul_add, Matrix.single_add, map_add (f := _)]; exact add_mem (hx r) (hy r)
+  | smul s x _ hx => rw [smul_smul]; exact hx _
+
+theorem La0_eq_map (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (a d : ℕ) :
+    La0 D (tor0 D cc δ) a d = (lat0 D cc a d).map (ptHom D cc δ a d) := by
+  apply le_antisymm
+  · refine (AddSubgroup.closure_le _).2 ?_
+    rintro _ ⟨w, hw, A, hA, rfl⟩
+    obtain ⟨c, hc, rfl⟩ := (GlobalTheory.CurveLattice.mem_lamOf D cc δ w).1 hw
+    refine ⟨((c : D.host.K) : D.host.E) • A, fun i j => ?_, ptHom_smul D cc δ a d c A⟩
+    exact Submodule.subset_span ⟨c, hc, A i j, (GlobalTheory.OddGenus.mem_iff_entries D a d A).1 hA i j, rfl⟩
+  · rintro _ ⟨z, hz, rfl⟩
+    set_option synthInstance.maxHeartbeats 100000 in
+      rw [Matrix.matrix_eq_sum_single z, map_sum]
+    refine sum_mem fun i _ => ?_
+    set_option synthInstance.maxHeartbeats 100000 in
+      rw [map_sum]
+    refine sum_mem fun j _ => ?_
+    simpa using single_mem D cc δ a d i j (hz i j) 1
+
+end GlobalTheory.ThetaLatticePoints

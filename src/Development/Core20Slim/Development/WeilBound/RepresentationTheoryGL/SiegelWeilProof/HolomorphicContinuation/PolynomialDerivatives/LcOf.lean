@@ -1,0 +1,13 @@
+module
+
+public import Development.Core20Slim.Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.HolomorphicContinuation.PolynomialDerivatives.LcOfCore
+public import Development.Core20Slim.Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.HolomorphicContinuation.PolynomialDerivatives.CoreTop
+public import Development.Core20Slim.Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.HolomorphicContinuation.NullSec
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.Sw
+
+theorem lc_of (h : FFT) : LC := LC.lc_of_core (LC.coreLC_of h)
+
+end PositivityTheory.Rg.Sw

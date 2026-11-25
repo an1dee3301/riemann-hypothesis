@@ -1,0 +1,20 @@
+module
+
+public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.GridParamRegularCardMinusCount
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.NodeYPredEqChainVertexAtRowZeroLast
+public import Formalism.LocalToGlobal.IndefiniteReal.LinksLemmas
+public import Development.AbelianVarietyTheory.Definitions.Foundations.StrictInterlaceIffDescEnum
+public import Formalism.LocalRingCardinality.DataRows
+public import Formalism.LocalRingCardinality.Params
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Init.Data.Rat.Basic
+public import Init.Prelude
+public import Mathlib.Data.Finset.Card
+
+@[expose] public section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.IndefR Formalism.IndefR.Links
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.gridParam_regular_card_minusCount : ∀ (D : D7), HostHyp D → ∀ (τ : D.what₂.Tau) (i : ℕ), i ≤ D.R.m → GlobalTheory.SignedHC.IsRegular ((GlobalTheory.Grid.grid D τ).parPi i) ∧ ((GlobalTheory.Grid.grid D τ).parPi i).card = GlobalTheory.Grid.rkP D i ∧ GlobalTheory.SignedHC.nMinus ((GlobalTheory.Grid.grid D τ).parPi i) = (D.R.m - i + 1) / 2 := by
+  first | exact @GlobalTheory.Grid.parPi_counts | exact GlobalTheory.Grid.parPi_counts | (intros; apply GlobalTheory.Grid.parPi_counts <;> assumption)

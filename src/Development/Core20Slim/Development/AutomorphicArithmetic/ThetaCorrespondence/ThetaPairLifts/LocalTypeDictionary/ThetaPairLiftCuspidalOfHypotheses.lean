@@ -1,0 +1,23 @@
+module
+
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.DiscreteSpectrumResidualClassification
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.LiftsCuspidalOfFunctoriality
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.BernsteinUnitaryProductIrreducible
+public import Mathlib
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.CuspAlongSmoothRows
+public import Development.AbelianVarietyTheory.Definitions.Divisors.DiscreteSeriesHermitianUnique
+
+@[expose] public section
+
+section
+namespace GlobalTheory.PairLift
+theorem thetaPairLift_cuspidal_of_hypotheses : FunPr.ThetaLocalInputs → IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal := fun h =>
+  liftsCuspidal_of_functoriality h.discreteSeriesCover h.harishChandraModules h.cuspRapidDecay h.casselmanWallach
+end GlobalTheory.PairLift
+end
+
+section
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.twisted_thetaLift_cuspidal : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.CuspAlongSmoothLifts.LiftsCuspidal := by
+  first | exact @_root_.GlobalTheory.PairLift.thetaPairLift_cuspidal_of_hypotheses | exact _root_.GlobalTheory.PairLift.thetaPairLift_cuspidal_of_hypotheses | (intros; apply _root_.GlobalTheory.PairLift.thetaPairLift_cuspidal_of_hypotheses <;> assumption)
+end
