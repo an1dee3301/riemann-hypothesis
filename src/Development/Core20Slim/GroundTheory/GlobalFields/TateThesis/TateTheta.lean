@@ -94,6 +94,12 @@ theorem integrableOn_thetaIntegrand (w : InfinitePlace K) {F : 𝔸[K] → ℂ}
   ((continuous_thetaIntegrand w hF χ t).continuousOn.integrableOn_compact
     (isCompact_closure_normOneFundamentalDomain K)).mono_set subset_closure
 
+theorem integrableOn_char (χ : HeckeCharacter K) :
+    IntegrableOn (fun u : normOneSubgroup K ↦ (χ.toIdele (u : IdeleGroup K) : ℂ))
+      (normOneFundamentalDomain K) (normOneMeasure K) :=
+  ((continuous_subtype_val.comp (χ.continuous_toIdele.comp
+    continuous_subtype_val)).continuousOn.integrableOn_compact
+    (isCompact_closure_normOneFundamentalDomain K)).mono_set subset_closure
 
 theorem toIdele_inv (χ : HeckeCharacter K) (x : IdeleGroup K) :
     (χ⁻¹).toIdele x = (χ.toIdele x)⁻¹ :=
