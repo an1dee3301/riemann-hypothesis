@@ -105,6 +105,8 @@ public import Mathlib.RingTheory.Ideal.Over
 public import Mathlib.RingTheory.Norm.Defs
 public import Mathlib.Tactic.Push
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

@@ -138,6 +138,8 @@ public import Mathlib.Tactic.FieldSimp.Lemmas
 public import Mathlib.Tactic.NormNum.Basic
 public import Mathlib.Tactic.NormNum.Eq
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

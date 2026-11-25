@@ -97,6 +97,8 @@ public import Mathlib.Tactic.NormNum.Result
 public import Mathlib.Tactic.Ring.Basic
 public import Mathlib.Tactic.Ring.Common
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

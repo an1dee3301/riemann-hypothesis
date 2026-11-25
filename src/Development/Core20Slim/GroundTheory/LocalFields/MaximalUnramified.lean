@@ -15,6 +15,8 @@ public import Development.Core20Slim.GroundTheory.LocalFields.AbstractLocalRecip
 public import Development.Core20Slim.GroundTheory.LocalFields.AbstractLocalReciprocity.Valuation
 public import Development.Core20Slim.GroundTheory.LocalFields.AbstractLocalReciprocity.ExistsOpenSubgroupMemFixedModule
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

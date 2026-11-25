@@ -6,6 +6,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.Adele.BaseChange.
 public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.ContinuousCompletionMap
 public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.Finite
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

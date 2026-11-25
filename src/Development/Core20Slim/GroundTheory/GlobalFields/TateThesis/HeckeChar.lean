@@ -6,6 +6,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.Conduc
 public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.InfiniteProjInfiniteEmbeddingOfNe
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.Conductor
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open Topology Filter NumberField IsDedekindDomain IsDedekindDomain.HeightOneSpectrum WithZero

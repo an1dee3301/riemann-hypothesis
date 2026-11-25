@@ -115,6 +115,8 @@ public import Mathlib.RingTheory.SimpleRing.Principal
 public import Mathlib.RingTheory.TensorProduct.Basic
 public import Mathlib.RingTheory.TensorProduct.Maps
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

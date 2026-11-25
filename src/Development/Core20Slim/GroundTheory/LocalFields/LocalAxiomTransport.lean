@@ -47,6 +47,8 @@ public import Mathlib.Logic.Equiv.Defs
 public import Mathlib.Order.Defs.PartialOrder
 public import Mathlib.SetTheory.Cardinal.Finite
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.LocalField.Abstract

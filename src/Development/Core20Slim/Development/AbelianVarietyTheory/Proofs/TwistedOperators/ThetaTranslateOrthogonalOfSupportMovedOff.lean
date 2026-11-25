@@ -23,88 +23,6 @@ public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedWeil
 public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Cast
-public import Init.Data.Int.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.CharZero.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.AddChar
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Nat.Defs
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Units.Basic
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.Group.Units.Hom
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Hom
-public import Mathlib.Algebra.GroupWithZero.Units.Basic
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.NatInt
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Exponential
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Nat.Basic
-public import Mathlib.Data.Nat.Cast.Basic
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-public import Mathlib.LinearAlgebra.Span.Defs
-public import Mathlib.LinearAlgebra.TensorProduct.Basic
-public import Mathlib.LinearAlgebra.TensorProduct.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.Order.Basic
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.Localization.FractionRing
-public import Mathlib.RingTheory.TensorProduct.Basic
-public import Mathlib.RingTheory.Trace.Defs
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -206,6 +124,148 @@ theorem exists_char_of_wave {ψ : AddChar (AF D.host.F) ℂ} {S T : HSp D} {a : 
     exact ⟨c • q, Submodule.smul_mem _ c m, fun t ht hΛ => by
       rw [Pi.smul_apply, Pi.smul_apply, e t ht hΛ]⟩
 
+theorem pairing_charSpan {ψ : AddChar (AF D.host.F) ℂ} {S T : HSp D} {χS χT : (AE D)ˣ →* Circle}
+    {om : GA D S × GA D T →* Module.End ℂ (WO S T → ℂ)} (hw : IsWeilDatumO ψ S T χS χT om)
+    {a : AE D} {Λ : AddSubgroup (WO S T)} {f₀ Φ f : WO S T → ℂ} {Tm : (WO S T → ℂ) →ₗ[ℂ] (WO S T → ℂ)}
+    (hTm : IsPlaceModel ψ (symplO S T) (heisO ψ S T) a Λ 1 f₀ Tm) (hΦ : IsSBHalf a Λ Φ) (hfT : f = Tm Φ)
+    (hf : IsThetaFunO ψ S T f) {μ : Measure (WO S T)} {𝓕 : Set (WO S T)} (hμ : IsCovolOne (ratL T S) μ 𝓕)
+    (g : GA D T) {p : WO S T → ℂ} (hp : p ∈ charSpan ψ S T (cA D a)) :
+    IsThetaFunO ψ S T (Tm fun t => p t * Φ t) ∧
+      IsThetaFunO ψ S T (Tm fun t => (starRingEnd ℂ) (p (actO S T 1 g t)) * Φ t) ∧
+      ipO μ 𝓕 (om (1, g) f) (Tm fun t => p t * Φ t) =
+        ipO μ 𝓕 (om (1, g) (Tm fun t => (starRingEnd ℂ) (p (actO S T 1 g t)) * Φ t)) f := by
+  have hψ := hw.std
+  have hF := hw.om_pres (1, g) f hf
+  have laws := fun {u v : WO S T → ℂ} (hu : IsThetaFunO ψ S T u) (hv : IsThetaFunO ψ S T v) =>
+    GlobalTheory.ThetaPairingLaws.ipO_laws D ψ S T μ 𝓕 hψ hμ u v hu hv
+  have hzero : IsThetaFunO ψ S T (0 : WO S T → ℂ) := by
+    have := GlobalTheory.WeilVacMove.isTheta_smul (0 : ℂ) hf
+    rwa [zero_smul] at this
+  induction hp using Submodule.span_induction with
+  | mem p h =>
+    obtain ⟨y, hy, rfl⟩ := h
+    have hθ := (GlobalTheory.HeisThetaLaws.heis_theta_laws D ψ hψ S T).1
+    set w : WO S T := actO S T 1⁻¹ g⁻¹ (-y) with hwdef
+    have hact : actO S T 1 g w = -y := GlobalTheory.AdelicLatMove.actO_actO_inv S T 1 g (-y)
+    have hwh : IsHalf (cA D a) w := GlobalTheory.SplitHecke.isHalf_actO _ _ (isHalf_neg hy)
+    have e1 : (Tm fun t => ψ (symplO S T t y) * Φ t) = heisO ψ S T y f := by
+      rw [hfT]; exact hTm.modul Φ hΦ y hy
+    have e2 : (fun t => (starRingEnd ℂ) (ψ (symplO S T (actO S T 1 g t) y)) * Φ t) =
+        fun t => ψ (symplO S T t w) * Φ t := by
+      funext t
+      rw [conj_psi hψ, ← GlobalTheory.SymplOInv.symplO_actO D S T 1 g t w, hact, symplO_neg_right]
+    have e3 : (Tm fun t => ψ (symplO S T t w) * Φ t) = heisO ψ S T w f := by
+      rw [hfT]; exact hTm.modul Φ hΦ w hwh
+    show IsThetaFunO ψ S T (Tm fun t => ψ (symplO S T t y) * Φ t) ∧
+      IsThetaFunO ψ S T (Tm fun t => (starRingEnd ℂ) (ψ (symplO S T (actO S T 1 g t) y)) * Φ t) ∧
+      ipO μ 𝓕 (om (1, g) f) (Tm fun t => ψ (symplO S T t y) * Φ t) =
+        ipO μ 𝓕 (om (1, g) (Tm fun t => (starRingEnd ℂ) (ψ (symplO S T (actO S T 1 g t) y)) * Φ t)) f
+    rw [e2, e1, e3]
+    refine ⟨hθ y f hf, hθ w f hf, ?_⟩
+    rw [hw.om_heis 1 g w f hf, hact]
+    have := ((laws hF hf).2.2.2.2.2.2.1 (-y)).2
+    rw [neg_neg] at this
+    exact this.symm
+  | zero =>
+    have e1 : (Tm fun t => (0 : WO S T → ℂ) t * Φ t) = 0 := by
+      have : (fun t => (0 : WO S T → ℂ) t * Φ t) = 0 := by funext t; simp
+      rw [this, map_zero]
+    have e2 : (Tm fun t => (starRingEnd ℂ) ((0 : WO S T → ℂ) (actO S T 1 g t)) * Φ t) = 0 := by
+      have : (fun t => (starRingEnd ℂ) ((0 : WO S T → ℂ) (actO S T 1 g t)) * Φ t) = 0 := by funext t; simp
+      rw [this, map_zero]
+    rw [e1, e2, map_zero]
+    refine ⟨hzero, hzero, ?_⟩
+    simp [ipO]
+  | add p₁ p₂ _ _ h₁ h₂ =>
+    obtain ⟨a₁, b₁, c₁⟩ := h₁
+    obtain ⟨a₂, b₂, c₂⟩ := h₂
+    have e1 : (Tm fun t => (p₁ + p₂) t * Φ t) = (Tm fun t => p₁ t * Φ t) + Tm fun t => p₂ t * Φ t := by
+      rw [← map_add (f := _)]; congr 1; funext t; simp [add_mul]
+    have e2 : (Tm fun t => (starRingEnd ℂ) ((p₁ + p₂) (actO S T 1 g t)) * Φ t) =
+        (Tm fun t => (starRingEnd ℂ) (p₁ (actO S T 1 g t)) * Φ t) +
+          Tm fun t => (starRingEnd ℂ) (p₂ (actO S T 1 g t)) * Φ t := by
+      rw [← map_add (f := _)]; congr 1; funext t; simp [add_mul]
+    rw [e1, e2, map_add (f := _)]
+    refine ⟨GlobalTheory.WeilVacMove.isTheta_add a₁ a₂, GlobalTheory.WeilVacMove.isTheta_add b₁ b₂, ?_⟩
+    rw [((laws a₁ hF).2.2.2.1 _ a₂).2, ((laws (hw.om_pres _ _ b₁) hf).2.2.2.1 _ (hw.om_pres _ _ b₂)).1, c₁, c₂]
+  | smul c p _ h =>
+    obtain ⟨a₁, b₁, c₁⟩ := h
+    have e1 : (Tm fun t => (c • p) t * Φ t) = c • Tm fun t => p t * Φ t := by
+      rw [← map_smul]; congr 1; funext t; simp [mul_assoc]
+    have e2 : (Tm fun t => (starRingEnd ℂ) ((c • p) (actO S T 1 g t)) * Φ t) =
+        (starRingEnd ℂ) c • Tm fun t => (starRingEnd ℂ) (p (actO S T 1 g t)) * Φ t := by
+      rw [← map_smul]; congr 1; funext t; simp [mul_assoc]
+    rw [e1, e2, map_smul]
+    refine ⟨GlobalTheory.WeilVacMove.isTheta_smul _ a₁, GlobalTheory.WeilVacMove.isTheta_smul _ b₁, ?_⟩
+    rw [((laws hF a₁).2.2.1 c).2, ((laws (hw.om_pres _ _ b₁) hf).2.2.1 _).1, c₁]
 
+theorem orth : ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ) (S T : HSp D) (χS χT : (AE D)ˣ →* Circle) (om : GA D S × GA D T →* Module.End ℂ (WO S T → ℂ)), IsWeilDatumO ψ S T χS χT om → ∀ (ΛS : Submodule (𝓞 D.host.E) (Fin S.rank → D.host.E)) (ΛT : Submodule (𝓞 D.host.E) (Fin T.rank → D.host.E)), IsSelfDualC S ΛS → IsSelfDualC T ΛT → ∀ (Z : Finset (Pl D.host.E)) (e : AE D), IsIdemSum e Z → ∀ (f₀ Φ f : WO S T → ℂ), IsSBHalf (cA D e) (latO S T ΛS ΛT fun _ => True) Φ → IsThetaAt ψ (symplO S T) (heisO ψ S T) (cA D e) (latO S T ΛS ΛT fun _ => True) 1 f₀ Φ f → IsThetaFunO ψ S T f → ∀ (μ : Measure (WO S T)) (𝓕 : Set (WO S T)), IsCovolOne (ratL T S) μ 𝓕 → ∀ g ∈ GfC T, (∀ x, Φ x ≠ 0 → Φ (actO S T 1 g x) = 0) → l2 μ 𝓕 (om (1, g) f) f = 0 := by
+  classical
+  intro D ψ S T χS χT om hw ΛS ΛT hS hT Z e he f₀ Φ f hΦ hth hf μ 𝓕 hμ g hg hsupp
+  obtain ⟨⟨Tm, hTm⟩, hall⟩ := hth
+  have hfT := hall Tm hTm
+  have ho := (GlobalTheory.PlaceModelSum.isOrthSum_of_isIdemSum he).conj
+  have hψ := hw.std
+  have hac : cA D e * cA D (cA D e) = 0 := by rw [cA_cA, mul_comm, he.2]
+  obtain ⟨k, hk, hinv, hsup⟩ := hΦ.2
+  obtain ⟨M, hM, hMact⟩ := (GlobalTheory.LatLevel.level_of_generators D S T ΛS ΛT hS hT
+    (GlobalTheory.LatFinGen.latO_finitely_generated D S T ΛS ΛT hS hT)).2 1 g
+  set Λ := latO S T (ΛS : Set (Fin S.rank → D.host.E)) (ΛT : Set (Fin T.rank → D.host.E)) fun _ => True with hΛ
+  set N : ℕ := M * k with hN
+  have hNpos : 0 < N := Nat.mul_pos hM hk
+
+  let Ψ : WO S T → ℂ := fun u => if ∃ t, Φ t ≠ 0 ∧ N • t = u then 1 else 0
+  have hNt : ∀ t, Φ t ≠ 0 → N • t ∈ Λ := fun t ht => by
+    rw [hN, mul_smul]; exact Λ.nsmul_mem (hsup t ht) M
+  have hΨ : IsSBHalf (cA D e) Λ Ψ := by
+    refine ⟨fun u hu => ?_, N * k, Nat.mul_pos hNpos hk, fun v hv hvh u => ?_, fun u hu => ?_⟩
+    · have : ∃ t, Φ t ≠ 0 ∧ N • t = u := by
+        by_contra h; exact hu (if_neg h)
+      obtain ⟨t, ht, rfl⟩ := this
+      exact isHalf_nsmul (hΦ.1 t ht) N
+    · have key : (∃ t, Φ t ≠ 0 ∧ N • t = u + (N * k) • v) ↔ ∃ t, Φ t ≠ 0 ∧ N • t = u := by
+        constructor
+        · rintro ⟨t, ht, h⟩
+          refine ⟨t + k • (-v), by rwa [hinv (-v) (Λ.neg_mem hv) (isHalf_neg hvh) t], ?_⟩
+          exact nsmul_add_neg N k t u v h
+        · rintro ⟨t, ht, rfl⟩
+          refine ⟨t + k • v, by rwa [hinv v hv hvh t], ?_⟩
+          exact nsmul_add_mul N k t v
+      show (if _ then _ else _) = (if _ then _ else _)
+      simp only [key]
+    · have : ∃ t, Φ t ≠ 0 ∧ N • t = u := by
+        by_contra h; exact hu (if_neg h)
+      obtain ⟨t, ht, rfl⟩ := this
+      exact Λ.nsmul_mem (hNt t ht) _
+  have hspan := (GlobalTheory.PlaceTensor.halfWaves_span D ψ S T ΛS ΛT hψ hS hT (cA D e) ho.idem hac ho.infPart_eq).2 Ψ hΨ
+  obtain ⟨q, hq, hqΨ⟩ := exists_char_of_wave N hspan
+  obtain ⟨-, -, hip⟩ := pairing_charSpan hw hTm hΦ hfT hf hμ g hq
+  have hq1 : ∀ t, Φ t ≠ 0 → q t = 1 := fun t ht => by
+    rw [← hqΨ t (hΦ.1 t ht) (hNt t ht)]
+    exact if_pos ⟨t, ht, rfl⟩
+  have hq0 : ∀ t, Φ t ≠ 0 → q (actO S T 1 g t) = 0 := fun t ht => by
+    have h1 : N • actO S T 1 g t ∈ Λ := by
+      have := hMact (k • t) (hsup t ht)
+      have e : actO S T 1 g (k • t) = k • actO S T 1 g t := map_nsmul (GlobalTheory.LatLevel.actHom S T 1 g) k t
+      rwa [e, ← mul_smul] at this
+    rw [← hqΨ _ (GlobalTheory.SplitHecke.isHalf_actO _ _ (hΦ.1 t ht)) h1]
+    refine if_neg ?_
+    rintro ⟨t', ht', h⟩
+    have : t' = actO S T 1 g t := nsmul_inj hNpos h
+    exact ht' (this ▸ hsupp t ht)
+  have e1 : (fun t => q t * Φ t) = Φ := by
+    funext t
+    by_cases h : Φ t = 0
+    · rw [h, mul_zero]
+    · rw [hq1 t h, one_mul]
+  have e2 : (fun t => (starRingEnd ℂ) (q (actO S T 1 g t)) * Φ t) = 0 := by
+    funext t
+    by_cases h : Φ t = 0
+    · simp [h]
+    · simp [hq0 t h]
+  rw [e1, e2, map_zero, map_zero, ← hfT] at hip
+  show ipO μ 𝓕 (om (1, g) f) f = 0
+  rw [hip]
+  simp [ipO]
 
 end GlobalTheory.ThetaOrth

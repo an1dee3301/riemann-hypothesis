@@ -3,6 +3,7 @@ module
 public import Mathlib
 public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.IsPlaceModelPlaceMap
 public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsBaseChangeFiniteAdeleRingEquiv
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.DetReducedBlockEqResidueDet
 public import Formalism.LocalRingCardinality.DataHost
 public import Formalism.LocalRingCardinality.Params
 public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow

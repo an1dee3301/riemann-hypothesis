@@ -7,6 +7,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.HerbrandQuotients
 public import Development.Core20Slim.GroundTheory.GlobalFields.HerbrandQuotients.LatticeBridge
 public import Development.Core20Slim.GroundTheory.GlobalFields.HerbrandQuotients.CycTate
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

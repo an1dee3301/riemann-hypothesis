@@ -101,6 +101,8 @@ public import Mathlib.Topology.Defs.Filter
 public import Mathlib.Topology.Separation.Connected
 public import Mathlib.Topology.Separation.Regular
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.LocalField.Abstract

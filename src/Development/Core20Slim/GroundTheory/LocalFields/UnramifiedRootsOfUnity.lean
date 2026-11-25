@@ -6,6 +6,8 @@ public import GroundTheory.LocalFields.Uniqueness
 public import GroundTheory.LocalFields.Integers
 public import GroundTheory.LocalFields.UnitsPowers
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

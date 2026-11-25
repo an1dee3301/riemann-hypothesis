@@ -4,6 +4,8 @@ public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.ArchChars
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.ArchCharsUnits
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

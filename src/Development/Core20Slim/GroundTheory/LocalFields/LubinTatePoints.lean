@@ -159,6 +159,8 @@ public import Mathlib.Topology.UniformSpace.Basic
 public import Mathlib.Topology.UniformSpace.Defs
 public import Mathlib.Topology.UniformSpace.DiscreteUniformity
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

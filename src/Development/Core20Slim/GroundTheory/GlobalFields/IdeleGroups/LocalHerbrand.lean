@@ -113,6 +113,8 @@ public import Mathlib.Topology.Algebra.Valued.ValuationTopology
 public import Mathlib.Topology.Continuous
 public import Mathlib.Topology.UniformSpace.Defs
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

@@ -59,6 +59,8 @@ public import Mathlib.Topology.Algebra.OpenSubgroup
 public import Mathlib.Topology.Connected.TotallyDisconnected
 public import Mathlib.Topology.Defs.Basic
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.LocalField

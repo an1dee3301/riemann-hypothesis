@@ -5,6 +5,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.CompletionAtPlace
 public import Development.Core20Slim.GroundTheory.GlobalFields.LocalFieldAtPlace
 public import GroundTheory.LocalFields.Interface
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

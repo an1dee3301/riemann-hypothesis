@@ -18,6 +18,8 @@ public import Development.Core20Slim.GroundTheory.LocalFields.LocalReciprocityLi
 public import Development.Core20Slim.GroundTheory.LocalFields.MaximalUnramified
 public import GroundTheory.LocalFields.UnitsBasic
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.LocalField

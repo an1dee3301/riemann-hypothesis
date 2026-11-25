@@ -7,6 +7,8 @@ public import GroundTheory.LocalFields.Integers
 public import GroundTheory.LocalFields.UnitsPowers
 public import Development.Core20Slim.GroundTheory.LocalFields.UnramifiedRootsOfUnity
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

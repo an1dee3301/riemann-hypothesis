@@ -87,6 +87,8 @@ public import Mathlib.Tactic.Abel
 public import Mathlib.Tactic.NormNum.Basic
 public import Mathlib.Tactic.NormNum.Result
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

@@ -4,6 +4,8 @@ public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.InfiniteAdele
 public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.Infinite
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

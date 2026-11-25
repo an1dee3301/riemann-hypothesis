@@ -58,6 +58,8 @@ public import Mathlib.RingTheory.Ideal.Over
 public import Mathlib.Topology.Algebra.Constructions
 public import Mathlib.Topology.Defs.Basic
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

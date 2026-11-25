@@ -178,6 +178,8 @@ public import Mathlib.Topology.Defs.Filter
 public import Mathlib.Topology.Defs.Induced
 public import Mathlib.Topology.Order
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open NumberField IntermediateField Filter Topology

@@ -167,6 +167,8 @@ public import Mathlib.RingTheory.TotallySplit
 public import Mathlib.RingTheory.Valuation.Basic
 public import Mathlib.RingTheory.Valuation.ValuationSubring
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

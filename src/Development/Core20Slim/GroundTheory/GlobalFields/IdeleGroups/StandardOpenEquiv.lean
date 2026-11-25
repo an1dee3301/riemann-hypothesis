@@ -4,6 +4,8 @@ public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.ClassGroup
 public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.InfiniteProjInfiniteEmbeddingOfNe
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

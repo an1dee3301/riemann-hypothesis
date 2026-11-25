@@ -57,6 +57,8 @@ public import Mathlib.RingTheory.SimpleRing.Principal
 public import Mathlib.Tactic.NormNum.Basic
 public import Mathlib.Tactic.NormNum.Eq
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

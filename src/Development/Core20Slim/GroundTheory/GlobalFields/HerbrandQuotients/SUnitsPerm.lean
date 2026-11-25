@@ -93,6 +93,8 @@ public import Mathlib.RingTheory.Localization.FractionRing
 public import Mathlib.RingTheory.Noetherian.Basic
 public import Mathlib.SetTheory.Cardinal.Finite
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

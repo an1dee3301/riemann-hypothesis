@@ -6,6 +6,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras
 public import Development.Core20Slim.GroundTheory.GlobalFields.Adele.BaseChange.FiniteMap
 public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.InfiniteAdele
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

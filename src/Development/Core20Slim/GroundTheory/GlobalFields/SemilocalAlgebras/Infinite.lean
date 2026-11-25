@@ -2,6 +2,8 @@ module
 
 public import Mathlib
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

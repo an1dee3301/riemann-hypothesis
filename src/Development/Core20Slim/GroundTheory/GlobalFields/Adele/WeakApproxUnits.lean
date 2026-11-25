@@ -78,6 +78,8 @@ public import Mathlib.Topology.Metrizable.Uniformity
 public import Mathlib.Topology.Separation.Hausdorff
 public import Mathlib.Topology.UniformSpace.Defs
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

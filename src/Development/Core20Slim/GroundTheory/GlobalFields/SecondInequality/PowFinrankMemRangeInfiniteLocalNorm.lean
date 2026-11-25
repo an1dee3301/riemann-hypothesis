@@ -201,6 +201,8 @@ public import Mathlib.RingTheory.Valuation.Basic
 public import Mathlib.RingTheory.Valuation.ValuationSubring
 public import Mathlib.SetTheory.Cardinal.Finite
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

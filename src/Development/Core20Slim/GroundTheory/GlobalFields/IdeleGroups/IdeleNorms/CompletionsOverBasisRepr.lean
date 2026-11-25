@@ -96,6 +96,8 @@ public import Mathlib.RingTheory.TensorProduct.Free
 public import Mathlib.Topology.Algebra.UniformMulAction
 public import Mathlib.Topology.MetricSpace.Pseudo.Defs
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

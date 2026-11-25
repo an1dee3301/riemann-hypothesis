@@ -78,6 +78,8 @@ public import Mathlib.RingTheory.Ideal.Operations
 public import Mathlib.RingTheory.Multiplicity
 public import Mathlib.RingTheory.UniqueFactorizationDomain.Multiplicity
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open Topology Filter NumberField IsDedekindDomain WithZero Function

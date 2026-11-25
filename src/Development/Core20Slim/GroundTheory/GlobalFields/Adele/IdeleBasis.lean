@@ -5,6 +5,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.Infin
 public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.Restricted
 public import Development.Core20Slim.GroundTheory.GlobalFields.Adele.Topology
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open Filter Topology TopologicalSpace NumberField IsDedekindDomain

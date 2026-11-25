@@ -130,6 +130,8 @@ public import Mathlib.Topology.Algebra.Valued.ValuationTopology
 public import Mathlib.Topology.Algebra.Valued.WithVal
 public import Mathlib.Topology.UniformSpace.Completion
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

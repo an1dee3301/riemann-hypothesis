@@ -9,6 +9,8 @@ public import GroundTheory.LocalFields.UnitsPowers
 public import Development.Core20Slim.GroundTheory.LocalFields.UnramifiedRootsOfUnity
 public import Development.Core20Slim.GroundTheory.LocalFields.UnramifiedGalois
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

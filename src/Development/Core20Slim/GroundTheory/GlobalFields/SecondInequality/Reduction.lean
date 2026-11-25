@@ -95,6 +95,8 @@ public import Mathlib.RingTheory.SimpleRing.Basic
 public import Mathlib.RingTheory.SimpleRing.Principal
 public import Mathlib.SetTheory.Cardinal.Finite
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

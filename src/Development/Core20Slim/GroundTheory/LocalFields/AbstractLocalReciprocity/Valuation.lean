@@ -7,6 +7,8 @@ public import Development.Core20Slim.GroundTheory.LocalFields.AbstractLocalRecip
 public import Development.Core20Slim.GroundTheory.PowerSubgroups.CountableNeighbourhoods.RelIndexSup
 public import Development.Core20Slim.GroundTheory.LocalFields.AbstractLocalReciprocity.ProfiniteInteger
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.LocalField.Abstract

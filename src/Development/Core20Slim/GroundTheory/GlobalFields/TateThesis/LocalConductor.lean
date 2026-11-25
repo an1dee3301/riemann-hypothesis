@@ -3,6 +3,8 @@ module
 public import Mathlib
 public import GroundTheory.GlobalFields.TateThesis.NoSmallSubgroups
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

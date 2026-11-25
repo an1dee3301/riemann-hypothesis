@@ -85,6 +85,8 @@ public import Mathlib.Topology.Maps.Basic
 public import Mathlib.Topology.Separation.Basic
 public import Mathlib.Topology.Separation.Hausdorff
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.LocalField

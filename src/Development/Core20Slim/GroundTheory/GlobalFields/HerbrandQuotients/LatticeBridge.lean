@@ -38,6 +38,8 @@ public import Mathlib.LinearAlgebra.TensorProduct.Tower
 public import Mathlib.RepresentationTheory.Basic
 public import Mathlib.RingTheory.Finiteness.Defs
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

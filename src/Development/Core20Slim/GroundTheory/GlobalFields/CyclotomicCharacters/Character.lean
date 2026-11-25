@@ -4,6 +4,8 @@ public import Mathlib
 public import Development.Core20Slim.GroundTheory.LocalFields.AbstractLocalReciprocity.ProfiniteInteger
 public import Development.Core20Slim.GroundTheory.GlobalFields.CyclotomicCharacters.Frobenius
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open NumberField IntermediateField

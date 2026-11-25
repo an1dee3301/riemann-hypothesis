@@ -166,6 +166,8 @@ public import Mathlib.RingTheory.TensorProduct.Free
 public import Mathlib.RingTheory.TotallySplit
 public import Mathlib.SetTheory.Cardinal.Finite
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

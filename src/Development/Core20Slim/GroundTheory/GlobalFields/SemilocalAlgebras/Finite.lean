@@ -5,6 +5,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras
 public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.Approximation
 public import Development.Core20Slim.GroundTheory.GlobalFields.SemilocalAlgebras.LocalDegree
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

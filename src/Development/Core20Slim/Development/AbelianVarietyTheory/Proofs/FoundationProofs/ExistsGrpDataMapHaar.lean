@@ -9,154 +9,6 @@ public import Development.AbelianVarietyTheory.Proofs.HeightProofs.ExistsBlockOr
 public import Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteDimKStableSubspaceKFiniteLie
 public import Formalism.LocalRingCardinality.DataTheta
 public import Formalism.SatakeDualWeyl.Statement
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Int.Basic
-public import Init.Data.Nat.Basic
-public import Init.Data.Rat.Basic
-public import Init.Data.Zero
-public import Init.Ext
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Field.Basic
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Commute.Defs
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Opposite
-public import Mathlib.Algebra.Group.Prod
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Subsemigroup.Defs
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Basic
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Units.Basic
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Opposites
-public import Mathlib.Algebra.Order.Archimedean.Real.Basic
-public import Mathlib.Algebra.Order.Floor.Defs
-public import Mathlib.Algebra.Ring.CharZero
-public import Mathlib.Algebra.Ring.Commute
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Calculus.Deriv.Add
-public import Mathlib.Analysis.Calculus.Deriv.Basic
-public import Mathlib.Analysis.Calculus.Deriv.Linear
-public import Mathlib.Analysis.Calculus.Deriv.Mul
-public import Mathlib.Analysis.Calculus.Deriv.Pow
-public import Mathlib.Analysis.Calculus.Deriv.Shift
-public import Mathlib.Analysis.Calculus.MeanValue
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Exponential
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.LocallyConvex.AbsConvexOpen
-public import Mathlib.Analysis.LocallyConvex.WithSeminorms
-public import Mathlib.Analysis.Matrix.Normed
-public import Mathlib.Analysis.Normed.Algebra.Exponential
-public import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.Lemmas
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Group.Uniform
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.Module.FiniteDimension
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.Normed.Ring.Lemmas
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Analysis.SpecialFunctions.Exp
-public import Mathlib.Analysis.SpecialFunctions.ExpDeriv
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.Finite.Sum
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.EquivFin
-public import Mathlib.Data.Fintype.Sum
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Matrix.Basic
-public import Mathlib.Data.Matrix.Diagonal
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Nat.Init
-public import Mathlib.Data.Set.Defs
-public import Mathlib.FieldTheory.Perfect
-public import Mathlib.FieldTheory.Separable
-public import Mathlib.LinearAlgebra.Basis.VectorSpace
-public import Mathlib.LinearAlgebra.Complex.FiniteDimensional
-public import Mathlib.LinearAlgebra.FreeModule.Finite.Basic
-public import Mathlib.LinearAlgebra.FreeModule.PID
-public import Mathlib.LinearAlgebra.Matrix.ConjTranspose
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
-public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-public import Mathlib.LinearAlgebra.Matrix.Trace
-public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
-public import Mathlib.MeasureTheory.Group.Measure
-public import Mathlib.MeasureTheory.MeasurableSpace.Defs
-public import Mathlib.MeasureTheory.Measure.MeasureSpaceDef
-public import Mathlib.Order.Filter.Basic
-public import Mathlib.RingTheory.Algebraic.Integral
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.Flat.FaithfullyFlat.Algebra
-public import Mathlib.RingTheory.Flat.FaithfullyFlat.Basic
-public import Mathlib.RingTheory.Flat.TorsionFree
-public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-public import Mathlib.RingTheory.SimpleRing.Basic
-public import Mathlib.RingTheory.SimpleRing.Principal
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
-public import Mathlib.Topology.Algebra.Constructions
-public import Mathlib.Topology.Algebra.Field
-public import Mathlib.Topology.Algebra.Group.Basic
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Group.Subgroup
-public import Mathlib.Topology.Algebra.Group.Units
-public import Mathlib.Topology.Algebra.GroupWithZero
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
-public import Mathlib.Topology.Algebra.Monoid
-public import Mathlib.Topology.Algebra.Ring.Basic
-public import Mathlib.Topology.Basic
-public import Mathlib.Topology.Compactness.LocallyCompact
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.Constructions.SumProd
-public import Mathlib.Topology.Continuous
-public import Mathlib.Topology.ContinuousOn
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.Defs.Induced
-public import Mathlib.Topology.GDelta.MetrizableSpace
-public import Mathlib.Topology.Homeomorph.Defs
-public import Mathlib.Topology.Instances.Matrix
-public import Mathlib.Topology.Maps.Basic
-public import Mathlib.Topology.MetricSpace.Algebra
-public import Mathlib.Topology.MetricSpace.Basic
-public import Mathlib.Topology.MetricSpace.ProperSpace
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.Metrizable.Uniformity
-public import Mathlib.Topology.Separation.GDelta
-public import Mathlib.Topology.Separation.Hausdorff
-public import Mathlib.Topology.Separation.Regular
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -299,11 +151,60 @@ def grpOf (p q : ℕ) (ν : Measure (cover p q)) [ν.IsHaarMeasure] : GrpData p 
     · exact exp_add_smul X s t
     · simp [expHalf, add_smul, add_div, Complex.exp_add]
 
+def covHom (T : GrpData p q) : T.G →* UpqT p q :=
+  (T.cov.codRestrict (Formalism.UG.Upq p q) T.cov_mem : T.G →* Formalism.UG.Upq p q)
 
+theorem continuous_covU (T : GrpData p q) : Continuous T.covU :=
+  Continuous.subtype_mk (continuous_fst.comp T.emb.continuous) _
 
+theorem surjective_covU (T : GrpData p q) : Function.Surjective T.covU := by
+  rintro ⟨g, hg⟩
+  obtain ⟨w, hw⟩ := IsAlgClosed.exists_pow_nat_eq ((g : Mat p q).det) two_pos
+  have h0 : w ≠ 0 := by
+    rintro rfl
+    exact g.det_ne_zero (by rw [← hw]; simp)
+  obtain ⟨x, hx, -⟩ := T.bij g hg (Units.mk0 w h0) hw
+  exact ⟨x, Subtype.ext hx.1⟩
 
+theorem isProperMap_covU (T : GrpData p q) : IsProperMap T.covU := by
+  haveI : T2Space (UpqT p q) := inferInstanceAs (T2Space (Formalism.UG.Upq p q))
+  haveI : LocallyCompactSpace (UpqT p q) :=
+    (UpqUnimodular.modelEquiv p q).toHomeomorph.isClosedEmbedding.locallyCompactSpace
+  refine isProperMap_iff_isCompact_preimage.2 ⟨continuous_covU T, fun K hK => ?_⟩
+  have hS : IsCompact ((Units.val : ℂˣ → ℂ) ⁻¹' Metric.sphere 0 1) := by
+    refine (Units.isEmbedding_val₀.isInducing.isCompact_preimage_iff ?_).2 (isCompact_sphere 0 1)
+    intro z hz
+    have : z ≠ 0 := by rintro rfl; simp at hz
+    exact ⟨Units.mk0 z this, rfl⟩
+  have hK' : IsCompact ((fun g : Formalism.UG.Upq p q => g.1) '' K) := hK.image continuous_subtype_val
+  refine ((GlobalTheory.RealPar.SqInt.isClosedEmbedding_emb T).isCompact_preimage (hK'.prod hS)).of_isClosed_subset
+    (hK.isClosed.preimage (continuous_covU T)) fun x hx => ⟨⟨T.covU x, hx, rfl⟩, ?_⟩
+  simpa using GlobalTheory.RealPar.Cover.norm_sq x
 
+theorem isHaarMeasure_map_covU (T : GrpData p q) : (T.haar.map T.covU).IsHaarMeasure := by
+  haveI : IsTopologicalGroup (UpqT p q) := inferInstanceAs (IsTopologicalGroup (Formalism.UG.Upq p q))
+  haveI : BorelSpace (UpqT p q) := ⟨rfl⟩
+  haveI : T2Space (UpqT p q) := inferInstanceAs (T2Space (Formalism.UG.Upq p q))
+  haveI : LocallyCompactSpace (UpqT p q) :=
+    (UpqUnimodular.modelEquiv p q).toHomeomorph.isClosedEmbedding.locallyCompactSpace
+  exact Measure.isHaarMeasure_map T.haar (covHom T) (continuous_covU T) (surjective_covU T)
+    (isProperMap_iff_tendsto_cocompact.1 (isProperMap_covU T)).2
 
+theorem exists_grpData_map_haar : ∀ (p q : ℕ) (μ : Measure (UpqT p q)), μ.IsHaarMeasure →
+    ∃ T : GrpData p q, Measure.map T.covU T.haar = μ := by
+  intro p q μ hμ
+  haveI := isHaarMeasure_map_covU (grpOf p q Measure.haar)
+  obtain ⟨t, ht⟩ := GlobalTheory.CompactDualUnique.exists_eq_smul μ
+    ((grpOf p q Measure.haar).haar.map (grpOf p q Measure.haar).covU)
+  have h0 : t ≠ 0 := by
+    rintro rfl
+    rw [zero_smul] at ht
+    exact isOpen_univ.measure_ne_zero μ Set.univ_nonempty (by rw [ht]; rfl)
+  haveI : (t • (Measure.haar : Measure (cover p q))).IsHaarMeasure := Measure.IsHaarMeasure.nnreal_smul _ h0
+  refine ⟨grpOf p q (t • Measure.haar), ?_⟩
+  rw [ht]
+  haveI : BorelSpace (UpqT p q) := ⟨rfl⟩
+  exact Measure.map_smul _ (continuous_covU _).aemeasurable
 
 end GlobalTheory.DetSqrtCover
 

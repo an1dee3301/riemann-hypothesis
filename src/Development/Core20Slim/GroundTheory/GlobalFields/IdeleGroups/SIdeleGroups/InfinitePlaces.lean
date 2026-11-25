@@ -55,6 +55,8 @@ public import Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings
 public import Mathlib.NumberTheory.NumberField.InfinitePlace.Ramification
 public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

@@ -12,6 +12,8 @@ public import Development.Core20Slim.GroundTheory.LocalFields.UnramifiedExistenc
 public import Development.Core20Slim.GroundTheory.LocalFields.UnramifiedGalois
 public import Development.Core20Slim.GroundTheory.LocalFields.UnramifiedRootsOfUnity
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 set_option maxHeartbeats 4000000

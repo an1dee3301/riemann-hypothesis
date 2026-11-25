@@ -23,83 +23,6 @@ public import Formalism.LocalToGlobal.HeckeThetaElements.IsHeckeElt
 public import Formalism.LocalToGlobal.ProjectiveLattices.PartitionExtendByZeroAntitone
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.Algebra.NonUnitalHom
-public import Mathlib.Algebra.Algebra.Tower
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.IsField
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Idempotent
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Hom
-public import Mathlib.Algebra.GroupWithZero.Idempotent
-public import Mathlib.Algebra.GroupWithZero.Units.Basic
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Notation.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.FieldTheory.Normal.Basic
-public import Mathlib.FieldTheory.Normal.Defs
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.LinearAlgebra.Dimension.Constructions
-public import Mathlib.LinearAlgebra.Dimension.Finrank
-public import Mathlib.LinearAlgebra.Dimension.StrongRankCondition
-public import Mathlib.LinearAlgebra.FreeModule.PID
-public import Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
-public import Mathlib.LinearAlgebra.TensorProduct.Basic
-public import Mathlib.LinearAlgebra.TensorProduct.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.CMField
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.NumberTheory.NumberField.InfinitePlace.TotallyRealComplex
-public import Mathlib.Order.Filter.Cofinite
-public import Mathlib.RingTheory.Algebraic.Integral
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-public import Mathlib.RingTheory.Flat.FaithfullyFlat.Algebra
-public import Mathlib.RingTheory.Flat.FaithfullyFlat.Basic
-public import Mathlib.RingTheory.Flat.TorsionFree
-public import Mathlib.RingTheory.Henselian
-public import Mathlib.RingTheory.Ideal.Defs
-public import Mathlib.RingTheory.LocalRing.Basic
-public import Mathlib.RingTheory.LocalRing.Defs
-public import Mathlib.RingTheory.PicardGroup
-public import Mathlib.RingTheory.RegularLocalRing.Defs
-public import Mathlib.RingTheory.SimpleRing.Basic
-public import Mathlib.RingTheory.SimpleRing.Principal
-public import Mathlib.RingTheory.TensorProduct.Basic
-public import Mathlib.RingTheory.Valuation.ValuationSubring
-public import Mathlib.Topology.Algebra.RestrictedProduct.Basic
 
 @[expose] public section
 
@@ -129,6 +52,18 @@ theorem exists_eq_splitProj (φ : SplitProj D v) :
     rfl
   | add y z hy hz => rw [map_add (f := _), map_add (f := _), hy, hz]
 
+theorem isProjAt_iff (τ : D.host.E →ₐ[D.host.F] Fv D.host.F v) (PP : Formalism.L2.DIV.Pl D.host.E) :
+    IsProjAt (D := D) (v := v) (splitProj τ) PP ↔ PP = splitPrime τ := by
+
+  have hred : ∀ x : 𝓞 D.host.E, rdQ (D := D) (v := v) (splitProj τ) (x : D.host.E) = τ x := fun x => by
+    simp only [rdQ, splitProj_tmul, one_mul]
+  unfold IsProjAt
+  constructor
+  · intro h
+    refine HeightOneSpectrum.ext (Ideal.ext fun x => ?_)
+    rw [h x, hred, mem_splitPrime]
+  · rintro rfl x
+    rw [hred, mem_splitPrime]
 
 theorem sigR_compFin {F E : Type} [Field F] [NumberField F] [Field E] [Algebra F E] (σ : E →ₐ[F] E)
     (v : HeightOneSpectrum (𝓞 F)) (z : AF F ⊗[F] E) :
@@ -241,6 +176,29 @@ theorem exists_emb {e : AE D} {PP : Formalism.L2.DIV.Pl D.host.E} (he : Formalis
   rw [eq_idem hi] at he'
   exact eq_of_isIdemAt_of_isIdemAt' he' (GlobalTheory.EmbChart.isIdemAt_idem τ)
 
+theorem idem_dictionary : ∀ (D : D7), (∀ (e : AE D) (PP : Formalism.L2.DIV.Pl D.host.E), Formalism.L2.NTheta.IsIdemAt e PP → ∃ (v : FinPl D) (φ : SplitProj D v), IsIdemOf φ e ∧ IsProjAt φ PP) ∧ ∀ (v : FinPl D) (φ : SplitProj D v) (PP : Formalism.L2.DIV.Pl D.host.E), IsProjAt φ PP → PP.asIdeal.under (𝓞 D.host.F) = v.asIdeal ∧ (∀ PP', IsProjAt φ PP' → PP' = PP) ∧ ∀ e, IsIdemOf φ e → Formalism.L2.NTheta.IsIdemAt e PP ∧ (∀ e', Formalism.L2.NTheta.IsIdemAt e' PP → e' = e) ∧ ∀ φ' : SplitProj D v, IsIdemOf φ' e → φ' = φ := by
+  intro D
+  refine ⟨fun e PP he => ?_, fun v φ PP hφ => ?_⟩
+  · obtain ⟨w, τ, hi, rfl⟩ := exists_emb he
+    exact ⟨w, splitProj τ, hi, (isProjAt_iff τ _).2 rfl⟩
+  · obtain ⟨τ, rfl⟩ := exists_eq_splitProj φ
+    obtain rfl : PP = splitPrime τ := (isProjAt_iff τ PP).1 hφ
+    refine ⟨(splitPrime_liesOver τ).over.symm, fun PP' h' => (isProjAt_iff τ PP').1 h', fun e he => ?_⟩
+    obtain rfl := eq_idem he
+    refine ⟨GlobalTheory.EmbChart.isIdemAt_idem τ, fun e' he' => ?_, fun φ' hφ' => ?_⟩
+    ·
+      obtain ⟨w, τ', hi', hP'⟩ := exists_emb he'
+      have hw : w = v := by
+        calc w = (splitPrime τ').under (𝓞 D.host.F) := (splitPrime_under τ').symm
+          _ = (splitPrime τ).under (𝓞 D.host.F) := by rw [hP']
+          _ = v := splitPrime_under τ
+      subst hw
+      rw [eq_idem hi', splitPrime_injective (isCMExt_host D) hP'.symm]
+    ·
+      obtain ⟨τ'', rfl⟩ := exists_eq_splitProj φ'
+      have h2 := GlobalTheory.EmbChart.isIdemAt_idem τ''
+      rw [← eq_idem hφ'] at h2
+      rw [splitPrime_injective (isCMExt_host D) (eq_of_isIdemAt_of_isIdemAt' h2 (GlobalTheory.EmbChart.isIdemAt_idem τ))]
 
 end GlobalTheory.SplitIdemDict
 

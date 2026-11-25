@@ -107,6 +107,8 @@ public import Mathlib.Topology.Defs.Filter
 public import Mathlib.Topology.Defs.Induced
 public import Mathlib.Topology.Instances.ZMod
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.LocalField.Abstract

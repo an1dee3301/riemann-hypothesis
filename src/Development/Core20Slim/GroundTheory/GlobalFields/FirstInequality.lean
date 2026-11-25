@@ -113,6 +113,8 @@ public import Mathlib.SetTheory.Cardinal.Finite
 public import Mathlib.Topology.Algebra.Constructions
 public import Mathlib.Topology.Algebra.ContinuousMonoidHom
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

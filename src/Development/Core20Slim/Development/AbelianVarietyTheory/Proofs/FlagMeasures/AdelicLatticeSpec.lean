@@ -4,6 +4,7 @@ public import Mathlib
 public import Formalism.SharpRestriction.CuspSpanNormBounds.GlobAut
 public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.CsGlob
 public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.CsSpan
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.SemilocalFrames.ExistsReduction
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.FlagMeasures.ExistsFrameOfHasSignature
 public import Formalism.SatakeDualWeyl.DefsCS
 public import Formalism.SatakeDualWeyl.Statement

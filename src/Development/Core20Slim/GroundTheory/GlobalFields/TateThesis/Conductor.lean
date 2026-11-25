@@ -6,6 +6,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.Restr
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.LocalConductor
 public import GroundTheory.GlobalFields.TateThesis.NoSmallSubgroups
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open Topology Filter NumberField IsDedekindDomain Function

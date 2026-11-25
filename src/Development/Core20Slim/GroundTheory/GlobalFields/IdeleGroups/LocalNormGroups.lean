@@ -147,6 +147,8 @@ public import Mathlib.Topology.Separation.GDelta
 public import Mathlib.Topology.Separation.Regular
 public import Mathlib.Topology.UniformSpace.Defs
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global
