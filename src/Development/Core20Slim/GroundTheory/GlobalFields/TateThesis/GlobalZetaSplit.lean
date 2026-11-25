@@ -74,7 +74,54 @@ theorem partialZeta_eq_setIntegral (w : InfinitePlace K) {f : 𝔸[K] → ℂ} (
     integral_map QuotientGroup.measurable_coe.aemeasurable hm.aestronglyMeasurable]
   rfl
 
+theorem zetaIntegrand_diagonal_mul (w : InfinitePlace K) (f : 𝔸[K] → ℂ) (χ : HeckeCharacter K)
+    (s : ℂ) (ξ : Kˣ) (t : {r : ℝ // 0 < r}) (u : normOneSubgroup K) :
+    f ((diagonal K ξ * moduleSection w t * (u : IdeleGroup K) : IdeleGroup K) : 𝔸[K]) *
+        (χ.toIdele (diagonal K ξ * moduleSection w t * (u : IdeleGroup K)) : ℂ) *
+        ((ideleModule K (diagonal K ξ * moduleSection w t * (u : IdeleGroup K)) : ℝ) : ℂ) ^ s =
+      f ((diagonal K ξ * moduleSection w t * (u : IdeleGroup K) : IdeleGroup K) : 𝔸[K]) *
+        (χ.toIdele (moduleSection w t * (u : IdeleGroup K)) : ℂ) * ((t : ℝ) : ℂ) ^ s := by
+  have hu : ideleModule K (u : IdeleGroup K) = 1 := u.2
+  have hmod : ideleModule K (diagonal K ξ * moduleSection w t * (u : IdeleGroup K)) = t := by
+    rw [map_mul, map_mul, ideleModule_diagonal, one_mul, ideleModule_moduleSection, hu, mul_one]
+  have hχ : χ.toIdele (diagonal K ξ * moduleSection w t * (u : IdeleGroup K)) =
+      χ.toIdele (moduleSection w t * (u : IdeleGroup K)) := by
+    rw [mul_assoc, map_mul, HeckeCharacter.toIdele_diagonal, one_mul]
+  simp only [hmod, hχ]
 
+theorem globalZeta_eq_integral_partialZeta (w : InfinitePlace K) {f : 𝔸[K] → ℂ}
+    (hf : f ∈ schwartzBruhat K) (χ : HeckeCharacter K) {s : ℂ} (hs : 1 < s.re) :
+    Integrable (fun t ↦ partialZeta w f χ t * ((t : ℝ) : ℂ) ^ s) posRealMeasure ∧
+      globalZeta f χ s = ∫ t, partialZeta w f χ t * ((t : ℝ) : ℂ) ^ s ∂posRealMeasure := by
+  have hfc := continuous_of_mem_schwartzBruhat hf
+  set G : IdeleGroup K → ℂ := fun x ↦ f x * (χ.toIdele x : ℂ) * ((ideleModule K x : ℝ) : ℂ) ^ s
+    with hGdef
+  have hG : Integrable G (ideleMeasure K) := integrable_globalZetaIntegrand hf χ hs
+  have hg : Integrable (fun p : normOneSubgroup K × {r : ℝ // 0 < r} ↦
+      G ((p.1 : IdeleGroup K) * moduleSection w p.2))
+      ((normOneMeasure K).prod posRealMeasure) := by
+    rw [← map_normOneSplitting_eq_prod w]
+    refine (integrable_map_equiv (normOneSplitting w).toHomeomorph.toMeasurableEquiv _).2 ?_
+    convert hG using 1
+    funext x
+    exact congrArg G ((normOneSplitting w).symm_apply_apply x)
+  have hae : (fun t ↦ ∫ u, G ((u : IdeleGroup K) * moduleSection w t) ∂normOneMeasure K)
+      =ᵐ[posRealMeasure] fun t ↦ partialZeta w f χ t * ((t : ℝ) : ℂ) ^ s := by
+    filter_upwards [hg.prod_left_ae] with t ht
+    rw [integral_normOneMeasure_eq_setIntegral_tsum ht, partialZeta_eq_setIntegral w hfc,
+      ← integral_mul_const]
+    refine integral_congr_ae (Eventually.of_forall fun u ↦ ?_)
+    simp only [partialZetaSum]
+    rw [← tsum_mul_right]
+    refine tsum_congr fun ξ ↦ ?_
+    have hx : ((diagonalToNormOne K ξ * u : normOneSubgroup K) : IdeleGroup K) *
+        moduleSection w t = diagonal K ξ * moduleSection w t * (u : IdeleGroup K) := by
+      rw [Subgroup.coe_mul, coe_diagonalToNormOne, mul_right_comm]
+    rw [hx]
+    exact zetaIntegrand_diagonal_mul w f χ s ξ t u
+  refine ⟨hg.integral_prod_right.congr hae, ?_⟩
+  rw [globalZeta, integral_ideleMeasure_eq_integral_normOne w hG]
+  exact integral_congr_ae hae
 
 end
 

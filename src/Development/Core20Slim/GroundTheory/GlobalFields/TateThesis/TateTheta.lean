@@ -7,24 +7,6 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.Infin
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdelePoisson
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.HeckeChar
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.IdeleMeasureQuotient
-public import Init.Prelude
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Subgroup.Ker
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Analysis.Complex.Circle
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.GroupTheory.QuotientGroup.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.Topology.Algebra.Constructions
-public import Mathlib.Topology.Algebra.ContinuousMonoidHom
-public import Mathlib.Topology.Algebra.Group.Quotient
 
 set_option synthInstance.maxHeartbeats 400000
 

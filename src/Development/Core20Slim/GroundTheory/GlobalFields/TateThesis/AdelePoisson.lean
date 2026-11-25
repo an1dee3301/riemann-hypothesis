@@ -10,126 +10,6 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdeleI
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdelicChar
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.SchwartzBruhatDual
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.TracePairing
-public import Init.Core
-public import Init.Data.Int.Basic
-public import Init.Data.Int.Lemmas
-public import Init.Data.Int.Order
-public import Init.Data.Zero
-public import Init.Omega.Coeffs
-public import Init.Omega.Constraint
-public import Init.Omega.Int
-public import Init.Omega.LinearCombo
-public import Init.Prelude
-public import Init.PropLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.AddChar
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Int.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Prod
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.TypeTags.Basic
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.Group.WithOne.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Hom
-public import Mathlib.Algebra.GroupWithZero.NeZero
-public import Mathlib.Algebra.GroupWithZero.NonZeroDivisors
-public import Mathlib.Algebra.GroupWithZero.Units.Basic
-public import Mathlib.Algebra.GroupWithZero.Units.Lemmas
-public import Mathlib.Algebra.GroupWithZero.WithZero
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Equiv.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.NatInt
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Prod
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Equiv
-public import Mathlib.Algebra.Module.Submodule.Lattice
-public import Mathlib.Algebra.Module.Submodule.LinearMap
-public import Mathlib.Algebra.Module.Submodule.Range
-public import Mathlib.Algebra.Order.Group.Int
-public import Mathlib.Algebra.Order.GroupWithZero.Canonical
-public import Mathlib.Algebra.Order.IsBotOne
-public import Mathlib.Algebra.Order.Monoid.Defs
-public import Mathlib.Algebra.Order.Monoid.TypeTags
-public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
-public import Mathlib.Algebra.Order.Monoid.Unbundled.TypeTags
-public import Mathlib.Algebra.Order.Ring.Defs
-public import Mathlib.Algebra.Order.Ring.Int
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Int.Defs
-public import Mathlib.Algebra.Ring.Pi
-public import Mathlib.Algebra.Ring.Prod
-public import Mathlib.Algebra.Ring.Subring.Basic
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Circle
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.UnitBall
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.Logic.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Int.Order.Basic
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.LinearAlgebra.BilinearMap
-public import Mathlib.Logic.Equiv.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.CanonicalEmbedding.Basic
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.NumberTheory.NumberField.InfinitePlace.Basic
-public import Mathlib.Order.Defs.Lattice
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Filter.Cofinite
-public import Mathlib.Order.Lattice
-public import Mathlib.Order.Notation
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Valuation
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.DedekindDomain.Factorization
-public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Basic
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-public import Mathlib.RingTheory.FractionalIdeal.Basic
-public import Mathlib.RingTheory.FractionalIdeal.Inverse
-public import Mathlib.RingTheory.FractionalIdeal.Operations
-public import Mathlib.RingTheory.Valuation.Basic
-public import Mathlib.RingTheory.Valuation.ValuationSubring
-public import Mathlib.Tactic.Abel
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Topology.Algebra.RestrictedProduct.Basic
-public import Mathlib.Topology.Algebra.Valued.ValuationTopology
-public import Mathlib.Topology.Algebra.Valued.WithVal
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.Constructions.SumProd
-public import Mathlib.Topology.Homeomorph.Defs
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Completion
-public import Mathlib.Topology.UniformSpace.Defs
 
 set_option synthInstance.maxHeartbeats 400000
 
@@ -425,6 +305,10 @@ theorem summable_norm_smul_algebraMap (a : IdeleGroup K) {F : 𝔸[K] → ℂ}
   summable_norm_algebraMap_of_mem_schwartzBruhat (F := fun x ↦ F (a • x))
     (comp_smul_mem_schwartzBruhat a hF)
 
+theorem summable_norm_adelicFourier_smul_algebraMap (a : IdeleGroup K) {F : 𝔸[K] → ℂ}
+    (hF : F ∈ schwartzBruhat K) :
+    Summable fun ξ : K ↦ ‖adelicFourier K F (a⁻¹ • algebraMap K 𝔸[K] ξ)‖ :=
+  summable_norm_smul_algebraMap a⁻¹ (adelicFourier_mem_schwartzBruhat hF)
 
 theorem tsum_smul_algebraMap_eq (a : IdeleGroup K) {F : 𝔸[K] → ℂ} (hF : F ∈ schwartzBruhat K) :
     ∑' ξ : K, F (a • algebraMap K 𝔸[K] ξ) =
