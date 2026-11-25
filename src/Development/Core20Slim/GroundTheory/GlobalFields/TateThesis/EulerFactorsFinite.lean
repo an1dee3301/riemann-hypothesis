@@ -5,6 +5,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.Global
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.HeckeLFunction
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.SchwartzBruhatFinite
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open NumberField IsDedekindDomain IsDedekindDomain.HeightOneSpectrum Topology Filter

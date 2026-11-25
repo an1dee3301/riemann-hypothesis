@@ -4,6 +4,8 @@ public import Mathlib
 public import GroundTheory.LocalFields.LocalFourier
 public import GroundTheory.LocalFields.UnitsBasic
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 noncomputable section

@@ -7,6 +7,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.ArchCh
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.Gaussian
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.GaussianComplex
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open NumberField InfinitePlace InfinitePlace.Completion MeasureTheory Complex ComplexConjugate

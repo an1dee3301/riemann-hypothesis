@@ -4,6 +4,8 @@ public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.GlobalZeta
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.IdeleMeasureQuotient
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open NumberField IsDedekindDomain Topology Filter MeasureTheory

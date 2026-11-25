@@ -12,6 +12,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdeleM
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.ConductorIdeal
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.IdeleMeasure
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open NumberField IsDedekindDomain Topology Filter MeasureTheory

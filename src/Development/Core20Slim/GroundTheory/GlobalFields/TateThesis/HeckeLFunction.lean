@@ -5,6 +5,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.HeckeC
 public import Development.Core20Slim.Development.AutomorphicArithmetic.IntegralCasts.CapelliIdentities.SummableAbsNormRpowInv
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.Conductor
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open Topology Filter NumberField IsDedekindDomain WithZero FractionalIdeal Function Ideal

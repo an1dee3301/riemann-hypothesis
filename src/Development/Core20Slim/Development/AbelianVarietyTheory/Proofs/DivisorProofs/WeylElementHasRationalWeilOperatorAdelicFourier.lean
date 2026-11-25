@@ -251,10 +251,35 @@ theorem ftE_eq (ψ : AddChar R ℂ) (μ : Measure (κ → R)) {Φ : (κ → R) �
 
 variable [Invertible (2 : R)]
 
+theorem schr_mul_psi (ψ : AddChar R ℂ) (w : (κ → R) × (κ → R)) (Φ : (κ → R) → ℂ) (x y : κ → R) :
+    schr ψ w Φ x * ψ (x ⬝ᵥ y) = ψ (-(w.1 ⬝ᵥ y) - ⅟(2 : R) * (w.1 ⬝ᵥ w.2)) *
+      (Φ (x + w.1) * ψ ((x + w.1) ⬝ᵥ (y + w.2))) := by
+  simp only [schr]
+  have e : (x + w.1) ⬝ᵥ (y + w.2) = (x ⬝ᵥ w.2 + ⅟(2 : R) * (w.1 ⬝ᵥ w.2)) + x ⬝ᵥ y +
+      -(-(w.1 ⬝ᵥ y) - ⅟(2 : R) * (w.1 ⬝ᵥ w.2)) := by
+    have h2 : (⅟(2 : R)) + ⅟(2 : R) = 1 := invOf_two_add_invOf_two
+    simp only [add_dotProduct, dotProduct_add]
+    linear_combination (-(w.1 ⬝ᵥ w.2)) * h2
+  have hc : ψ (-(w.1 ⬝ᵥ y) - ⅟(2 : R) * (w.1 ⬝ᵥ w.2)) * ψ (-(-(w.1 ⬝ᵥ y) - ⅟(2 : R) * (w.1 ⬝ᵥ w.2))) = 1 := by
+    rw [← AddChar.map_add_eq_mul, add_neg_cancel, AddChar.map_zero_eq_one]
+  rw [e, AddChar.map_add_eq_mul ψ (_ + _) (-_), AddChar.map_add_eq_mul ψ (x ⬝ᵥ w.2 + ⅟(2 : R) * (w.1 ⬝ᵥ w.2)) (x ⬝ᵥ y)]
+  linear_combination (-(ψ (x ⬝ᵥ w.2 + ⅟(2 : R) * (w.1 ⬝ᵥ w.2)) * Φ (x + w.1) * ψ (x ⬝ᵥ y))) * hc
 
 variable [MeasurableAdd (κ → R)] (μ : Measure (κ → R)) [μ.IsAddRightInvariant]
 
+theorem schr_mem (ψ : AddChar R ℂ) (w : (κ → R) × (κ → R)) {Φ : (κ → R) → ℂ} (hΦ : Φ ∈ intSub ψ μ) :
+    schr ψ w Φ ∈ intSub ψ μ := fun y => by
+  simp only [schr_mul_psi]
+  exact ((hΦ (y + w.2)).comp_add_right w.1).const_mul _
 
+theorem ft_schr (ψ : AddChar R ℂ) (w : (κ → R) × (κ → R)) (Φ : (κ → R) → ℂ) :
+    ft ψ μ (schr ψ w Φ) = schr ψ (w.2, -w.1) (ft ψ μ Φ) := funext fun y => by
+  simp only [ft, schr_mul_psi]
+  rw [integral_const_mul, integral_add_right_eq_self (fun x => Φ x * ψ (x ⬝ᵥ (y + w.2))) w.1]
+  simp only [schr]
+  congr 2
+  rw [dotProduct_neg, dotProduct_neg, dotProduct_comm y, dotProduct_comm w.2]
+  ring
 
 end General
 

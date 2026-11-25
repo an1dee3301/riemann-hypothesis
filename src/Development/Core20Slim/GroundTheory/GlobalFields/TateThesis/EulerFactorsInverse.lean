@@ -4,6 +4,8 @@ public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.EulerFactorsArch
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.EulerFactorsFinite
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open NumberField InfinitePlace InfinitePlace.Completion Complex
