@@ -138,6 +138,9 @@ def TopIncl (O : Type) [CommRing O] {A : Type} [Ring A] [Algebra O A] {G : Type}
 
 
 
+def cFloorCoarse (l N k t h : ℕ) {ι : Type} (lam : ι → ℕ → ℕ) (j q : ι → ℕ) (xm xp : ι → ℤ)
+    (ecl i : ι → ℕ) (τ : ι) : ℕ :=
+  ⌊cCoarse l k (j τ) t (q τ) h N (ecl τ) (xm τ) (xp τ) (UN N (lam τ) (k + j τ)) (i τ : ℝ)⌋₊
 
 
 
