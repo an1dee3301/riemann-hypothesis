@@ -19,8 +19,13 @@ namespace GlobalTheory.SeeSaw
 
 variable {D : D7} {c : Comm D}
 
+def withMu {k : Type} [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] {s κ : ℕ} (S : SymData k s κ)
+    (μ : ℕ → kˣ →* ℂˣ) (h : ∀ j, IsTame (μ j)) : SymData k s κ := { S with μ := μ, tame := h }
 
+def VCom.withCG (v : VCom c) (a : ℕ → ℂ) : VCom c := { v with cG := a }
 
+def Comm.VolLast (c : Comm D) : Prop :=
+  ∀ j (h : j + 2 * 0 + 2 = D.R.m), (c.vol (j + 1)).μ = Measure.map (c.jac j 0 h).d.emb0 (c.x (j + 1)).vol.μ
 
 def IntIn {k : Type} [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] (q : GlobalTheory.FinPl.SplitPt D k)
     (S : HSp D) {Y : Type} [Fintype Y] [DecidableEq Y] (F : Frame k S.rank Y) (L : GlobalTheory.FinPl.Lat S) : Prop :=
@@ -96,7 +101,16 @@ structure GPin {n : ℕ} (G : Fin n → GLoc v) : Prop where
   dG : ∀ j, j < D.R.m → ∀ f, IsThetaFunO c.ψ _ _ f → comb c.ψ _ _ (v.dG j) f =
     (List.finRange n).foldr (fun i f' => comb c.ψ _ _ ((G i).cg j) f') f
 
+def GLoc.Chars (G : GLoc v) (t : Tup c) : Prop :=
+  ∃ μ : ℕ → G.kˣ →* ℂˣ, (∀ j, IsTame (μ j)) ∧ (∀ j (x : G.kˣ), valuation G.k (x : G.k) = 1 → μ j x = G.S.μ j x) ∧
+    (∀ j ρ h, (ofSplit G.q).IsComp (t.sBF j ρ h).χV⁻¹ (μ (j + 1)) ∧
+      ∃ μ', (ofSplit G.q).IsComp (t.sBF j ρ h).χW μ' ∧ ∀ x : G.kˣ, valuation G.k (x : G.k) = 1 → μ' x * μ (j + 1) x = 1) ∧
+    ∀ j σ h, (ofSplit G.q).IsComp (t.sFB j σ h).χV⁻¹ (μ (j + 1 + 1)) ∧
+      ∃ μ', (ofSplit G.q).IsComp (t.sFB j σ h).χW μ' ∧ ∀ x : G.kˣ, valuation G.k (x : G.k) = 1 → μ' x * μ (j + 1 + 1) x = 1
 
+def GLam {n : ℕ} (G : Fin n → GLoc v) (j : ℕ) (g : GA D (c.V j)) (a : ℂ) : Prop :=
+  ∃ (b : Fin n → ℕ) (hb : ∀ i, j + b i = (G i).s + 1) (x : ∀ i, (((G i).S.T (Fin D.R.t)).lev j (b i) (hb i)).J),
+    (∀ i, (G i).Mat j (b i) (hb i) g (x i).1) ∧ a = ∏ i, ((((G i).S.T (Fin D.R.t)).lev j (b i) (hb i)).lam (x i) : ℂ)
 
 end GlobalTheory.SeeSaw
 

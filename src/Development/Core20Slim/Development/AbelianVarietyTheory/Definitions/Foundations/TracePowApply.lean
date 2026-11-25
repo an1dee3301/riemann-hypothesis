@@ -4,66 +4,6 @@ public import Mathlib
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Foundations.GelfA
 public import Formalism.RealPlaceAnalysis.StatementB
 public import Formalism.GradedWeylDivisibility.StatementA
-public import Init.ByCases
-public import Init.Core
-public import Init.Data.Int.Basic
-public import Init.Data.Zero
-public import Init.Ext
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.Algebra.NonUnitalHom
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
-public import Mathlib.Algebra.BigOperators.Ring.Finset
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Finsupp
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Nat.Defs
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Nat
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.LinearMap.End
-public import Mathlib.Algebra.Module.Submodule.LinearMap
-public import Mathlib.Algebra.MonoidAlgebra.Basic
-public import Mathlib.Algebra.MonoidAlgebra.Defs
-public import Mathlib.Algebra.MonoidAlgebra.Module
-public import Mathlib.Algebra.MvPolynomial.Basic
-public import Mathlib.Algebra.MvPolynomial.Derivation
-public import Mathlib.Algebra.MvPolynomial.Eval
-public import Mathlib.Algebra.MvPolynomial.PDeriv
-public import Mathlib.Algebra.Notation.Defs
-public import Mathlib.Algebra.Notation.Pi.Basic
-public import Mathlib.Algebra.Polynomial.Basic
-public import Mathlib.Algebra.Polynomial.Coeff
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Finsupp.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.RingTheory.Derivation.Basic
-public import Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic
-public import Mathlib.Tactic.LinearCombination.Lemmas
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
 
 @[expose] public section
 
@@ -173,10 +113,49 @@ theorem _root_.GlobalTheory.Mem.GelfCheck.rowE_eq_rowDiv (R : Type) [CommRing R]
   rw [_root_.GlobalTheory.Mem.GelfCheck.rowE_apply]
   exact ⟨by unfold _root_.Formalism.GradedWeylDivisibility.rowDiv; exact h1.symm, by unfold _root_.Formalism.GradedWeylDivisibility.rowDiv; exact h0⟩
 
+open MvPolynomial in
+theorem _root_.GlobalTheory.Mem.GelfCheck.gelfA_eq_Amat {N : ℕ} (μ : Fin N → ℂ) :
+    _root_.GlobalTheory.Mem.Gelf.gelfA μ = _root_.Formalism.REAL.Amat (_root_.Formalism.REAL.lsh μ) := by
+  ext a b
+  simp only [_root_.GlobalTheory.Mem.Gelf.gelfA, _root_.Formalism.REAL.Amat, _root_.Formalism.REAL.lsh, Matrix.of_apply]
+  split_ifs with hab
+  · subst hab
+    have ha := a.isLt
+    have h1 : 1 ≤ N := by omega
+    have h2 : a.val ≤ N - 1 := by omega
+    rw [Nat.cast_sub h2, Nat.cast_sub h1, Nat.cast_one]
+  · rfl
+  · rfl
 
 section
 variable {A : Type} [Ring A] {N : ℕ} {E : Matrix (Fin N) (Fin N) A}
 
+open MvPolynomial in
+variable {A : Type} [Ring A] {N : ℕ} {E : Matrix (Fin N) (Fin N) A} in
+theorem _root_.GlobalTheory.Mem.GelfCheck.pow_cov (h : _root_.GlobalTheory.Mem.Gelf.GlRel E) (k : ℕ)
+    (a b c d : Fin N) :
+    E c d * (E ^ k) a b - (E ^ k) a b * E c d =
+      (if d = a then (E ^ k) c b else 0) - (if b = c then (E ^ k) a d else 0) := by
+  induction k generalizing a b with
+  | zero =>
+    simp only [pow_zero, Matrix.one_apply]
+    split_ifs <;> subst_vars <;> simp_all
+  | succ k ih =>
+    have key : ∀ m, E c d * ((E ^ k) a m * E m b) - (E ^ k) a m * E m b * E c d =
+        ((if d = a then (E ^ k) c m * E m b else 0) - (if m = c then (E ^ k) a d * E m b else 0)) +
+        ((if d = m then (E ^ k) a m * E c b else 0) - (if b = c then (E ^ k) a m * E m d else 0)) := by
+      intro m
+      have h1 := ih a m
+      have h2 := h c d m b
+      rw [show E c d * ((E ^ k) a m * E m b) - (E ^ k) a m * E m b * E c d =
+        (E c d * (E ^ k) a m - (E ^ k) a m * E c d) * E m b +
+          (E ^ k) a m * (E c d * E m b - E m b * E c d) by noncomm_ring, h1, h2]
+      simp only [sub_mul, mul_sub, ite_mul, mul_ite, zero_mul, mul_zero]
+    simp only [pow_succ, Matrix.mul_apply, Finset.mul_sum, Finset.sum_mul, ← Finset.sum_sub_distrib]
+    rw [Finset.sum_congr rfl fun m _ => key m]
+    simp only [Finset.sum_add_distrib, Finset.sum_sub_distrib, Finset.sum_ite_eq, Finset.sum_ite_eq',
+      Finset.mem_univ, if_true]
+    split_ifs <;> simp <;> abel
 
 end
 
@@ -187,6 +166,77 @@ variable {R : Type} [CommRing R] {V : Type} [AddCommGroup V] [Module R V] {N : �
 open MvPolynomial in
 variable {R : Type} [CommRing R] {V : Type} [AddCommGroup V] [Module R V] {N : ℕ}
   {E : Matrix (Fin N) (Fin N) (Module.End R V)} {μ : Fin N → R} {v : V} in
+theorem _root_.GlobalTheory.Mem.GelfCheck.trace_pow_apply (h : _root_.GlobalTheory.Mem.Gelf.GlRel E)
+    (hw : ∀ a, E a a v = μ a • v) (hv : ∀ a b, a < b → E a b v = 0)
+    (k : ℕ) : (E ^ k).trace v = _root_.GlobalTheory.Mem.Gelf.gelfC μ k • v := by
+  have main : ∀ k : ℕ, (∀ a b : Fin N, a < b → (E ^ k) a b v = 0) ∧
+      ∀ a, (E ^ k) a a v = (∑ b, (_root_.GlobalTheory.Mem.Gelf.gelfA μ ^ k) a b) • v := by
+    intro k
+    induction k with
+    | zero =>
+      refine ⟨fun a b hab => ?_, fun a => ?_⟩
+      · simp [Matrix.one_apply, hab.ne]
+      · simp [Matrix.one_apply]
+    | succ k ih =>
+      obtain ⟨ih1, ih2⟩ := ih
+      have expand : ∀ a b, (E ^ (k + 1)) a b v = ∑ m, (E ^ k) a m (E m b v) := by
+        intro a b
+        simp [pow_succ, Matrix.mul_apply, LinearMap.sum_apply, Module.End.mul_apply]
+      have term : ∀ a b m, a ≤ b → (E ^ k) a m (E m b v) =
+          if m < b then 0 else if m = b then μ b • (E ^ k) a b v
+            else (E ^ k) a b v - (if b = a then (E ^ k) m m v else 0) := by
+        intro a b m hab
+        rcases lt_trichotomy m b with hmb | hmb | hmb
+        · simp [hmb, hv m b hmb]
+        · subst hmb
+          simp [hw]
+        · have hc := congrArg (fun f : Module.End R V => f v)
+            (_root_.GlobalTheory.Mem.GelfCheck.pow_cov h k a m m b)
+          simp only [LinearMap.sub_apply, Module.End.mul_apply, if_pos rfl] at hc
+          rw [ih1 a m (lt_of_le_of_lt hab hmb), map_zero, zero_sub] at hc
+          rw [if_neg (not_lt.mpr hmb.le), if_neg hmb.ne', ← neg_neg ((E ^ k) a m (E m b v)), hc]
+          split_ifs <;> simp
+      refine ⟨fun a b hab => ?_, fun a => ?_⟩
+      · rw [expand, Finset.sum_congr rfl fun m _ => term a b m hab.le, ih1 a b hab]
+        simp [hab.ne']
+      · rw [expand, Finset.sum_congr rfl fun m _ => term a a m le_rfl]
+        obtain ⟨s, hs_def⟩ : ∃ s : Fin N → R,
+            s = fun m => ∑ b, (_root_.GlobalTheory.Mem.Gelf.gelfA μ ^ k) m b := ⟨_, rfl⟩
+        have ih2' : ∀ m, (E ^ k) m m v = s m • v := by
+          intro m
+          rw [ih2, hs_def]
+        have hs : ∑ b, (_root_.GlobalTheory.Mem.Gelf.gelfA μ ^ (k + 1)) a b =
+            ∑ m, _root_.GlobalTheory.Mem.Gelf.gelfA μ a m * s m := by
+          simp only [hs_def, pow_succ', Matrix.mul_apply, Finset.mul_sum]
+          exact Finset.sum_comm
+        have hterm : ∀ m, (if m < a then 0 else if m = a then μ a • (E ^ k) a a v
+            else (E ^ k) a a v - (if a = a then (E ^ k) m m v else 0)) =
+            (_root_.GlobalTheory.Mem.Gelf.gelfA μ a m * s m) • v +
+              ((if a < m then s a else 0) -
+                (if m = a then ((N - 1 - a.val : ℕ) : R) * s a else 0)) • v := by
+          intro m
+          rw [ih2', ih2', if_pos rfl]
+          rcases lt_trichotomy m a with hma | hma | hma
+          · simp [_root_.GlobalTheory.Mem.Gelf.gelfA, hma, hma.ne', not_lt.mpr hma.le, hma.ne]
+          · subst hma
+            have hdiag : _root_.GlobalTheory.Mem.Gelf.gelfA μ m m = μ m + ((N - 1 - m.val : ℕ) : R) := by
+              simp [_root_.GlobalTheory.Mem.Gelf.gelfA]
+            rw [hdiag, if_neg (lt_irrefl m), if_pos rfl, if_neg (lt_irrefl m), if_pos rfl]
+            module
+          · have hup : _root_.GlobalTheory.Mem.Gelf.gelfA μ a m = -1 := by
+              simp [_root_.GlobalTheory.Mem.Gelf.gelfA, hma.ne, hma]
+            rw [hup, if_neg (not_lt.mpr hma.le), if_neg hma.ne', if_pos hma, if_neg hma.ne']
+            module
+        have hf : (Finset.univ.filter fun m : Fin N => a < m) = Finset.Ioi a := by
+          ext m
+          simp
+        have hc : ∑ m : Fin N, (if a < m then s a else 0) = ((N - 1 - a.val : ℕ) : R) * s a := by
+          rw [← Finset.sum_filter, Finset.sum_const, nsmul_eq_mul, hf, Fin.card_Ioi]
+        rw [Finset.sum_congr rfl fun m _ => hterm m, Finset.sum_add_distrib, ← Finset.sum_smul,
+          ← Finset.sum_smul, Finset.sum_sub_distrib, hc, Finset.sum_ite_eq',
+          if_pos (Finset.mem_univ a), sub_self, zero_smul, add_zero, hs]
+  simp only [Matrix.trace, Matrix.diag, LinearMap.sum_apply, (main k).2,
+    _root_.GlobalTheory.Mem.Gelf.gelfC, Finset.sum_smul]
 
 end
 

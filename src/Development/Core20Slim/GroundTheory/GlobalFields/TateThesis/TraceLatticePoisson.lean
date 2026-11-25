@@ -7,6 +7,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.TraceD
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.TraceFourier
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.TracePairing
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

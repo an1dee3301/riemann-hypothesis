@@ -2,129 +2,6 @@ module
 
 public import Mathlib
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Foundations.IsFockIPOfFockData
-public import Init.Core
-public import Init.Data.Cast
-public import Init.Data.Function
-public import Init.Data.Int.Basic
-public import Init.Data.Nat.Basic
-public import Init.Data.NeZero
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.BigOperators.Finsupp.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.BigOperators.Ring.Finset
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Finsupp
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Nat.Defs
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Basic
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Nat
-public import Mathlib.Algebra.GroupWithZero.Units.Basic
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Equiv.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Ker
-public import Mathlib.Algebra.Module.Submodule.Lattice
-public import Mathlib.Algebra.MonoidAlgebra.Basic
-public import Mathlib.Algebra.MonoidAlgebra.Defs
-public import Mathlib.Algebra.MonoidAlgebra.Module
-public import Mathlib.Algebra.MvPolynomial.Basic
-public import Mathlib.Algebra.Notation.Pi.Basic
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Order.Archimedean.Real.Basic
-public import Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset
-public import Mathlib.Algebra.Order.Floor.Defs
-public import Mathlib.Algebra.Order.GroupWithZero.Basic
-public import Mathlib.Algebra.Order.GroupWithZero.Canonical
-public import Mathlib.Algebra.Order.GroupWithZero.Defs
-public import Mathlib.Algebra.Order.Ring.Defs
-public import Mathlib.Algebra.Order.Ring.Nat
-public import Mathlib.Algebra.Order.ZeroLEOne
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.CStarAlgebra.Module.Constructions
-public import Mathlib.Analysis.CStarAlgebra.Module.Defs
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.Complex.Order
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.InnerProductSpace.l2Space
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Group.Basic
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Lp.lpSpace
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Analysis.Real.Sqrt
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.ENNReal.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Finsupp.Defs
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Nat.Basic
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Nat.Cast.Order.Ring
-public import Mathlib.Data.Nat.Factorial.Basic
-public import Mathlib.Data.Nat.Init
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Operations
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.LinearAlgebra.Basis.Defs
-public import Mathlib.LinearAlgebra.DFinsupp
-public import Mathlib.Order.Basic
-public import Mathlib.Order.Defs.LinearOrder
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Filter.Basic
-public import Mathlib.Order.Filter.Defs
-public import Mathlib.Order.Notation
-public import Mathlib.RingTheory.MvPolynomial.Basic
-public import Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic
-public import Mathlib.Tactic.CancelDenoms.Core
-public import Mathlib.Tactic.Linarith.Lemmas
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Ineq
-public import Mathlib.Tactic.NormNum.Inv
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Positivity.Core
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
-public import Mathlib.Topology.Algebra.InfiniteSum.Defs
-public import Mathlib.Topology.Algebra.InfiniteSum.SummationFilter
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
-public import Mathlib.Topology.Continuous
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.MetricSpace.Algebra
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.Neighborhoods
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -222,7 +99,22 @@ omit [DecidableEq σ] in
     diag c hc x α = c α * x α := rfl
 
 
+omit [DecidableEq σ] in
+theorem norm_diag (c : (σ →₀ ℕ) → ℂ) (hc : ∀ α, ‖c α‖ = 1) (x : L2 σ) : ‖diag c hc x‖ = ‖x‖ := by
+  have hp : 0 < (2 : ENNReal).toReal := by norm_num
+  rw [lp.norm_eq_tsum_rpow hp, lp.norm_eq_tsum_rpow hp]
+  congr 1
+  refine tsum_congr fun α => ?_
+  rw [diag_apply, norm_mul, hc, one_mul]
 
+theorem diag_emb_monomial (c : (σ →₀ ℕ) → ℂ) (hc : ∀ α, ‖c α‖ = 1) (α : σ →₀ ℕ) (a : ℂ) :
+    diag c hc (emb σ (monomial α a)) = c α • emb σ (monomial α a) := by
+  ext β
+  rw [diag_apply, lp.coeFn_smul, Pi.smul_apply, smul_eq_mul, emb_monomial, lp.single_apply]
+  by_cases h : β = α
+  · subst h
+    rfl
+  · rw [Pi.single_eq_of_ne h, mul_zero, mul_zero]
 
 theorem continuous_of_dense {G H : Type*} [TopologicalSpace G] [NormedAddCommGroup H] [NormedSpace ℂ H]
     (π : G → H →L[ℂ] H) (hπ : ∀ g x, ‖π g x‖ = ‖x‖) {S : Set H} (hS : Dense S)

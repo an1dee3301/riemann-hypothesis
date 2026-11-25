@@ -2,6 +2,7 @@ module
 
 public import Mathlib
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ColLieApply
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.MulAntiOfUnitary
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsArchimedeanLiftUnitaryGroupProduct
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.FiniteDimensionalModel
 public import Formalism.LocalToGlobal.LatticeGeometry.CmTypeMeetsConjugatePair

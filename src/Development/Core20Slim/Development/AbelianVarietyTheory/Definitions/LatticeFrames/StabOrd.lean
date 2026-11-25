@@ -2,6 +2,7 @@ module
 
 public import Mathlib
 public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.ValLastX
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.BrEqv
 public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.PredMemGamRanks
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.EvalAtOneExtremalMul
 public import Formalism.LocalRingCardinality.DataHost

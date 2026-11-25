@@ -1,6 +1,7 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.LatticeFrames.MiStarOfMid
 public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.JoinSI
 public import Formalism.LocalToGlobal.IndefiniteReal.RecTie
 public import Formalism.LocalToGlobal.IndefiniteReal.RealSeparation.FramesOKg2

@@ -4,6 +4,8 @@ public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.TraceDualLattice
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.LatticePoissonBasic
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

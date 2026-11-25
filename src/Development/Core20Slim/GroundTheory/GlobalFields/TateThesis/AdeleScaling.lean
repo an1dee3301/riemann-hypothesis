@@ -9,6 +9,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.Infin
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdeleMeasurable
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.TraceFourier
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

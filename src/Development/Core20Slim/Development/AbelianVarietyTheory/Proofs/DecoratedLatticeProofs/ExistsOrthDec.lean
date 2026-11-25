@@ -17,29 +17,6 @@ public import Formalism.LocalRingCardinality.DataTheta
 public import Formalism.LocalRingCardinality.Params
 public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Sum
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Matrix.Block
-public import Mathlib.Data.Matrix.ColumnRowPartitioned
-public import Mathlib.Data.Matrix.Diagonal
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.LinearAlgebra.Matrix.ConjTranspose
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.Logic.Equiv.Defs
-public import Mathlib.Logic.Equiv.Fin.Basic
 
 @[expose] public section
 

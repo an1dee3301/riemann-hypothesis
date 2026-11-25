@@ -5,85 +5,6 @@ public import Formalism.LocalToGlobal.HermitianForms.IsLocBasis
 public import Formalism.LocalToGlobal.KernelLattices.ThDistC
 public import Formalism.LocalRingCardinality.DataCoeff
 public import Formalism.LocalToGlobal.Divisibility.CoefMod
-public import Init.Core
-public import Init.Data.Fin.Basic
-public import Init.Data.Sum.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.Algebra.NonUnitalHom
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.BigOperators.Group.Finset.Sigma
-public import Mathlib.Algebra.BigOperators.Ring.Finset
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Finsupp
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Nat.Defs
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Nat
-public import Mathlib.Algebra.GroupWithZero.Units.Lemmas
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Equiv.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Map
-public import Mathlib.Algebra.MonoidAlgebra.Basic
-public import Mathlib.Algebra.MonoidAlgebra.Defs
-public import Mathlib.Algebra.MonoidAlgebra.Module
-public import Mathlib.Algebra.MvPolynomial.Basic
-public import Mathlib.Algebra.MvPolynomial.Eval
-public import Mathlib.Algebra.MvPolynomial.Monad
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.IsEmpty.Defs
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Finsupp.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Matrix.Diagonal
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Basic
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.LinearAlgebra.Basis.Defs
-public import Mathlib.LinearAlgebra.DFinsupp
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
-public import Mathlib.LinearAlgebra.UnitaryGroup
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.RingTheory.MvPolynomial.Basic
-public import Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Instances.Matrix
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -185,6 +106,11 @@ theorem subY_eq_subD (hab : a ≤ b) (y' : ι → Matrix (Fin b) (Fin b) ℂ) (F
     simp [subY, subD, dif_pos hq, Fin.castLE]
   exact AlgHom.congr_fun key F
 
+theorem jetL_monomial (c : ι → ℂ) (G : VCx ι a b → ℂ) (m : ι × Fin b × Fin a →₀ ℕ) :
+    jetL c G (monomial m 1) = jetC c G m := by
+  unfold jetL
+  have h := (basisMonomials (ι × Fin b × Fin a) ℂ).constr_basis ℂ (fun m => jetC c G m) m
+  rwa [MvPolynomial.coe_basisMonomials] at h
 
 end GlobalTheory.KJInf
 

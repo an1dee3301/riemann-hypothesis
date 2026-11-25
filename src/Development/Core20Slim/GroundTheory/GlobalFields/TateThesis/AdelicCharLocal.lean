@@ -4,6 +4,8 @@ public import Mathlib
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdelicChar
 public import GroundTheory.GlobalFields.Adele.Approximation
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

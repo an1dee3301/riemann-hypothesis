@@ -22,62 +22,6 @@ public import Formalism.LocalToGlobal.ProjectiveLattices.EquivariantFiniteGroup
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.GlobalSchurBounds.StandardLattice
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Classical
-public import Init.Core
-public import Init.Data.List.Basic
-public import Init.Data.List.Lemmas
-public import Init.Data.List.Pairwise
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Subgroup.Finite
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Matrix.Diagonal
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.LinearAlgebra.Matrix.ConjTranspose
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
-public import Mathlib.LinearAlgebra.TensorProduct.Defs
-public import Mathlib.Logic.Function.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.RingTheory.TensorProduct.Basic
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Monoid.Defs
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.ContinuousOn
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.Instances.Matrix
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -138,6 +82,33 @@ theorem archM_mem {θ : InfFam D} (hθ : IsInfFam θ) (V : HSp D) (g : GA D V) (
   subst e
   exact (GlobalTheory.Member.Arch.unit_iff _ _ _).1 (((GlobalTheory.Member.Arch.archM_spec D V θ₀ h₀).1 _).2.2.2.2 g)
 
+theorem exists_real_lift : ∀ (D : D7) (θ : InfFam D) (V : HSp D), IsInfFam θ → ∃ L : (D.what₂.Tau → Mt V.rank) → GA D V, (∀ u ∈ UG (gramAt D V), L u ∈ GinfC V ∧ ∀ τ, archM V (θ τ) (L u) = u τ) ∧ (∀ u ∈ UG (gramAt D V), ∀ u' ∈ UG (gramAt D V), L (u * u') = L u * L u') ∧ ContinuousOn L (UG (gramAt D V)) ∧ (∀ g, (fun τ => archM V (θ τ) g) ∈ UG (gramAt D V)) ∧ (∀ u ∈ GinfC V, L (fun τ => archM V (θ τ) u) = u) ∧ (∀ τ, ∀ g ∈ Formalism.QuantumDeterminants.UH (gramAt D V τ), atTau θ V τ g = L (Pi.mulSingle τ g)) ∧ (∀ g, ∃ a ∈ GfC V, ∃ u ∈ GinfC V, g = a * u) ∧ (∀ a ∈ GfC V, ∀ u ∈ GinfC V, a * u = u * a) ∧ ∀ τ, (gramAt D V τ).IsHermitian ∧ (gramAt D V τ).det ≠ 0 := by
+  intro D θ V hθ
+  obtain ⟨r1, -, r3, r4, -, r6, r7, -⟩ := (GlobalTheory.SmoothForms.RealPts.realPoints D).2 θ hθ V
+  let L : (D.what₂.Tau → Mt V.rank) → GA D V := prodAt θ V Finset.univ.toList
+  have hm : ∀ u, L u ∈ GinfC V := prodAt_mem θ V _
+  have hL : ∀ u ∈ UG (gramAt D V), ∀ τ, infMat D.sp.cm.sig V.gram (θ τ) (L u) = u τ := fun u hu τ => by
+    rw [infMat_prodAt hθ V hu τ _ (Finset.nodup_toList _), if_pos (Finset.mem_toList.2 (Finset.mem_univ _))]
+  refine ⟨L, fun u hu => ⟨hm u, hL u hu⟩, fun u hu u' hu' => ?_, continuousOn_prodAt hθ V _,
+    fun g τ => archM_mem hθ V g τ, fun u hu => ?_, fun τ g hg => ?_, r7, fun a ha u hu => (r6 u hu a ha).symm,
+    fun τ => ⟨(r1 τ).1, (r1 τ).2.ne_zero⟩⟩
+  · refine r3 _ (hm _) _ (mul_mem (hm _) (hm _)) fun τ => ?_
+    rw [r4, hL u hu, hL u' hu', hL (u * u') fun ρ => mul_mem_UH (hu ρ) (hu' ρ)]
+    rfl
+  · exact r3 _ (hm _) _ hu fun τ => hL _ (fun ρ => archM_mem hθ V u ρ) τ
+  · have hs := atTau_spec hθ V τ hg
+    have hu : (Pi.mulSingle τ g : D.what₂.Tau → Mt V.rank) ∈ UG (gramAt D V) := fun ρ => by
+      by_cases c : ρ = τ
+      · subst c
+        rwa [Pi.mulSingle_eq_same]
+      · rw [Pi.mulSingle_eq_of_ne c]
+        exact one_mem_UH _
+    refine r3 _ hs.1 _ (hm _) fun ρ => ?_
+    rw [hL _ hu]
+    by_cases c : ρ = τ
+    · subst c
+      rw [Pi.mulSingle_eq_same, hs.2.1]
+    · rw [Pi.mulSingle_eq_of_ne c, hs.2.2 ρ c]
 
 end GlobalTheory.RealLift
 

@@ -2,36 +2,6 @@ module
 
 public import Mathlib
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.TwistedOperators.DescMk
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
-public import Mathlib.MeasureTheory.MeasurableSpace.Defs
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Bases
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.Defs.Induced
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.Order
-public import Mathlib.Topology.Separation.Hausdorff
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 

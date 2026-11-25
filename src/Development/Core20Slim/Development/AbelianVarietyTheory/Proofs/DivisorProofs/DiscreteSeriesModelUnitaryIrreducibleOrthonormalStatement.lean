@@ -14,17 +14,6 @@ public import Formalism.LocalToGlobal.IndefiniteReal.ExistsChosenExtremalVector
 public import Formalism.LocalToGlobal.IndefiniteReal.ScalarOnPartsFull
 public import Formalism.SharpRestriction.CuspSpanNormBounds.RelevantZeroGramTerms
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Matrix.Basis
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.UniformSpace.Cauchy
 
 @[expose] public section
 

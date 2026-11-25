@@ -1,47 +1,6 @@
 module
 
 public import Mathlib
-public import Init.Core
-public import Init.Data.Nat.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.Algebra.NonUnitalHom
-public import Mathlib.Algebra.BigOperators.Finsupp.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.Group.Finsupp
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Nat.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Nat
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.MonoidAlgebra.Basic
-public import Mathlib.Algebra.MonoidAlgebra.Defs
-public import Mathlib.Algebra.MonoidAlgebra.Module
-public import Mathlib.Algebra.MvPolynomial.Basic
-public import Mathlib.Algebra.MvPolynomial.Degrees
-public import Mathlib.Algebra.MvPolynomial.Eval
-public import Mathlib.Algebra.Order.BigOperators.Group.Finset
-public import Mathlib.Algebra.Order.Group.Nat
-public import Mathlib.Algebra.Order.Monoid.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Finset.Lattice.Fold
-public import Mathlib.Data.Finsupp.Defs
-public import Mathlib.Data.Nat.Basic
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.Order.Basic
-public import Mathlib.Order.Defs.Lattice
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Lattice.Nat
-public import Mathlib.Order.Nat
 
 @[expose] public section
 

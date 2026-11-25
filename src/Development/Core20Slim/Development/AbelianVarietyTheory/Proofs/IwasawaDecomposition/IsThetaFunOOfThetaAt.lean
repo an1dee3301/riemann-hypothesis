@@ -18,53 +18,6 @@ public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedWeil
 public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Data.Int.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.AddChar
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Subsemigroup.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Basic
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.LinearAlgebra.Dual.Defs
-public import Mathlib.LinearAlgebra.Dual.Lemmas
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.TensorProduct.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.RingTheory.TensorProduct.Basic
 
 @[expose] public section
 
@@ -122,7 +75,16 @@ variable {sS : D.what₂.Tau → Matrix (Fin S.rank) (Fin S.rank) ℂ} {sT : D.w
   {βS : GL (Fin S.rank) (EAf D)} {βT : GL (Fin T.rank) (EAf D)}
   {ξ : ∀ PP : Formalism.L2.DIV.Pl D.host.E, (Formalism.L2.DIV.kP PP)ˣ →* ℂˣ} {f₀ f : WO S T → ℂ}
 
+theorem isThetaFunO_stepVec {LS : Formalism.L2.DIV.LevDat D.host.E ℂ S.rank}
+    {χj : ∀ PP : Formalism.L2.DIV.Pl D.host.E, (Formalism.L2.DIV.kP PP)ˣ →* ℂˣ} {Q : Finset (Formalism.L2.DIV.Pl D.host.E)}
+    (h : IsStepVecOf ψ θ S T sS sT ΛS ΛT βS βT LS χj Q ξ f₀ f) : IsThetaFunO ψ S T f := by
+  obtain ⟨⟨hψ, h0⟩, e, -, h⟩ := h
+  exact isThetaFunO_of_thetaAt hψ h0.inf h h0.theta
 
+theorem isThetaFunO_thPVec {Pg Q : Finset (Formalism.L2.DIV.Pl D.host.E)}
+    (h : IsThPVecOf ψ θ S T sS sT ΛS ΛT βS βT Pg Q ξ f₀ f) : IsThetaFunO ψ S T f := by
+  obtain ⟨⟨hψ, h0⟩, e, -, h⟩ := h
+  exact isThetaFunO_of_thetaAt hψ h0.inf h h0.theta
 
 end GlobalTheory.VecTheta
 

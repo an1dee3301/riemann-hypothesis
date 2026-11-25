@@ -72,6 +72,8 @@ public import Mathlib.Topology.Homeomorph.Defs
 public import Mathlib.Topology.MetricSpace.Pseudo.Defs
 public import Mathlib.Topology.UniformSpace.Defs
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global
@@ -206,8 +208,39 @@ theorem adelicFourier_mem_schwartzBruhat {F : 𝔸[K] → ℂ} (hF : F ∈ schwa
     rw [adelicFourier_smul]
     exact Submodule.smul_mem _ c ih
 
+theorem mixedFourier_neg (f : mixedSpace K → ℂ) (m : mixedSpace K) :
+    mixedFourier K f (-m) = mixedFourierInv K f m := by
+  rw [mixedFourier_apply, mixedFourierInv_apply]
+  refine integral_congr_ae (Eventually.of_forall fun x ↦ ?_)
+  simp only [map_neg, neg_neg, mixedTraceForm_comm K x m]
 
+theorem mixedFourier_mixedFourier (φ : 𝓢(mixedSpace K, ℂ)) (m : mixedSpace K) :
+    mixedFourier K (mixedFourier K φ) m = φ (-m) := by
+  rw [← neg_neg m, mixedFourier_neg, mixedFourierInv_mixedFourier, neg_neg]
 
+theorem adelicFourier_adelicFourier {F : 𝔸[K] → ℂ} (hF : F ∈ schwartzBruhat K) :
+    adelicFourier K (adelicFourier K F) = fun x ↦ F (-x) := by
+  induction hF using Submodule.span_induction with
+  | mem G hG =>
+    obtain ⟨φ, g, hg, rfl⟩ := hG
+    rw [adelicFourier_schwartzBruhatTensor, adelicFourier_schwartzBruhatTensor,
+      finiteFourier_finiteFourier hg]
+    funext x
+    simp only [schwartzBruhatTensor, mixedFourierSchwartz_apply]
+    rw [mixedFourier_mixedFourier]
+    congr 2
+    show -homeomorphMixedSpace K x.1 = homeomorphMixedSpace K (-x.1)
+    rw [homeomorphMixedSpace_apply, homeomorphMixedSpace_apply, map_neg]
+  | zero => funext x; simp [adelicFourier_zero]
+  | add G H hG hH ihG ihH =>
+    rw [adelicFourier_add (integrable_of_mem_schwartzBruhat hG)
+        (integrable_of_mem_schwartzBruhat hH),
+      adelicFourier_add (integrable_of_mem_schwartzBruhat (adelicFourier_mem_schwartzBruhat hG))
+        (integrable_of_mem_schwartzBruhat (adelicFourier_mem_schwartzBruhat hH)), ihG, ihH]
+    rfl
+  | smul c G _ ih =>
+    rw [adelicFourier_smul, adelicFourier_smul, ih]
+    rfl
 
 
 end

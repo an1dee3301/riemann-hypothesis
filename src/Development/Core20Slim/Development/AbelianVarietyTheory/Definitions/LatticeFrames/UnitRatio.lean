@@ -23,6 +23,8 @@ namespace GlobalTheory.Fam
 
 variable {D : D7}
 
+def UnitRatio (S : ℕ → Prop) (x y : ℂ) : Prop :=
+  y ≠ 0 ∧ ∃ n : ℕ, 0 < n ∧ ∃ r : ℚ, r ≠ 0 ∧ (x / y) ^ n = (r : ℂ) ∧ ∀ p : ℕ, p.Prime → padicValRat p r ≠ 0 → S p
 
 structure Base (c : Comm D) where
   Λ : ∀ j, GlobalTheory.FinPl.Lat (c.V j)

@@ -12,6 +12,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.Adele.Discrete
 public import Development.Core20Slim.GroundTheory.GlobalFields.Adele.IntegersLattice
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdelicChar
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

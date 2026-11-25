@@ -9,6 +9,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdeleM
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdelicChar
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdelicCharLocal
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

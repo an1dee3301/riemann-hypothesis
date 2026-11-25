@@ -1,6 +1,10 @@
 module
 
 public import Mathlib
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Jets.SideFam
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Definitions.Jets.SumIoPr
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.JetHarmonics.ExistsDerivedActionFiniteDimUnitaryRepStatement
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.JetHarmonics.WeightCompactDominanceOfMemHighestWeightSpanStatement
 public import Formalism.RealPlaceAnalysis.RealPlaceTaylor.IsCompactInvariantCompactSpan
 public import Formalism.RealPlaceAnalysis.RealPlaceTaylor.CompactExponentialSurjective
 public import Formalism.PeriodIntegrals.UpqRep
@@ -9,139 +13,6 @@ public import Formalism.RealPlaceAnalysis.RealPlaceTaylor.MemUnitaryGroupIffMulC
 public import Formalism.RealPlaceAnalysis.SmoothOnGVIff
 public import Formalism.RealPlaceAnalysis.StatementA
 public import Formalism.RealPlaceAnalysis.StatementKT
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Rat
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
-public import Mathlib.Algebra.BigOperators.Ring.Finset
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Commute.Defs
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.IsApply
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Module.BigOperators
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Equiv.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.LinearMap.End
-public import Mathlib.Algebra.Module.Submodule.Basic
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.LinearMap
-public import Mathlib.Algebra.Module.Torsion.Free
-public import Mathlib.Algebra.NoZeroSMulDivisors.Basic
-public import Mathlib.Algebra.NoZeroSMulDivisors.Defs
-public import Mathlib.Algebra.Notation.Defs
-public import Mathlib.Algebra.Notation.Pi.Basic
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Ring.Pi
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Calculus.Deriv.Add
-public import Mathlib.Analysis.Calculus.Deriv.Basic
-public import Mathlib.Analysis.Calculus.Deriv.Comp
-public import Mathlib.Analysis.Calculus.Deriv.Linear
-public import Mathlib.Analysis.Calculus.Deriv.Mul
-public import Mathlib.Analysis.Calculus.Deriv.Pow
-public import Mathlib.Analysis.Calculus.Deriv.Shift
-public import Mathlib.Analysis.Calculus.FDeriv.Linear
-public import Mathlib.Analysis.Calculus.MeanValue
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Exponential
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.InnerProductSpace.Projection.Basic
-public import Mathlib.Analysis.LocallyConvex.AbsConvexOpen
-public import Mathlib.Analysis.LocallyConvex.WithSeminorms
-public import Mathlib.Analysis.Normed.Algebra.Exponential
-public import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.Lemmas
-public import Mathlib.Analysis.Normed.Group.Basic
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Group.Uniform
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.Operator.Basic
-public import Mathlib.Analysis.Normed.Operator.NNNorm
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.Normed.Ring.Lemmas
-public import Mathlib.Analysis.ODE.ExistUnique
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Analysis.RCLike.Lemmas
-public import Mathlib.Analysis.SpecialFunctions.ExpDeriv
-public import Mathlib.Analysis.SpecialFunctions.Exponential
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.Complex.BigOperators
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.IsEmpty.Defs
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Fintype.EquivFin
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Matrix.Basic
-public import Mathlib.Data.Matrix.Diagonal
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.GroupTheory.GroupAction.Ring
-public import Mathlib.LinearAlgebra.Complex.Module
-public import Mathlib.LinearAlgebra.DFinsupp
-public import Mathlib.LinearAlgebra.FiniteDimensional.Defs
-public import Mathlib.LinearAlgebra.Matrix.ConjTranspose
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.UnitaryGroup
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.Flat.TorsionFree
-public import Mathlib.RingTheory.SimpleRing.Basic
-public import Mathlib.RingTheory.SimpleRing.Principal
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
-public import Mathlib.Topology.Algebra.Field
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.RestrictScalars
-public import Mathlib.Topology.Algebra.Module.FiniteDimension
-public import Mathlib.Topology.Algebra.MulAction
-public import Mathlib.Topology.Algebra.Ring.Basic
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.EMetricSpace.Lipschitz
-public import Mathlib.Topology.Instances.Matrix
-public import Mathlib.Topology.MetricSpace.Algebra
-public import Mathlib.Topology.MetricSpace.Basic
-public import Mathlib.Topology.MetricSpace.ProperSpace
-public import Mathlib.Topology.MetricSpace.Pseudo.Constructions
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.Metrizable.Basic
-public import Mathlib.Topology.Metrizable.Uniformity
-public import Mathlib.Topology.UniformSpace.Defs
 
 @[expose] public section
 
@@ -357,5 +228,26 @@ theorem stable_of_derived [FiniteDimensional ℂ W] (hπ : IsURepOn (UJset (allP
       exact S.sum_mem fun a _ => S.sum_mem fun b _ => S.smul_mem _ (hS a b rfl w hw)) v hv 1
   simpa [hg'] using h
 
+theorem exists_isHCTypeU : ∀ (k : ℕ) (W : Type) [NormedAddCommGroup W] [InnerProductSpace ℂ W] [FiniteDimensional ℂ W] [Nontrivial W] (π : Matrix (Fin k) (Fin k) ℂ → (W →L[ℂ] W)), PI.UpqRep.IsURepOn (PI.UpqRep.UJset (PI.UpqRep.allPos k)) π → (∀ S : Submodule ℂ W, (∀ g ∈ PI.UpqRep.UJset (PI.UpqRep.allPos k), ∀ v ∈ S, π g v ∈ S) → S = ⊥ ∨ S = ⊤) → ∃ u, PI.UpqRep.IsHCTypeU k u π := by
+  intro k W _ _ _ _ π hπ hirr
+  obtain ⟨E, hgl, hun, hE⟩ := GlobalTheory.T.exists_derivedAction_finiteDimUnitaryRep k W π hπ
+  obtain ⟨x, -, hx, Λ, hΛ⟩ := Formalism.REAL.highestWeightExists_holds W k (allPos k) E ⊤ inferInstance
+    (Formalism.REAL.glRel_kRel _ E hgl) (Formalism.REAL.isUnitary_kUnit _ E hun) (fun _ _ _ _ _ => trivial) top_ne_bot
+  have hxm : x ∈ Formalism.REAL.kSpan (allPos k) E x := Submodule.mem_sInf.2 fun S hS => hS.1
+  have hst : Formalism.REAL.KStable (allPos k) E (Formalism.REAL.kSpan (allPos k) E x) := fun a b hab y hy =>
+    Submodule.mem_sInf.2 fun S hS => hS.2 a b hab y (Submodule.mem_sInf.1 hy S hS)
+  have htop : Formalism.REAL.kSpan (allPos k) E x = ⊤ := by
+    rcases hirr _ (stable_of_derived hπ E hE _ hst) with h | h
+    · rw [h] at hxm
+      exact absurd hxm hx
+    · exact h
+  refine ⟨Λ - rhoN (allPos k) + rhoC (allPos k), inferInstance, inferInstance, hπ, ?_⟩
+  have hl : lowK (allPos k) (Λ - rhoN (allPos k) + rhoC (allPos k)) = Λ := by
+    unfold lowK
+    abel
+  rw [hl]
+  refine ⟨inferInstance, fun _ _ _ _ => trivial, fun S _ hS => hirr S fun g hg => hS g ((mem_K_iff g).2 hg),
+    ⟨x, trivial, hx, isWtOn_of_isWeight hπ E hE Λ x hΛ.1⟩, fun μ v _ hv hw => ?_⟩
+  exact GlobalTheory.T.weight_compactDominance_of_mem_highestWeightSpan k W E Λ μ x v hgl hun hΛ (htop ▸ trivial) hv (isWeight_of_isWtOn E hE μ v hw)
 
 end GlobalTheory.UnitaryHighestWeight

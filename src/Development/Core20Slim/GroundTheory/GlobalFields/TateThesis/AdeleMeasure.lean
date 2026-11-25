@@ -9,6 +9,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdeleM
 public import GroundTheory.GlobalFields.Adele.Approximation
 public import Development.Core20Slim.GroundTheory.GlobalFields.Adele.IntegersLattice
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

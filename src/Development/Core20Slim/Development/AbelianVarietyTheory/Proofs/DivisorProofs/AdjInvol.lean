@@ -6,194 +6,6 @@ public import Development.AbelianVarietyTheory.Proofs.HeightProofs.SmoothInExpon
 public import Development.AbelianVarietyTheory.Proofs.HeightProofs.HasSmoothLogNearOneOfIsUnitaryLieExpData
 public import Development.AbelianVarietyTheory.Proofs.HeightProofs.IsLieDataCircle
 public import Formalism.FormalDegreeBessel.StatementG
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Cast
-public import Init.Data.Int.Basic
-public import Init.Data.List.Basic
-public import Init.Data.List.OfFn
-public import Init.Data.Prod
-public import Init.Data.Rat.Basic
-public import Init.Data.Zero
-public import Init.Ext
-public import Init.Prelude
-public import Init.PropLemmas
-public import Init.SimpLemmas
-public import Init.Tactics
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Pi
-public import Mathlib.Algebra.BigOperators.Group.List.Basic
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Action.Opposite
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.IsApply
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Opposite
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Subsemigroup.Defs
-public import Mathlib.Algebra.Group.Units.Basic
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.Group.Units.Hom
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Units.Basic
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Equiv.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Opposite
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Ker
-public import Mathlib.Algebra.Module.Submodule.Lattice
-public import Mathlib.Algebra.Module.Submodule.LinearMap
-public import Mathlib.Algebra.Notation.Defs
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Opposites
-public import Mathlib.Algebra.Order.Archimedean.Real.Basic
-public import Mathlib.Algebra.Order.Floor.Defs
-public import Mathlib.Algebra.Order.Monoid.Unbundled.WithTop
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Opposite
-public import Mathlib.Algebra.Ring.Pi
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.CStarAlgebra.Classes
-public import Mathlib.Analysis.Calculus.ContDiff.Basic
-public import Mathlib.Analysis.Calculus.ContDiff.Comp
-public import Mathlib.Analysis.Calculus.ContDiff.Defs
-public import Mathlib.Analysis.Calculus.ContDiff.Operations
-public import Mathlib.Analysis.Calculus.Deriv.Basic
-public import Mathlib.Analysis.Calculus.Deriv.Comp
-public import Mathlib.Analysis.Calculus.Deriv.Mul
-public import Mathlib.Analysis.Calculus.Deriv.Pow
-public import Mathlib.Analysis.Calculus.FDeriv.Basic
-public import Mathlib.Analysis.Calculus.FDeriv.Comp
-public import Mathlib.Analysis.Calculus.FDeriv.Congr
-public import Mathlib.Analysis.Calculus.FDeriv.Const
-public import Mathlib.Analysis.Calculus.FDeriv.Defs
-public import Mathlib.Analysis.Calculus.FDeriv.Linear
-public import Mathlib.Analysis.Calculus.FDeriv.Mul
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.LocallyConvex.AbsConvexOpen
-public import Mathlib.Analysis.LocallyConvex.WithSeminorms
-public import Mathlib.Analysis.Matrix.Normed
-public import Mathlib.Analysis.Normed.Algebra.Exponential
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.Lemmas
-public import Mathlib.Analysis.Normed.Group.Basic
-public import Mathlib.Analysis.Normed.Group.Constructions
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Group.Real
-public import Mathlib.Analysis.Normed.Group.Submodule
-public import Mathlib.Analysis.Normed.Group.Uniform
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.Operator.Mul
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.Normed.Ring.Lemmas
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Analysis.RCLike.Lemmas
-public import Mathlib.Analysis.SpecialFunctions.Exponential
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.ENNReal.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.NNReal.Defs
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.Real.Star
-public import Mathlib.Basic.Rel
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.ENat.Basic
-public import Mathlib.Data.ENat.Defs
-public import Mathlib.Data.Finset.Lattice.Fold
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Fintype.EquivFin
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Matrix.Basic
-public import Mathlib.Data.Matrix.Diagonal
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Operations
-public import Mathlib.Data.Subtype
-public import Mathlib.FieldTheory.Perfect
-public import Mathlib.FieldTheory.Separable
-public import Mathlib.GroupTheory.GroupAction.Ring
-public import Mathlib.LinearAlgebra.Basis.VectorSpace
-public import Mathlib.LinearAlgebra.Complex.FiniteDimensional
-public import Mathlib.LinearAlgebra.Complex.Module
-public import Mathlib.LinearAlgebra.DFinsupp
-public import Mathlib.LinearAlgebra.FiniteDimensional.Defs
-public import Mathlib.LinearAlgebra.FreeModule.Finite.Basic
-public import Mathlib.LinearAlgebra.FreeModule.PID
-public import Mathlib.LinearAlgebra.Matrix.ConjTranspose
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
-public import Mathlib.LinearAlgebra.Matrix.Hermitian
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-public import Mathlib.LinearAlgebra.Span.Defs
-public import Mathlib.Logic.Function.Basic
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Filter.Cofinite
-public import Mathlib.Order.Filter.Defs
-public import Mathlib.Order.Filter.Pi
-public import Mathlib.Order.Filter.Tendsto
-public import Mathlib.Order.Notation
-public import Mathlib.Order.SetNotation
-public import Mathlib.Order.TypeTags
-public import Mathlib.RingTheory.Algebraic.Integral
-public import Mathlib.RingTheory.Artinian.Module
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.FiniteLength
-public import Mathlib.RingTheory.Flat.FaithfullyFlat.Algebra
-public import Mathlib.RingTheory.Flat.FaithfullyFlat.Basic
-public import Mathlib.RingTheory.Flat.TorsionFree
-public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-public import Mathlib.RingTheory.SimpleModule.Basic
-public import Mathlib.RingTheory.SimpleRing.Basic
-public import Mathlib.RingTheory.SimpleRing.Principal
-public import Mathlib.Topology.Algebra.Field
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
-public import Mathlib.Topology.Algebra.Module.FiniteDimension
-public import Mathlib.Topology.Algebra.Module.Spaces.ContinuousLinearMap
-public import Mathlib.Topology.Algebra.Monoid
-public import Mathlib.Topology.Algebra.MulAction
-public import Mathlib.Topology.Algebra.Ring.Basic
-public import Mathlib.Topology.Algebra.UniformMulAction
-public import Mathlib.Topology.Bornology.Basic
-public import Mathlib.Topology.Bornology.Constructions
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.Continuous
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.EMetricSpace.Defs
-public import Mathlib.Topology.EMetricSpace.Pi
-public import Mathlib.Topology.Instances.Matrix
-public import Mathlib.Topology.MetricSpace.Algebra
-public import Mathlib.Topology.MetricSpace.Basic
-public import Mathlib.Topology.MetricSpace.Defs
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.MetricSpace.Pseudo.Pi
-public import Mathlib.Topology.Metrizable.Basic
-public import Mathlib.Topology.Metrizable.Uniformity
-public import Mathlib.Topology.Neighborhoods
-public import Mathlib.Topology.UniformSpace.Basic
-public import Mathlib.Topology.UniformSpace.Cauchy
-public import Mathlib.Topology.UniformSpace.Defs
-public import Mathlib.Topology.UniformSpace.Pi
-public import Mathlib.Topology.UniformSpace.Real
 
 @[expose] public section
 
@@ -347,8 +159,18 @@ theorem exp_alg (X : Alg n ι) (τ : ι) : (exp X : Alg n ι) τ = exp (X τ : M
 
 end Inst
 
+def sgl (τ : ι) (X : Mt n) : Alg n ι := (Pi.single τ X : ι → Mt n)
 
+theorem exp_sgl (τ : ι) (X : Mt n) (t : ℝ) :
+    (exp (t • sgl τ X) : Alg n ι) = (Pi.mulSingle τ (exp (t • X)) : ι → Mt n) := by
+  funext ρ
+  rw [exp_alg]
+  change exp (t • (Pi.single τ X : ι → Mt n) ρ) = _
+  by_cases h : ρ = τ
+  · subst h; simp
+  · simp [h]
 
+theorem sum_sgl (X : Alg n ι) : ∑ τ, sgl τ (X τ) = X := Finset.univ_sum_single (X : ι → Mt n)
 
 def adj (Hm : ι → Mt n) : Alg n ι →ₗ[ℝ] Alg n ι where
   toFun X := fun τ => (Hm τ)⁻¹ * (X τ)ᴴ * Hm τ
@@ -359,6 +181,9 @@ def adj (Hm : ι → Mt n) : Alg n ι →ₗ[ℝ] Alg n ι where
     change _ * (c • X τ)ᴴ * _ = c • (_ * (X τ)ᴴ * _)
     rw [conjTranspose_smul, star_trivial, mul_smul_comm, smul_mul_assoc]
 
+def coord (n : ℕ) (ι : Type) [Fintype ι] : (ι → Fin n → Fin n → ℂ) →L[ℝ] Alg n ι :=
+  LinearMap.toContinuousLinearMap
+    { toFun := fun x τ => Matrix.of (x τ), map_add' := fun _ _ => rfl, map_smul' := fun _ _ => rfl }
 
 variable {Hm : ι → Mt n} (hH : ∀ τ, (Hm τ).IsHermitian ∧ (Hm τ).det ≠ 0)
 include hH
@@ -386,6 +211,11 @@ theorem skew_iff (X : Alg n ι) : adj Hm X = -X ↔ ∀ τ, X τ ∈ lieH (Hm τ
   · intro h1
     rw [mul_assoc, eq_neg_of_add_eq_zero_left h1, mul_neg, nonsing_inv_mul_cancel_left _ _ h]
 
+theorem sgl_skew {τ : ι} {X : Mt n} (hX : X ∈ lieH (Hm τ)) : adj Hm (sgl τ X) = -sgl τ X := by
+  refine (skew_iff hH _).2 fun ρ => ?_
+  by_cases h : ρ = τ
+  · subst h; simpa [sgl] using hX
+  · simp [sgl, h, lieH]
 
 omit [DecidableEq ι] in
 theorem adj_anti (a b : Alg n ι) : adj Hm (a * b) = adj Hm b * adj Hm a := funext fun τ => by
@@ -406,9 +236,61 @@ theorem adj_invol (a : Alg n ι) : adj Hm (adj Hm a) = a := funext fun τ => by
   simp only [mul_assoc]
   rw [nonsing_inv_mul_cancel_left _ _ (hH τ).2.isUnit, nonsing_inv_mul _ (hH τ).2.isUnit, mul_one]
 
+theorem span_sgl : Submodule.span ℝ {Y : skew (adj Hm) | ∃ τ, ∃ X ∈ lieH (Hm τ), (Y : Alg n ι) = sgl τ X} = ⊤ := by
+  rw [eq_top_iff]
+  intro Y _
+  have hY := (skew_iff hH _).1 ((mem_skew _).1 Y.2)
+  have : Y = ∑ τ, (⟨sgl τ (Y.1 τ), (mem_skew _).2 (sgl_skew hH (hY τ))⟩ : skew (adj Hm)) := by
+    refine Subtype.ext ?_
+    rw [Submodule.coe_sum]
+    exact (sum_sgl _).symm
+  rw [this]
+  exact Submodule.sum_mem _ fun τ _ => Submodule.subset_span ⟨τ, _, hY τ, rfl⟩
 
+theorem chain_at {f : (ι → Mt n) → ℂ} (hf : SmFn Hm f) {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {γ : E → ι → Fin n → Fin n → ℂ} {x : E} (hγ : ContDiffAt ℝ ∞ γ x)
+    (hu : ∀ᶠ y in 𝓝 x, (fun τ => Matrix.of (γ y τ)) ∈ UG Hm) :
+    ContDiffAt ℝ ∞ (fun y => f fun τ => Matrix.of (γ y τ)) x ∧ ∀ v : E,
+      fderiv ℝ (fun y => f fun τ => Matrix.of (γ y τ)) x v =
+        ∑ τ, der τ ((Matrix.of (γ x τ))⁻¹ * Matrix.of (fderiv ℝ γ x v τ)) f (fun τ => Matrix.of (γ x τ)) := by
+  have hu' : ∀ᶠ y in 𝓝 x, adj Hm (coord n ι (γ y)) * coord n ι (γ y) = 1 := hu.mono fun y h => (unit_iff hH _).2 h
+  obtain ⟨c1, D, c2, c3⟩ := chain (adj_anti hH) (adj_one hH) (adj_invol hH) _ (span_sgl hH) (f : Alg n ι → ℂ)
+    (fun k Y hY u hu => by
+      choose τs Xs h1 h2 using hY
+      simp only [h2, exp_sgl]
+      exact hf k τs Xs h1 u ((unit_iff hH _).1 hu))
+    (γ := fun y => coord n ι (γ y)) ((coord n ι).contDiff.contDiffAt.comp x hγ) hu'
+  refine ⟨c1, fun v => ?_⟩
+  obtain ⟨c4, c5⟩ := c3 v
+  have e : fderiv ℝ (fun y => coord n ι (γ y)) x v = coord n ι (fderiv ℝ γ x v) := by
+    have := ((coord n ι).hasFDerivAt.comp x (hγ.differentiableAt (by simp)).hasFDerivAt).fderiv
+    rw [Function.comp_def] at this
+    rw [this]; rfl
+  rw [e] at c4 c5
+  refine c5.trans ?_
+  set_option synthInstance.maxHeartbeats 100000 in
+    rw [← sum_sgl (adj Hm _ * _), map_sum]
+  refine Finset.sum_congr rfl fun τ _ => ?_
+  rw [← c2 _ (sgl_skew hH ((skew_iff hH _).1 c4 τ))]
+  simp only [exp_sgl]
+  have hi : (Matrix.of (γ x τ))⁻¹ = adj Hm (coord n ι (γ x)) τ :=
+    Matrix.inv_eq_left_inv (congrFun hu'.self_of_nhds τ)
+  rw [hi]
+  rfl
 
 end Concrete
 
+theorem main : ∀ (n : ℕ) (ι : Type) [Fintype ι] [DecidableEq ι] (Hm : ι → Mt n),
+    (∀ τ, (Hm τ).IsHermitian ∧ (Hm τ).det ≠ 0) → ∀ f, SmFn Hm f →
+    ∀ (E : Type) [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E] (U : Set E)
+      (γ : E → ι → Fin n → Fin n → ℂ), IsOpen U → ContDiffOn ℝ ∞ γ U →
+      (∀ x ∈ U, (fun τ => Matrix.of (γ x τ)) ∈ UG Hm) →
+      ContDiffOn ℝ ∞ (fun x => f fun τ => Matrix.of (γ x τ)) U ∧ ∀ x ∈ U, ∀ v : E,
+        fderiv ℝ (fun y => f fun τ => Matrix.of (γ y τ)) x v =
+          ∑ τ, der τ ((Matrix.of (γ x τ))⁻¹ * Matrix.of (fderiv ℝ γ x v τ)) f (fun τ => Matrix.of (γ x τ)) := by
+  intro n ι _ _ Hm hH f hf E _ _ _ U γ hU hγ hu
+  have key := fun x (hx : x ∈ U) => chain_at hH hf (hγ.contDiffAt (hU.mem_nhds hx))
+    (Filter.eventually_of_mem (hU.mem_nhds hx) hu)
+  exact ⟨fun x hx => (key x hx).1.contDiffWithinAt, fun x hx => (key x hx).2⟩
 
 end GlobalTheory.HolDict.Chart

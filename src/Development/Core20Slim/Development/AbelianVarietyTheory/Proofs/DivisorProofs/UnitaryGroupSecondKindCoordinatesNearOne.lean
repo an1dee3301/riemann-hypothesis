@@ -1,141 +1,6 @@
 module
 
 public import Mathlib
-public import Init.Core
-public import Init.Data.Fin.Basic
-public import Init.Data.Function
-public import Init.Data.Int.Basic
-public import Init.Data.List.Basic
-public import Init.Data.List.Lemmas
-public import Init.Data.List.OfFn
-public import Init.Data.Nat.Basic
-public import Init.Data.NeZero
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.BigOperators.Fin
-public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.BigOperators.Pi
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Action.Opposite
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.IsApply
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Opposite
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Basic
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Equiv.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Opposite
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Ker
-public import Mathlib.Algebra.Module.Submodule.Lattice
-public import Mathlib.Algebra.Module.Torsion.Free
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Opposites
-public import Mathlib.Algebra.Order.Archimedean.Real.Basic
-public import Mathlib.Algebra.Order.Floor.Defs
-public import Mathlib.Algebra.Order.GroupWithZero.Basic
-public import Mathlib.Algebra.Order.GroupWithZero.Defs
-public import Mathlib.Algebra.Order.Monoid.Defs
-public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
-public import Mathlib.Algebra.Order.Ring.Defs
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Int.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Ring.Opposite
-public import Mathlib.Analysis.Calculus.FDeriv.Congr
-public import Mathlib.Analysis.Calculus.FDeriv.Const
-public import Mathlib.Analysis.Calculus.FDeriv.Defs
-public import Mathlib.Analysis.Calculus.FDeriv.Mul
-public import Mathlib.Analysis.InnerProductSpace.Basic
-public import Mathlib.Analysis.InnerProductSpace.Defs
-public import Mathlib.Analysis.LocallyConvex.AbsConvexOpen
-public import Mathlib.Analysis.LocallyConvex.WithSeminorms
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Group.Basic
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Group.Real
-public import Mathlib.Analysis.Normed.Group.Uniform
-public import Mathlib.Analysis.Normed.Module.Basic
-public import Mathlib.Analysis.Normed.MulAction
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Analysis.Normed.Ring.Lemmas
-public import Mathlib.Analysis.RCLike.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.IsEmpty.Defs
-public import Mathlib.Basic.Real.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.BooleanAlgebra
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Finset.Empty
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Nat.Init
-public import Mathlib.Data.Set.Operations
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.GroupTheory.GroupAction.Ring
-public import Mathlib.LinearAlgebra.Basis.VectorSpace
-public import Mathlib.LinearAlgebra.DFinsupp
-public import Mathlib.LinearAlgebra.FiniteDimensional.Defs
-public import Mathlib.LinearAlgebra.Finsupp.LinearCombination
-public import Mathlib.LinearAlgebra.LinearIndependent.Defs
-public import Mathlib.LinearAlgebra.Span.Defs
-public import Mathlib.Order.Basic
-public import Mathlib.Order.Defs.Lattice
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Lattice
-public import Mathlib.Order.Notation
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.Flat.Basic
-public import Mathlib.RingTheory.Flat.TorsionFree
-public import Mathlib.RingTheory.SimpleRing.Basic
-public import Mathlib.RingTheory.SimpleRing.Principal
-public import Mathlib.Tactic.Abel
-public import Mathlib.Tactic.CancelDenoms.Core
-public import Mathlib.Tactic.Linarith.Lemmas
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Eq
-public import Mathlib.Tactic.NormNum.Ineq
-public import Mathlib.Tactic.NormNum.Inv
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Positivity.Core
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
-public import Mathlib.Topology.Algebra.Group.Basic
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic
-public import Mathlib.Topology.Algebra.Module.FiniteDimension
-public import Mathlib.Topology.Algebra.Monoid
-public import Mathlib.Topology.Algebra.MulAction
-public import Mathlib.Topology.Algebra.Ring.Basic
-public import Mathlib.Topology.Algebra.Ring.Real
-public import Mathlib.Topology.Constructions
-public import Mathlib.Topology.MetricSpace.Algebra
-public import Mathlib.Topology.MetricSpace.Basic
-public import Mathlib.Topology.MetricSpace.Pseudo.Defs
-public import Mathlib.Topology.Metrizable.Basic
-public import Mathlib.Topology.Metrizable.Uniformity
-public import Mathlib.Topology.UniformSpace.Defs
-public import Mathlib.Topology.UniformSpace.Real
 
 @[expose] public section
 
@@ -248,5 +113,97 @@ theorem exists_skew_coord {E : Type} [NormedRing E] [NormedAlgebra ℝ E] [Finit
     · rw [map_sub] at h4
       exact sub_eq_sub_iff_sub_eq_sub.mp (sub_eq_zero.mp h4)
 
+theorem second_kind_chart : ∀ (E : Type) [NormedRing E] [NormedAlgebra ℝ E] [FiniteDimensional ℝ E] (σ : E →ₗ[ℝ] E) (N : ℕ) (e : Fin N → E) (c : Fin N → ℝ → E), (∀ a, σ (σ a) = a) → (∀ a b, σ (a * b) = σ b * σ a) → σ 1 = 1 → LinearIndependent ℝ e → (∀ i, σ (e i) = -e i) → (∀ X, σ X = -X → X ∈ Submodule.span ℝ (Set.range e)) → (∀ i, c i 0 = 1 ∧ HasStrictDerivAt (c i) (e i) 0 ∧ ∀ t, σ (c i t) * c i t = 1 ∧ c i t * σ (c i t) = 1) → ∃ (s S K : ℝ) (W : Set E), 0 < s ∧ 0 ≤ K ∧ W ∈ nhds (1 : E) ∧ ∀ x ∈ W, σ x * x = 1 → x * σ x = 1 → ∃ f : (Fin N → ℝ) → (Fin N → ℝ), (∀ t ∈ Set.pi Set.univ (fun _ : Fin N => Set.Icc (0 : ℝ) s), ‖f t‖ ≤ S ∧ (List.ofFn fun i => c i (f t i)).prod * x = (List.ofFn fun i => c i (t i)).prod) ∧ ∀ t ∈ Set.pi Set.univ (fun _ : Fin N => Set.Icc (0 : ℝ) s), ∀ t' ∈ Set.pi Set.univ (fun _ : Fin N => Set.Icc (0 : ℝ) s), ‖t - t'‖ ≤ K * ‖f t - f t'‖ := by
+  intro E _ _ _ σ N e c hσ hm h1 hli he hsp hc
+  set Θ : (Fin N → ℝ) → E := fun t => (List.ofFn fun i => c i (t i)).prod with hΘ
+  have hU : ∀ t, σ (Θ t) * Θ t = 1 ∧ Θ t * σ (Θ t) = 1 := fun t =>
+    unitary_list_prod σ hm h1 _ (fun u hu => by
+      obtain ⟨i, rfl⟩ := List.mem_ofFn.mp hu
+      exact (hc i).2.2 _)
+  let T : (Fin N → ℝ) →L[ℝ] E :=
+    ∑ i, (ContinuousLinearMap.toSpanSingleton ℝ (e i)).comp (ContinuousLinearMap.proj i)
+  have hT : ∀ t, T t = ∑ i, t i • e i := fun t => by simp [T]
+  obtain ⟨h0, hD⟩ : Θ 0 = 1 ∧ HasStrictFDerivAt Θ T 0 :=
+    hasStrictFDerivAt_ofFn_prod N (fun i (t : Fin N → ℝ) => c i (t i)) _ (fun i =>
+      ⟨(hc i).1, HasStrictFDerivAt.comp (0 : Fin N → ℝ) (g := c i)
+        (hc i).2.1.hasStrictFDerivAt
+        (ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin N => ℝ) i).hasStrictFDerivAt⟩)
+  obtain ⟨P, hP1, hP2, hP3⟩ := exists_skew_coord σ e hσ hli he hsp
+  have hΨ : HasStrictFDerivAt (fun t => P (Θ t))
+      ((ContinuousLinearEquiv.refl ℝ (Fin N → ℝ) : (Fin N → ℝ) →L[ℝ] (Fin N → ℝ))) 0 := by
+    refine (P.hasStrictFDerivAt.comp 0 hD).congr_fderiv ?_
+    ext1 t
+    simp [hT, hP1]
+  have hΨ0 : P (Θ 0) = 0 := by rw [h0]; exact hP2 _ h1
+  have hσc : Continuous σ := σ.continuous_of_finiteDimensional
+  obtain ⟨U₁, hU₁, hA⟩ := hΨ.approximates_deriv_on_nhds (c := 1 / 2) (Or.inr (by norm_num))
+  obtain ⟨L, U₂, hU₂, hL⟩ := hD.exists_lipschitzOnWith
+  have hnear : ∀ᶠ m in 𝓝 (1 : E), ‖1 - σ m‖ ≤ 1 / 2 := by
+    have : ContinuousAt (fun m => ‖1 - σ m‖) 1 := by fun_prop
+    exact this.eventually_le_const (by simp [h1])
+  have hΘt : Tendsto Θ (𝓝 0) (𝓝 1) := h0 ▸ hD.continuousAt
+  let U : Set (Fin N → ℝ) := U₁ ∩ U₂ ∩ {t | ‖1 - σ (Θ t)‖ ≤ 1 / 2} ∩ Metric.closedBall 0 1
+  have hUn : U ∈ 𝓝 0 :=
+    inter_mem (inter_mem (inter_mem hU₁ hU₂) (hΘt.eventually hnear))
+      (Metric.closedBall_mem_nhds _ one_pos)
+  have hV : (fun t => P (Θ t)) '' U ∈ 𝓝 (0 : Fin N → ℝ) := by
+    have := hΨ.map_nhds_eq_of_equiv
+    rw [hΨ0] at this
+    rw [← this]
+    exact image_mem_map hUn
+  have hM : Tendsto (fun p : (Fin N → ℝ) × E => Θ p.1 * σ p.2) (𝓝 0 ×ˢ 𝓝 1) (𝓝 1) := by
+    have a : Tendsto σ (𝓝 1) (𝓝 1) := by
+      simpa [h1] using hσc.tendsto 1
+    simpa using (hΘt.comp tendsto_fst).mul (a.comp tendsto_snd)
+  have hPM : Tendsto (fun p : (Fin N → ℝ) × E => P (Θ p.1 * σ p.2)) (𝓝 0 ×ˢ 𝓝 1) (𝓝 0) := by
+    have a : Tendsto P (𝓝 1) (𝓝 0) := by
+      simpa [hP2 _ h1] using P.continuous.tendsto 1
+    exact a.comp hM
+  obtain ⟨A, hAn, W, hWn, hAW⟩ := Filter.mem_prod_iff.mp ((hM.eventually hnear).and (hPM hV))
+  obtain ⟨s, hs, hsA⟩ := Metric.nhds_basis_closedBall.mem_iff.mp (inter_mem hAn hU₁)
+  have hcube : ∀ t ∈ Set.pi Set.univ (fun _ : Fin N => Set.Icc (0 : ℝ) s), t ∈ A ∩ U₁ := by
+    intro t ht
+    apply hsA
+    rw [mem_closedBall_zero_iff, pi_norm_le_iff_of_nonneg hs.le]
+    intro i
+    have := ht i (Set.mem_univ i)
+    rw [Real.norm_eq_abs, abs_of_nonneg this.1]
+    exact this.2
+  refine ⟨s, 1, 2 * (‖P‖ * (L * (‖(1 : E)‖ + 1))), W ∩ Metric.closedBall 1 1, hs, by positivity,
+    inter_mem hWn (Metric.closedBall_mem_nhds _ one_pos), fun x hx hx1 hx2 => ?_⟩
+  have hxn : ‖x‖ ≤ ‖(1 : E)‖ + 1 := norm_le_of_mem_closedBall hx.2
+  have key : ∀ t : Fin N → ℝ, ∃ y : Fin N → ℝ, t ∈ A → y ∈ U ∧ Θ y * x = Θ t := by
+    intro t
+    by_cases ht : t ∈ A
+    · obtain ⟨k1, y, hy, k2⟩ := hAW (Set.mk_mem_prod ht hx.1)
+      refine ⟨y, fun _ => ⟨hy, ?_⟩⟩
+      have hv : Θ t * σ x * σ (Θ t * σ x) = 1 := by
+        rw [hm, hσ]
+        calc Θ t * σ x * (x * σ (Θ t)) = Θ t * (σ x * x) * σ (Θ t) := by noncomm_ring
+          _ = 1 := by rw [hx1, mul_one, (hU t).2]
+      have := eq_of_skew_eq (hU y).1 hv (hP3 _ _ k2) hy.1.2 k1
+      rw [this, mul_assoc, hx1, mul_one]
+    · exact ⟨0, fun h => absurd h ht⟩
+  choose f hf using key
+  refine ⟨f, fun t ht => ?_, fun t ht t' ht' => ?_⟩
+  · obtain ⟨a, b⟩ := hf t (hcube t ht).1
+    exact ⟨mem_closedBall_zero_iff.mp a.2, b⟩
+  · obtain ⟨a, b⟩ := hf t (hcube t ht).1
+    obtain ⟨a', b'⟩ := hf t' (hcube t' ht').1
+    have k1 := hA t (hcube t ht).2 t' (hcube t' ht').2
+    have k2 : ‖t - t'‖ ≤ 2 * ‖P (Θ t) - P (Θ t')‖ := by
+      have k3 : ‖t - t'‖ ≤ ‖P (Θ t) - P (Θ t')‖ + ‖P (Θ t) - P (Θ t') - (t - t')‖ := by
+        have := norm_sub_le (P (Θ t) - P (Θ t')) (P (Θ t) - P (Θ t') - (t - t'))
+        simpa using this
+      have k4 : ‖P (Θ t) - P (Θ t') - (t - t')‖ ≤ 1 / 2 * ‖t - t'‖ := by simpa using k1
+      linarith
+    have k5 : ‖Θ (f t) - Θ (f t')‖ ≤ L * ‖f t - f t'‖ := by
+      simpa [dist_eq_norm] using hL.dist_le_mul _ a.1.1.2 _ a'.1.1.2
+    have k6 : ‖P (Θ t) - P (Θ t')‖ ≤ ‖P‖ * (L * ‖f t - f t'‖ * (‖(1 : E)‖ + 1)) := by
+      rw [← map_sub, ← b, ← b', ← sub_mul]
+      refine (P.le_opNorm _).trans (mul_le_mul_of_nonneg_left ?_ (norm_nonneg _))
+      exact (norm_mul_le _ _).trans (mul_le_mul k5 hxn (norm_nonneg _) (by positivity))
+    calc ‖t - t'‖ ≤ 2 * (‖P‖ * (L * ‖f t - f t'‖ * (‖(1 : E)‖ + 1))) := by linarith
+      _ = _ := by ring
 
 end GlobalTheory.UnitaryChart

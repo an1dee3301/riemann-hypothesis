@@ -14,60 +14,6 @@ public import Formalism.LocalToGlobal.BesselHermitianTheta.DefsReal
 public import Formalism.LocalToGlobal.BesselHermitianTheta.IsAutFunDef
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Core
-public import Init.Data.Int.Basic
-public import Init.Data.Rat.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Rat
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Basic
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Int.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.GroupWithZero.Basic
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Units.Basic
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Ring.Rat
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.Complex.Circle
-public import Mathlib.Analysis.Complex.Norm
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Field.UnitBall
-public import Mathlib.Analysis.Normed.Group.Defs
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Int.Cast.Basic
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.LinearAlgebra.TensorProduct.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-public import Mathlib.RingTheory.TensorProduct.Basic
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
 
 @[expose] public section
 
@@ -81,7 +27,13 @@ attribute [local instance] Formalism.BasicNotions.Host.cmStar
 
 variable {D : D7}
 
+theorem exp_of_even {k : Fin D.R.m} (hk : Even (k : ℕ)) (τ : D.what₂.Tau) :
+    expS D k τ = -(D.hc τ).e k - 1 / 2 ∧ expT D k τ = -(D.hc τ).e k := by
+  simp [expS, expT, hk]
 
+theorem exp_of_odd {k : Fin D.R.m} (hk : ¬ Even (k : ℕ)) (τ : D.what₂.Tau) :
+    expS D k τ = -(D.hc τ).e k ∧ expT D k τ = -(D.hc τ).e k - 1 / 2 := by
+  simp [expS, expT, hk]
 
 theorem hasInfExp_div {χ η : (AE D)ˣ →* Circle} {τ : D.what₂.Tau} {a b : ℚ} (hχ : HasInfExp D χ τ a)
     (hη : HasInfExp D η τ b) : HasInfExp D (χ * η⁻¹) τ (a - b) := by
@@ -100,6 +52,9 @@ theorem hasInfExp_div {χ η : (AE D)ˣ →* Circle} {τ : D.what₂.Tau} {a b :
     simp [a1, a2]
   · rw [zpow_sub₀ h0, div_eq_mul_inv]
 
+theorem isHeckeChar_div {χ η : (AE D)ˣ →* Circle} (hχ : IsHeckeChar D χ) (hη : IsHeckeChar D η) :
+    IsHeckeChar D (χ * η⁻¹) :=
+  ⟨hχ.1.mul hη.1.inv, fun x => by rw [MonoidHom.mul_apply, MonoidHom.inv_apply, hχ.2, hη.2]; simp⟩
 
 end GlobalTheory.Chain
 

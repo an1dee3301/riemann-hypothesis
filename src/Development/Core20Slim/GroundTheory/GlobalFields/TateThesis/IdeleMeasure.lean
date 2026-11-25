@@ -10,6 +10,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.Class
 public import Development.Core20Slim.GroundTheory.GlobalFields.IdeleGroups.InfiniteProjInfiniteEmbeddingOfNe
 public import Development.Core20Slim.GroundTheory.GlobalFields.LocalAtPlace
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 open NumberField IsDedekindDomain Topology Filter MeasureTheory TopologicalSpace

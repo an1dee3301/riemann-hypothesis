@@ -11,6 +11,8 @@ public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.Adelic
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.AdelicCharDual
 public import Development.Core20Slim.GroundTheory.GlobalFields.TateThesis.TraceDualLattice
 
+set_option synthInstance.maxHeartbeats 400000
+
 @[expose] public section
 
 namespace GroundTheory.Global

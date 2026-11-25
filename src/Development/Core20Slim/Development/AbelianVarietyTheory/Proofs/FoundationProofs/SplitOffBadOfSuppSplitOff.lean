@@ -6,6 +6,7 @@ public import Formalism.LocalToGlobal.IndefiniteReal.LinksChar
 public import Formalism.LocalToGlobal.ProjectiveLattices.ThClassPinsRec
 public import Development.Core20Slim.Development.AbelianVarietyTheory.BlockTheory.TorsionBlocks.SublevelSplitting
 public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.MovedOfSplitPl
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.IsSplitPlaceOfSplitPl
 public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.CompletedLatticeEqAdelicCompletionAndGram
 public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.AdelicUnitaryEqRealMulFiniteSplit
 public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.RationalPointsAdelicUnitaryEqUnitary
@@ -40,149 +41,6 @@ public import Formalism.SatakeDualWeyl.Statement
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.GlobalSchurBounds.StandardLattice
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Cast
-public import Init.Data.Int.Basic
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.PropLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Algebra.Equiv
-public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.Algebra.NonUnitalHom
-public import Mathlib.Algebra.Algebra.Subalgebra.Basic
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Int.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Nat.Defs
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Subgroup.Lattice
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.Group.Subsemigroup.Defs
-public import Mathlib.Algebra.Group.TypeTags.Basic
-public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Algebra.Group.WithOne.Defs
-public import Mathlib.Algebra.GroupWithZero.Basic
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Hom
-public import Mathlib.Algebra.GroupWithZero.NeZero
-public import Mathlib.Algebra.GroupWithZero.NonZeroDivisors
-public import Mathlib.Algebra.GroupWithZero.Range
-public import Mathlib.Algebra.GroupWithZero.Units.Basic
-public import Mathlib.Algebra.GroupWithZero.Units.Lemmas
-public import Mathlib.Algebra.GroupWithZero.WithZero
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.Equiv.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Module.Submodule.Defs
-public import Mathlib.Algebra.Module.Submodule.Lattice
-public import Mathlib.Algebra.Notation.Pi.Defs
-public import Mathlib.Algebra.Order.Group.Int
-public import Mathlib.Algebra.Order.GroupWithZero.Basic
-public import Mathlib.Algebra.Order.GroupWithZero.Canonical
-public import Mathlib.Algebra.Order.GroupWithZero.Defs
-public import Mathlib.Algebra.Order.GroupWithZero.Range
-public import Mathlib.Algebra.Order.GroupWithZero.WithZero
-public import Mathlib.Algebra.Order.IsBotOne
-public import Mathlib.Algebra.Order.Monoid.Defs
-public import Mathlib.Algebra.Order.Monoid.TypeTags
-public import Mathlib.Algebra.Order.Monoid.Unbundled.Basic
-public import Mathlib.Algebra.Order.Monoid.Unbundled.Defs
-public import Mathlib.Algebra.Order.Monoid.Unbundled.TypeTags
-public import Mathlib.Algebra.Order.Monoid.Units
-public import Mathlib.Algebra.Order.ZeroLEOne
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Equiv
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Int.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Ring.Subring.Basic
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Algebra.Star.Basic
-public import Mathlib.Analysis.Normed.Field.Basic
-public import Mathlib.Analysis.Normed.Group.Ultra
-public import Mathlib.Analysis.Normed.Ring.Basic
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.FunLike.Equiv
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Finset.Defs
-public import Mathlib.Data.Fintype.Basic
-public import Mathlib.Data.Fintype.Defs
-public import Mathlib.Data.Fintype.EquivFin
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Int.Order.Basic
-public import Mathlib.Data.Matrix.Diagonal
-public import Mathlib.Data.Matrix.Mul
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.Data.Set.Defs
-public import Mathlib.Data.Set.Operations
-public import Mathlib.GroupTheory.GroupAction.Hom
-public import Mathlib.LinearAlgebra.Basis.Defs
-public import Mathlib.LinearAlgebra.DFinsupp
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
-public import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
-public import Mathlib.LinearAlgebra.Span.Defs
-public import Mathlib.LinearAlgebra.TensorProduct.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.NumberTheory.NumberField.Completion.FinitePlace
-public import Mathlib.Order.Basic
-public import Mathlib.Order.Defs.Lattice
-public import Mathlib.Order.Defs.LinearOrder
-public import Mathlib.Order.Defs.PartialOrder
-public import Mathlib.Order.Filter.Defs
-public import Mathlib.Order.Lattice
-public import Mathlib.Order.Notation
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Valuation
-public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-public import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
-public import Mathlib.RingTheory.Finiteness.Defs
-public import Mathlib.RingTheory.FractionalIdeal.Basic
-public import Mathlib.RingTheory.Henselian
-public import Mathlib.RingTheory.Ideal.Defs
-public import Mathlib.RingTheory.Ideal.Maps
-public import Mathlib.RingTheory.Ideal.Prime
-public import Mathlib.RingTheory.Ideal.Quotient.Defs
-public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-public import Mathlib.RingTheory.LocalRing.Defs
-public import Mathlib.RingTheory.RegularLocalRing.Defs
-public import Mathlib.RingTheory.SimpleRing.Basic
-public import Mathlib.RingTheory.SimpleRing.Principal
-public import Mathlib.RingTheory.TensorProduct.Basic
-public import Mathlib.RingTheory.TensorProduct.Maps
-public import Mathlib.RingTheory.Valuation.Basic
-public import Mathlib.RingTheory.Valuation.ValuationSubring
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
-public import Mathlib.Topology.Algebra.Group.Defs
-public import Mathlib.Topology.Algebra.Nonarchimedean.Basic
-public import Mathlib.Topology.Algebra.Valued.NormedValued
-public import Mathlib.Topology.Algebra.Valued.ValuationTopology
-public import Mathlib.Topology.Continuous
-public import Mathlib.Topology.Defs.Basic
-public import Mathlib.Topology.Defs.Filter
-public import Mathlib.Topology.Neighborhoods
-public import Mathlib.Topology.UniformSpace.Defs
 public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.Signature
 
 @[expose] public section
@@ -265,10 +123,30 @@ open GlobalTheory.IdemModTwo GlobalTheory.SplitIdem GlobalTheory.IdemPrime Globa
 
 variable {D : D7}
 
+theorem finrank_two (D : D7) : Module.finrank D.host.F D.host.E = 2 :=
+  Algebra.IsQuadraticExtension.finrank_eq_two (maximalRealSubfield D.host.E) D.host.E
 
 theorem cF_ne_one (D : D7) : cF D ≠ 1 := (latHat_eq_hat_and_gram D D.sp.X').2.2.2.2.2.2.1
 
+theorem isSplitPl_iff (v : HeightOneSpectrum (𝓞 D.host.F)) : IsSplitPl D v ↔ SplitPl (cF D) v := by
+  rw [Compare.splitPl_iff _ (finrank_two D) (cF_ne_one D)]
+  constructor
+  · rintro ⟨P, P', hne, h, h'⟩
+    exact ⟨P.asIdeal, P'.asIdeal, fun e => hne (HeightOneSpectrum.ext e), P.isPrime, P'.isPrime,
+      congrArg HeightOneSpectrum.asIdeal h, congrArg HeightOneSpectrum.asIdeal h'⟩
+  · rintro ⟨w, w', hne, hw, hw', h, h'⟩
+    have nb : ∀ u : Ideal (𝓞 D.host.E), u.comap (algebraMap (𝓞 D.host.F) (𝓞 D.host.E)) = v.asIdeal → u ≠ ⊥ := by
+      rintro u hu rfl
+      apply v.ne_bot
+      rw [← hu]
+      exact Ideal.comap_bot_of_injective _ (FaithfulSMul.algebraMap_injective _ _)
+    exact ⟨⟨w, hw, nb w h⟩, ⟨w', hw', nb w' h'⟩, fun e => hne (congrArg HeightOneSpectrum.asIdeal e),
+      HeightOneSpectrum.ext h, HeightOneSpectrum.ext h'⟩
 
+theorem suppSplitOff_iff (V : HSp D) (N : ℕ) (g : Bridge.Gf V) : SuppSplitOff V N g ↔ SuppSplit (cF D) N g.1.1 := by
+  rw [SuppSplit, Compare.support_iff (fun v => SplitPl (cF D) v ∧ (N : 𝓞 D.host.F) ∉ v.asIdeal), SuppSplitOff]
+  simp only [isSplitPl_iff]
+  exact Iff.rfl
 
 theorem exists_splitAt_of_isIdemAt {e : AE D} {P : HeightOneSpectrum (𝓞 D.host.E)} (h : Formalism.L2.NTheta.IsIdemAt e P) :
     ∃ v, SplitAt D v e ∧ SplitPl (cF D) v ∧ P.asIdeal.comap (algebraMap (𝓞 D.host.F) (𝓞 D.host.E)) = v.asIdeal := by
@@ -294,8 +172,50 @@ theorem exists_splitAt_of_isIdemAt {e : AE D} {P : HeightOneSpectrum (𝓞 D.hos
         exact fun h => hx (Subtype.ext h)
       rw [h.2 x hx, hφ, mem_iff he, map_inv₀, map_inv₀, not_le, one_lt_inv₀ (zero_lt_iff.2 hx0)]
 
+theorem finPart_sub_one (V : HSp D) (h : GA D V) (i j : Fin V.rank) :
+    finPart D ((Formalism.L2.Theta.mt V h - 1) i j) = ((finHom V h).1 - 1) i j := by
+  rw [Matrix.sub_apply, Matrix.sub_apply, RingHom.map_sub]
+  congr 1
+  by_cases e : i = j
+  · subst e; rw [Matrix.one_apply_eq, Matrix.one_apply_eq, RingHom.map_one]
+  · rw [Matrix.one_apply_ne e, Matrix.one_apply_ne e, RingHom.map_zero]
 
+theorem suppSplitOff_of_splitOffBad (V : HSp D) (N : ℕ) (h : GA D V) (hs : FWT.SplitOffBad V N h) :
+    SuppSplitOff V N (FWT.fin V h) := by
+  classical
+  obtain ⟨-, e, P, ⟨⟨es, hes, rfl⟩, -⟩, hN, hsupp⟩ := hs
+  choose pv h1 h2 h3 using fun PP : P => exists_splitAt_of_isIdemAt (hes PP.1 PP.2)
+  have hsum : ∑ PP ∈ P, es PP + cA D (∑ PP ∈ P, es PP) = fj D (∑ PP : P, singleV D.host.F (pv PP) 1) := by
+    set_option synthInstance.maxHeartbeats 100000 in
+      rw [map_sum, map_sum, ← Finset.sum_add_distrib, ← Finset.sum_coe_sort P]
+    exact Finset.sum_congr rfl fun PP _ => (h1 PP).2.2
+  refine ⟨Finset.univ.image pv, fun v hv => ?_, fun v hv => ?_⟩
+  · obtain ⟨PP, -, rfl⟩ := Finset.mem_image.1 hv
+    refine ⟨(isSplitPl_iff _).2 (h2 PP), fun hm => hN PP.1 PP.2 ?_⟩
+    rwa [← h3, Ideal.mem_comap, map_natCast] at hm
+  · have h0 : evalV D.host.F v (∑ PP : P, singleV D.host.F (pv PP) 1) = 0 := by
+      set_option synthInstance.maxHeartbeats 100000 in
+        rw [map_sum]
+      exact Finset.sum_eq_zero fun PP _ => evalV_singleV_ne _ _ _ fun e =>
+        hv (Finset.mem_image.2 ⟨PP, Finset.mem_univ _, e.symm⟩)
+    generalize (∑ PP : P, singleV D.host.F (pv PP) 1) = α at hsum h0
+    let π := Algebra.TensorProduct.map (evalV D.host.F v) (AlgHom.id D.host.F D.host.E)
+    rw [← Matrix.map_one π (map_zero _) (map_one _)]
+    ext i j
+    have h4 := congrArg (finPart D) (hsupp i j)
+    rw [hsum, RingHom.map_mul, finPart_sub_one] at h4
+    have h5 : π (finPart D (fj D α)) = 0 := by
+      show evalV D.host.F v α ⊗ₜ[D.host.F] (1 : D.host.E) = 0
+      rw [h0, TensorProduct.zero_tmul]
+    have h6 := congrArg π h4
+    rw [map_mul, h5, zero_mul, Matrix.sub_apply, map_sub] at h6
+    exact sub_eq_zero.1 h6.symm
 
+theorem existsUnique_lift (V : HSp D) (g : Bridge.Gf V) : ∃! h : GA D V, h ∈ GfC V ∧ FWT.fin V h = g := by
+  obtain ⟨_, x, rfl⟩ := g
+  obtain ⟨k, k1, k2⟩ := GlobalTheory.UnitarySplit.ga_glue V 1 _ (one_mem _) (GlobalTheory.UnitarySplit.finHom_mem V x)
+  refine ⟨k, ⟨k1, Subtype.ext k2⟩, fun y hy => GlobalTheory.UnitarySplit.ga_ext V (hy.1.trans k1.symm) ?_⟩
+  exact (congrArg Subtype.val hy.2).trans k2.symm
 
 end Support
 
@@ -354,7 +274,17 @@ theorem mulVec_mem_hat {V : HSp D} {β : GL (Fin V.rank) (Lev.EAf D)} {Λ : Lat 
   rw [AlgEquiv.eq_symm_apply]
   exact RingHom.map_mulVec (Lev.swapAE D) k.1.1 z i
 
+theorem isUnA_gf (V : HSp D) (g : Bridge.Gf V) : IsUnA (cF D) V.gramᵀ g.1.1 := by
+  obtain ⟨_, g, rfl⟩ := g
+  intro x y
+  rw [GlobalTheory.UnitarySplit.hermA_eq, GlobalTheory.UnitarySplit.hermA_eq]
+  exact (RatElt.mem_UJ_iff _ _ _).1 (GlobalTheory.UnitarySplit.finHom_mem V g) y x
 
+theorem isLattice_hLat (V : HSp D) (g : Bridge.Gf V) : Submodule.IsLattice D.host.E (Bridge.hLat V g) := by
+  obtain ⟨-, -, hfg, hsp, -⟩ := latHat_eq_hat_and_gram D V
+  obtain ⟨Λ, hΛ, h1, h2, -⟩ := exists_lattice_latOf D.host.F D.host.E V.rank (latC V) g.1 hfg hsp
+  rw [SetLike.coe_injective ((coe_hLat V g).trans hΛ.symm)]
+  exact Submodule.IsLattice.of_fg D.host.E h1
 
 end Lattices
 
