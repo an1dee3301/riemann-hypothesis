@@ -385,6 +385,19 @@ theorem isCompact_closure_normOneFundamentalDomain :
     IsCompact (closure (normOneFundamentalDomain K)) :=
   (exists_fundamentalDomain_normOne K).choose_spec.2.1
 
+theorem existsUnique_mul_mem_normOneFundamentalDomain (u : normOneSubgroup K) :
+    ∃! ξ : Kˣ, u * diagonalToNormOne K ξ ∈ normOneFundamentalDomain K := by
+  let e : Kˣ ≃ (diagonalNormOne K).op :=
+    (diagonalNormOneEquiv K).trans (diagonalNormOne K).equivOp
+  have he : ∀ ξ : Kˣ, e ξ • u = u * diagonalToNormOne K ξ := fun _ ↦ rfl
+  obtain ⟨γ, hγ, huniq⟩ := (exists_fundamentalDomain_normOne K).choose_spec.2.2 u
+  refine ⟨e.symm γ, ?_, fun ξ hξ ↦ ?_⟩
+  · show u * diagonalToNormOne K (e.symm γ) ∈ normOneFundamentalDomain K
+    rw [← he, e.apply_symm_apply]
+    exact hγ
+  · change u * diagonalToNormOne K ξ ∈ normOneFundamentalDomain K at hξ
+    rw [← he] at hξ
+    rw [← huniq _ hξ, e.symm_apply_apply]
 
 theorem isFundamentalDomain_normOneFundamentalDomain (μ : Measure (normOneSubgroup K)) :
     IsFundamentalDomain (diagonalNormOne K).op (normOneFundamentalDomain K) μ :=
