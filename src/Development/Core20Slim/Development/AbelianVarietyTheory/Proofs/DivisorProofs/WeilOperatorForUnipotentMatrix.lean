@@ -37,6 +37,9 @@ theorem mulR_neg (χ : AddChar R ℂ) (h : R) (A : Matrix κ κ R) (φ : (κ →
   rw [mulR_apply, mulR_apply, ← mul_assoc, ← AddChar.map_add_eq_mul, quad_neg, neg_add_cancel,
     AddChar.map_zero_eq_one, one_mul]
 
+theorem mulR_mem [TopologicalSpace R] [IsTopologicalRing R] {χ : AddChar R ℂ} (hχ : IsLocallyConstant χ) (h : R)
+    (A : Matrix κ κ R) {φ : (κ → R) → ℂ} (hφ : φ ∈ SB (κ → R)) : mulR χ h A φ ∈ SB (κ → R) :=
+  ⟨(hχ.comp_continuous (continuous_quad h A)).mul hφ.1, hφ.2.mul_left⟩
 
 theorem spAct_unipM {K : Type} [Field K] [Algebra K R] [DecidableEq κ] (S : Matrix κ κ K)
     (w : (κ → R) × (κ → R)) : spAct (unipM S) w = (w.1, S.map (algebraMap K R) *ᵥ w.1 + w.2) := by
@@ -130,6 +133,10 @@ theorem psiAt_isLocallyConstant (ψ : AddChar (AF F) ℂ) (hψ : Continuous ψ) 
     IsLocallyConstant (GlobalTheory.LatVac.psiAt ψ v) :=
   (finChar_isLocallyConstant ψ hψ).comp_continuous (continuous_singleFin v)
 
+theorem quad_mem {κ : Type} [Fintype κ] {v : Pl (F := F)} {h : Fv F v} {A : Matrix κ κ (Fv F v)} {x : κ → Fv F v}
+    (hh : h ∈ v.adicCompletionIntegers F) (hA : ∀ i j, A i j ∈ v.adicCompletionIntegers F)
+    (hx : ∀ i, x i ∈ v.adicCompletionIntegers F) : quad h A x ∈ v.adicCompletionIntegers F :=
+  mul_mem hh (sum_mem fun i _ => mul_mem (hx i) (sum_mem fun j _ => mul_mem (hA i j) (hx j)))
 
 
 
