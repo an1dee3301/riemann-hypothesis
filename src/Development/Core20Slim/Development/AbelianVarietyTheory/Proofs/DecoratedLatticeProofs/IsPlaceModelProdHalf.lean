@@ -15,9 +15,14 @@ public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForm
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.HeisenbergCombinationDisjointPlacesCommuteVacua
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IsPlaceModelCompRestrictToHalfLatticeIndicator
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.IdempotentMulEqZeroOfOrthogonal
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.IdempotentSumDisjointUnion
 public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.IsFinCombOfIsThetaAt
 public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.EqZeroOrEqOfPlaceIdem
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ExistsLocComb
 public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ContinuousSingleAt
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.NeConjOfIdemSum
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.AdAtToEAfOfIsIdemSum
+public import Development.Core20Slim.Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.FrameMatrixReductionEqOfHalfIdempotentSubset
 public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.IsSelfDualCLatFrame
 public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.RealIdemMulOfReal
 public import Formalism.LocalRingCardinality.DataHost
@@ -30,57 +35,6 @@ public import Formalism.LocalToGlobal.BesselHermitianTheta.TiedWeil
 public import Formalism.LocalToGlobal.IndefiniteReal.LocalNewformFunction
 public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes
 public import Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ConjEMemHostFIff
-public import Init.Classical
-public import Init.Core
-public import Init.Data.Zero
-public import Init.Prelude
-public import Init.SimpLemmas
-public import Mathlib.Algebra.Algebra.Basic
-public import Mathlib.Algebra.Algebra.Defs
-public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Field.Subfield.Basic
-public import Mathlib.Algebra.Field.Subfield.Defs
-public import Mathlib.Algebra.Group.Action.Defs
-public import Mathlib.Algebra.Group.Action.Pi
-public import Mathlib.Algebra.Group.AddChar
-public import Mathlib.Algebra.Group.Defs
-public import Mathlib.Algebra.Group.DivInvMonoid
-public import Mathlib.Algebra.Group.Hom.Defs
-public import Mathlib.Algebra.Group.Monoid
-public import Mathlib.Algebra.Group.Nat.Defs
-public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Group.Semigroup
-public import Mathlib.Algebra.Group.Subgroup.Defs
-public import Mathlib.Algebra.Group.Submonoid.Defs
-public import Mathlib.Algebra.GroupWithZero.Action.Defs
-public import Mathlib.Algebra.GroupWithZero.Defs
-public import Mathlib.Algebra.GroupWithZero.Hom
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Module.LinearMap.Defs
-public import Mathlib.Algebra.Module.NatInt
-public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Algebra.Ring.CompTypeclasses
-public import Mathlib.Algebra.Ring.Defs
-public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.Nat
-public import Mathlib.Algebra.Ring.Subring.Defs
-public import Mathlib.Algebra.Ring.Subsemiring.Defs
-public import Mathlib.Basic.Complex.Basic
-public import Mathlib.Basic.FunLike.Basic
-public import Mathlib.Basic.SetLike.Basic
-public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Data.Nat.Cast.Defs
-public import Mathlib.LinearAlgebra.Matrix.Defs
-public import Mathlib.LinearAlgebra.TensorProduct.Defs
-public import Mathlib.NumberTheory.NumberField.AdeleRing
-public import Mathlib.NumberTheory.NumberField.Basic
-public import Mathlib.RingTheory.DedekindDomain.Basic
-public import Mathlib.RingTheory.Localization.FractionRing
-public import Mathlib.RingTheory.TensorProduct.Basic
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.NormNum.Result
-public import Mathlib.Tactic.Ring.Basic
-public import Mathlib.Tactic.Ring.Common
 
 @[expose] public section
 
@@ -105,7 +59,13 @@ def prodHalf {m n : ℕ} (a b : AE D) (Ψ : Mx D m n → ℂ) : (Mx D m n → �
 theorem prodHalf_apply {m n : ℕ} (a b : AE D) (Ψ Φ : Mx D m n → ℂ) (x : Mx D m n) :
     prodHalf a b Ψ Φ x = Φ (a • x) * Ψ (b • x) * (if IsHalf (a + b) x then 1 else 0) := rfl
 
+def combL (ψ : AddChar (AF D.host.F) ℂ) (S T : HSp D) (d : WO S T →₀ ℂ) : (WO S T → ℂ) →ₗ[ℂ] (WO S T → ℂ) :=
+  ∑ u ∈ d.support, d u • GlobalTheory.PlaceModel.heisL S T ψ u
 
+theorem combL_apply (ψ : AddChar (AF D.host.F) ℂ) (S T : HSp D) (d : WO S T →₀ ℂ) (f : WO S T → ℂ) :
+    combL ψ S T d f = comb ψ S T d f := by
+  simp only [combL, comb, LinearMap.sum_apply, LinearMap.smul_apply]
+  rfl
 
 end GlobalTheory.HalfProd
 
@@ -178,6 +138,46 @@ theorem isPlaceModel_prodHalf {S T : HSp D} {ψ : AddChar (AF D.host.F) ℂ} {Λ
     exact hT.modul _ (hsb Φ hΦ) y hy'
   · rw [LinearMap.comp_apply, one_smul]
 
+theorem placeModel_eq {S T : HSp D} {ψ : AddChar (AF D.host.F) ℂ} (hψ : IsStdChar D ψ (-1))
+    {ΛS : Submodule (𝓞 D.host.E) (Fin S.rank → D.host.E)} {ΛT : Submodule (𝓞 D.host.E) (Fin T.rank → D.host.E)}
+    (hS : IsSelfDualC S ΛS) (hT : IsSelfDualC T ΛT) {e : AE D} (he : e * e = e) (hinf : infPart D e = 0)
+    {f₁ : WO S T → ℂ} {T₁ T₂ : (WO S T → ℂ) →ₗ[ℂ] (WO S T → ℂ)}
+    (h₁ : IsPlaceModel ψ (symplO S T) (heisO ψ S T) e
+      (latO S T (ΛS : Set (Fin S.rank → D.host.E)) (ΛT : Set (Fin T.rank → D.host.E)) fun _ => True) 1 f₁ T₁)
+    (h₂ : IsPlaceModel ψ (symplO S T) (heisO ψ S T) e
+      (latO S T (ΛS : Set (Fin S.rank → D.host.E)) (ΛT : Set (Fin T.rank → D.host.E)) fun _ => True) 1 f₁ T₂)
+    {Φ : WO S T → ℂ}
+    (hΦ : IsSBHalf e (latO S T (ΛS : Set (Fin S.rank → D.host.E)) (ΛT : Set (Fin T.rank → D.host.E)) fun _ => True) Φ) :
+    T₁ Φ = T₂ Φ := by
+  have hdual := (GlobalTheory.LatVac.latO_selfDual_approx_sign D ψ S T _ _ hψ hS hT).1
+  have hfin := GlobalTheory.LatFinMod.latO_finite_mod D S T _ _ hS.1.fg hT.1.fg fun _ => True
+  have he' : cA D e * cA D e = cA D e := by rw [← RingHom.map_mul, he]
+  have hsm : ∀ a : AE D, a * a = a → ∀ u ∈ latO S T ΛS ΛT fun _ => True,
+      a • u ∈ (latO S T ΛS ΛT fun _ => True) ⊓ half S T a := fun a ha u hu =>
+    AddSubgroup.mem_inf.2 ⟨GlobalTheory.LatticeStable.smul_mem_latO D S T _ _ _ a
+      (GlobalTheory.AdIdem.idempotent_mem_intAE D _ (by rw [← RingHom.map_mul, ha])) u hu, by rw [mem_half, smul_smul, ha]⟩
+  have hLL' : ∀ u ∈ (latO S T ΛS ΛT fun _ => True) ⊓ half S T e,
+      ∀ y ∈ (latO S T ΛS ΛT fun _ => True) ⊓ half S T (cA D e), ψ (symplO S T u y) = 1 := fun u hu y hy =>
+    (hdual u (infPart_of_half hinf ((isHalf_iff S T).2 hu.2))).1 hu.1 y hy.1
+  have hX : ∀ x ∈ half S T e, (∀ y ∈ (latO S T ΛS ΛT fun _ => True) ⊓ half S T (cA D e), ψ (symplO S T x y) = 1) →
+      x ∈ (latO S T ΛS ΛT fun _ => True) ⊓ half S T e := fun x hx h => by
+    refine ⟨(hdual x (infPart_of_half hinf ((isHalf_iff S T).2 hx))).2 fun u hu => ?_, hx⟩
+    have := h _ (hsm _ he' u hu)
+    rwa [← symplO_smul, (mem_half S T).1 hx] at this
+  have hfin' : ∀ k : ℕ, 0 < k → ∃ R : Set (WO S T), R.Finite ∧
+      ∀ t ∈ (latO S T ΛS ΛT fun _ => True) ⊓ half S T e, ∃ r ∈ R,
+        ∃ u ∈ (latO S T ΛS ΛT fun _ => True) ⊓ half S T e, t = r + k • u := fun k hk => by
+    obtain ⟨R, hR, h⟩ := hfin k hk
+    refine ⟨(fun r => e • r) '' R, hR.image _, fun t ht => ?_⟩
+    obtain ⟨r, hr, u, hu, htr⟩ := h t ht.1
+    refine ⟨_, ⟨r, hr, rfl⟩, e • u, hsm e he u hu, ?_⟩
+    have := (mem_half S T).1 ht.2
+    rw [← this, htr, smul_add, smul_comm e k u]
+  have hden : ∀ y ∈ half S T (cA D e), ∃ k : ℕ, 0 < k ∧ k • y ∈ (latO S T ΛS ΛT fun _ => True) := fun y hy =>
+    exists_nsmul_mem_latO'
+      (GlobalTheory.FinPl.PlacesAdeles.selfDual_isFull _ _ hS)
+      (GlobalTheory.FinPl.PlacesAdeles.selfDual_isFull _ _ hT) y (infPart_of_half (infPart_cA hinf) ((isHalf_iff S T).2 hy))
+  exact placeModel_unique_of_dual ψ _ hLL' hX hfin' hden h₁ h₂ hΦ
 
 end GlobalTheory.HalfProd
 
